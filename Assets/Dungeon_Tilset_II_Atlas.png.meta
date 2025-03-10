@@ -2394,13 +2394,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_63
+      name: player_hit_anim_00
       rect:
         serializedVersion: 2
         x: 256
-        y: 387
+        y: 383
         width: 16
-        height: 25
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2636,13 +2636,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_74
+      name: player_idle_anim_00
       rect:
         serializedVersion: 2
-        x: 127
+        x: 128
         y: 383
-        width: 17
-        height: 22
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2658,13 +2658,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_75
+      name: player_idle_anim_01
       rect:
         serializedVersion: 2
-        x: 143
+        x: 144
         y: 383
-        width: 17
-        height: 22
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2680,13 +2680,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_76
+      name: player_idle_anim_02
       rect:
         serializedVersion: 2
-        x: 159
+        x: 160
         y: 383
-        width: 17
-        height: 22
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2702,13 +2702,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_77
+      name: player_idle_anim_03
       rect:
         serializedVersion: 2
-        x: 175
+        x: 176
         y: 383
-        width: 17
-        height: 21
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2724,13 +2724,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_78
+      name: player_run_anim_00
       rect:
         serializedVersion: 2
-        x: 191
-        y: 384
-        width: 17
-        height: 22
+        x: 192
+        y: 383
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2746,13 +2746,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_79
+      name: player_run_anim_01
       rect:
         serializedVersion: 2
-        x: 207
-        y: 385
-        width: 17
-        height: 22
+        x: 208
+        y: 383
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2768,13 +2768,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_80
+      name: player_run_anim_02
       rect:
         serializedVersion: 2
-        x: 223
-        y: 384
-        width: 17
-        height: 23
+        x: 224
+        y: 383
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2790,13 +2790,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_81
+      name: player_run_anim_03
       rect:
         serializedVersion: 2
-        x: 239
+        x: 240
         y: 383
-        width: 17
-        height: 24
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2812,7 +2812,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_82
+      name: weapon_00
       rect:
         serializedVersion: 2
         x: 293
@@ -7780,7 +7780,6 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_53: 8583533789109114438
       0x72_DungeonTilesetII_v1.7_54: -8140143214625877402
       0x72_DungeonTilesetII_v1.7_6: 3324285157292081454
-      0x72_DungeonTilesetII_v1.7_63: -3424016768271279003
       0x72_DungeonTilesetII_v1.7_64: -3720921139902658931
       0x72_DungeonTilesetII_v1.7_65: -554181264238424431
       0x72_DungeonTilesetII_v1.7_66: -7098249558181796534
@@ -7792,16 +7791,7 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_71: 4646072442476084536
       0x72_DungeonTilesetII_v1.7_72: -1022562840748810267
       0x72_DungeonTilesetII_v1.7_73: -1235142525551724512
-      0x72_DungeonTilesetII_v1.7_74: 4265638018674371071
-      0x72_DungeonTilesetII_v1.7_75: 5579335266590474791
-      0x72_DungeonTilesetII_v1.7_76: 3024294334022642555
-      0x72_DungeonTilesetII_v1.7_77: -3857538110874382113
-      0x72_DungeonTilesetII_v1.7_78: -1061906478194804154
-      0x72_DungeonTilesetII_v1.7_79: -7762440418981726469
       0x72_DungeonTilesetII_v1.7_8: 3429794657976500964
-      0x72_DungeonTilesetII_v1.7_80: 8494758609932232144
-      0x72_DungeonTilesetII_v1.7_81: 3471258045059041173
-      0x72_DungeonTilesetII_v1.7_82: 4481688978213388326
       0x72_DungeonTilesetII_v1.7_83: 8214140057576888733
       0x72_DungeonTilesetII_v1.7_84: -5888053809107134436
       0x72_DungeonTilesetII_v1.7_85: -7777938466588127345
@@ -7829,6 +7819,17 @@ TextureImporter:
       enemy_red_03_mov: -2362262972533718839
       enemy_red_04_idle: 3364420986687794538
       enemy_red_04_mov: 1341905317818791140
+      player_hit_anim_00: -3424016768271279003
+      player_idle_anim_00: 4265638018674371071
+      player_idle_anim_01: 5579335266590474791
+      player_idle_anim_02: 3024294334022642555
+      player_idle_anim_03: -3857538110874382113
+      player_run_: -7762440418981726469
+      player_run_anim_00: -1061906478194804154
+      player_run_anim_01: -7762440418981726469
+      player_run_anim_02: 8494758609932232144
+      player_run_anim_03: 3471258045059041173
+      weapon_00: 4481688978213388326
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
