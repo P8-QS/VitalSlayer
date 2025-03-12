@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Managers;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = UnityEngine.SceneManagement.Scene;
@@ -34,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveState(){
         Debug.Log("Saving game...");
-
+     
         string s = "";
 
         s += "0" + "|";
