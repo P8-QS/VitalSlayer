@@ -832,6 +832,8 @@ MonoBehaviour:
   hitpoint: 10
   maxHitPopiunt: 10
   pushRecoverySpeed: 0.2
+  playerName: 
+  level: 0
 --- !u!1 &1188720186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,6 +1159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c73ed0c732b1f84b8f44a956b32ac3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
+  boss: {fileID: 0}
 --- !u!50 &1840731375
 Rigidbody2D:
   serializedVersion: 5
