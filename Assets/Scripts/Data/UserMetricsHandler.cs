@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data.Models;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Data
     public enum UserMetricsType
     {
         StepsRecords,
-        SleepSession,
+        SleepSessionRecords,
         TotalScreenTime
     }
     
@@ -17,14 +18,19 @@ namespace Data
         public static UserMetricsHandler Instance { get; private set; }
         
         /// <summary>
-        /// Contains the user's steps count records. Can be null, so better to subscribe to the event instead.
+        /// Contains the user's steps count records. Can be null, so important to null-check or subscribe to the event instead.
         /// </summary>
-        public IEnumerable<StepsRecord> StepsRecords { get; private set; }
+        public IReadOnlyCollection<StepsRecord> StepsRecords { get; private set; }
         
-        public int SleepSession { get; private set; }
+        /// <summary>
+        /// Contains the user's sleep session records. Can be null, so important to null-check or subscribe to the event instead.
+        /// </summary>
+        public IReadOnlyCollection<SleepSessionRecord> SleepSessionRecords { get; private set; }
+        
         public long TotalScreenTime { get; private set; }
 
-        public event Action<IEnumerable<StepsRecord>> OnStepsRecordsUpdated;
+        public event Action<IReadOnlyCollection<StepsRecord>> OnStepsRecordsUpdated;
+        public event Action<IReadOnlyCollection<SleepSessionRecord>> OnSleepSessionRecordsUpdated;
         
         private void Awake()
         {
@@ -45,14 +51,20 @@ namespace Data
             switch (userMetricsType)
             {
                 case UserMetricsType.StepsRecords:
-                    if (data is IEnumerable<StepsRecord> stepsRecords)
+                    if (data is IReadOnlyCollection<StepsRecord> stepsRecords)
                     {
                         StepsRecords = stepsRecords;
                         Debug.Log("Steps records have been updated");
                         OnStepsRecordsUpdated?.Invoke(StepsRecords);
                     }
                     break;
-                case UserMetricsType.SleepSession:
+                case UserMetricsType.SleepSessionRecords:
+                    if (data is IReadOnlyCollection<SleepSessionRecord> sleepRecords)
+                    {
+                        SleepSessionRecords = sleepRecords;
+                        Debug.Log("Sleep session records have been updated");
+                        OnSleepSessionRecordsUpdated?.Invoke(SleepSessionRecords);
+                    }
                     break;
                 case UserMetricsType.TotalScreenTime:
                     break;

@@ -93,8 +93,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.adaptiveperformance": {
-      "version": "5.1.2",
-      "depth": 0,
+      "version": "5.1.3",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.profiling.core": "1.0.2",
@@ -159,7 +159,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.mobile.android-logcat": "1.4.4",
-        "com.unity.adaptiveperformance": "5.1.2",
+        "com.unity.adaptiveperformance": "5.1.3",
         "com.unity.mobile.notifications": "2.4.0"
       }
     },
@@ -237,7 +237,7 @@
     },
     "com.unity.profiling.core": {
       "version": "1.0.2",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"

@@ -92,6 +92,7 @@ namespace Managers
 
             // All required permissions are available from this point
             GetUserSteps();
+            GetUserSleepSessions();
         }
         
         private static bool HasAllRequiredPermissions()
@@ -121,6 +122,7 @@ namespace Managers
                     GetUserSteps();
                     break;
                 case RequiredPermissions.ReadSleep:
+                    GetUserSleepSessions();
                     break;
             }
         }
@@ -137,11 +139,30 @@ namespace Managers
 
         private void OnStepsRecordsReceived(string response)
         {
-            Debug.Log("Received Health Connect steps response from HealthConnectPlugin::::JSON:::::");
+            Debug.Log("Received Health Connect steps data response from HealthConnectPlugin!");
             Debug.Log(response);
 
-            var records = JsonConvert.DeserializeObject<IEnumerable<StepsRecord>>(response);
+            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<StepsRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.StepsRecords, records);
+        }
+        
+        private void GetUserSleepSessions()
+        {
+            Debug.Log($"Getting user sleep data from: {_startLdt.Call<string>("toString")} to: {_endLdt.Call<string>("toString")}");
+            
+            var timeRangeFilterClass = new AndroidJavaClass("androidx.health.connect.client.time.TimeRangeFilter");
+            var timeRangeFilter = timeRangeFilterClass.CallStatic<AndroidJavaObject>("between", _startLdt, _endLdt);
+            
+            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.SleepSession, gameObject.name, "OnSleepRecordsReceived");
+        }
+        
+        private void OnSleepRecordsReceived(string response)
+        {
+            Debug.Log("Received Health Connect sleep data response from HealthConnectPlugin!");
+            Debug.Log(response);
+
+            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(response);
+            UserMetricsHandler.Instance.SetData(UserMetricsType.SleepSessionRecords, records);
         }
         
         private void RedirectToPlayStore()
