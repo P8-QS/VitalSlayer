@@ -470,6 +470,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: icon_clock
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 581
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c49285e1a11714165adf2dde212201ba
+      internalID: 1355181629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -494,6 +516,7 @@ TextureImporter:
       effect_fog: 477256500
       effect_hallucination: 1397055168
       effect_scouting: 2133868775
+      icon_clock: 1355181629
       icon_close: 1150477062
       icon_help: 969690327
       metric_base: 540699176
