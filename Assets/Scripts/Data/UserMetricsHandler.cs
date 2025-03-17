@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Data.Models;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Data
@@ -15,6 +17,9 @@ namespace Data
     
     public class UserMetricsHandler : MonoBehaviour
     {
+        public string stepsRecordsSamplePath = "Assets/Resources/Data/StepsRecordsSample.json";
+        public string sleepRecordsSamplePath = "Assets/Resources/Data/SleepSessionRecordsSample.json";
+        
         public static UserMetricsHandler Instance { get; private set; }
         
         /// <summary>
@@ -44,6 +49,28 @@ namespace Data
             else
             {
                 Destroy(gameObject);
+            }
+        }
+
+        private void Start()
+        {
+            if (Application.platform == RuntimePlatform.Android) return;
+            if (File.Exists(stepsRecordsSamplePath))
+            {
+                SetData(UserMetricsType.StepsRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<StepsRecord>>(File.ReadAllText(stepsRecordsSamplePath)));
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(UserMetricsHandler)} steps records sample file not found");
+            }
+
+            if (File.Exists(sleepRecordsSamplePath))
+            {
+                SetData(UserMetricsType.SleepSessionRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(File.ReadAllText(sleepRecordsSamplePath)));
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(UserMetricsHandler)} sleep records sample file not found");
             }
         }
 

@@ -20,7 +20,13 @@ public enum TimeUnit {
 public class ScreenTimeManager : MonoBehaviour
 {
     private void Awake()
-    {   
+    {
+        if (Application.platform != RuntimePlatform.Android)
+        {
+            Debug.LogWarning("Not running on Android. Skipping Screen Time Manager initialization");
+            return;    
+        }
+        
         StartCoroutine(CheckAndRequestPermission());
     }
 
