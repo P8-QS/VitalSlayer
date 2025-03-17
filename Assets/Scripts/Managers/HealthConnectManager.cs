@@ -144,7 +144,6 @@ namespace Managers
         private void OnStepsRecordsReceived(string response)
         {
             Debug.Log("Received Health Connect steps data response from HealthConnectPlugin!");
-            Debug.Log(response);
 
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<StepsRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.StepsRecords, records);
@@ -163,7 +162,6 @@ namespace Managers
         private void OnSleepRecordsReceived(string response)
         {
             Debug.Log("Received Health Connect sleep data response from HealthConnectPlugin!");
-            Debug.Log(response);
 
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.SleepSessionRecords, records);
