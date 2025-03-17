@@ -788,7 +788,6 @@ MonoBehaviour:
   hitpoint: 10
   maxHitPopiunt: 10
   pushRecoverySpeed: 0.2
-  playerName: 
   level: 0
 --- !u!1 &1188720186
 GameObject:
@@ -1115,6 +1114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c73ed0c732b1f84b8f44a956b32ac3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
+  playerHealth: 0
+  playerAttack: 0
+  xp: 0
+  level: 0
+  xPToNextLevel: 0
   enemy: {fileID: 0}
   boss: {fileID: 0}
 --- !u!50 &1840731375
@@ -1255,9 +1260,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 494016331851871215, guid: 0bd235beeab52dcc68b23fc139ffbd10, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1587743324199214895, guid: 0bd235beeab52dcc68b23fc139ffbd10, type: 3}
       propertyPath: m_Name
       value: ScreenTimeManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587743324199214895, guid: 0bd235beeab52dcc68b23fc139ffbd10, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5931591167142696504, guid: 0bd235beeab52dcc68b23fc139ffbd10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1660,7 +1673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5557981303933468341, guid: 19adb2a2f0aaad856a20edbdfcc302d7, type: 3}
       propertyPath: m_Name
-      value: HealthConnectPlugin
+      value: HealthConnectManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

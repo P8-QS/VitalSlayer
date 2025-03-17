@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1522891708432459114}
   - component: {fileID: 8266018999580935753}
   m_Layer: 0
-  m_Name: HealthConnectPlugin
+  m_Name: HealthConnectManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
