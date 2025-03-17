@@ -87,13 +87,12 @@ namespace Managers
             {
                 var callbacks = new PermissionCallbacks();
                 callbacks.PermissionGranted += OnPermissionGranted;
-                // TODO: Implement callbacks for permission denied and request dismissed 
-                // callbacks.PermissionDenied += OnPermissionDenied;
-                // callbacks.PermissionRequestDismissed += OnPermissionRequestDismissed;
+                callbacks.PermissionDenied += OnPermissionDenied;
+                callbacks.PermissionRequestDismissed += OnPermissionRequestDismissed;
                 Permission.RequestUserPermissions(RequiredPermissions.All, callbacks);
                 return;
             }
-
+            
             // All required permissions are available from this point
             GetUserSteps();
             GetUserSleepSessions();
@@ -129,6 +128,20 @@ namespace Managers
                     GetUserSleepSessions();
                     break;
             }
+        }
+        
+        private void OnPermissionDenied(string permissionName)
+        {
+            // This method is called for each permission that is granted by the user
+            Debug.Log($"Denied permission: {permissionName}");
+            // TODO: Implement permission denied logic
+        }
+        
+        private void OnPermissionRequestDismissed(string permissionName)
+        {
+            // This method is called for each permission that is granted by the user
+            Debug.Log($"Permission request dismissed: {permissionName}");
+            // TODO: Implement permission request dismissed logic
         }
         
         private void GetUserSteps()

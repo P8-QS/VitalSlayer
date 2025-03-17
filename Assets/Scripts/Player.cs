@@ -58,7 +58,6 @@ public class Player : MonoBehaviour
         if (updateTimer > 1.0f)
         {
             updateTimer = 0.0f;
-            Debug.Log("Update");
             
             // update player level, xp and name such that when player leaves the game and comes back, the player will still have the same level, xp and name
             PlayerPrefs.SetString("PlayerName", playerName);
