@@ -13,7 +13,7 @@ TagManager:
   - Water
   - UI
   - Actor
-  - 
+  - Floating Text
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
     locked: 0
   - name: Weapon
     uniqueID: 1586919953
+    locked: 0
+  - name: Floating Text
+    uniqueID: 2411142545
     locked: 0
   m_RenderingLayers:
   - Default
