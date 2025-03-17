@@ -6,6 +6,7 @@ using Data.Models;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Android;
+using UnityEngine.Windows;
 
 namespace Managers
 {

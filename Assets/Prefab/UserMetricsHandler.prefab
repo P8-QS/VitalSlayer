@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5510367329e0276a13f324c000f288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepsRecordsSampleJson: {fileID: 4900000, guid: 2b54258cfc854d30836da88f4482b12d, type: 3}
+  sleepSessionRecordsSampleJson: {fileID: 0}
