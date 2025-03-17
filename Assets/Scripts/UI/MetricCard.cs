@@ -13,7 +13,7 @@ public class MetricCardUI : MonoBehaviour
     public Transform modalParent;
 
     // Method to set data dynamically
-    public void SetMetric(Sprite metricIcon, string title, string description, [CanBeNull] Sprite[] effectIcons = null)
+    public void SetMetric(Sprite metricIcon, string title, string description, Sprite effectIcon)
     {
         if (titleText != null) titleText.text = title;
         if (descriptionText != null) descriptionText.text = description;
@@ -21,15 +21,7 @@ public class MetricCardUI : MonoBehaviour
         // Add icons dynamically, the metric icon should be added first
         // Instantiate image metric icon and attach to "icons" GameObject
         AddIcon(metricIcon);
-        
-        // Add effect icons
-        if (effectIcons != null)
-        {
-            foreach (var effectIcon in effectIcons)
-            {
-                AddIcon(effectIcon);
-            }
-        }
+        AddIcon(effectIcon);    
     }
 
     private void AddIcon(Sprite icon)

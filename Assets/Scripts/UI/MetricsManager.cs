@@ -6,6 +6,7 @@ using UnityEngine.U2D;
 using TMPro;
 using Data;
 using UI;
+using Metrics;
 
 public class MetricsManager : MonoBehaviour
 {
@@ -73,14 +74,14 @@ public class MetricsManager : MonoBehaviour
         //     AddMetric(sleepIcon, "Sleep", sleepText, sleepEffects);
         //     hasMetrics = true;
         // }
-
         // **Steps Metric**
         if (steps > 0)
         {
             string stepsText = MetricsStringGenerator.Steps(steps);
             string stepsDescription = MetricsStringGenerator.StepsDescription(steps);
-
-            AddMetric(stepsIcon, "Steps", stepsText, new[] { mapSizeIcon });
+            // AddMetric(stepsIcon, "Steps", stepsText, new[] { mapSizeIcon });
+            // StepsMetric stepsMetric = new StepsMetric();
+            // AddMetric(stepsMetric);
             hasMetrics = true;
         }
 
@@ -104,12 +105,19 @@ public class MetricsManager : MonoBehaviour
         }
     }
 
+    void AddMetric<T>(IMetric<T> metric) {
+        GameObject newCard = Instantiate(metricCardPrefab, parentPanel);
+        MetricCardUI metricUI = newCard.GetComponent<MetricCardUI>();
+        metricUI.modalParent = modalParent;
+        metricUI.SetMetric(metric.Icon, metric.Name, metric.Description(), metric.Effect.Icon);
+    }
+
     void AddMetric(Sprite icon, string title, string description, [CanBeNull] Sprite[] effectIcons = null)
     {
         GameObject newCard = Instantiate(metricCardPrefab, parentPanel);
         MetricCardUI metricUI = newCard.GetComponent<MetricCardUI>();
         metricUI.modalParent = modalParent;
-        metricUI.SetMetric(icon, title, description, effectIcons);
+        // metricUI.SetMetric(icon, title, description, effectIcon);
     }
 
     void ShowErrorText(string message)
