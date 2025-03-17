@@ -5,6 +5,7 @@
 .vscode/
 .idea/
 
+Export/
 *_DoNotShip/
 .utmp/
 /[Ll]ibrary/
@@ -78,3 +79,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .vscode
+.DS_Store
