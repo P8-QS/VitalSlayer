@@ -18,12 +18,12 @@ namespace Data
         public static UserMetricsHandler Instance { get; private set; }
         
         /// <summary>
-        /// Contains the user's steps count records.
+        /// Contains the user's steps count records. Can be null, so either null check or use the event instead.
         /// </summary>
         public IReadOnlyCollection<StepsRecord> StepsRecords { get; private set; }
         
         /// <summary>
-        /// Contains the user's sleep session records.
+        /// Contains the user's sleep session records. Can be null, so either null check or use the event instead.
         /// </summary>
         public IReadOnlyCollection<SleepSessionRecord> SleepSessionRecords { get; private set; }
         
