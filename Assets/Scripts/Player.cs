@@ -1,14 +1,10 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Mover
 {
-    private BoxCollider2D boxCollider;
     private JoystickMove joystickMove;
-    private Vector3 initialSize;
     
-
-
-    private void Start()
+    protected override void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         joystickMove = GetComponent<JoystickMove>();
@@ -17,16 +13,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float moveDirection = joystickMove.movementJoystick.Direction.x;
+        Vector3 input = new Vector3(joystickMove.movementJoystick.Direction.x, joystickMove.movementJoystick.Direction.y, 0);
         
-        if (moveDirection < 0)
-        {
-            transform.localScale = new Vector3(-initialSize.x, initialSize.y, initialSize.z);
-        }
-        else if (moveDirection > 0)
-        {
-            transform.localScale = new Vector3(initialSize.x, initialSize.y, initialSize.z);
-        }
+        UpdateMotor(input);
     }
     
 }
