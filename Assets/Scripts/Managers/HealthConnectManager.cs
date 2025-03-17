@@ -87,13 +87,12 @@ namespace Managers
             {
                 var callbacks = new PermissionCallbacks();
                 callbacks.PermissionGranted += OnPermissionGranted;
-                // TODO: Implement callbacks for permission denied and request dismissed 
-                // callbacks.PermissionDenied += OnPermissionDenied;
-                // callbacks.PermissionRequestDismissed += OnPermissionRequestDismissed;
+                callbacks.PermissionDenied += OnPermissionDenied;
+                callbacks.PermissionRequestDismissed += OnPermissionRequestDismissed;
                 Permission.RequestUserPermissions(RequiredPermissions.All, callbacks);
                 return;
             }
-
+            
             // All required permissions are available from this point
             GetUserSteps();
             GetUserSleepSessions();
@@ -131,6 +130,20 @@ namespace Managers
             }
         }
         
+        private void OnPermissionDenied(string permissionName)
+        {
+            // This method is called for each permission that is granted by the user
+            Debug.Log($"Denied permission: {permissionName}");
+            // TODO: Implement permission denied logic
+        }
+        
+        private void OnPermissionRequestDismissed(string permissionName)
+        {
+            // This method is called for each permission that is granted by the user
+            Debug.Log($"Permission request dismissed: {permissionName}");
+            // TODO: Implement permission request dismissed logic
+        }
+        
         private void GetUserSteps()
         {
             Debug.Log($"Getting user steps from: {_startLdt.Call<string>("toString")} to: {_endLdt.Call<string>("toString")}");
@@ -144,7 +157,6 @@ namespace Managers
         private void OnStepsRecordsReceived(string response)
         {
             Debug.Log("Received Health Connect steps data response from HealthConnectPlugin!");
-            Debug.Log(response);
 
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<StepsRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.StepsRecords, records);
@@ -163,7 +175,6 @@ namespace Managers
         private void OnSleepRecordsReceived(string response)
         {
             Debug.Log("Received Health Connect sleep data response from HealthConnectPlugin!");
-            Debug.Log(response);
 
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.SleepSessionRecords, records);

@@ -6,6 +6,7 @@ namespace Data.Models
     [Serializable]
     public class SleepSessionRecord
     {
+        public TimeSpan SleepTime => EndTime - StartTime;
         public DateTime StartTime { get; set; }
         public string StartZoneOffset { get; set; }
         public DateTime EndTime { get; set; }

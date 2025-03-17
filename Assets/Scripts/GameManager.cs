@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveState(){
         Debug.Log("Saving game...");
-
+     
         string s = "";
 
         s += "0" + "|";

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class FloatingText
 {
     public bool active;
-    public Text txt;
+    public TextMeshProUGUI txt;
     public GameObject go;
     public Vector3 motion;
     public float duration;
