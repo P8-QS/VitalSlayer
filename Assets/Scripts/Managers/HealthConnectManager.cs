@@ -29,7 +29,7 @@ namespace Managers
         private AndroidJavaObject _endLdt;
         private AndroidJavaObject _startLdt;
         
-        private void Start()
+        private void Awake()
         {
             if (Application.platform != RuntimePlatform.Android)
             {
@@ -87,7 +87,11 @@ namespace Managers
             {
                 var callbacks = new PermissionCallbacks();
                 callbacks.PermissionGranted += OnPermissionGranted;
+                // TODO: Implement callbacks for permission denied and request dismissed 
+                // callbacks.PermissionDenied += OnPermissionDenied;
+                // callbacks.PermissionRequestDismissed += OnPermissionRequestDismissed;
                 Permission.RequestUserPermissions(RequiredPermissions.All, callbacks);
+                return;
             }
 
             // All required permissions are available from this point

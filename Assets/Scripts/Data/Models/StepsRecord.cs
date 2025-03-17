@@ -9,7 +9,7 @@ namespace Data.Models
         public string StartZoneOffset { get; set; }
         public DateTime EndTime { get; set; }
         public string EndZoneOffset { get; set; }
-        public int Count { get; set; }
+        public int StepsCount { get; set; }
         public Metadata Metadata { get; set; }
     }
 }
