@@ -58,7 +58,7 @@ public class MainMenuPage : MonoBehaviour
     
     public void ClickPlayButton()
     {
-        SceneManager.LoadScene("TestScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
     
     public void ClickMetricsButton()
