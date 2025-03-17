@@ -15,7 +15,7 @@ public class EnemyHitbox : Collidable
         if (coll.tag == "Fighter" && coll.name == "Player")
         {
             int actualDamage = random.Next(minDamage, maxDamage + 1);
-            bool isCritical = (random.NextDouble() < critChance);
+            bool isCritical = random.NextDouble() < critChance;
 
             if (isCritical)
             {
