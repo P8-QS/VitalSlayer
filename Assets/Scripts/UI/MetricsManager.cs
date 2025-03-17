@@ -80,8 +80,8 @@ public class MetricsManager : MonoBehaviour
             string stepsText = MetricsStringGenerator.Steps(steps);
             string stepsDescription = MetricsStringGenerator.StepsDescription(steps);
             // AddMetric(stepsIcon, "Steps", stepsText, new[] { mapSizeIcon });
-            // StepsMetric stepsMetric = new StepsMetric();
-            // AddMetric(stepsMetric);
+            StepsMetric stepsMetric = new StepsMetric(stepsIcon);
+            AddMetric(stepsMetric);
             hasMetrics = true;
         }
 

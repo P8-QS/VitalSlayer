@@ -8,26 +8,27 @@ using UnityEngine;
 namespace Metrics {
     public class StepsMetric: IMetric<StepsRecord>
     {
-        private StepsRecord _data; 
+        private StepsRecord _data;
+        private IEffect _effect;
+        private Sprite _icon;
         public string Name => "Steps";
         public StepsRecord Data
         {
             get => _data;
             set => _data = value;
         }
-        public IEffect Effect => new MapEffect(); 
-        public Sprite Icon => throw new NotImplementedException();
+        public IEffect Effect { get => _effect; }
+        public Sprite Icon
+        {
+            get => _icon;
+            set => _icon = value;
+        }
 
-        public StepsMetric() {
-            var stepsRecords = UserMetricsHandler.Instance?.StepsRecords;
-            if (stepsRecords == null)
-            {
-                Debug.Log("INSTANCE WAS NULL");
-            }
-            else if (!stepsRecords.Any()) {
-                Debug.Log("There were no stepsrecords");
-            }
+        public StepsMetric(Sprite icon) {
+            Data = UserMetricsHandler.Instance.StepsRecords.First();
             
+            Icon = icon;
+
             Effect.Level = Data.StepsCount switch
             {
                 < 4000 => 1,
@@ -35,20 +36,15 @@ namespace Metrics {
                 _ => 3
             };
         }
-        public override string ToString()
-        {
-            return $"{Name} level {Effect.Level}";
-        }
         public string Text()
         {
-            return $"map size {Effect.Level}";
+            string formattedSteps = Data.StepsCount.ToString("N0");
+            return $"You have taken {formattedSteps} steps. This gives you {Effect.Text()}";
         }
         public string Description()
         {
             string formattedSteps = Data.StepsCount.ToString("N0");
-
-            return $"You have taken {formattedSteps} steps. This gives you {Effect.Text()}";
+            return $"You have taken {formattedSteps} steps yesterday, contributing to your movement activity.";
         }
-
     }
 }
