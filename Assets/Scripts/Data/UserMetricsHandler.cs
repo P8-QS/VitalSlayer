@@ -31,6 +31,7 @@ namespace Data
 
         public event Action<IReadOnlyCollection<StepsRecord>> OnStepsRecordsUpdated;
         public event Action<IReadOnlyCollection<SleepSessionRecord>> OnSleepSessionRecordsUpdated;
+        public event Action<long> OnTotalScreenTimeUpdated;
         
         private void Awake()
         {
@@ -67,6 +68,12 @@ namespace Data
                     }
                     break;
                 case UserMetricsType.TotalScreenTime:
+                    if (data is long totalScreenTime)
+                    {
+                        TotalScreenTime = totalScreenTime;
+                        Debug.Log("Total screen time has been updated");
+                        OnTotalScreenTimeUpdated?.Invoke(TotalScreenTime);
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(userMetricsType), userMetricsType, null);

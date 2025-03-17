@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.health.READ_HEART_RATE"/>
     <uses-permission android:name="android.permission.health.READ_STEPS"/>
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>
     <application>
         <!--Used when Application Entry is set to Activity, otherwise remove this activity block-->
         <activity android:name="com.unity3d.player.UnityPlayerActivity"
