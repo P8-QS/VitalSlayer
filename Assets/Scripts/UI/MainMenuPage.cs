@@ -3,15 +3,16 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class MainMenuPage : MonoBehaviour
 {
-    public bool xpReady = false;
+    public bool xpBonus = false;
     public TimeSpan cooldown;
     public TextMeshProUGUI countdownText;
     private DateTime cooldownEnd;
-    private const string baseString = "You can gain XP in ";
-    private const string readyString = "Play now to gain XP.";
+    private const string baseString = "You will get bonus XP in ";
+    private const string readyString = "Play now to get bonus XP.";
     public GameObject cooldownIcon;
     void Start()
     {
@@ -28,32 +29,32 @@ public class MainMenuPage : MonoBehaviour
         
         cooldown = cooldownEnd - DateTime.Now;
         countdownText.text = GetDisplayString();
-        xpReady = cooldown.TotalMilliseconds == 0;
-        PlayerPrefs.SetInt("XpReady", xpReady ? 1 : 0);
+        xpBonus = cooldown.TotalMilliseconds == 0;
+        PlayerPrefs.SetInt("XpBonus", xpBonus ? 1 : 0);
         
     }
     
     private string GetDisplayString()
     {
-        return xpReady ? readyString : baseString + cooldown.ToString(@"hh\:mm\:ss") + ".";
+        return xpBonus ? readyString : baseString + cooldown.ToString(@"hh\:mm\:ss") + ".";
     }
 
     public void ResetCooldown()
     {
-        xpReady = false;
+        xpBonus = false;
         cooldownEnd = DateTime.Now.AddDays(1);
         PlayerPrefs.SetString("Cooldown", cooldownEnd.ToString());
-        PlayerPrefs.SetInt("XpReady", xpReady ? 1 : 0);
+        PlayerPrefs.SetInt("XpBonus", xpBonus ? 1 : 0);
     }
     
     // Update is called once per frame
     void Update()
     {
         cooldown = cooldownEnd > DateTime.Now ? cooldownEnd - DateTime.Now : TimeSpan.Zero;
-        xpReady = cooldown.TotalMilliseconds == 0;
+        xpBonus = cooldown.TotalMilliseconds == 0;
         countdownText.text = GetDisplayString();
-        cooldownIcon.gameObject.SetActive(!xpReady);
-        PlayerPrefs.SetInt("XpReady", xpReady ? 1 : 0);
+        cooldownIcon.gameObject.SetActive(!xpBonus);
+        PlayerPrefs.SetInt("XpBonus", xpBonus ? 1 : 0);
     }
     
     public void ClickPlayButton()
