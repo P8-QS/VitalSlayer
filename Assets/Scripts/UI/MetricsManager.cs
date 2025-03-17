@@ -1,10 +1,7 @@
 using JetBrains.Annotations;
-using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.U2D;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEngine.UI;
 
 public class MetricsManager : MonoBehaviour
 {
