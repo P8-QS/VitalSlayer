@@ -470,6 +470,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: effect_base
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 434
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 4, z: 4, w: 4}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9559ecc02563748fe88608292949d895
+      internalID: 633602867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_map
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 434
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 4, z: 4, w: 4}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f16a4158aec4c43269c522d21e26f7ab
+      internalID: -989091978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -489,10 +533,12 @@ TextureImporter:
       button_primary: -231460696
       button_secondary: -1578690226
       effect_attack_speed: -230250835
+      effect_base: 633602867
       effect_base_negative: -1510483472
       effect_base_positive: 1603008240
       effect_fog: 477256500
       effect_hallucination: 1397055168
+      effect_map: -989091978
       effect_scouting: 2133868775
       icon_close: 1150477062
       icon_help: 969690327
