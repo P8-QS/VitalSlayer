@@ -19,6 +19,7 @@ public class Fighter : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Test now");
         col = GetComponent<Collider2D>();
         healthBar = GetComponentInChildren<HealthBar>();
     }

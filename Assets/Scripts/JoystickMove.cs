@@ -1,11 +1,12 @@
 using UnityEngine;
 
+
 public class JoystickMove : MonoBehaviour
 {
     public Joystick movementJoystick;
     public float playerSpeed;
     private Rigidbody2D rb;
-    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
