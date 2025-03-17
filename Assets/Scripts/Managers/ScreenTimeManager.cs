@@ -101,7 +101,6 @@ public class ScreenTimeManager : MonoBehaviour
                     {
 
                         int count = stats.Call<int>("size");
-                        Debug.Log($"COUNT: {count}");
                         List<ScreenTime> screenTimeList = new List<ScreenTime>();
                         for (int i = 0; i < count; i++)
                         {
