@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace Metrics
 {
-    public interface IMetric<T>
+    public interface IMetric
     {
         public string Name { get; }
-        public T Data { get; }
         public IEffect Effect { get; }
         public Sprite Icon { get; }
         public string Text();

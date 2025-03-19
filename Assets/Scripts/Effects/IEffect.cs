@@ -6,7 +6,7 @@ namespace Effects
     {
         public string Name { get; }
         public int Level { get; set; }
-        public Sprite Icon { get; set; }
+        public Sprite Icon { get; }
         public string Text();
         public string Description();
         

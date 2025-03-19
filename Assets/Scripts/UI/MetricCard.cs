@@ -60,7 +60,7 @@ public class MetricCardUI : MonoBehaviour
             }
             GameObject effectItem = Instantiate(cardItemPrefab, modalUI.content.transform);
             CardItemUI effectItemUI = effectItem.GetComponent<CardItemUI>();
-            effectItemUI.SetCard(icon.GetComponent<Image>().sprite, "Testt", "Effect");
+            effectItemUI.SetCard(icon.GetComponent<Image>().sprite, "Test", "Effect");
         }
         
         

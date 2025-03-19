@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Data;
 using Data.Models;
@@ -6,7 +5,7 @@ using Effects;
 using UnityEngine;
 
 namespace Metrics {
-    public class StepsMetric: IMetric<StepsRecord>
+    public class StepsMetric: IMetric
     {
         private StepsRecord _data;
         private IEffect _effect;
@@ -24,17 +23,19 @@ namespace Metrics {
             set => _icon = value;
         }
 
-        public StepsMetric(Sprite icon) {
-            Data = UserMetricsHandler.Instance.StepsRecords.First();
+        public StepsMetric() {
+            Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
             
-            Icon = icon;
+            Icon = SpriteManager.Instance.GetSprite("metric_steps");
 
-            Effect.Level = Data.StepsCount switch
+            int effectLevel = Data.StepsCount switch
             {
                 < 4000 => 1,
                 < 8000 => 2,
                 _ => 3
             };
+
+            _effect = new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel);
         }
         public string Text()
         {
