@@ -6,7 +6,6 @@ using Data.Models;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Android;
-using UnityEngine.Windows;
 
 namespace Managers
 {
@@ -176,7 +175,7 @@ namespace Managers
         private void OnSleepRecordsReceived(string response)
         {
             Debug.Log("Received Health Connect sleep data response from HealthConnectPlugin!");
-
+            
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.SleepSessionRecords, records);
         }
