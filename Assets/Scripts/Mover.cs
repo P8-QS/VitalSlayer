@@ -1,14 +1,16 @@
+using System;
 using UnityEngine;
 
 public abstract class Mover : Fighter
 {
-    
+
     protected Vector3 initialSize;
     protected BoxCollider2D boxCollider;
     protected Vector3 moveDelta;
     protected RaycastHit2D hit;
-    protected float ySpeed = 0.75f;
-    protected float xSpeed = 1.0f;
+    public float ySpeed = 0.75f;
+    public float xSpeed = 1.0f;
+    public Tuple<Transform, Vector3>[] nonFlippingChildrenAndScale;
 
     protected virtual void Start()
     {
@@ -16,7 +18,8 @@ public abstract class Mover : Fighter
         initialSize = transform.localScale;
     }
 
-    protected virtual void UpdateMotor(Vector3 input){
+    protected virtual void UpdateMotor(Vector3 input)
+    {
         // Reset moveDelta
         moveDelta = input;
 
@@ -31,7 +34,7 @@ public abstract class Mover : Fighter
         }
 
         // Add push vector, reduce it over time
-        moveDelta += pushDirection;   
+        moveDelta += pushDirection;
 
         // Reduce push force 
         pushDirection = Vector3.Lerp(pushDirection, Vector3.zero, pushRecoverySpeed);
