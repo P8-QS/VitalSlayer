@@ -21,7 +21,7 @@ namespace Effects {
         }
         public string Description()
         {
-            return "Your attack speed is increased by 20&.";
+            return "Your attack speed is increased by 20%.";
         }
 
     }

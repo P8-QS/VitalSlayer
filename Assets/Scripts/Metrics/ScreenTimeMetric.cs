@@ -48,7 +48,7 @@ namespace Metrics {
         {
             long hours = Data / (1000 * 60 * 60);
             long minutes = Data / (1000 * 60) % 60; 
-            return $"You have spent {hours} hours and {minutes} minutes on your phone. This gives you {Effect.Text()}";
+            return $"You have spent {hours} hours and {minutes} minutes on your phone. This gives you {Effect.Text()}.";
         }
         public string Description()
         {

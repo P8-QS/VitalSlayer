@@ -1,10 +1,11 @@
-using JetBrains.Annotations;
+using Metrics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MetricCardUI : MonoBehaviour
 {
+    private IMetric cardMetric;
     public TextMeshProUGUI titleText;  // Title
     public TextMeshProUGUI descriptionText;  // Description
     public GameObject icons;  // Reference to the icons
@@ -13,15 +14,16 @@ public class MetricCardUI : MonoBehaviour
     public Transform modalParent;
 
     // Method to set data dynamically
-    public void SetMetric(Sprite metricIcon, string title, string description, Sprite effectIcon)
+    public void SetMetric(IMetric metric)
     {
-        if (titleText != null) titleText.text = title;
-        if (descriptionText != null) descriptionText.text = description;
+        cardMetric = metric;
+        if (titleText != null) titleText.text = metric.Name;
+        if (descriptionText != null) descriptionText.text = metric.Text();
 
         // Add icons dynamically, the metric icon should be added first
         // Instantiate image metric icon and attach to "icons" GameObject
-        AddIcon(metricIcon);
-        AddIcon(effectIcon);    
+        AddIcon(metric.Icon);
+        AddIcon(metric.Effect.Icon);    
     }
 
     private void AddIcon(Sprite icon)
@@ -48,7 +50,7 @@ public class MetricCardUI : MonoBehaviour
         CardItemUI cardItemUI = cardItem.GetComponent<CardItemUI>();
         var metricIcon = icons.transform.GetChild(0).GetComponent<Image>();
         
-        cardItemUI.SetCard(metricIcon.sprite , titleText.text, descriptionText.text);
+        cardItemUI.SetCard(metricIcon.sprite , titleText.text, cardMetric.Description());
         
         bool first = true;
         foreach (Transform icon in icons.transform)
@@ -60,7 +62,7 @@ public class MetricCardUI : MonoBehaviour
             }
             GameObject effectItem = Instantiate(cardItemPrefab, modalUI.content.transform);
             CardItemUI effectItemUI = effectItem.GetComponent<CardItemUI>();
-            effectItemUI.SetCard(icon.GetComponent<Image>().sprite, "Test", "Effect");
+            effectItemUI.SetCard(cardMetric.Effect.Icon, cardMetric.Effect.Name, cardMetric.Effect.Description());
         }
         
         

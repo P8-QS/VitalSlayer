@@ -42,7 +42,7 @@ public class MetricsManager : MonoBehaviour
         GameObject newCard = Instantiate(metricCardPrefab, parentPanel);
         MetricCardUI metricUI = newCard.GetComponent<MetricCardUI>();
         metricUI.modalParent = modalParent;
-        metricUI.SetMetric(metric.Icon, metric.Name, metric.Description(), metric.Effect.Icon);
+        metricUI.SetMetric(metric);
     }
 
     void ShowErrorText(string message)
