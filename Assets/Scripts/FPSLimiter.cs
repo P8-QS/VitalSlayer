@@ -5,7 +5,7 @@ using UnityEngine;
 public class FPSLimiter : MonoBehaviour
 {
     private const double FallbackFPS = 60;
-
+    
     private void Start()
     {
         var resolutions = Screen.resolutions;

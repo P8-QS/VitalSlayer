@@ -55,23 +55,7 @@ namespace Data
         private void Start()
         {
             if (Application.platform == RuntimePlatform.Android) return;
-            if (File.Exists(stepsRecordsSamplePath))
-            {
-                SetData(UserMetricsType.StepsRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<StepsRecord>>(File.ReadAllText(stepsRecordsSamplePath)));
-            }
-            else
-            {
-                Debug.LogWarning($"{nameof(UserMetricsHandler)} steps records sample file not found");
-            }
-
-            if (File.Exists(sleepRecordsSamplePath))
-            {
-                SetData(UserMetricsType.SleepSessionRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(File.ReadAllText(sleepRecordsSamplePath)));
-            }
-            else
-            {
-                Debug.LogWarning($"{nameof(UserMetricsHandler)} sleep records sample file not found");
-            }
+            SetMockData();
         }
 
         public void SetData<T>(UserMetricsType userMetricsType, T data)
@@ -105,6 +89,30 @@ namespace Data
                 default:
                     throw new ArgumentOutOfRangeException(nameof(userMetricsType), userMetricsType, null);
             }
+        }
+        
+        private void SetMockData()
+        {
+            if (File.Exists(stepsRecordsSamplePath))
+            {
+                SetData(UserMetricsType.StepsRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<StepsRecord>>(File.ReadAllText(stepsRecordsSamplePath)));
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(UserMetricsHandler)} steps records sample file not found");
+            }
+
+            if (File.Exists(sleepRecordsSamplePath))
+            {
+                SetData(UserMetricsType.SleepSessionRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(File.ReadAllText(sleepRecordsSamplePath)));
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(UserMetricsHandler)} sleep records sample file not found");
+            }
+            
+            SetData(UserMetricsType.TotalScreenTime, (long)TimeSpan.FromHours(2).TotalMilliseconds);
+            Debug.Log("Mock data has been set!");
         }
     }
 }
