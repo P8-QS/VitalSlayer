@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pumpkin_dude_run_anim_f1_0: 3430409238846472636
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

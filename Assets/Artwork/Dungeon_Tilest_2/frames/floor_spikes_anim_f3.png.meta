@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      floor_spikes_anim_f3_0: -7945936929742752817
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

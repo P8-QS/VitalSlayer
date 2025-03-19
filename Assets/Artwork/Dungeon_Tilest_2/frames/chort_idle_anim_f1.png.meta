@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      chort_idle_anim_f1_0: 5565363347694979420
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

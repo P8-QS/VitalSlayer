@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      goblin_run_anim_f3_0: 7054442283714001616
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

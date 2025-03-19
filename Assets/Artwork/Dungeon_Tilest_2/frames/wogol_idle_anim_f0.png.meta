@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wogol_idle_anim_f0_0: -4048603622307402512
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

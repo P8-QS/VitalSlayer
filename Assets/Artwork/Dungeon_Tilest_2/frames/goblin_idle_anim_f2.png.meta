@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      goblin_idle_anim_f2_0: 6470109789897308448
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

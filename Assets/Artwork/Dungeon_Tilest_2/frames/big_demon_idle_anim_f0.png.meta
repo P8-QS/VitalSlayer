@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      big_demon_idle_anim_f0_0: 4273740869200815590
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

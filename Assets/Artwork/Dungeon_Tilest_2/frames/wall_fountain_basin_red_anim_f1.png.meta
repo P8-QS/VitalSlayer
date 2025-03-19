@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wall_fountain_basin_red_anim_f1_0: 2752175386321947757
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

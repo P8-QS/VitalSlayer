@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      weapon_lavish_sword_0: 8280228417692796748
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

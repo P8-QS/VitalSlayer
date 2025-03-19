@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      weapon_baton_with_spikes_0: -7654305870971831369
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

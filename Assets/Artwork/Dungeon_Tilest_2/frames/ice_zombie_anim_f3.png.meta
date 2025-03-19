@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ice_zombie_anim_f3_0: -1149888872462377553
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

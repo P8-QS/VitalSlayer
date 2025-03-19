@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lizard_f_hit_anim_f0_0: 3146367380971986726
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

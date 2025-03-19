@@ -1,39 +1,90 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEditor; // If you're using custom tiles from the editor
 using System.Collections.Generic;
 
+
+// Predefined room sizes, lets say 3 different types. 20x20, 30x30, 40x40
 public class DungeonFloorGenerator : MonoBehaviour
 {
+    [System.Serializable]
+    public struct RoomSize
+    {
+        public int width;
+        public int height;
+    }
+
     [Header("Dungeon Parameters")]
-    public int dungeonSize = 50;
     public int roomCountMin = 5;
     public int roomCountMax = 10;
-    public int roomSize = 10;  // Fixed room size
+    [Tooltip("List of predefined room sizes to use randomly")]
+    public List<RoomSize> predefinedRoomSizes = new List<RoomSize>();
     public int roomSpacing = 2;  // Spacing between rooms (0 for directly adjacent)
 
     [Header("Tiles")]
-    public RuleTile floorRuleTile;  // Make sure to use UnityEngine.Tilemaps
+    public RuleTile floorRuleTile;
     public RuleTile wallRuleTile;
 
     [Header("Tilemaps")]
     public Tilemap floorTilemap;
     public Tilemap wallTilemap;
 
-    private int[,] dungeonGrid; // 0 = empty, 1 = floor, 2 = wall
-
-    // Store room positions for connecting them
+    private Dictionary<Vector2Int, int> dungeonGrid = new Dictionary<Vector2Int, int>(); // 0 = empty, 1 = floor, 2 = wall, 3 = floor and wall
     private List<Vector2Int> roomCenters = new List<Vector2Int>();
+    
+    // Track bounds for optimization
+    private int minX = int.MaxValue;
+    private int minY = int.MaxValue;
+    private int maxX = int.MinValue;
+    private int maxY = int.MinValue;
+    
+    // Cache the maximum room dimensions
+    private int maxRoomWidth = 0;
+    private int maxRoomHeight = 0;
+
+    private void OnValidate()
+    {
+        // Ensure we have at least one room size
+        if (predefinedRoomSizes.Count == 0)
+        {
+            predefinedRoomSizes.Add(new RoomSize { width = 20, height = 20 });
+        }
+        
+        // Update max dimensions
+        UpdateMaxRoomDimensions();
+    }
+    
+    private void UpdateMaxRoomDimensions()
+    {
+        maxRoomWidth = 0;
+        maxRoomHeight = 0;
+        
+        foreach (var roomSize in predefinedRoomSizes)
+        {
+            maxRoomWidth = Mathf.Max(maxRoomWidth, roomSize.width);
+            maxRoomHeight = Mathf.Max(maxRoomHeight, roomSize.height);
+        }
+    }
 
     public void GenerateDungeon()
     {
-        // Initialize the grid
-        dungeonGrid = new int[dungeonSize, dungeonSize];
+        // Ensure max dimensions are updated
+        UpdateMaxRoomDimensions();
+        
+        // Clear previous data
+        dungeonGrid.Clear();
         roomCenters.Clear();
+        floorTilemap.ClearAllTiles();
+        wallTilemap.ClearAllTiles();
+        
+        // Reset bounds
+        minX = int.MaxValue;
+        minY = int.MaxValue;
+        maxX = int.MinValue;
+        maxY = int.MinValue;
         
         // Generate rooms
         int roomCount = Random.Range(roomCountMin, roomCountMax + 1);
-        GenerateRoomsIsaacStyle(roomCount);
+        GenerateRoom(roomCount);
         
         // Place walls around floors
         PlaceWalls();
@@ -42,22 +93,19 @@ public class DungeonFloorGenerator : MonoBehaviour
         InstantiateTiles();
     }
 
-    private void GenerateRoomsIsaacStyle(int roomCount)
+    private void GenerateRoom(int roomCount)
     {
-        // Calculate grid cell size (room + spacing)
-        int cellSize = roomSize + roomSpacing;
-        
-        // Start with a center room
-        int centerX = dungeonSize / 2;
-        int centerY = dungeonSize / 2;
-        CreateRoom(centerX, centerY);
-        roomCenters.Add(new Vector2Int(centerX, centerY));
+        // Start with a room at (0,0)
+        int startX = 0;
+        int startY = 0;
+        CreateRoom(startX, startY);
+        roomCenters.Add(new Vector2Int(startX, startY));
         
         // List of potential room positions
         List<Vector2Int> potentialRoomPositions = new List<Vector2Int>();
         
-        // Add adjacent positions to the center room
-        AddPotentialRoomPositions(centerX, centerY, potentialRoomPositions);
+        // Add adjacent positions to the first room
+        AddPotentialRoomPositions(startX, startY, potentialRoomPositions);
         
         // Create remaining rooms
         int roomsCreated = 1; // We already created one
@@ -86,45 +134,56 @@ public class DungeonFloorGenerator : MonoBehaviour
         ConnectAdjacentRooms();
     }
 
+    private RoomSize GetRandomRoomSize()
+    {
+        if (predefinedRoomSizes.Count == 0)
+            return new RoomSize { width = 20, height = 20 }; // Default fallback
+            
+        int index = Random.Range(0, predefinedRoomSizes.Count);
+        return predefinedRoomSizes[index];
+    }
+
     private void CreateRoom(int centerX, int centerY)
     {
-        int halfSize = roomSize / 2;
+        RoomSize size = GetRandomRoomSize();
+        int roomWidth = size.width;
+        int roomHeight = size.height;
+        int halfWidth = roomWidth / 2;
+        int halfHeight = roomHeight / 2;
         
         // Fill the room with floor tiles
-        for (int x = centerX - halfSize; x <= centerX + halfSize; x++)
+        for (int x = centerX - halfWidth; x <= centerX + halfWidth; x++)
         {
-            for (int y = centerY - halfSize; y <= centerY + halfSize; y++)
+            for (int y = centerY - halfHeight; y <= centerY + halfHeight; y++)
             {
-                if (x >= 0 && x < dungeonSize && y >= 0 && y < dungeonSize)
-                {
-                    dungeonGrid[x, y] = 1; // floor
-                }
+                dungeonGrid[new Vector2Int(x, y)] = 1; // floor
+                
+                // Update bounds
+                minX = Mathf.Min(minX, x);
+                minY = Mathf.Min(minY, y);
+                maxX = Mathf.Max(maxX, x);
+                maxY = Mathf.Max(maxY, y);
             }
         }
     }
 
     private bool CanPlaceRoom(int centerX, int centerY)
     {
-        int halfSize = roomSize / 2;
+        RoomSize size = GetRandomRoomSize();
+        int roomWidth = size.width;
+        int roomHeight = size.height;
+        int halfWidth = roomWidth / 2;
+        int halfHeight = roomHeight / 2;
         
-        // Check if the room would be within bounds
-        if (centerX - halfSize < 0 || centerX + halfSize >= dungeonSize ||
-            centerY - halfSize < 0 || centerY + halfSize >= dungeonSize)
+        // Check if the room would overlap with existing rooms (with spacing)
+        for (int x = centerX - halfWidth - roomSpacing; x <= centerX + halfWidth + roomSpacing; x++)
         {
-            return false;
-        }
-        
-        // Check if the room would overlap with existing rooms
-        for (int x = centerX - halfSize - 1; x <= centerX + halfSize + 1; x++)
-        {
-            for (int y = centerY - halfSize - 1; y <= centerY + halfSize + 1; y++)
+            for (int y = centerY - halfHeight - roomSpacing; y <= centerY + halfHeight + roomSpacing; y++)
             {
-                if (x >= 0 && x < dungeonSize && y >= 0 && y < dungeonSize)
+                Vector2Int pos = new Vector2Int(x, y);
+                if (dungeonGrid.ContainsKey(pos) && dungeonGrid[pos] == 1) // If we find a floor tile
                 {
-                    if (dungeonGrid[x, y] == 1) // If we find a floor tile
-                    {
-                        return false; // Room would overlap
-                    }
+                    return false; // Room would overlap
                 }
             }
         }
@@ -134,7 +193,7 @@ public class DungeonFloorGenerator : MonoBehaviour
 
     private void AddPotentialRoomPositions(int centerX, int centerY, List<Vector2Int> positions)
     {
-        int cellSize = roomSize + roomSpacing;
+        int cellSize = Mathf.Max(maxRoomWidth, maxRoomHeight) + roomSpacing;
         
         // Add the four adjacent positions
         Vector2Int[] directions = new Vector2Int[]
@@ -150,25 +209,7 @@ public class DungeonFloorGenerator : MonoBehaviour
             Vector2Int newPos = new Vector2Int(centerX + dir.x, centerY + dir.y);
             
             // Check if this position is already in our list
-            bool alreadyExists = false;
-            foreach (Vector2Int pos in positions)
-            {
-                if (pos.x == newPos.x && pos.y == newPos.y)
-                {
-                    alreadyExists = true;
-                    break;
-                }
-            }
-            
-            // Also check if it's already a room center
-            foreach (Vector2Int pos in roomCenters)
-            {
-                if (pos.x == newPos.x && pos.y == newPos.y)
-                {
-                    alreadyExists = true;
-                    break;
-                }
-            }
+            bool alreadyExists = positions.Contains(newPos) || roomCenters.Contains(newPos);
             
             if (!alreadyExists)
             {
@@ -179,8 +220,8 @@ public class DungeonFloorGenerator : MonoBehaviour
 
     private void ConnectAdjacentRooms()
     {
-        int cellSize = roomSize + roomSpacing;
-        int corridorWidth = 3;
+        int cellSize = Mathf.Max(maxRoomWidth, maxRoomHeight) + roomSpacing;
+        int corridorWidth = 6;
         int halfCorridorWidth = corridorWidth / 2;
         
         // For each room
@@ -203,10 +244,14 @@ public class DungeonFloorGenerator : MonoBehaviour
                     {
                         for (int y = room.y - halfCorridorWidth; y <= room.y + halfCorridorWidth; y++)
                         {
-                            if (x >= 0 && x < dungeonSize && y >= 0 && y < dungeonSize)
-                            {
-                                dungeonGrid[x, y] = 1;
-                            }
+                            Vector2Int pos = new Vector2Int(x, y);
+                            dungeonGrid[pos] = 1;
+                            
+                            // Update bounds
+                            this.minX = Mathf.Min(this.minX, x);
+                            this.minY = Mathf.Min(this.minY, y);
+                            this.maxX = Mathf.Max(this.maxX, x);
+                            this.maxY = Mathf.Max(this.maxY, y);
                         }
                     }
                 }
@@ -221,10 +266,14 @@ public class DungeonFloorGenerator : MonoBehaviour
                     {
                         for (int x = room.x - halfCorridorWidth; x <= room.x + halfCorridorWidth; x++)
                         {
-                            if (x >= 0 && x < dungeonSize && y >= 0 && y < dungeonSize)
-                            {
-                                dungeonGrid[x, y] = 1;
-                            }
+                            Vector2Int pos = new Vector2Int(x, y);
+                            dungeonGrid[pos] = 1;
+                            
+                            // Update bounds
+                            this.minX = Mathf.Min(this.minX, x);
+                            this.minY = Mathf.Min(this.minY, y);
+                            this.maxX = Mathf.Max(this.maxX, x);
+                            this.maxY = Mathf.Max(this.maxY, y);
                         }
                     }
                 }
@@ -233,75 +282,68 @@ public class DungeonFloorGenerator : MonoBehaviour
     }
 
     private void PlaceWalls()
-{
-    // Create a temporary copy of the grid to identify edge tiles
-    int[,] tempGrid = new int[dungeonSize, dungeonSize];
-    for (int x = 0; x < dungeonSize; x++)
     {
-        for (int y = 0; y < dungeonSize; y++)
+        // Create a copy of all floor positions
+        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
+        foreach (var kvp in dungeonGrid)
         {
-            tempGrid[x, y] = dungeonGrid[x, y];
+            if (kvp.Value == 1)
+                floorPositions.Add(kvp.Key);
         }
-    }
-    
-    // Check each cell in the grid
-    for (int x = 0; x < dungeonSize; x++)
-    {
-        for (int y = 0; y < dungeonSize; y++)
+        
+        // Define adjacent positions (8 directions - cardinal directions and diagonals)
+        int[] dx = { 0, 1, 1, 1, 0, -1, -1, -1 };
+        int[] dy = { 1, 1, 0, -1, -1, -1, 0, 1 };
+        
+        // For each floor position
+        foreach (Vector2Int pos in floorPositions)
         {
-            // Only check floor tiles
-            if (tempGrid[x, y] == 1) // Floor
+            // Check if this floor tile is on the edge (has at least one empty neighbor)
+            bool isEdge = false;
+            for (int i = 0; i < 8; i++)
             {
-                // Define adjacent positions (4 directions - only cardinal directions)
-                int[] dx = { 0, 1, 0, -1 };
-                int[] dy = { 1, 0, -1, 0 };
+                Vector2Int neighborPos = new Vector2Int(pos.x + dx[i], pos.y + dy[i]);
                 
-                // Check if this floor tile is on the edge (has at least one empty neighbor)
-                bool isEdge = false;
-                for (int i = 0; i < 4; i++)
+                // Check if empty
+                if (!dungeonGrid.ContainsKey(neighborPos) || dungeonGrid[neighborPos] == 0)
                 {
-                    int nx = x + dx[i];
-                    int ny = y + dy[i];
-                    
-                    // Check if out of bounds or empty
-                    if (nx < 0 || nx >= dungeonSize || ny < 0 || ny >= dungeonSize || tempGrid[nx, ny] == 0)
-                    {
-                        isEdge = true;
-                        break;
-                    }
+                    isEdge = true;
+                    break;
                 }
-                
-                // If this is an edge floor tile, also mark it as a wall
-                // We're keeping it as floor (1) AND adding it as wall (2)
-                // The InstantiateTiles method will need to check for this when placing tiles
-                if (isEdge)
-                {
-                    // Special value 3 means "both floor and wall"
-                    dungeonGrid[x, y] = 3; // Both floor and wall
-                }
+            }
+            
+            // If this is an edge floor tile, also mark it as a wall
+            if (isEdge)
+            {
+                dungeonGrid[pos] = 3; // Both floor and wall
             }
         }
     }
-}
 
     private void InstantiateTiles()
     {
-    for (int x = 0; x < dungeonSize; x++)
-    {
-        for (int y = 0; y < dungeonSize; y++)
+        // Only iterate through the bounds we've tracked
+        for (int x = minX; x <= maxX; x++)
         {
-            Vector3Int position = new Vector3Int(x, y, 0);
-            
-            if (dungeonGrid[x, y] == 1 || dungeonGrid[x, y] == 3) // floor or both
+            for (int y = minY; y <= maxY; y++)
             {
-                floorTilemap.SetTile(position, floorRuleTile);
-            }
-            
-            if (dungeonGrid[x, y] == 2 || dungeonGrid[x, y] == 3) // wall or both
-            {
-                wallTilemap.SetTile(position, wallRuleTile);
+                Vector2Int pos = new Vector2Int(x, y);
+                Vector3Int tilePos = new Vector3Int(x, y, 0);
+                
+                // Skip if no tile data at this position
+                if (!dungeonGrid.ContainsKey(pos))
+                    continue;
+                
+                if (dungeonGrid[pos] == 1 || dungeonGrid[pos] == 3) // floor or both
+                {
+                    floorTilemap.SetTile(tilePos, floorRuleTile);
+                }
+                
+                if (dungeonGrid[pos] == 2 || dungeonGrid[pos] == 3) // wall or both
+                {
+                    wallTilemap.SetTile(tilePos, wallRuleTile);
+                }
             }
         }
-    }
     }
 }

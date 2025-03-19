@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      masked_orc_run_anim_f3_0: 3092499122064598431
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

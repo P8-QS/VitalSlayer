@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      muddy_anim_f0_0: 6628885074908135177
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lizard_m_run_anim_f0_0: -5986459062345008770
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

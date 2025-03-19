@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tiny_zombie_idle_anim_f3_0: 1624180122519133251
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

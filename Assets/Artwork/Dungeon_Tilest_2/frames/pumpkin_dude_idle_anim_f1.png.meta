@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pumpkin_dude_idle_anim_f1_0: -748910592834371303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

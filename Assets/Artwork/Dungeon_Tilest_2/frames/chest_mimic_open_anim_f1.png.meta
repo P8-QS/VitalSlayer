@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      chest_mimic_open_anim_f1_0: 9211585275346177994
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

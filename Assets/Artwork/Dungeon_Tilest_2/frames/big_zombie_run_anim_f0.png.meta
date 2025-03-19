@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      big_zombie_run_anim_f0_0: -2386536363059612362
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

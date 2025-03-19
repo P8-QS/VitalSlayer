@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      swampy_anim_f0_0: 3130317160998252023
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

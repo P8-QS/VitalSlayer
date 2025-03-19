@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tiny_slug_anim_f3_0: -6870263189603159055
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

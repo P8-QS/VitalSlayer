@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      weapon_green_magic_staff_0: -7978405348980598168
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

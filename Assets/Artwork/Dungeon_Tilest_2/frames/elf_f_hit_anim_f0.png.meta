@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      elf_f_hit_anim_f0_0: -8954672858196175425
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

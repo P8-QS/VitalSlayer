@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      orc_warrior_run_anim_f2_0: 2443430465310193709
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ogre_run_anim_f3_0: -545197539548485119
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

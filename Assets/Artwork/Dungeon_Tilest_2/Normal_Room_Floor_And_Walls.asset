@@ -22,19 +22,18 @@ MonoBehaviour:
     - {fileID: -369446127, guid: ae8c72d3a8573cc44af587dc2f6f014c, type: 3}
     - {fileID: -572873721, guid: ae8c72d3a8573cc44af587dc2f6f014c, type: 3}
     - {fileID: -1125902290, guid: ae8c72d3a8573cc44af587dc2f6f014c, type: 3}
-    - {fileID: -1125902290, guid: ae8c72d3a8573cc44af587dc2f6f014c, type: 3}
     - {fileID: 625976652, guid: ae8c72d3a8573cc44af587dc2f6f014c, type: 3}
+    - {fileID: -957881652, guid: ae8c72d3a8573cc44af587dc2f6f014c, type: 3}
+    - {fileID: -59541844, guid: ae8c72d3a8573cc44af587dc2f6f014c, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
-    m_PerlinScale: 0.5
+    m_PerlinScale: 0.54
     m_Output: 1
     m_ColliderType: 1
     m_RandomTransform: 1
-    m_Neighbors: 01000000010000000100000001000000
+    m_Neighbors: 0100000001000000
     m_NeighborPositions:
-    - {x: 0, y: 1, z: 0}
-    - {x: 0, y: -1, z: 0}
     - {x: 1, y: 0, z: 0}
     - {x: -1, y: 0, z: 0}
     m_RuleTransform: 0

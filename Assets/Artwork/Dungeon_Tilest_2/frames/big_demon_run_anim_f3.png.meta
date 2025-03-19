@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      big_demon_run_anim_f3_0: 5680393513601933416
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

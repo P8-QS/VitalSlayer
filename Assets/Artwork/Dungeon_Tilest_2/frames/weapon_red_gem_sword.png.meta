@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      weapon_red_gem_sword_0: 1218884922012130997
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

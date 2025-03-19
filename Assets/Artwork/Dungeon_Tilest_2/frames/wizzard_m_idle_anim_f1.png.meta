@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wizzard_m_idle_anim_f1_0: 3919174867957437746
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

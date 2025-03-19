@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      angel_run_anim_f0_0: 8762378123169026558
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

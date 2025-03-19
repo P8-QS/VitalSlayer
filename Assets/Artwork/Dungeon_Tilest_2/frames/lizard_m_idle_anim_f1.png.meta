@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lizard_m_idle_anim_f1_0: -7626901540105629599
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
