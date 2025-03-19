@@ -1,0 +1,192 @@
+[
+  {
+    "startTime": "2025-05-14T08:47:27.309Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-05-16T03:47:27.308Z",
+    "endZoneOffset": "+01:00",
+    "count": 4044,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "68b442da-61f8-4b6c-a151-ec3de397581b",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-05-14T18:54:54.636Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-05-15T02:54:54.635Z",
+    "endZoneOffset": "+01:00",
+    "count": 9493,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "ee0f58a9-ef63-466f-9bb1-43f36d9ce390",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-04-26T01:53:08.603Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-04-26T10:53:08.602Z",
+    "endZoneOffset": "+01:00",
+    "count": 8991,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "f29d342c-756f-4a0d-a0e0-5520e065da5c",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-04-08T06:16:14.825Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-04-10T00:16:14.824Z",
+    "endZoneOffset": "+01:00",
+    "count": 6331,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "80fc7822-1218-4f05-a91b-5ff1b9aa4cb6",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-05-23T16:25:10.001Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-05-25T12:25:10.000Z",
+    "endZoneOffset": "+01:00",
+    "count": 3730,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "26b401cb-8dfb-4f2c-891d-cf11627ae916",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-05-15T00:47:34.218Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-05-15T16:47:34.217Z",
+    "endZoneOffset": "+01:00",
+    "count": 7646,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "78b10038-ffe3-4334-8bef-fc16b594ed1f",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-05-12T13:32:33.038Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-05-13T13:32:33.037Z",
+    "endZoneOffset": "+01:00",
+    "count": 2669,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "ba9e6ce7-7101-4ebc-9689-03b91046752e",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-05-04T17:33:46.541Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-05-05T06:33:46.540Z",
+    "endZoneOffset": "+01:00",
+    "count": 3774,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "ee677b17-61b4-47d8-b731-9b4a4251b053",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-05-07T11:52:42.146Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-05-09T05:52:42.145Z",
+    "endZoneOffset": "+01:00",
+    "count": 7081,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "64be85c9-25d7-4475-bd6b-94b6b4969834",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  },
+  {
+    "startTime": "2025-04-25T20:16:02.536Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-04-26T09:16:02.535Z",
+    "endZoneOffset": "+01:00",
+    "count": 4031,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "4b67935a-8fa8-4aaf-b60c-3d75093050c0",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  }
+]
