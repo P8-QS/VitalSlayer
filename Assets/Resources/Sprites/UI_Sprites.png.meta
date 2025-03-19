@@ -492,6 +492,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: minimap_base
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 355
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 4, y: 4, z: 4, w: 4}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 259fcef279cf9e4ff97dffd827758e77
+      internalID: -1305819460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -523,6 +545,7 @@ TextureImporter:
       metric_screen_time: -1068340718
       metric_sleep: -1584988502
       metric_steps: -1623889329
+      minimap_base: -1305819460
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
