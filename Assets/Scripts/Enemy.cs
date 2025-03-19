@@ -84,12 +84,4 @@ public class Enemy : Mover
         GameManager.instance.ShowText("+" + xpValue + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }
 
-    private void OnDestroy()
-    {
-        if (HealthBarManager.Instance != null)
-        {
-            HealthBarManager.Instance.UnregisterEntity(this);
-        }
-    }
-
 }

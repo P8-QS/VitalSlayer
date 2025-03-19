@@ -20,10 +20,7 @@ public class Fighter : MonoBehaviour
     private void Awake()
     {
         col = GetComponent<Collider2D>();
-        if (HealthBarManager.Instance != null)
-        {
-            HealthBarManager.Instance.RegisterEntity(this);
-        }
+        healthBar = GetComponentInChildren<HealthBar>();
     }
 
     protected virtual void ReceiveDamage(Damage dmg)
@@ -73,9 +70,9 @@ public class Fighter : MonoBehaviour
             // Show damage text
             GameManager.instance.ShowText(dmg.damageAmount.ToString(), fontSize, damageColor, textPosition, Vector3.up, 0.5f);
 
-            if (HealthBarManager.Instance != null)
+            if (healthBar != null)
             {
-                HealthBarManager.Instance.UpdateHealthBar(this);
+                healthBar.UpdateHealthBar();
             }
 
             if (hitpoint <= 0)
