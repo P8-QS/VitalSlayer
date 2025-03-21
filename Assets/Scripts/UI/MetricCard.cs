@@ -23,17 +23,42 @@ public class MetricCardUI : MonoBehaviour
         
         // Add icons dynamically, the metric icon should be added first
         // Instantiate image metric icon and attach to "icons" GameObject
-        AddIcon(metric.Icon);
-        AddIcon(metric.Effect.Icon);    
+        AddIcon(metric.Icon, false);
+        AddIcon(metric.Effect.Icon, true);    
     }
 
-    private void AddIcon(Sprite icon)
+    private void AddIcon(Sprite icon, bool display_level_indicator)
     {
         GameObject metricIconObject = new GameObject("Icon");
         metricIconObject.transform.SetParent(icons.transform);
         metricIconObject.transform.localScale = Vector3.one;
         var metricIconImage = metricIconObject.AddComponent<Image>();
         metricIconImage.sprite = icon;
+
+        if (cardMetric.Effect.Level > 0 && display_level_indicator) 
+        {
+            GameObject levelIndicatorBackground = new GameObject("LevelIndicatorBackground"); 
+            levelIndicatorBackground.transform.SetParent(metricIconObject.transform);
+            levelIndicatorBackground.transform.localScale = Vector3.one;
+            var levelIndicatorBackgroundImage = levelIndicatorBackground.AddComponent<Image>();
+            levelIndicatorBackgroundImage.color = Color.white;
+
+            GameObject levelIndicatorObject = new GameObject("LevelIndicator");
+            levelIndicatorObject.transform.SetParent(levelIndicatorBackground.transform);
+            levelIndicatorObject.transform.localScale = Vector3.one;
+            levelIndicatorObject.transform.localPosition = Vector3.zero;
+
+            var levelIndicatorText = levelIndicatorObject.AddComponent<TextMeshProUGUI>();
+            levelIndicatorText.text = $"{cardMetric.Effect.Level}";
+            levelIndicatorText.fontSize = 12;
+            levelIndicatorText.color = Color.black;  
+            levelIndicatorText.alignment = TextAlignmentOptions.Center;
+
+            var levelTextSize = levelIndicatorText.GetPreferredValues();
+            var backgroundRect = levelIndicatorBackground.GetComponent<RectTransform>();
+            backgroundRect.sizeDelta = new Vector2(levelTextSize.x + 2, levelTextSize.y); 
+            backgroundRect.localPosition = new Vector3(14, 12, 0);
+        }
     }
 
     public void OnClick()
