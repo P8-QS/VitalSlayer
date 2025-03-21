@@ -7017,10 +7017,10 @@ TextureImporter:
       name: 0x72_DungeonTilesetII_v1.7_273
       rect:
         serializedVersion: 2
-        x: 21
-        y: 95
-        width: 22
-        height: 28
+        x: 17
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7039,10 +7039,10 @@ TextureImporter:
       name: 0x72_DungeonTilesetII_v1.7_274
       rect:
         serializedVersion: 2
-        x: 53
-        y: 95
-        width: 22
-        height: 28
+        x: 49
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7061,10 +7061,10 @@ TextureImporter:
       name: 0x72_DungeonTilesetII_v1.7_275
       rect:
         serializedVersion: 2
-        x: 84
-        y: 95
-        width: 24
-        height: 27
+        x: 81
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7083,10 +7083,10 @@ TextureImporter:
       name: 0x72_DungeonTilesetII_v1.7_276
       rect:
         serializedVersion: 2
-        x: 117
-        y: 95
-        width: 22
-        height: 27
+        x: 113
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7105,10 +7105,10 @@ TextureImporter:
       name: 0x72_DungeonTilesetII_v1.7_277
       rect:
         serializedVersion: 2
-        x: 149
-        y: 95
-        width: 22
-        height: 28
+        x: 145
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7127,10 +7127,10 @@ TextureImporter:
       name: 0x72_DungeonTilesetII_v1.7_278
       rect:
         serializedVersion: 2
-        x: 181
-        y: 95
-        width: 22
-        height: 29
+        x: 177
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7149,10 +7149,10 @@ TextureImporter:
       name: 0x72_DungeonTilesetII_v1.7_279
       rect:
         serializedVersion: 2
-        x: 213
-        y: 95
-        width: 22
-        height: 30
+        x: 209
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7171,10 +7171,10 @@ TextureImporter:
       name: 0x72_DungeonTilesetII_v1.7_280
       rect:
         serializedVersion: 2
-        x: 244
-        y: 95
-        width: 24
-        height: 28
+        x: 241
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7256,13 +7256,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_284
+      name: red_boss_idle_02
       rect:
         serializedVersion: 2
-        x: 51
-        y: 47
-        width: 25
-        height: 33
+        x: 49
+        y: 48
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7278,13 +7278,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_285
+      name: red_boss_idle_03
       rect:
         serializedVersion: 2
-        x: 84
-        y: 47
-        width: 24
-        height: 33
+        x: 81
+        y: 48
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7300,13 +7300,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_286
+      name: red_boss_run_02
       rect:
         serializedVersion: 2
-        x: 179
-        y: 51
-        width: 24
-        height: 31
+        x: 177
+        y: 48
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7322,13 +7322,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_287
+      name: red_boss_run_03
       rect:
         serializedVersion: 2
-        x: 211
-        y: 47
-        width: 24
-        height: 36
+        x: 209
+        y: 48
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7388,13 +7388,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_290
+      name: red_boss_idle_01
       rect:
         serializedVersion: 2
-        x: 20
-        y: 47
-        width: 25
-        height: 32
+        x: 17
+        y: 48
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7410,13 +7410,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_291
+      name: red_boss_idle_04
       rect:
         serializedVersion: 2
-        x: 114
-        y: 47
-        width: 28
-        height: 30
+        x: 113
+        y: 48
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7432,13 +7432,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_292
+      name: red_boss_run_01
       rect:
         serializedVersion: 2
-        x: 147
-        y: 49
-        width: 24
-        height: 30
+        x: 145
+        y: 48
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7454,13 +7454,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_293
+      name: red_boss_run_04
       rect:
         serializedVersion: 2
-        x: 243
-        y: 47
-        width: 25
-        height: 30
+        x: 241
+        y: 48
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7783,17 +7783,9 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_281: -5527729797564131307
       0x72_DungeonTilesetII_v1.7_282: -5463493071869131177
       0x72_DungeonTilesetII_v1.7_283: 4693922956487183969
-      0x72_DungeonTilesetII_v1.7_284: 6335680934792989802
-      0x72_DungeonTilesetII_v1.7_285: -5255183512949842619
-      0x72_DungeonTilesetII_v1.7_286: -5944819349989806321
-      0x72_DungeonTilesetII_v1.7_287: -2868903046796085194
       0x72_DungeonTilesetII_v1.7_288: 5980345663193596801
       0x72_DungeonTilesetII_v1.7_289: -6179681055039524776
       0x72_DungeonTilesetII_v1.7_29: -2641371662018749091
-      0x72_DungeonTilesetII_v1.7_290: -5418932733711996721
-      0x72_DungeonTilesetII_v1.7_291: -1072456354155603112
-      0x72_DungeonTilesetII_v1.7_292: -6545802605014456263
-      0x72_DungeonTilesetII_v1.7_293: 5826320507970334121
       0x72_DungeonTilesetII_v1.7_294: 3258979074984140082
       0x72_DungeonTilesetII_v1.7_3: 6867809341995509054
       0x72_DungeonTilesetII_v1.7_30: 3914297699600369032
@@ -7855,6 +7847,7 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_98: 6662265692936726610
       0x72_DungeonTilesetII_v1.7_99: -2065985488211235582
       Dungeon_Tilset_II_Atlas_0: -1201552
+      Dungeon_Tilset_II_Atlas_1: -1916916789
       enemy_red_01_idle: 5469658372286618560
       enemy_red_01_mov: -6594126597430979414
       enemy_red_02_idle: -5045170969038034579
@@ -7875,6 +7868,14 @@ TextureImporter:
       player_run_anim_01: -7762440418981726469
       player_run_anim_02: 8494758609932232144
       player_run_anim_03: 3471258045059041173
+      red_boss_idle_01: -5418932733711996721
+      red_boss_idle_02: 6335680934792989802
+      red_boss_idle_03: -5255183512949842619
+      red_boss_idle_04: -1072456354155603112
+      red_boss_run_01: -6545802605014456263
+      red_boss_run_02: -5944819349989806321
+      red_boss_run_03: -2868903046796085194
+      red_boss_run_04: 5826320507970334121
       weapon_00: 4481688978213388326
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

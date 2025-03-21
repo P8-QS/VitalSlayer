@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Enemy : Mover 
+public class Enemy : Mover
 {
     // Experience
-    public int xpValue = 1;
+    // public int xpValue = 1;
 
     // Logic
     public float triggerLength = 1;
@@ -32,7 +32,8 @@ public class Enemy : Mover
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength){
+            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
+            {
                 chasing = true;
             }
 
@@ -79,8 +80,9 @@ public class Enemy : Mover
     protected override void Death()
     {
         Destroy(gameObject);
-        GameManager.instance.experience += xpValue;
-        GameManager.instance.ShowText("+" + xpValue + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        int xp = GameManager.instance.XpManager.AddEnemy(1);
+        // GameManager.instance.XpManager.Experience += xpValue;
+        GameManager.instance.ShowText("+" + xp + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }
 
 }
