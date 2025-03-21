@@ -74,7 +74,6 @@ public class Enemy : Mover
             // Reset array
             hits[i] = null;
         }
-
     }
 
     protected override void Death()
@@ -85,5 +84,4 @@ public class Enemy : Mover
         // GameManager.instance.XpManager.Experience += xpValue;
         GameManager.instance.ShowText("+" + xp + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }
-
 }

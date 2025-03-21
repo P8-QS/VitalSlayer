@@ -9,7 +9,7 @@ public class HealthBar : MonoBehaviour
     [Tooltip("The Fighter or Enemy component this health bar is tracking")]
     private MonoBehaviour targetEntity;
 
-    [Tooltip("Optional offset from the entity position")]
+    [Tooltip("Offset from the entity position")]
     public Vector3 offset = new Vector3(0, 0.005f, 0);
 
     [Tooltip("Whether to show the health bar only when damaged")]
@@ -21,15 +21,6 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     {
-        // Try to get Fighter component first
-        targetEntity = GetComponentInParent<Fighter>();
-
-        // If Fighter not found, try to get Enemy component
-        if (targetEntity == null)
-        {
-            targetEntity = GetComponentInParent<Enemy>();
-        }
-
         mainCamera = Camera.main;
 
         // Hide health bar initially if it should only show when damaged
@@ -39,23 +30,38 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        // Initial health display
-        UpdateHealthBar();
-    }
-
     private void LateUpdate()
     {
         if (targetEntity == null || fillImage == null)
+        {
+            // Target entity was destroyed, remove this health bar
+            if (targetEntity == null && gameObject != null)
+            {
+                Destroy(gameObject);
+            }
             return;
+        }
 
-        // Update the health display only, not the position
+        // Update position to follow the entity
+        UpdatePosition();
+
+        // Update the health display
         UpdateHealthBar();
+    }
+
+    private void UpdatePosition()
+    {
+        if (targetEntity != null)
+        {
+            transform.position = targetEntity.transform.position + offset;
+        }
     }
 
     public void UpdateHealthBar()
     {
+        if (targetEntity == null || fillImage == null)
+            return;
+
         // Get hitpoint and maxHitpoint based on the entity type
         GetEntityHealthValues();
 
@@ -69,10 +75,10 @@ public class HealthBar : MonoBehaviour
         }
 
         // Optional: Change color based on health percentage
-        if (fillImage)
-        {
-            //fillImage.color = Color.Lerp(Color.red, Color.green, healthPercentage);
-        }
+        // if (fillImage)
+        // {
+        //     fillImage.color = Color.Lerp(Color.red, Color.green, healthPercentage);
+        // }
     }
 
     private void GetEntityHealthValues()
@@ -95,23 +101,10 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    // Method to manually set the target entity (useful for prefab instantiation)
+    // Method to manually set the target entity (used by HealthBarManager)
     public void SetTarget(MonoBehaviour entity)
     {
         targetEntity = entity;
-        UpdateHealthBar();
-    }
-
-    // Overloaded methods for specific entity types
-    public void SetTarget(Fighter fighter)
-    {
-        targetEntity = fighter;
-        UpdateHealthBar();
-    }
-
-    public void SetTarget(Enemy enemy)
-    {
-        targetEntity = enemy;
         UpdateHealthBar();
     }
 }
