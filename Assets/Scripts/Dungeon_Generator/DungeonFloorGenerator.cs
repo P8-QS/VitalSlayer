@@ -18,7 +18,7 @@ public class DungeonFloorGenerator : MonoBehaviour
     public int roomCountMax = 10;
     [Tooltip("List of predefined room sizes to use randomly")]
     public List<RoomSize> predefinedRoomSizes = new List<RoomSize>();
-    public int roomSpacing = 2;  // Spacing between rooms (0 for directly adjacent)
+    public int roomSpacing = 0;  // Spacing between rooms (0 for directly adjacent)
 
     [Header("Tiles")]
     public RuleTile floorRuleTile;
