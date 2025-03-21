@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : Mover 
+public class Enemy : Mover
 {
     // Experience
     // public int xpValue = 1;
@@ -32,7 +32,8 @@ public class Enemy : Mover
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength){
+            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
+            {
                 chasing = true;
             }
 
