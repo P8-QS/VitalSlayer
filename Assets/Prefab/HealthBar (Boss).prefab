@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.5, y: 0.1}
+  m_SizeDelta: {x: 2.5, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7311835817121378291
 CanvasRenderer:
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 1366099401005237915}
   - component: {fileID: 551601018799657608}
   m_Layer: 0
-  m_Name: HealthBar
+  m_Name: HealthBar (Boss)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.45, y: 0.05}
+  m_SizeDelta: {x: 2.4, y: 0.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4046942906270460623
 CanvasRenderer:
@@ -235,7 +235,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.45, y: 0.05}
+  m_SizeDelta: {x: 2.4, y: 0.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8247982030670883675
 CanvasRenderer:
