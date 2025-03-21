@@ -33,15 +33,15 @@ public class ExperienceManager
     {   
         int level = 0;
         int xp = 0;
+
         while (xp <= totalXp)
         {
+            xp = LevelToXpRequired(level);
             level++;
-            xp += LevelToXpRequired(level);
         }
-        Debug.Log($"Level calc: {level - 1}");
+
         return level - 1;
     }
-
     // Calculates XP required to level up
     private int LevelToXpRequired(int level)
     {
@@ -49,18 +49,13 @@ public class ExperienceManager
         {
             return 50;
         }
-        return (int)(100 * Math.Pow(level, 1.5));
+        return (int)Math.Pow(level, 1.5)*100;
     }
 
     // Adds XP and handles level-ups
     private void AddExperience(int xp)
     {
         Experience += xp;
-        // if (Experience >= ExperienceMax)
-        // {
-        //     Level++;
-        //     ExperienceMax = CalculateLevelUpXp(Level);
-        // }
     }
 
     // XP gained from defeating an enemy
