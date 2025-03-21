@@ -330,7 +330,6 @@ MonoBehaviour:
   metricCardPrefab: {fileID: 747426323455854630, guid: 6e593d93709594422a4168ab7d7622a3, type: 3}
   parentPanel: {fileID: 492558334}
   modalParent: {fileID: 1533982759}
-  spriteAtlas: {fileID: 100100200, guid: fb448abf6165d45fdb14187b7cffc195, type: 3}
 --- !u!1 &982158275
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,7 +914,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1578690226, guid: f2feb29e344fa4c02ae213cb41dcb769, type: 3}
+  m_Sprite: {fileID: -2402611074831390270, guid: f2feb29e344fa4c02ae213cb41dcb769, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
