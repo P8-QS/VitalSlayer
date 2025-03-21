@@ -46,7 +46,7 @@ namespace Metrics {
         }
         public string Text()
         {
-            return $"You have slept {Data.SleepTime.TotalHours} hours and {Data.SleepTime.Minutes} minutes. This gives you {Effect.Text()}.";
+            return $"You have slept <b>{Data.SleepTime.TotalHours} hours and {Data.SleepTime.Minutes} minutes</b>. This gives you {Effect.Text()}.";
         }
         public string Description()
         {
