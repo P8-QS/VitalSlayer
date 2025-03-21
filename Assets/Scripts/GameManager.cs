@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     }
 
     public int experience;
-
+    
     public void SaveState(){
         Debug.Log("Saving game...");
      

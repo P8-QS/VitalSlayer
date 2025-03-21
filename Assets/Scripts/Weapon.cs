@@ -1,14 +1,15 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Weapon : Collidable
 {
-    public int minDamage = 1;
-    public int maxDamage = 5;
+    public int minDamage;
+    public int maxDamage;
     public float basePushForce = 2.0f;
     public float critChance = 0.1f; // 10% chance
     public float critMultiplier = 2.0f;
 
-    public int weaponLevel = 0;
+    public int weaponLevel;
     public SpriteRenderer spriteRenderer;
 
     private float cooldown = 0.5f;
@@ -22,7 +23,9 @@ public class Weapon : Collidable
         if (Time.time - lastSwing > cooldown)
         {
             lastSwing = Time.time;
-            Swing();
+            //Swing();
+            //getWeaponLevel();
+            calcWeaponDmg();
         }
     }
 
@@ -54,6 +57,21 @@ public class Weapon : Collidable
         }
     }
 
+    // Calculate weapon damage based on player level
+    private void calcWeaponDmg()
+    {
+        weaponLevel = getWeaponLevel();
+        int fighterLvl = Fighter.currentLevel;
+        float weaponDmg = (10f + (float)Mathf.Floor(4 * Mathf.Pow(fighterLvl, 1.2f)));
+        minDamage = Mathf.RoundToInt(weaponDmg * 0.5f);
+        maxDamage = Mathf.RoundToInt(weaponDmg * 1.5f);
+    }
+
+    private int getWeaponLevel()
+    {
+        return weaponLevel = Fighter.currentLevel;
+    }
+    
     private void Swing()
     {
         // Weapon swing logic

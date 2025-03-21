@@ -24,7 +24,7 @@ public class Enemy : Mover
         playerTransform = GameManager.instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
-
+        getEnemyHP();
     }
 
     protected void FixedUpdate()
@@ -78,6 +78,7 @@ public class Enemy : Mover
 
     protected override void Death()
     {
+        Debug.Log("Enemy died!");
         Destroy(gameObject);
         GameManager.instance.experience += xpValue;
         GameManager.instance.ShowText("+" + xpValue + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
