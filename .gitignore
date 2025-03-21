@@ -82,3 +82,7 @@ crashlytics-build.properties
 
 .vscode
 .DS_Store
+
+#misc
+Assets/External/TextMesh Pro/Resources/Fonts & Materials/MinecraftRegular SDF.asset
+Assets/External/TextMesh Pro/Resources/Fonts & Materials/MinecraftBold SDF.asset
