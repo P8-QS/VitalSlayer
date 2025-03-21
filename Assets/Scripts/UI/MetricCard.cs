@@ -17,9 +17,10 @@ public class MetricCardUI : MonoBehaviour
     public void SetMetric(IMetric metric)
     {
         cardMetric = metric;
-        if (titleText != null) titleText.text = metric.Name;
-        if (descriptionText != null) descriptionText.text = metric.Text();
 
+        titleText.text = cardMetric.Name;
+        descriptionText.text = cardMetric.Text();
+        
         // Add icons dynamically, the metric icon should be added first
         // Instantiate image metric icon and attach to "icons" GameObject
         AddIcon(metric.Icon);
@@ -44,13 +45,11 @@ public class MetricCardUI : MonoBehaviour
         // Get icons
         // Image[] iconImages = icons.GetComponentsInChildren<Image>();
         
-        
         // Create CardItems dynamically
         GameObject cardItem = Instantiate(cardItemPrefab, modalUI.content.transform);
         CardItemUI cardItemUI = cardItem.GetComponent<CardItemUI>();
-        var metricIcon = icons.transform.GetChild(0).GetComponent<Image>();
         
-        cardItemUI.SetCard(metricIcon.sprite , titleText.text, cardMetric.Description());
+        cardItemUI.SetCard(cardMetric.Icon, cardMetric.Name, cardMetric.Description());
         
         bool first = true;
         foreach (Transform icon in icons.transform)
@@ -64,9 +63,5 @@ public class MetricCardUI : MonoBehaviour
             CardItemUI effectItemUI = effectItem.GetComponent<CardItemUI>();
             effectItemUI.SetCard(cardMetric.Effect.Icon, cardMetric.Effect.Name, cardMetric.Effect.Description());
         }
-        
-        
-        
-        
     }
 }

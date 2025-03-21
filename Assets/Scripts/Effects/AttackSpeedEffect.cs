@@ -17,7 +17,7 @@ namespace Effects {
         }
         public string Text()
         {
-            return $"Increased attack speed";
+            return $"<color=green>Increased attack speed</color>";
         }
         public string Description()
         {

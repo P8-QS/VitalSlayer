@@ -14,6 +14,5 @@ public class CardItemUI : MonoBehaviour
         if (titleText != null) titleText.text = title;
         if (descriptionText != null) descriptionText.text = description;
         if (icon != null) icon.sprite = cardIcon;
-        
     }
 }
