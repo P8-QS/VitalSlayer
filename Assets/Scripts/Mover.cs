@@ -1,19 +1,17 @@
-using System;
 using UnityEngine;
 
 public abstract class Mover : Fighter
 {
-
     protected Vector3 initialSize;
     protected BoxCollider2D boxCollider;
     protected Vector3 moveDelta;
     protected RaycastHit2D hit;
-    public float ySpeed = 0.75f;
-    public float xSpeed = 1.0f;
-    public Tuple<Transform, Vector3>[] nonFlippingChildrenAndScale;
+    protected float ySpeed = 0.75f;
+    protected float xSpeed = 1.0f;
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start(); // Call Fighter's Start method
         boxCollider = GetComponent<BoxCollider2D>();
         initialSize = transform.localScale;
     }
@@ -54,5 +52,4 @@ public abstract class Mover : Fighter
             transform.Translate(moveDelta.x * Time.deltaTime, 0, 0);
         }
     }
-
 }

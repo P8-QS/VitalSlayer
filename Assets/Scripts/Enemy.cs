@@ -24,7 +24,6 @@ public class Enemy : Mover
         playerTransform = GameManager.instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
-
     }
 
     protected void FixedUpdate()
@@ -74,14 +73,15 @@ public class Enemy : Mover
             // Reset array
             hits[i] = null;
         }
-
     }
 
     protected override void Death()
     {
+        // Call base to remove health bar
+        base.Death();
+
         Destroy(gameObject);
         GameManager.instance.experience += xpValue;
         GameManager.instance.ShowText("+" + xpValue + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }
-
 }
