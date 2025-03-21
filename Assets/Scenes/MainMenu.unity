@@ -289,8 +289,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 148.93523}
-  m_SizeDelta: {x: 354.8, y: 50}
+  m_AnchoredPosition: {x: 0, y: 147.32516}
+  m_SizeDelta: {x: 440, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &620295147
 MonoBehaviour:
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play now to gain XP.
+  m_text: Play now to get bonus XP.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a27f3737d49544501a5c77c507c338d5, type: 2}
   m_sharedMaterial: {fileID: -6389779571777640306, guid: a27f3737d49544501a5c77c507c338d5, type: 2}
@@ -339,8 +339,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1578690226, guid: f2feb29e344fa4c02ae213cb41dcb769, type: 3}
+  m_Sprite: {fileID: -2402611074831390270, guid: f2feb29e344fa4c02ae213cb41dcb769, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -773,7 +773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 161.81618}
+  m_AnchoredPosition: {x: -195.22598, y: 165.03639}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1417425879
@@ -1070,7 +1070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4edf6cc208a4990b4f9c64186a3dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xpReady: 1
+  xpBonus: 0
   countdownText: {fileID: 620295147}
   cooldownIcon: {fileID: 1417425877}
 --- !u!1 &1961468691
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -231460696, guid: f2feb29e344fa4c02ae213cb41dcb769, type: 3}
+  m_Sprite: {fileID: 1621712137103933385, guid: f2feb29e344fa4c02ae213cb41dcb769, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
