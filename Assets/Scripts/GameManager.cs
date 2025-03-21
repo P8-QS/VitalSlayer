@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         floatingTextManager.Show(msg, fontSize, color, position, motion, duration);
     }
 
-    public int experience;
+    public ExperienceManager XpManager = new ExperienceManager(0);
 
     public void SaveState(){
         Debug.Log("Saving game...");
@@ -37,11 +37,10 @@ public class GameManager : MonoBehaviour
         string s = "";
 
         s += "0" + "|";
-        s += experience.ToString() + "|";
+        s += XpManager.Experience + "|";
         s += "0";
 
         PlayerPrefs.SetString("SaveState", s);
-
     }
 
     public void LoadState(Scene s, LoadSceneMode mode){
@@ -51,11 +50,9 @@ public class GameManager : MonoBehaviour
         }
 
         string[] data = PlayerPrefs.GetString("SaveState").Split('|');
-        experience = int.Parse(data[1]);
+        int experience = int.Parse(data[1]);
+        XpManager.Experience = experience;
 
         Debug.Log("Loading game...");
     }
-
-
-
 }
