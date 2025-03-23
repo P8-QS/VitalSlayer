@@ -2,9 +2,12 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+Assets/Resources/PerformanceTest*.*
+
 .vscode/
 .idea/
 
+Export/
 *_DoNotShip/
 .utmp/
 /[Ll]ibrary/
@@ -78,3 +81,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .vscode
+.DS_Store
+
+#misc
+Assets/External/TextMesh Pro/Resources/Fonts & Materials/MinecraftRegular SDF.asset
+Assets/External/TextMesh Pro/Resources/Fonts & Materials/MinecraftBold SDF.asset

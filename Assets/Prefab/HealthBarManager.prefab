@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6751840316327776937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2869388674940833035}
+  - component: {fileID: 6035740301828732056}
+  m_Layer: 0
+  m_Name: HealthBarManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2869388674940833035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751840316327776937}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.44038174, y: -0.61471605, z: -0.0022499994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6035740301828732056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751840316327776937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23dab5d68b7b384b8307b1560c588b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standardHealthBarPrefab: {fileID: 674234524941047591, guid: 6239ed9b84449584db2cb20ed2bfe1d1, type: 3}
+  bossHealthBarPrefab: {fileID: 674234524941047591, guid: 43d5bfae842637940b27b5619459eff7, type: 3}
+  healthBarContainer: {fileID: 2869388674940833035}
+  showOnlyWhenDamaged: 0
+  defaultOffset: {x: 0, y: -0.4, z: 0}
+  bossOffset: {x: 0, y: -1.4, z: 0}
+  autoAdjustOffsetBySize: 0
+  offsetMultiplier: -0.75
