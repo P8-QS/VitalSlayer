@@ -30,6 +30,9 @@ public class Fighter : MonoBehaviour
         {
             healthBar = HealthBarManager.Instance.CreateHealthBar(this);
         }
+
+        maxHitpoint = 100 + (int)(25 + Mathf.Pow(Fighter.currentLevel, 1.2f));
+        hitpoint = maxHitpoint;
     }
 
     protected virtual void OnDestroy()
@@ -40,7 +43,7 @@ public class Fighter : MonoBehaviour
             HealthBarManager.Instance.RemoveHealthBar(this);
         }
     }
-    
+
     protected virtual void ReceiveDamage(Damage dmg)
     {
         if (Time.time - lastImmune > immuneTime)
@@ -121,23 +124,6 @@ public class Fighter : MonoBehaviour
         return transform.position; // Fallback in case there's no recognized collider
     }
 
-    public int getHP()
-    {
-       return hitpoint = 100 + (int)(25 + Mathf.Pow(Fighter.currentLevel, 1.2f));
-    }
-    
-    public int getEnemyHP()
-    {
-        // placeholder for enemy HP calculation
-        int enemyLevel = 3;
-        return hitpoint = 100 + (int)(25 + Mathf.Pow(enemyLevel, 1.2f));
-    }
-    
-    public int getMaxHP()
-    {
-        return maxHitpoint = hitpoint;
-    }
-    
     protected virtual void Death()
     {
         // This method is meant to be overwritten 4Head
