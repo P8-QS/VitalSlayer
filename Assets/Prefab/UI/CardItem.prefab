@@ -278,8 +278,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Card description
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a27f3737d49544501a5c77c507c338d5, type: 2}
-  m_sharedMaterial: {fileID: -6389779571777640306, guid: a27f3737d49544501a5c77c507c338d5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -416,8 +416,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 711310687, guid: f2feb29e344fa4c02ae213cb41dcb769, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
