@@ -571,6 +571,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: minimap_base
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 355
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 4, y: 4, z: 4, w: 4}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 259fcef279cf9e4ff97dffd827758e77
+      internalID: -1305819460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -585,26 +607,24 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      : 2877471580529523173
-      button_card: -2880039246694366597
-      button_dark: -2369558260284867694
-      button_primary: 1621712137103933385
-      button_secondary: -2402611074831390270
-      effect_attack_speed: -2359984933692307148
-      effect_base: 735780240
-      effect_base_negative: 7265756581868692817
-      effect_base_positive: -2578030446746308853
-      effect_fog: -2336768272973540406
-      effect_hallucination: 4544837450065402481
-      effect_map: -364291328
-      effect_scouting: 8166844978939085561
-      icon_clock: -1642353428
-      icon_close: 518828769069066840
-      icon_help: 5214974915612636292
-      metric_base: 5881963870480013843
-      metric_screen_time: 8652689768677364015
-      metric_sleep: 1476171199897551410
-      metric_steps: 8265396802142756210
+      button_card: 711310687
+      button_dark: 1584948281
+      button_primary: -231460696
+      button_secondary: -1578690226
+      effect_attack_speed: -230250835
+      effect_base_negative: -1510483472
+      effect_base_positive: 1603008240
+      effect_fog: 477256500
+      effect_hallucination: 1397055168
+      effect_scouting: 2133868775
+      icon_clock: 1355181629
+      icon_close: 1150477062
+      icon_help: 969690327
+      metric_base: 540699176
+      metric_screen_time: -1068340718
+      metric_sleep: -1584988502
+      metric_steps: -1623889329
+      minimap_base: -1305819460
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
