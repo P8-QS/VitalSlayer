@@ -6,6 +6,11 @@ using System.Collections.Generic;
 // Predefined room sizes, lets say 3 different types. 20x20, 30x30, 40x40
 public class DungeonFloorGenerator : MonoBehaviour
 {
+    public void Start() {
+        GenerateDungeon();
+    }
+
+
     [System.Serializable]
     public struct RoomSize
     {
