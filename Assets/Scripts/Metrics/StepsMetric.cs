@@ -40,7 +40,7 @@ namespace Metrics {
         public string Text()
         {
             string formattedSteps = Data.StepsCount.ToString("N0");
-            return $"You have taken {formattedSteps} steps. This gives you {Effect.Text()}";
+            return $"You have taken <b>{formattedSteps} steps</b>. This gives you {Effect.Text()}.";
         }
         public string Description()
         {

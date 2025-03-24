@@ -17,7 +17,7 @@ namespace Effects {
         }
         public string Text()
         {
-            return $"hallucination level {Level}";
+            return $"<color=red>hallucination level {Level}</color>";
         }
         public string Description()
         {

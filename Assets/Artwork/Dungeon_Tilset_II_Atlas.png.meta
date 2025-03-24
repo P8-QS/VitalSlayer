@@ -7519,6 +7519,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: player_minimap
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 188
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d205cd2c76de8b307a79d19a87768afb
+      internalID: -102326715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_red_minimap
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 189
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89515df90d002cb50a6052e1bf13a42e
+      internalID: -684398797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -7812,11 +7856,13 @@ TextureImporter:
       enemy_red_03_mov: -2362262972533718839
       enemy_red_04_idle: 3364420986687794538
       enemy_red_04_mov: 1341905317818791140
+      enemy_red_minimap: -684398797
       player_hit_anim_00: -3424016768271279003
       player_idle_anim_00: 4265638018674371071
       player_idle_anim_01: 5579335266590474791
       player_idle_anim_02: 3024294334022642555
       player_idle_anim_03: -3857538110874382113
+      player_minimap: -102326715
       player_run_: -7762440418981726469
       player_run_anim_00: -1061906478194804154
       player_run_anim_01: -7762440418981726469
