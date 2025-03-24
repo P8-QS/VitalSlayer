@@ -9,13 +9,13 @@ public class XpBar : MonoBehaviour
     public void Start()
     {
         var xpManager = GameManager.instance.XpManager;
-        SetXp(xpManager.Experience,xpManager.ExperienceMax);
+        SetXp(xpManager.Experience, xpManager.ExperienceMax);
     }
     
     public void Update()
     {
         var xpManager = GameManager.instance.XpManager;
-        SetXp(xpManager.Experience,xpManager.ExperienceMax);
+        SetXp(xpManager.Experience, xpManager.ExperienceMax);
     }
 
     private void SetXp(int xp, int maxXp)

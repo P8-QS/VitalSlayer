@@ -8,7 +8,14 @@ public class CameraMotor : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (lookAt == null)
+        {
+            Debug.Log("LookAt transform is null or has been destroyed");
+            return;
+        }
+        
         Vector3 delta = Vector3.zero;
+
 
         // Check if inside the bounds on the X axis
         float deltaX = lookAt.position.x - transform.position.x;
