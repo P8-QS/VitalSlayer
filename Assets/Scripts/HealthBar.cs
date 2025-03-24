@@ -59,6 +59,7 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateHealthBar()
     {
+        Debug.Log("Updating health bar");
         if (targetEntity == null || fillImage == null)
             return;
 
@@ -83,6 +84,7 @@ public class HealthBar : MonoBehaviour
 
     private void GetEntityHealthValues()
     {
+        Debug.Log("Getting entity health values" + targetEntity + " " + targetEntity.GetType());
         if (targetEntity is Fighter fighter)
         {
             currentHitpoint = fighter.hitpoint;

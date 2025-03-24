@@ -24,7 +24,6 @@ public class Enemy : Mover
         playerTransform = GameManager.instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
-        getEnemyHP();
     }
 
     protected void FixedUpdate()
