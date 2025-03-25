@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     public Player player;
     public FloatingTextManager floatingTextManager;
 
+    public GameObject gameSummaryPrefab;
+    public Transform summaryPanel;
+
     public void ShowText(string msg, int fontSize, Color color, Vector3 position, Vector3 motion, float duration){
         floatingTextManager.Show(msg, fontSize, color, position, motion, duration);
     }
@@ -55,7 +58,16 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Loading game...");
     }
-
-
+    
+    public void ShowGameSummary(bool gameWon){
+        Debug.Log("Game over!");
+        GameObject go = Instantiate(gameSummaryPrefab, summaryPanel);
+        GameSummary summary = go.GetComponent<GameSummary>();
+        summary.gameWon = gameWon;
+        
+        summary.AddSummaryItem("Current level", XpManager.Level.ToString());
+        summary.AddSummaryItem("Current experience", XpManager.Experience.ToString());
+    }
+    
 
 }

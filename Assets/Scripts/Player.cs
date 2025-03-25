@@ -23,6 +23,7 @@ public class Player : Mover
     {
         Debug.Log("player died");
         Destroy(gameObject);
+        GameManager.instance.ShowGameSummary(true);
     }
 
 }

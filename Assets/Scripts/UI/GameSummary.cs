@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameSummary : MonoBehaviour
@@ -37,7 +38,8 @@ public class GameSummary : MonoBehaviour
     }
     
     public void OnButtonClick() {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        Debug.Log("OnButtonClick GO TO MENU!=!=!=");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
     
         

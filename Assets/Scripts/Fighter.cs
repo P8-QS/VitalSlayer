@@ -127,5 +127,6 @@ public class Fighter : MonoBehaviour
     protected virtual void Death()
     {
         // This method is meant to be overwritten 4Head
+        
     }
 }
