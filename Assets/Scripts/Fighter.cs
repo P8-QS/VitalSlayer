@@ -9,10 +9,11 @@ public class Fighter : MonoBehaviour
     public static int currentLevel = 3;
 
     // Immunity
-    private float immuneTime = 1.0f;
-    private float lastImmune;
+    protected float immuneTime = 1.0f;
+    protected float lastImmune;
 
     protected HealthBar healthBar;
+    protected DamageFlash damageFlash;
 
     protected Vector3 pushDirection;
 
@@ -21,6 +22,7 @@ public class Fighter : MonoBehaviour
     private void Awake()
     {
         col = GetComponent<Collider2D>();
+        damageFlash = GetComponent<DamageFlash>();
     }
 
     protected virtual void Start()
@@ -90,6 +92,12 @@ public class Fighter : MonoBehaviour
 
             // Show damage text
             GameManager.instance.ShowText(dmg.damageAmount.ToString(), fontSize, damageColor, textPosition, Vector3.up, 0.5f);
+
+            // Flash the sprite
+            if (damageFlash != null)
+            {
+                damageFlash.CallDamageFlash(damageColor);
+            }
 
             // Update health bar if it exists
             if (healthBar != null)
