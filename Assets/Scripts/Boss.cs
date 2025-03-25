@@ -22,8 +22,8 @@ public class Boss : Enemy
         Destroy(gameObject);
         int xp = GameManager.instance.XpManager.AddBoss(1);
         GameManager.instance.summaryManager.AddBoss();
-        // GameManager.instance.XpManager.Experience += xpValue;
         GameManager.instance.ShowText("+" + xp + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        GameManager.instance.summaryManager.Show();
     }
 
 

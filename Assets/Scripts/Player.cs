@@ -58,8 +58,7 @@ public class Player : Mover
         Debug.Log("player died");
 
         Destroy(gameObject);
-        bool gameWon = GameManager.instance.summaryManager.bossesKilled > 0;
-        GameManager.instance.summaryManager.Show(gameWon);
+        GameManager.instance.summaryManager.Show();
     }
 
     private void Animate(Vector3 input)

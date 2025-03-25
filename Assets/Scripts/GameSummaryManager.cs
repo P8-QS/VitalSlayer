@@ -39,19 +39,22 @@ public class GameSummaryManager : MonoBehaviour
     }
     
     
-    public void Show(bool gameWon){
+    public void Show(){
         Debug.Log("Game over!");
         GameObject go = Instantiate(gameSummaryPrefab, parentPanel);
         GameSummaryUI summaryUI = go.GetComponent<GameSummaryUI>();
-        summaryUI.gameWon = gameWon;
         
-        summaryUI.AddSummaryItem("Enemies slain", enemiesKilled.ToString());
+        summaryUI.gameWon =  bossesKilled > 0;
+        
+        int totalEnemies = enemiesKilled + bossesKilled;
+        
+        summaryUI.AddSummaryItem("Enemies slain", totalEnemies.ToString());
 
         var xpManager = GameManager.instance.XpManager;
         int xpGained = xpManager.Experience - xpStart;
         int levelGained = xpManager.Level - levelStart;
         
         summaryUI.AddSummaryItem("Experience gained", xpGained.ToString());
-        summaryUI.AddSummaryItem("Level gained", levelGained.ToString());
+        summaryUI.AddSummaryItem("Levels gained", levelGained.ToString());
     }
 }
