@@ -9,7 +9,7 @@ public class Fighter : MonoBehaviour
     public static int currentLevel = 3;
 
     // Immunity
-    private float immuneTime = 1.0f;
+    private float immuneTime = 0.5f;
     private float lastImmune;
 
     protected HealthBar healthBar;
@@ -31,7 +31,7 @@ public class Fighter : MonoBehaviour
             healthBar = HealthBarManager.Instance.CreateHealthBar(this);
         }
 
-        maxHitpoint = 100 + (int)(25 + Mathf.Pow(Fighter.currentLevel, 1.2f));
+        maxHitpoint = 100 + (int)(25 + Mathf.Pow(currentLevel, 1.2f));
         hitpoint = maxHitpoint;
     }
 
@@ -44,7 +44,7 @@ public class Fighter : MonoBehaviour
         }
     }
 
-    protected virtual void ReceiveDamage(Damage dmg)
+    public virtual void ReceiveDamage(Damage dmg)
     {
         if (Time.time - lastImmune > immuneTime)
         {
