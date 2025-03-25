@@ -22,7 +22,7 @@ public class ExperienceManager
         }
     }
     public int ExperienceMax { get; private set; }
-    public int Level { get; private set; }
+    public int Level { get; private set; } = 1;
 
     public ExperienceManager(int xp = 0)
     {
@@ -31,7 +31,7 @@ public class ExperienceManager
 
     private int CalculateLevelFromTotalXp(int totalXp)
     {   
-        int level = 0;
+        int level = 1;
         int xp = 0;
 
         while (xp <= totalXp)
@@ -45,10 +45,6 @@ public class ExperienceManager
     // Calculates XP required to level up
     private int LevelToXpRequired(int level)
     {
-        if (level == 0)
-        {
-            return 50;
-        }
         return (int)Math.Pow(level, 1.5)*100;
     }
 
