@@ -23,7 +23,8 @@ public class Player : Mover
     {
         Debug.Log("player died");
         Destroy(gameObject);
-        GameManager.instance.ShowGameSummary(true);
+        bool gameWon = GameManager.instance.summaryManager.bossesKilled > 0;
+        GameManager.instance.summaryManager.Show(gameWon);
     }
 
 }

@@ -80,6 +80,7 @@ public class Enemy : Mover
         Debug.Log("Enemy died!");
         Destroy(gameObject);
         int xp = GameManager.instance.XpManager.AddEnemy(1);
+        GameManager.instance.summaryManager.AddEnemy();
         // GameManager.instance.XpManager.Experience += xpValue;
         GameManager.instance.ShowText("+" + xp + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }

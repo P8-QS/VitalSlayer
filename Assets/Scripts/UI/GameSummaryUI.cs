@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameSummary : MonoBehaviour
+public class GameSummaryUI : MonoBehaviour
 {
     public GameObject summaryItemPrefab;
     public TextMeshProUGUI summaryTitleText;
@@ -38,8 +38,7 @@ public class GameSummary : MonoBehaviour
     }
     
     public void OnButtonClick() {
-        Debug.Log("OnButtonClick GO TO MENU!=!=!=");
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
     
         
