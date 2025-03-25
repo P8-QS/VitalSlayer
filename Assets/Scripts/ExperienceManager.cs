@@ -67,9 +67,9 @@ public class ExperienceManager
     }
 
     // XP gained from defeating a boss
-    public int AddBoss(int enemyLevel)
+    public int AddBoss(int bossLevel)
     {
-        int xp =  30 * (enemyLevel * enemyLevel);
+        int xp =  30 * (bossLevel * bossLevel);
         AddExperience(xp);
         return xp;
     }

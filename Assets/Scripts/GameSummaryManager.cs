@@ -51,8 +51,7 @@ public class GameSummaryManager : MonoBehaviour
         int xpGained = xpManager.Experience - xpStart;
         int levelGained = xpManager.Level - levelStart;
         
-        
-        summaryUI.AddSummaryItem("Experience gained", xpManager.Level.ToString());
-        summaryUI.AddSummaryItem("Level gained", xpManager.Experience.ToString());
+        summaryUI.AddSummaryItem("Experience gained", xpGained.ToString());
+        summaryUI.AddSummaryItem("Level gained", levelGained.ToString());
     }
 }
