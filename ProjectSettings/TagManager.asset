@@ -60,5 +60,11 @@ TagManager:
   - name: Floating Text
     uniqueID: 2411142545
     locked: 0
+  - name: Decorations
+    uniqueID: 440850033
+    locked: 0
+  - name: Props
+    uniqueID: 2773871127
+    locked: 0
   m_RenderingLayers:
   - Default
