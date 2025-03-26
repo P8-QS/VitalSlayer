@@ -18,8 +18,8 @@ public class GameSummaryManager : MonoBehaviour
     
     void Start()
     {
-        xpStart = GameManager.instance.XpManager.Experience;
-        levelStart = GameManager.instance.XpManager.Level;
+        xpStart = ExperienceManager.Instance.Experience;
+        levelStart = ExperienceManager.Instance.Level;
     }
 
     // Update is called once per frame
@@ -44,13 +44,22 @@ public class GameSummaryManager : MonoBehaviour
         GameObject go = Instantiate(gameSummaryPrefab, parentPanel);
         GameSummaryUI summaryUI = go.GetComponent<GameSummaryUI>();
         
-        summaryUI.gameWon =  bossesKilled > 0;
+        ExperienceManager.Instance.ResetCooldown();
+        
+        var gameWon = bossesKilled > 0;
+        
+        if (gameWon)
+        {
+            ExperienceManager.Instance.AddGameWin();
+        }
+        
+        summaryUI.gameWon =  gameWon;
         
         int totalEnemies = enemiesKilled + bossesKilled;
         
         summaryUI.AddSummaryItem("Enemies slain", totalEnemies.ToString());
 
-        var xpManager = GameManager.instance.XpManager;
+        var xpManager = ExperienceManager.Instance;
         int xpGained = xpManager.Experience - xpStart;
         int levelGained = xpManager.Level - levelStart;
         

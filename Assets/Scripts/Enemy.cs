@@ -78,7 +78,7 @@ public class Enemy : Mover
     protected override void Death()
     {
         Destroy(gameObject);
-        int xp = GameManager.instance.XpManager.AddEnemy(1);
+        int xp = ExperienceManager.Instance.AddEnemy(1);
         GameManager.instance.summaryManager.AddEnemy();
         // GameManager.instance.XpManager.Experience += xpValue;
         GameManager.instance.ShowText("+" + xp + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
