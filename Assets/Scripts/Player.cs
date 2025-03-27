@@ -11,6 +11,9 @@ public class Player : Mover
 
     protected override void Start()
     {
+        currentLevel = ExperienceManager.Instance.Level;
+        maxHitpoint = 100 + (int)(25 + Mathf.Pow(Fighter.currentLevel, 1.2f));
+        hitpoint = maxHitpoint;
         base.Start();
         boxCollider = GetComponent<BoxCollider2D>();
         joystickMove = GetComponent<JoystickMove>();
@@ -23,6 +26,7 @@ public class Player : Mover
 
     private void Update()
     {
+        currentLevel = ExperienceManager.Instance.Level;
         if (hitAnimationTimer > 0)
         {
             hitAnimationTimer -= Time.deltaTime;

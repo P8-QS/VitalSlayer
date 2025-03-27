@@ -6,7 +6,7 @@ public class Fighter : MonoBehaviour
     public int hitpoint;
     public int maxHitpoint;
     public float pushRecoverySpeed = 0.2f;
-    public static int currentLevel = 3;
+    public static int currentLevel;
 
     // Immunity
     protected float immuneTime = 1.0f;
@@ -32,7 +32,7 @@ public class Fighter : MonoBehaviour
         {
             healthBar = HealthBarManager.Instance.CreateHealthBar(this);
         }
-
+        currentLevel = ExperienceManager.Instance.Level;
         maxHitpoint = 100 + (int)(25 + Mathf.Pow(Fighter.currentLevel, 1.2f));
         hitpoint = maxHitpoint;
     }
