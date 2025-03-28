@@ -33,7 +33,6 @@ public class Weapon : Collidable
         }
     }
 
-    // Calculate weapon damage based on player level
     private Damage calcWeaponDmg()
     {
         int fighterLvl = Fighter.currentLevel;
