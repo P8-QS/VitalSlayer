@@ -27,7 +27,7 @@ public class ExperienceManager
     /// <summary>
     /// The bonus multiplier for experience.
     /// </summary>
-    private const double BonusXpMultiplier = 1.5;
+    public readonly double BonusXpMultiplier = 1.5;
 
     /// <summary>
     /// Whether the bonus multiplier is enabled.
@@ -64,6 +64,9 @@ public class ExperienceManager
     /// </summary>
     public int Level { get; private set; } = 1;
 
+    /// <summary>
+    /// The time when the bonus multiplier cooldown ends.
+    /// </summary>
     public DateTime CooldownEnd;
 
     /// <summary>
@@ -134,10 +137,17 @@ public class ExperienceManager
 
     /// <summary>
     /// Resets the cooldown for the bonus multiplier.
+    /// The cooldown is set to the next day at 5 AM.
     /// </summary>
     public void ResetCooldown()
     {
-        CooldownEnd = DateTime.Now.AddDays(1);
+        var now = DateTime.Now;
+        var nextReset = new DateTime(now.Year, now.Month, now.Day, 5, 0, 0);
+        if (now > nextReset)
+        {
+            nextReset = nextReset.AddDays(1);
+        }
+        CooldownEnd = nextReset;
         PlayerPrefs.SetString("Cooldown", CooldownEnd.ToString());
     }
 

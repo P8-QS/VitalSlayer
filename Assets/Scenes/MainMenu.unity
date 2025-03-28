@@ -312,7 +312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play now to get bonus XP.
+  m_text: Play now to get ##% bonus XP!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a27f3737d49544501a5c77c507c338d5, type: 2}
   m_sharedMaterial: {fileID: -6389779571777640306, guid: a27f3737d49544501a5c77c507c338d5, type: 2}
@@ -1070,7 +1070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4edf6cc208a4990b4f9c64186a3dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xpBonus: 0
   countdownText: {fileID: 620295147}
   cooldownIcon: {fileID: 1417425877}
 --- !u!1 &1961468691
