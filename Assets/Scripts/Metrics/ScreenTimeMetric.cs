@@ -10,7 +10,7 @@ namespace Metrics {
         private long _data;
         private IEffect _effect;
         private Sprite _icon;
-        public string Name => "Screen time";
+        public string Name => "Screen Time";
         public long Data
         {
             get => _data;
