@@ -1,10 +1,7 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Weapon : Collidable
 {
-    // public int minDamage;
-    // public int maxDamage;
     public float basePushForce = 2.0f;
     public float critChance = 0.1f; // 10% chances
     public float critMultiplier = 2.0f;

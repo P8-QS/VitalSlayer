@@ -23,5 +23,9 @@ namespace Effects {
             return "You can see adjacent rooms on the minimap.";
         }
 
+        public void Apply()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
