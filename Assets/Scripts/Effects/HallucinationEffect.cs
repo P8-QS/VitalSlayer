@@ -29,5 +29,9 @@ namespace Effects {
             };
         }
 
+        public void Apply()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

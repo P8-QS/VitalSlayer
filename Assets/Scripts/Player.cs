@@ -1,10 +1,13 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Player : Mover
 {
     public Animator animator;
     private JoystickMove joystickMove;
+    public float attackCooldown = 2.0f;
+    public float lastAttackTime = 0f;
+    private Weapon weapon;
+    private Animator weaponAnimator;
 
     private float hitAnimationTimer = 0f;
     private const float HIT_ANIMATION_DURATION = 0.15f; // Duration in seconds
@@ -18,6 +21,9 @@ public class Player : Mover
         boxCollider = GetComponent<BoxCollider2D>();
         joystickMove = GetComponent<JoystickMove>();
         initialSize = transform.localScale;
+        GameObject weaponObj = transform.Find("weapon_00").gameObject;
+        weapon = weaponObj.GetComponent<Weapon>();
+        weaponAnimator = weaponObj.GetComponent<Animator>();
 
         // Get the animator component if not already assigned in Inspector
         if (animator == null)
@@ -46,9 +52,24 @@ public class Player : Mover
         Vector3 input = new Vector3(joystickMove.movementJoystick.Direction.x, joystickMove.movementJoystick.Direction.y, 0);
         Animate(input);
         UpdateMotor(input);
+        
+        if (Time.time >= lastAttackTime + attackCooldown) {
+            Attack();
+        }
     }
 
-    protected override void ReceiveDamage(Damage dmg)
+    public void Attack() {
+        lastAttackTime = Time.time;
+        weaponAnimator.SetTrigger("Attack");
+        weapon.canAttack = true;
+        Invoke(nameof(DisableWeaponCollider),  0.3f);
+    }
+
+    public void DisableWeaponCollider() {
+        weapon.canAttack = false;
+    }
+
+    public override void ReceiveDamage(Damage dmg)
     {
         int previousHitpoints = hitpoint;
 
