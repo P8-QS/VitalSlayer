@@ -32,7 +32,7 @@ public class Player : Mover
         lastAttackTime = Time.time;
         weaponAnimator.SetTrigger("Attack");
         weapon.canAttack = true;
-        Invoke(nameof(DisableWeaponCollider),  0.1f);
+        Invoke(nameof(DisableWeaponCollider),  0.3f);
     }
 
     public void DisableWeaponCollider() {
