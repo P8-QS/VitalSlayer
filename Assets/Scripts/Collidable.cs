@@ -20,9 +20,9 @@ public class Collidable : MonoBehaviour
             {
                 continue;
             }
-            
+
             OnCollide(hits[i]);
-            
+
             hits[i] = null;
         }
     }
@@ -31,5 +31,5 @@ public class Collidable : MonoBehaviour
     {
         Debug.Log(coll.name);
     }
-    
+
 }

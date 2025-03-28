@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += LoadState;
         DontDestroyOnLoad(gameObject);
     }
+    
 
     public List<Sprite> playerSprites;
     public List<Sprite> weaponSprites;
@@ -25,11 +26,12 @@ public class GameManager : MonoBehaviour
     public Player player;
     public FloatingTextManager floatingTextManager;
 
+
+
     public void ShowText(string msg, int fontSize, Color color, Vector3 position, Vector3 motion, float duration){
         floatingTextManager.Show(msg, fontSize, color, position, motion, duration);
     }
-
-    public ExperienceManager XpManager = new ExperienceManager(0);
+    
 
     public void SaveState(){
         Debug.Log("Saving game...");
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
         string s = "";
 
         s += "0" + "|";
-        s += XpManager.Experience + "|";
+        s += ExperienceManager.Instance.Experience + "|";
         s += "0";
 
         PlayerPrefs.SetString("SaveState", s);
@@ -51,11 +53,11 @@ public class GameManager : MonoBehaviour
 
         string[] data = PlayerPrefs.GetString("SaveState").Split('|');
         int experience = int.Parse(data[1]);
-        XpManager.Experience = experience;
+        ExperienceManager.Instance.Experience = experience;
 
         Debug.Log("Loading game...");
     }
-
-
+    
+    
 
 }

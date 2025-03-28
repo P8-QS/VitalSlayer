@@ -48,7 +48,6 @@ public class HealthBarManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -133,8 +132,6 @@ public class HealthBarManager : MonoBehaviour
         // Start with the default offset
         Vector3 calculatedOffset = defaultOffset;
 
-        // Check if this entity is a boss
-        Debug.Log("Type of entity: " + entity.GetType() + " Name of entity: " + entity.name);
         bool isBoss = entity.gameObject.GetComponent<Boss>() != null;
         if (isBoss)
         {
