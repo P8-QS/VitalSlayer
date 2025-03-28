@@ -3,7 +3,6 @@ using UnityEngine;
 public class GameSummaryManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-
     public GameObject gameSummaryPrefab;
     public Transform parentPanel;
 
@@ -12,6 +11,19 @@ public class GameSummaryManager : MonoBehaviour
 
     public int xpStart;
     public int levelStart;
+
+    public static GameSummaryManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
 
     void Start()
@@ -28,6 +40,14 @@ public class GameSummaryManager : MonoBehaviour
     public void AddBoss()
     {
         bossesKilled++;
+    }
+    
+    public void Reset()
+    {
+        enemiesKilled = 0;
+        bossesKilled = 0;
+        xpStart = ExperienceManager.Instance.Experience;
+        levelStart = ExperienceManager.Instance.Level;
     }
 
 
@@ -46,12 +66,14 @@ public class GameSummaryManager : MonoBehaviour
         int totalEnemies = enemiesKilled + bossesKilled;
 
         summaryUI.AddSummaryItem("Enemies slain", totalEnemies.ToString());
+        
+        int xpGained = ExperienceManager.Instance.Experience - xpStart;
+        int levelGained = ExperienceManager.Instance.Level - levelStart;
 
-        var xpManager = ExperienceManager.Instance;
-        int xpGained = xpManager.Experience - xpStart;
-        int levelGained = xpManager.Level - levelStart;
-
-        summaryUI.AddSummaryItem("Experience gained", xpGained.ToString());
-        summaryUI.AddSummaryItem("Levels gained", levelGained.ToString());
+        if (xpGained > 0) summaryUI.AddSummaryItem("Experience gained", xpGained.ToString());
+        if (levelGained > 0) summaryUI.AddSummaryItem("Levels gained", levelGained.ToString());
+        
+        // Reset the summary
+        Reset();
     }
 }

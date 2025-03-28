@@ -79,7 +79,7 @@ public class Enemy : Mover
     {
         Destroy(gameObject);
         int xp = ExperienceManager.Instance.AddEnemy(1);
-        GameManager.instance.summaryManager.AddEnemy();
+        GameSummaryManager.Instance.AddEnemy();
         // GameManager.instance.XpManager.Experience += xpValue;
         GameManager.instance.ShowText("+" + xp + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }
