@@ -62,7 +62,7 @@ public class Player : Mover
         Debug.Log("player died");
 
         Destroy(gameObject);
-        GameManager.instance.summaryManager.Show();
+        GameSummaryManager.Instance.Show();
     }
 
     private void Animate(Vector3 input)

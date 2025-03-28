@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
-    public GameSummaryManager summaryManager;
 
     public List<Sprite> playerSprites;
     public List<Sprite> weaponSprites;
