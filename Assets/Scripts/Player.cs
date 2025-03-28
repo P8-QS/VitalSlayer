@@ -26,6 +26,10 @@ public class Player : Mover
 
     private void Update()
     {
+        // Show level above player
+        // TODO: Er det her scuffed?
+        GameManager.instance.ShowText("Level " + currentLevel, 20, Color.white, transform.position + Vector3.up*0.6f, Vector3.zero, 0.0001f);
+        
         currentLevel = ExperienceManager.Instance.Level;
         if (hitAnimationTimer > 0)
         {
