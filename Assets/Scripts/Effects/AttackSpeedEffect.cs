@@ -18,7 +18,7 @@ namespace Effects {
         }
         string IEffect.Text()
         {
-            return $"<color=green>Increased attack speed</color>";
+            return $"<color=#3AE75B>increased attack speed</color>";
         }
         string IEffect.Description()
         {

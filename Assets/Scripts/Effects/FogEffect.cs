@@ -17,7 +17,7 @@ namespace Effects {
         }
         public string Text()
         {
-            return $"<color=red>fog level {Level}</color>";
+            return $"<color=#EA2E1E>fog level {Level}</color>";
         }
         public string Description()
         {
