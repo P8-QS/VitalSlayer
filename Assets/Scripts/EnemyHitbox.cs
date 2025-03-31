@@ -29,7 +29,8 @@ public class EnemyHitbox : Collidable
                 pushForce = pushForce,
                 isCritical = isCritical,
                 minPossibleDamage = minDamage,
-                maxPossibleDamage = maxDamage
+                maxPossibleDamage = maxDamage,
+                useCustomColor = false,
             };
 
             coll.SendMessage("ReceiveDamage", dmg);

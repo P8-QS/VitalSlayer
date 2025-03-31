@@ -59,18 +59,27 @@ public class Fighter : MonoBehaviour
             float damagePercentage = (dmg.damageAmount - dmg.minPossibleDamage) /
                                    (float)(dmg.maxPossibleDamage - dmg.minPossibleDamage);
 
-            // Determine text color based on whether it's the player, enemy, and if it's a critical hit
+            // Determine text color based on damage type
             Color damageColor;
 
-            if (gameObject.name == "Player")
+            // If custom color is provided, use it
+            if (dmg.useCustomColor)
             {
-                // For player
-                damageColor = dmg.isCritical ? Color.white : Color.red;
+                damageColor = dmg.customColor;
             }
             else
             {
-                // For enemies
-                damageColor = dmg.isCritical ? Color.yellow : Color.white;
+                // Otherwise use standard coloring logic
+                if (gameObject.name == "Player")
+                {
+                    // For player
+                    damageColor = dmg.isCritical ? Color.white : Color.red;
+                }
+                else
+                {
+                    // For enemies
+                    damageColor = dmg.isCritical ? Color.yellow : Color.white;
+                }
             }
 
             // Get random position within collider bounds
@@ -135,6 +144,6 @@ public class Fighter : MonoBehaviour
     protected virtual void Death()
     {
         // This method is meant to be overwritten 4Head
-        
+
     }
 }
