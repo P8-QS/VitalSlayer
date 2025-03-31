@@ -16,6 +16,7 @@ public class Weapon : Collidable
     protected override void Update()
     {
         base.Update();
+        calcWeaponDmg();
     }
 
     protected override void OnCollide(Collider2D other)
@@ -32,8 +33,8 @@ public class Weapon : Collidable
 
     private Damage calcWeaponDmg()
     {
-        int fighterLvl = Fighter.currentLevel;
-        float weaponDmg = 10f + (float)Mathf.Floor(4 * Mathf.Pow(fighterLvl, 1.2f));
+        weaponLevel = ExperienceManager.Instance.Level;
+        float weaponDmg = 10f + (float)Mathf.Floor(4 * Mathf.Pow(weaponLevel, 1.2f));
 
         int minDamage = Mathf.RoundToInt(weaponDmg * 0.5f);
         int maxDamage = Mathf.RoundToInt(weaponDmg * 1.5f);
