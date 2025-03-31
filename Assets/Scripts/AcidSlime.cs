@@ -7,8 +7,11 @@ public class AcidSlime : Enemy
 
     [Header("Meltdown Properties")]
     public GameObject toxicPuddlePrefab;
+
     public float puddleDuration = 5.0f;
-    public int puddleDamage = 1;
+    public int puddleBaseMinDamage = 1;
+    public int puddleBaseMaxDamage = 3;
+    public float puddleBaseScaling = 1.2f;
     public float puddleSlowFactor = 0.5f;
 
     // Reference to the acid hitbox component
@@ -43,7 +46,8 @@ public class AcidSlime : Enemy
             if (puddleComponent != null)
             {
                 puddleComponent.duration = puddleDuration;
-                puddleComponent.damage = puddleDamage;
+                puddleComponent.minDamage = GameHelpers.CalculateDamageStat(puddleBaseMinDamage, level, puddleBaseScaling);
+                puddleComponent.maxDamage = GameHelpers.CalculateDamageStat(puddleBaseMaxDamage, level, puddleBaseScaling);
                 puddleComponent.slowFactor = puddleSlowFactor;
                 puddleComponent.puddleColor = new Color(acidColor.r, acidColor.g, acidColor.b, 0.6f);
             }

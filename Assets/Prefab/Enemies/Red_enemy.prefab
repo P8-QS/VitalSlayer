@@ -80,7 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 961828433
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 5469658372286618560, guid: 27582ee1d4fecf640a88e1e300d87d97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -173,9 +173,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931989ca136f7784194d1c5d326ebf27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 10
+  healthScalingFactor: 1.2
   hitpoint: 15
   maxHitpoint: 15
   pushRecoverySpeed: 0.2
+  level: 1
   triggerLength: 2
   chaseLength: 3
   filter:
@@ -216,6 +219,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c7e6dde825d3e4a8ef2ac8bc44fe2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashTime: 0.25
+  _flashSpeedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2267502000419641557
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,8 +419,10 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  enemy: {fileID: 0}
+  baseMinDamage: 1
+  baseMaxDamage: 1
+  damageScalingFactor: 1.1
   pushForce: 3
-  minDamage: 1
-  maxDamage: 3
   critChance: 0.1
   critMultiplier: 1.5

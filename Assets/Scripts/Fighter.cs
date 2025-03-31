@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class Fighter : MonoBehaviour
 {
-    // Public variables
+    // Base stats
+    public int baseHealth = 100;
+    public float healthScalingFactor = 1.2f;
+
+    // Current stats
     public int hitpoint;
     public int maxHitpoint;
     public float pushRecoverySpeed = 0.2f;
-    public static int currentLevel;
+    public int level;
 
     // Immunity
     protected float immuneTime = 1.0f;
@@ -27,14 +31,30 @@ public class Fighter : MonoBehaviour
 
     protected virtual void Start()
     {
-        // Get a health bar from the manager
         if (HealthBarManager.Instance != null)
         {
             healthBar = HealthBarManager.Instance.CreateHealthBar(this);
         }
 
-        maxHitpoint = 100 + (int)(25 + Mathf.Pow(currentLevel, 1.2f));
+        maxHitpoint = CalculateMaxHealth(level);
         hitpoint = maxHitpoint;
+    }
+
+    // Method to calculate max health based on level
+    protected virtual int CalculateMaxHealth(int level)
+    {
+        return baseHealth + (int)(Mathf.Pow(level, healthScalingFactor));
+    }
+
+    public virtual void UpdateStatsForLevel(int newLevel)
+    {
+        int previousMax = maxHitpoint;
+        maxHitpoint = CalculateMaxHealth(newLevel);
+
+        if (maxHitpoint > previousMax)
+        {
+            hitpoint += (maxHitpoint - previousMax);
+        }
     }
 
     protected virtual void OnDestroy()
@@ -143,7 +163,6 @@ public class Fighter : MonoBehaviour
 
     protected virtual void Death()
     {
-        // This method is meant to be overwritten 4Head
-
+        // This method is meant to be overwritten
     }
 }

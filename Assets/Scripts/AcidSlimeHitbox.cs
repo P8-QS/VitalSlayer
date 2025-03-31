@@ -4,7 +4,8 @@ using UnityEngine;
 public class AcidSlimeHitbox : EnemyHitbox
 {
     [Header("Acid Properties")]
-    public int acidDamage = 1;
+    public int acidMinDamage = 1;
+    public int acidMaxDamage = 1;
     public float acidDuration = 3.0f;
     public float acidTickRate = 1.0f;
     public Color acidColor = Color.green;
@@ -36,15 +37,17 @@ public class AcidSlimeHitbox : EnemyHitbox
             if (target == null)
                 yield break;
 
+            int damage = random.Next(acidMinDamage, acidMaxDamage + 1);
+
             // Apply damage to the target
             Damage acidDmg = new Damage
             {
-                damageAmount = acidDamage,
+                damageAmount = damage,
                 origin = transform.position,
                 pushForce = 0f, // No push force for acid damage
                 isCritical = false,
-                minPossibleDamage = acidDamage,
-                maxPossibleDamage = acidDamage,
+                minPossibleDamage = acidMinDamage,
+                maxPossibleDamage = acidMaxDamage,
                 useCustomColor = true,
                 customColor = acidColor
             };

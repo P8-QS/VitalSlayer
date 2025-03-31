@@ -105,12 +105,15 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  enemy: {fileID: 0}
+  baseMinDamage: 1
+  baseMaxDamage: 3
+  damageScalingFactor: 1.1
   pushForce: 5
-  minDamage: 1
-  maxDamage: 1
   critChance: 0.1
   critMultiplier: 1.5
-  acidDamage: 1
+  acidMinDamage: 1
+  acidMaxDamage: 1
   acidDuration: 3
   acidTickRate: 1
   acidColor: {r: 0, g: 1, b: 0, a: 1}
@@ -193,7 +196,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 961828433
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 3988327299810258889, guid: 27582ee1d4fecf640a88e1e300d87d97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -260,9 +263,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0ea2f895e2f584b99e4ab10cd422aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 5
+  healthScalingFactor: 1.2
   hitpoint: 15
   maxHitpoint: 15
   pushRecoverySpeed: 0.2
+  level: 1
   triggerLength: 3
   chaseLength: 5
   filter:
@@ -294,7 +300,8 @@ MonoBehaviour:
   acidColor: {r: 0, g: 1, b: 0, a: 1}
   toxicPuddlePrefab: {fileID: 6172137587265226630, guid: 67b531d3ab993804abddd5e793bb1a2d, type: 3}
   puddleDuration: 7
-  puddleDamage: 6
+  puddleBaseDamage: 1
+  puddleBaseScaling: 1.2
   puddleSlowFactor: 0.25
 --- !u!61 &3455501692796417109
 BoxCollider2D:
