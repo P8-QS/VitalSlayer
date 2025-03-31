@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
   m_Name: red_fountain_anim
   m_EditorClassIdentifier: 
-  m_AnimatedSprites: []
+  m_AnimatedSprites:
+  - {fileID: 4110507524353339581, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
+  - {fileID: -6074762140567998671, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
+  - {fileID: -2315569526197371611, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
   m_MinSpeed: 1
   m_MaxSpeed: 1
   m_AnimationStartTime: 0
