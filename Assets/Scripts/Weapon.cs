@@ -16,7 +16,6 @@ public class Weapon : Collidable
     protected override void Update()
     {
         base.Update();
-        calcWeaponDmg();
     }
 
     protected override void OnCollide(Collider2D other)

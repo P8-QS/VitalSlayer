@@ -15,8 +15,6 @@ public class Player : Mover
     protected override void Start()
     {
         currentLevel = ExperienceManager.Instance.Level;
-        maxHitpoint = 100 + (int)(25 + Mathf.Pow(currentLevel, 1.2f));
-        hitpoint = maxHitpoint;
         base.Start();
         boxCollider = GetComponent<BoxCollider2D>();
         joystickMove = GetComponent<JoystickMove>();
