@@ -6,21 +6,16 @@ namespace UI
     {
         private void Awake()
         {
-            if (!Application.isMobilePlatform)
-            {
-                Debug.LogWarning("Not on mobile platform. Disabling auto safe area adjustment.");
-                return;
-            }
-            
             var rectTransform = GetComponent<RectTransform>();
             var safeArea = Screen.safeArea;
-
-            var offset = safeArea.height - Screen.height;
-            Debug.Log($"Offset: {offset}, from safe height: {safeArea.height} and from screen height: {Screen.height}");
-            
-            var offsetMax = rectTransform.offsetMax;
-            offsetMax.y = offset;
-            rectTransform.offsetMax = offsetMax;
+            var minAnchor = safeArea.position;
+            var maxAnchor = minAnchor + safeArea.size;
+            minAnchor.x /= Screen.width;
+            minAnchor.y /= Screen.height;
+            maxAnchor.x /= Screen.width;
+            maxAnchor.y /= Screen.height;
+            rectTransform.anchorMin = minAnchor;
+            rectTransform.anchorMax = maxAnchor;
         }
     }
 }
