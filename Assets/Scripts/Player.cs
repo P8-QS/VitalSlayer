@@ -25,8 +25,6 @@ public class Player : Mover
         weapon = weaponObj.GetComponent<Weapon>();
         weaponAnimator = weaponObj.GetComponent<Animator>();
 
-        MetricsManager.Instance.metrics["Sleep"].Effect.Apply();
-
         // Get the animator component if not already assigned in Inspector
         if (animator == null)
             animator = GetComponent<Animator>();

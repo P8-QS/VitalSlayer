@@ -31,7 +31,7 @@ namespace Effects {
 
         public void Apply()
         {
-            throw new NotImplementedException();
+            Debug.Log("Apply fog effect not implemented");
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Effects {
 
         public void Apply()
         {
-            throw new NotImplementedException();
+            Debug.Log("Apply map effect not implemented");
         }
     }
 }
