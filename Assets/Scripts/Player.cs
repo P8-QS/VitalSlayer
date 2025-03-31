@@ -25,6 +25,10 @@ public class Player : Mover
         weapon = weaponObj.GetComponent<Weapon>();
         weaponAnimator = weaponObj.GetComponent<Animator>();
 
+        foreach(var metric in MetricsManager.Instance.metrics.Values) {
+            metric.Effect.Apply();
+        }
+
         // Get the animator component if not already assigned in Inspector
         if (animator == null)
             animator = GetComponent<Animator>();

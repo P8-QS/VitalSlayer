@@ -1,10 +1,9 @@
 using UnityEngine;
 using TMPro;
 using Metrics;
-using System.Collections.Generic;
 
 namespace UI {
-    public class MetricsManager : MonoBehaviour
+    public class MetricsManagerUI : MonoBehaviour
     {
         public GameObject metricCardPrefab;  // Assign the MetricCard prefab in Unity Inspector
         public Transform parentPanel;  // The UI Panel that holds all metric cards
@@ -12,28 +11,16 @@ namespace UI {
 
         void Start()
         {
-            Debug.Log("MetricsManager is running!");
+            Debug.Log("MetricsManagerUI is running!");
 
-            List<IMetric> metrics = new List<IMetric>();
-
-            StepsMetric stepsMetric = new StepsMetric();
-            SleepMetric sleepMetric = new SleepMetric();
-            ScreenTimeMetric screenTimeMetric = new ScreenTimeMetric();
-
-            if (stepsMetric.Data != null) metrics.Add(stepsMetric);
-            if (sleepMetric.Data != null) metrics.Add(sleepMetric);
-            if (screenTimeMetric.Data != 0) metrics.Add(screenTimeMetric);
-
-            bool hasMetrics = metrics.Count > 0;
-
-            foreach (var metric in metrics)
-            {
-                AddMetric(metric);
-            }
-
-            if (!hasMetrics)
-            {
+            var metrics = MetricsManager.Instance.metrics.Values;
+            if (metrics.Count < 0) {
                 ShowErrorText("No metrics available.");
+            } else {
+                foreach (var metric in metrics) 
+                {
+                    AddMetric(metric);
+                }
             }
         }
 

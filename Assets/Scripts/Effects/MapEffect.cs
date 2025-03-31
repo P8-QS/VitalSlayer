@@ -32,7 +32,7 @@ namespace Effects {
 
         public void Apply()
         {
-            Debug.Log("Apply map effect not implemented");
+            Debug.LogWarning("Apply map effect not implemented");
         }
     }
 }

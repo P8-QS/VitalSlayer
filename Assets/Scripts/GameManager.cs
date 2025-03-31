@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = UnityEngine.SceneManagement.Scene;
@@ -54,12 +53,6 @@ public class GameManager : MonoBehaviour
         string[] data = PlayerPrefs.GetString("SaveState").Split('|');
         int experience = int.Parse(data[1]);
         ExperienceManager.Instance.Experience = experience;
-
-        foreach (var metric in MetricsManager.Instance.metrics.Values)
-        {
-            metric.Effect.Apply();
-        }
-
         Debug.Log("Loading game...");
     }
 }

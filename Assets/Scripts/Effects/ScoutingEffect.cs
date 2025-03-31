@@ -25,7 +25,7 @@ namespace Effects {
 
         public void Apply()
         {
-            Debug.Log("Apply scouting effect not implemented");
+            Debug.LogWarning("Apply scouting effect not implemented");
         }
     }
 }

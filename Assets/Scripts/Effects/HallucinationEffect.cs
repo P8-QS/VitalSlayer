@@ -31,7 +31,7 @@ namespace Effects {
 
         public void Apply()
         {
-            Debug.Log("Apply hallucination effect not implemented");
+            Debug.LogWarning("Apply hallucination effect not implemented");
         }
     }
 }
