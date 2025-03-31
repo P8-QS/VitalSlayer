@@ -6,6 +6,12 @@ namespace UI
     {
         private void Awake()
         {
+            if (!Application.isMobilePlatform)
+            {
+                Debug.LogWarning("Not on mobile platform. Disabling auto safe area adjustment.");
+                return;
+            }
+            
             var rectTransform = GetComponent<RectTransform>();
             var safeArea = Screen.safeArea;
 
