@@ -7,61 +7,39 @@ using UnityEngine.Serialization;
 
 public class MainMenuPage : MonoBehaviour
 {
-    public bool xpBonus = false;
-    public TimeSpan cooldown;
     public TextMeshProUGUI countdownText;
-    private DateTime cooldownEnd;
-    private const string baseString = "You will get bonus XP in ";
-    private const string readyString = "Play now to get bonus XP.";
     public GameObject cooldownIcon;
+
     void Start()
     {
-        // Get cooldown DateTime from PlayerPrefs
-        if (PlayerPrefs.HasKey("Cooldown"))
-        {
-            cooldownEnd = DateTime.Parse(PlayerPrefs.GetString("Cooldown"));
-        }
-        else
-        {
-            cooldownEnd = DateTime.Now.AddSeconds(11);
-            PlayerPrefs.SetString("Cooldown", cooldownEnd.ToString());
-        }
-        
-        cooldown = cooldownEnd - DateTime.Now;
-        countdownText.text = GetDisplayString();
-        xpBonus = cooldown.TotalMilliseconds == 0;
-        PlayerPrefs.SetInt("XpBonus", xpBonus ? 1 : 0);
-        
-    }
-    
-    private string GetDisplayString()
-    {
-        return xpBonus ? readyString : baseString + cooldown.ToString(@"hh\:mm\:ss") + ".";
+        HandleXpCooldown();
     }
 
-    public void ResetCooldown()
-    {
-        xpBonus = false;
-        cooldownEnd = DateTime.Now.AddDays(1);
-        PlayerPrefs.SetString("Cooldown", cooldownEnd.ToString());
-        PlayerPrefs.SetInt("XpBonus", xpBonus ? 1 : 0);
-    }
-    
-    // Update is called once per frame
     void Update()
     {
-        cooldown = cooldownEnd > DateTime.Now ? cooldownEnd - DateTime.Now : TimeSpan.Zero;
-        xpBonus = cooldown.TotalMilliseconds == 0;
-        countdownText.text = GetDisplayString();
-        cooldownIcon.gameObject.SetActive(!xpBonus);
-        PlayerPrefs.SetInt("XpBonus", xpBonus ? 1 : 0);
+        HandleXpCooldown();
     }
-    
+
+    private void HandleXpCooldown()
+    {
+        var xpBonus = ExperienceManager.Instance.BonusXpEnabled;
+        var cooldown = ExperienceManager.Instance.GetXpCooldown();
+        var bonusMultiplier = (int)((ExperienceManager.Instance.BonusXpMultiplier - 1) * 100);
+
+        var readyString = "Play now to get " + bonusMultiplier + "% bonus XP!";
+        var cooldownString = "You will get bonus XP in " + cooldown.ToString(@"hh\:mm\:ss") + ".";
+        countdownText.text = xpBonus ? readyString : cooldownString;
+
+        // TODO: Add icon for when bonus XP is ready
+        // TODO: Center icon and text
+        // cooldownIcon.gameObject.SetActive(!xpBonus);
+    }
+
     public void ClickPlayButton()
     {
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
-    
+
     public void ClickMetricsButton()
     {
         SceneManager.LoadScene("Metrics", LoadSceneMode.Single);

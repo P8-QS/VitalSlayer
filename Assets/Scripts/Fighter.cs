@@ -6,13 +6,14 @@ public class Fighter : MonoBehaviour
     public int hitpoint;
     public int maxHitpoint;
     public float pushRecoverySpeed = 0.2f;
-    public static int currentLevel = 3;
+    public static int currentLevel;
 
     // Immunity
-    private float immuneTime = 1.0f;
-    private float lastImmune;
+    protected float immuneTime = 1.0f;
+    protected float lastImmune;
 
     protected HealthBar healthBar;
+    protected DamageFlash damageFlash;
 
     protected Vector3 pushDirection;
 
@@ -21,6 +22,7 @@ public class Fighter : MonoBehaviour
     private void Awake()
     {
         col = GetComponent<Collider2D>();
+        damageFlash = GetComponent<DamageFlash>();
     }
 
     protected virtual void Start()
@@ -31,7 +33,7 @@ public class Fighter : MonoBehaviour
             healthBar = HealthBarManager.Instance.CreateHealthBar(this);
         }
 
-        maxHitpoint = 100 + (int)(25 + Mathf.Pow(Fighter.currentLevel, 1.2f));
+        maxHitpoint = 100 + (int)(25 + Mathf.Pow(currentLevel, 1.2f));
         hitpoint = maxHitpoint;
     }
 
@@ -44,7 +46,7 @@ public class Fighter : MonoBehaviour
         }
     }
 
-    protected virtual void ReceiveDamage(Damage dmg)
+    public virtual void ReceiveDamage(Damage dmg)
     {
         if (Time.time - lastImmune > immuneTime)
         {
@@ -91,6 +93,12 @@ public class Fighter : MonoBehaviour
             // Show damage text
             GameManager.instance.ShowText(dmg.damageAmount.ToString(), fontSize, damageColor, textPosition, Vector3.up, 0.5f);
 
+            // Flash the sprite
+            if (damageFlash != null)
+            {
+                damageFlash.CallDamageFlash(damageColor);
+            }
+
             // Update health bar if it exists
             if (healthBar != null)
             {
@@ -127,5 +135,6 @@ public class Fighter : MonoBehaviour
     protected virtual void Death()
     {
         // This method is meant to be overwritten 4Head
+        
     }
 }

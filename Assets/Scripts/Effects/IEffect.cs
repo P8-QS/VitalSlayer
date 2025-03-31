@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal.Commands;
 using UnityEngine;
 
 namespace Effects
@@ -9,6 +10,6 @@ namespace Effects
         public Sprite Icon { get; }
         public string Text();
         public string Description();
-        
+        public void Apply();
     }
 }

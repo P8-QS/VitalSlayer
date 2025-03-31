@@ -17,7 +17,7 @@ namespace Effects {
         }
         public string Text()
         {
-            return $"<color=red>hallucination level {Level}</color>";
+            return $"<color=#EA2E1E>hallucination level {Level}</color>";
         }
         public string Description()
         {
@@ -29,5 +29,9 @@ namespace Effects {
             };
         }
 
+        public void Apply()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

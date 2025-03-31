@@ -16,12 +16,16 @@ namespace Effects {
         }
         public string Text()
         {
-            return $"<color=green>scouting ability</color>";
+            return $"<color=#3AE75B>scouting ability</color>";
         }
         public string Description()
         {
             return "You can see adjacent rooms on the minimap.";
         }
 
+        public void Apply()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

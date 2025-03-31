@@ -5,24 +5,28 @@ namespace Effects {
     public class AttackSpeedEffect : IEffect
     {
         private int _level;
+        public float attackSpeedMultiplier = 0.8f;
         private Sprite _icon;
-        public string Name => "Attack Speed";
+        string IEffect.Name => "Attack Speed";
 
-        public int Level { get => _level; set => _level = value; }
-        public Sprite Icon { get => _icon; }
+        int IEffect.Level { get => _level; set => _level = value; }
+        Sprite IEffect.Icon { get => _icon; }
 
         public AttackSpeedEffect(Sprite icon, int level) {
             _icon = icon;
             _level = level;
         }
-        public string Text()
+        string IEffect.Text()
         {
-            return $"<color=green>Increased attack speed</color>";
+            return $"<color=#3AE75B>increased attack speed</color>";
         }
-        public string Description()
+        string IEffect.Description()
         {
             return "Your attack speed is increased by 20%.";
         }
-
+        public void Apply()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
