@@ -26,7 +26,16 @@ namespace Effects {
         }
         public void Apply()
         {
-            throw new NotImplementedException();
+            Player player = UnityEngine.Object.FindFirstObjectByType<Player>();
+            if (player != null)
+            {
+                player.attackCooldown *= attackSpeedMultiplier;
+                Debug.Log($"Attack speed effect applied. New attack cooldown: {player.attackCooldown}");
+            }
+            else
+            {
+                Debug.LogWarning("Player not found. Attack speed effect could not be applied.");
+            }
         }
     }
 }
