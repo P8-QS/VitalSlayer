@@ -66,7 +66,14 @@ public class MetricCardUI : MonoBehaviour
         Debug.Log("Card clicked");
         GameObject modalObject = Instantiate(modal, modalParent);
         ModalUI modalUI = modalObject.GetComponent<ModalUI>();
-        
+
+        // Disable interaction with modal background, so the modal doesn't close when you click on the bottom half.
+        var modalBackground = modalUI.transform.Find("Background");
+        var modalBackgroundButton = modalBackground.GetComponent<Button>();
+        if (modalBackgroundButton != null)
+        {
+            modalBackgroundButton.interactable = false;
+        }
         // Get icons
         // Image[] iconImages = icons.GetComponentsInChildren<Image>();
         
