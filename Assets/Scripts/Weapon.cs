@@ -21,11 +21,13 @@ public class Weapon : Collidable
 
     protected override void OnCollide(Collider2D other)
     {
-        if (canAttack) {
+        if (canAttack)
+        {
             Damage damage = calcWeaponDmg();
 
             Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null) {
+            if (enemy != null)
+            {
                 enemy.ReceiveDamage(damage);
             }
         }
@@ -56,7 +58,8 @@ public class Weapon : Collidable
             pushForce = pushForce,
             isCritical = isCritical,
             minPossibleDamage = minDamage,
-            maxPossibleDamage = maxDamage
+            maxPossibleDamage = maxDamage,
+            useCustomColor = false,
         };
 
         return result;
