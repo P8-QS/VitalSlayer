@@ -17,7 +17,14 @@ namespace Effects {
         }
         public string Text()
         {
-            return $"map size {Level}";
+            string color = Level switch
+            {
+                1 => "red",
+                2 => "yellow",
+                3 => "green",
+                _ => "white"
+            };
+            return $"<color={color}>map size {Level}</color>";
         }
         public string Description()
         {

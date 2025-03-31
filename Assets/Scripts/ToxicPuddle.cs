@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class ToxicPuddle : Collidable
 {
+    private AcidSlime acidSlime;
+
     public float duration = 5.0f;
-    public int damage = 1;
+    public int minDamage = 1;
+    public int maxDamage = 1;
     public float damageTickRate = 0.5f;
     public float slowFactor = 0.5f;
     public Color puddleColor = new Color(0.2f, 0.8f, 0.2f, 0.6f);
@@ -12,10 +15,13 @@ public class ToxicPuddle : Collidable
     private float creationTime;
     private SpriteRenderer spriteRenderer;
     private bool isApplyingDamage = false;
+    private System.Random random = new System.Random();
+
 
     protected override void Start()
     {
         base.Start();
+
         creationTime = Time.time;
 
         // Get the sprite renderer and set its color
@@ -66,15 +72,16 @@ public class ToxicPuddle : Collidable
 
         while (target != null && gameObject.activeSelf)
         {
+
             // Apply damage to the target
             Damage puddleDmg = new Damage
             {
-                damageAmount = damage,
+                damageAmount = GameHelpers.CalculateDamage(minDamage, maxDamage),
                 origin = transform.position,
                 pushForce = 0f, // No push force for puddle damage
                 isCritical = false,
-                minPossibleDamage = damage,
-                maxPossibleDamage = damage,
+                minPossibleDamage = minDamage,
+                maxPossibleDamage = maxDamage,
                 useCustomColor = true,
                 customColor = new Color(puddleColor.r, puddleColor.g, puddleColor.b, 1f) // Make fully opaque for text
             };

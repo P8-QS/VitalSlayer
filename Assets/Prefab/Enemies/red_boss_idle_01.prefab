@@ -115,9 +115,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  enemy: {fileID: 0}
+  baseMinDamage: 1
+  baseMaxDamage: 1
+  damageScalingFactor: 1.1
   pushForce: 5
-  minDamage: 1
-  maxDamage: 1
   critChance: 0.1
   critMultiplier: 1.5
 --- !u!61 &3667946519810245338
@@ -158,7 +160,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -281,9 +283,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  enemy: {fileID: 0}
+  baseMinDamage: 1
+  baseMaxDamage: 1
+  damageScalingFactor: 1.1
   pushForce: 5
-  minDamage: 1
-  maxDamage: 1
   critChance: 0.1
   critMultiplier: 1.5
 --- !u!61 &7788382818662538674
@@ -324,7 +328,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -414,7 +418,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 961828433
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -5418932733711996721, guid: 27582ee1d4fecf640a88e1e300d87d97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -461,9 +465,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e964a396ca9e70b4ea02c3a5b266bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 50
+  healthScalingFactor: 1.2
   hitpoint: 100
   maxHitpoint: 100
   pushRecoverySpeed: 0.2
+  level: 1
   triggerLength: 5
   chaseLength: 10
   filter:
@@ -557,6 +564,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c7e6dde825d3e4a8ef2ac8bc44fe2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashTime: 0.25
+  _flashSpeedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7454985087415073719
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,9 +677,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  enemy: {fileID: 0}
+  baseMinDamage: 1
+  baseMaxDamage: 1
+  damageScalingFactor: 1.1
   pushForce: 8
-  minDamage: 3
-  maxDamage: 6
   critChance: 0.1
   critMultiplier: 1.5
 --- !u!1001 &1513944443737528154
