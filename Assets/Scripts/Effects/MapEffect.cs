@@ -19,10 +19,10 @@ namespace Effects {
         {
             string color = Level switch
             {
-                1 => "red",
-                2 => "yellow",
-                3 => "green",
-                _ => "white"
+                1 => "#EA2E1E",
+                2 => "#F5CC45",
+                3 => "#3AE75B",
+                _ => "#FFFFFF"
             };
             return $"<color={color}>map size {Level}</color>";
         }

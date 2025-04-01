@@ -1,6 +1,5 @@
-using TMPro;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 public class ModalUI : MonoBehaviour
 {
     public GameObject content;
@@ -9,9 +8,11 @@ public class ModalUI : MonoBehaviour
     {
         this.content = content;
     }
-    
+    public void OnBlur()
+    {
+        OnClose();
+    }
     public void OnClose() {
-        Debug.Log("CLOSING MODAL!");
         Destroy(gameObject);
     }
 }
