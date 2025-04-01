@@ -14,6 +14,7 @@ public class Player : Mover
 
     protected override void Start()
     {
+
         level = ExperienceManager.Instance.Level;
         maxHitpoint = 100 + (int)(25 + Mathf.Pow(level, 1.2f));
         hitpoint = maxHitpoint;

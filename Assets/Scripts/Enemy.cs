@@ -62,7 +62,7 @@ public class Enemy : Mover
                 continue;
             }
 
-            if (hits[i].tag == "Fighter" && hits[i].name == "Player")
+            if (hits[i].CompareTag("Player"))
             {
                 collidingWithPlayer = true;
             }
