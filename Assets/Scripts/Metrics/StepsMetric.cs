@@ -28,14 +28,16 @@ namespace Metrics {
             
             Icon = SpriteManager.Instance.GetSprite("metric_steps");
 
-            int effectLevel = Data.StepsCount switch
-            {
-                < 4000 => 1,
-                < 8000 => 2,
-                _ => 3
-            };
+            if (Data != null) {
+                int effectLevel = Data.StepsCount switch
+                {
+                    < 4000 => 1,
+                    < 8000 => 2,
+                    _ => 3
+                };
 
-            _effect = new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel);
+                _effect = new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel);
+            }
         }
         public string Text()
         {

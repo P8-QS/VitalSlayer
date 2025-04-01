@@ -28,20 +28,22 @@ namespace Metrics {
             
             Icon = SpriteManager.Instance.GetSprite("metric_sleep");
 
-            int effectLevel = Data.SleepTime.TotalHours switch
-            {
-                < 5 => 2,
-                < 7 => 1,
-                _ => 0
-            };
+            if (Data != null) {
+                int effectLevel = Data.SleepTime.TotalHours switch
+                {
+                    < 5 => 2,
+                    < 7 => 1,
+                    _ => 0
+                };
 
-            if (effectLevel > 0) 
-            {
-                _effect = new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"), effectLevel);
-            }
-            else 
-            {
-                _effect = new AttackSpeedEffect(SpriteManager.Instance.GetSprite("effect_attack_speed"), effectLevel);
+                if (effectLevel > 0) 
+                {
+                    _effect = new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"), effectLevel);
+                }
+                else 
+                {
+                    _effect = new AttackSpeedEffect(SpriteManager.Instance.GetSprite("effect_attack_speed"), effectLevel);
+                }
             }
         }
         public string Text()

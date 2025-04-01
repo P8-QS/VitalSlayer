@@ -39,7 +39,7 @@ namespace Effects {
 
         public void Apply()
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Apply map effect not implemented");
         }
     }
 }

@@ -1,3 +1,4 @@
+using Metrics;
 using UnityEngine;
 
 public class Player : Mover
@@ -23,6 +24,13 @@ public class Player : Mover
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
         weapon = weaponObj.GetComponent<Weapon>();
         weaponAnimator = weaponObj.GetComponent<Animator>();
+
+        var metrics = MetricsManager.Instance?.metrics.Values;
+        if (metrics != null) {
+            foreach(var metric in metrics) {
+                metric.Effect.Apply();
+            }
+        }
 
         // Get the animator component if not already assigned in Inspector
         if (animator == null)
