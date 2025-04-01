@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: e190782669a3e884e81de18ac044e64f
+guid: 95b89f11359185e4fbbc46c66b9e5ced
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6124847847930844764
-    second: Sideways Doors_0
+      213: -4026934544628997898
+    second: sidewaydoors_0
   - first:
-      213: -4621419030203081954
-    second: Sideways Doors_1
+      213: -7983771373350679573
+    second: sidewaydoors_1
   - first:
-      213: -8584089871096043052
-    second: Sideways Doors_2
-  - first:
-      213: 256777468541437372
-    second: Sideways Doors_3
+      213: 1195072555922024548
+    second: sidewaydoors_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -135,7 +132,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sideways Doors_0
+      name: sidewaydoors_0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4a924c8455b200ba0800000000000000
-      internalID: -6124847847930844764
+      spriteID: 6f0a3a50e547d18c0800000000000000
+      internalID: -4026934544628997898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sideways Doors_1
+      name: sidewaydoors_1
       rect:
         serializedVersion: 2
         x: 16
@@ -172,52 +169,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e1bd38a90eb6ddfb0800000000000000
-      internalID: -4621419030203081954
+      spriteID: beb008b5c32f33190800000000000000
+      internalID: -7983771373350679573
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sideways Doors_2
+      name: sidewaydoors_2
       rect:
         serializedVersion: 2
         x: 32
-        y: 240
+        y: 224
         width: 6
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4d9aa412ebf2fd880800000000000000
-      internalID: -8584089871096043052
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sideways Doors_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 240
-        width: 6
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cb58cb64fb1409300800000000000000
-      internalID: 256777468541437372
+      spriteID: 468ec886820c59010800000000000000
+      internalID: 1195072555922024548
       vertices: []
       indices: 
       edges: []
@@ -226,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0072af3c49a977040a893b9ac5608bbc
+    spriteID: eaf909af97f465345822e2f1a2f5fa45
     internalID: 0
     vertices: []
     indices: 
@@ -236,10 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Sideways Doors_0: -6124847847930844764
-      Sideways Doors_1: -4621419030203081954
-      Sideways Doors_2: -8584089871096043052
-      Sideways Doors_3: 256777468541437372
+      sidewaydoors_0: -4026934544628997898
+      sidewaydoors_1: -7983771373350679573
+      sidewaydoors_2: 1195072555922024548
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
