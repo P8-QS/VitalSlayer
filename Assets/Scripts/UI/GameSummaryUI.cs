@@ -35,7 +35,7 @@ public class GameSummaryUI : MonoBehaviour
     }
     
     public void OnButtonClick() {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        SceneLoader.Instance.LoadSceneWithTransition("MainMenu");
     }
     
         

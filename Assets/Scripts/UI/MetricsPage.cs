@@ -6,7 +6,6 @@ public class MetricsPage : MonoBehaviour
 {
     public void BackToMenu()
     {
-        Debug.Log("Back to the lobby!");
-        SceneManager.LoadScene("MainMenu");
+        SceneLoader.Instance.LoadScene("MainMenu");
     }
 }

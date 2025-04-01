@@ -37,11 +37,11 @@ public class MainMenuPage : MonoBehaviour
 
     public void ClickPlayButton()
     {
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        SceneLoader.Instance.LoadSceneWithTransition("Game");
     }
 
     public void ClickMetricsButton()
     {
-        SceneManager.LoadScene("Metrics", LoadSceneMode.Single);
+        SceneLoader.Instance.LoadScene("Metrics");
     }
 }
