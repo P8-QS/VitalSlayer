@@ -136,10 +136,10 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 251
+        y: 240
         width: 6
-        height: 5
-      alignment: 0
+        height: 16
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -158,10 +158,10 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 251
+        y: 240
         width: 6
-        height: 5
-      alignment: 0
+        height: 16
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -214,6 +214,7 @@ TextureImporter:
       sidewaydoors_0: -4026934544628997898
       sidewaydoors_1: -7983771373350679573
       sidewaydoors_2: 1195072555922024548
+      sidewaydoors_3: 440367277
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
