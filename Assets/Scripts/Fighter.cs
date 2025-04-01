@@ -92,7 +92,7 @@ public class Fighter : MonoBehaviour
             else
             {
                 // Otherwise use standard coloring logic
-                if (gameObject.name == "Player")
+                if (gameObject.CompareTag("Player"))
                 {
                     // For player
                     damageColor = dmg.isCritical ? Color.white : Color.red;

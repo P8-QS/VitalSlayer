@@ -16,7 +16,7 @@ public class AcidSlimeHitbox : EnemyHitbox
         base.OnCollide(coll);
 
         // Then, if the collision was with the player, apply the acid effect
-        if (coll.tag == "Fighter" && coll.name == "Player")
+        if (coll.CompareTag("Player"))
         {
             // Apply the acid damage over time effect
             StartCoroutine(ApplyAcidDamageCoroutine(coll.gameObject));
