@@ -49,7 +49,7 @@ public class ToxicPuddle : Collidable
     protected override void OnCollide(Collider2D coll)
     {
         // If the collision was with the player
-        if (coll.tag == "Fighter" && coll.name == "Player" && !isApplyingDamage)
+        if (coll.CompareTag("Player") && !isApplyingDamage)
         {
             // Apply damage and slow effect
             GameObject entity = coll.gameObject;
