@@ -10,6 +10,7 @@ public class MetricsManager : MonoBehaviour
     void Start()
     {
         if (Instance == null)
+        {
             Instance = this;
 
             StepsMetric stepsMetric = new StepsMetric();
@@ -19,7 +20,10 @@ public class MetricsManager : MonoBehaviour
             if (stepsMetric.Data != null) metrics.Add(stepsMetric.Name, stepsMetric);
             if (sleepMetric.Data != null) metrics.Add(sleepMetric.Name, sleepMetric);
             if (screenTimeMetric.Data != 0) metrics.Add(screenTimeMetric.Name, screenTimeMetric);
+        }
         else
+        {
             Destroy(gameObject);
+        }
     }
 }
