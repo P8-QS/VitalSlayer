@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class Fighter : MonoBehaviour
 {
-    // Public variables
+    // Base stats
+    public int baseHealth = 100;
+    public float healthScalingFactor = 1.2f;
+
+    // Current stats
     public int hitpoint;
     public int maxHitpoint;
     public float pushRecoverySpeed = 0.2f;
-    public static int currentLevel;
+
+    public int level;
+
 
     // Immunity
     protected float immuneTime = 1.0f;
@@ -27,14 +33,30 @@ public class Fighter : MonoBehaviour
 
     protected virtual void Start()
     {
-        // Get a health bar from the manager
         if (HealthBarManager.Instance != null)
         {
             healthBar = HealthBarManager.Instance.CreateHealthBar(this);
         }
 
-        maxHitpoint = 100 + (int)(25 + Mathf.Pow(currentLevel, 1.2f));
+        maxHitpoint = CalculateMaxHealth(level);
         hitpoint = maxHitpoint;
+    }
+
+    // Method to calculate max health based on level
+    protected virtual int CalculateMaxHealth(int level)
+    {
+        return baseHealth + (int)(Mathf.Pow(level, healthScalingFactor));
+    }
+
+    public virtual void UpdateStatsForLevel(int newLevel)
+    {
+        int previousMax = maxHitpoint;
+        maxHitpoint = CalculateMaxHealth(newLevel);
+
+        if (maxHitpoint > previousMax)
+        {
+            hitpoint += (maxHitpoint - previousMax);
+        }
     }
 
     protected virtual void OnDestroy()
@@ -59,18 +81,27 @@ public class Fighter : MonoBehaviour
             float damagePercentage = (dmg.damageAmount - dmg.minPossibleDamage) /
                                    (float)(dmg.maxPossibleDamage - dmg.minPossibleDamage);
 
-            // Determine text color based on whether it's the player, enemy, and if it's a critical hit
+            // Determine text color based on damage type
             Color damageColor;
 
-            if (gameObject.name == "Player")
+            // If custom color is provided, use it
+            if (dmg.useCustomColor)
             {
-                // For player
-                damageColor = dmg.isCritical ? Color.white : Color.red;
+                damageColor = dmg.customColor;
             }
             else
             {
-                // For enemies
-                damageColor = dmg.isCritical ? Color.yellow : Color.white;
+                // Otherwise use standard coloring logic
+                if (gameObject.CompareTag("Player"))
+                {
+                    // For player
+                    damageColor = dmg.isCritical ? Color.white : Color.red;
+                }
+                else
+                {
+                    // For enemies
+                    damageColor = dmg.isCritical ? Color.yellow : Color.white;
+                }
             }
 
             // Get random position within collider bounds
@@ -134,7 +165,6 @@ public class Fighter : MonoBehaviour
 
     protected virtual void Death()
     {
-        // This method is meant to be overwritten 4Head
-        
+        // This method is meant to be overwritten
     }
 }

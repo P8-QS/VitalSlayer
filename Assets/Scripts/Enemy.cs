@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class Enemy : Mover
 {
-    // Experience
-    // public int xpValue = 1;
-
     // Logic
     public float triggerLength = 1;
     public float chaseLength = 5;
@@ -65,7 +62,7 @@ public class Enemy : Mover
                 continue;
             }
 
-            if (hits[i].tag == "Fighter" && hits[i].name == "Player")
+            if (hits[i].CompareTag("Player"))
             {
                 collidingWithPlayer = true;
             }

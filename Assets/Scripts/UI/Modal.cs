@@ -11,6 +11,7 @@ public class ModalUI : MonoBehaviour
     }
     
     public void OnClose() {
+        Debug.Log("CLOSING MODAL!");
         Destroy(gameObject);
     }
 }

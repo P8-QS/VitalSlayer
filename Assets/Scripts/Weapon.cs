@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class Weapon : Collidable
 {
+    // Scaling + base stats
+    public int baseMinDamage = 1;
+    public int baseMaxDamage = 5;
+    public float damageScalingFactor = 1.15f;
+
     public float basePushForce = 2.0f;
     public float critChance = 0.1f; // 10% chances
     public float critMultiplier = 2.0f;
 
-    public int weaponLevel;
     public bool canAttack = false;
 
     public SpriteRenderer spriteRenderer;
@@ -20,11 +24,13 @@ public class Weapon : Collidable
 
     protected override void OnCollide(Collider2D other)
     {
-        if (canAttack) {
+        if (canAttack)
+        {
             Damage damage = calcWeaponDmg();
 
             Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null) {
+            if (enemy != null)
+            {
                 enemy.ReceiveDamage(damage);
             }
         }
@@ -32,11 +38,11 @@ public class Weapon : Collidable
 
     private Damage calcWeaponDmg()
     {
-        int fighterLvl = Fighter.currentLevel;
-        float weaponDmg = 10f + (float)Mathf.Floor(4 * Mathf.Pow(fighterLvl, 1.2f));
+        // Currnet we only apply weapons for players- maybe needs to be fixed later?
+        int playerLevel = ExperienceManager.Instance.Level;
 
-        int minDamage = Mathf.RoundToInt(weaponDmg * 0.5f);
-        int maxDamage = Mathf.RoundToInt(weaponDmg * 1.5f);
+        int minDamage = GameHelpers.CalculateDamageStat(baseMinDamage, playerLevel, damageScalingFactor);
+        int maxDamage = GameHelpers.CalculateDamageStat(baseMaxDamage, playerLevel, damageScalingFactor);
 
         int damageAmount = random.Next(minDamage, maxDamage + 1);
         bool isCritical = random.NextDouble() < critChance;
@@ -55,7 +61,8 @@ public class Weapon : Collidable
             pushForce = pushForce,
             isCritical = isCritical,
             minPossibleDamage = minDamage,
-            maxPossibleDamage = maxDamage
+            maxPossibleDamage = maxDamage,
+            useCustomColor = false,
         };
 
         return result;

@@ -16,7 +16,7 @@ namespace Effects {
         }
         public string Text()
         {
-            return $"<color=green>scouting ability</color>";
+            return $"<color=#3AE75B>scouting ability</color>";
         }
         public string Description()
         {

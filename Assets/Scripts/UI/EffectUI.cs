@@ -9,13 +9,17 @@ public class EffectUI : MonoBehaviour
     public TextMeshProUGUI effectDescriptionText;
     public void Start()
     {
-        var metrics = MetricsManager.Instance.metrics.Values;
-        foreach (IMetric metric in metrics) {
-            GameObject effectIconInstance = Instantiate(effectIconPrefab, transform);
-            effectIconInstance.GetComponent<Image>().sprite = metric.Effect.Icon;
+        var metrics = MetricsManager.Instance?.metrics.Values;
+        if (metrics != null) {
+            foreach (IMetric metric in metrics) {
+                GameObject effectIconInstance = Instantiate(effectIconPrefab, transform);
+                effectIconInstance.GetComponent<Image>().sprite = metric.Effect.Icon;
 
-            Button button = effectIconInstance.AddComponent<Button>();
-            button.onClick.AddListener(() => ShowEffectDescription(metric.Effect.Description()));
+                Button button = effectIconInstance.AddComponent<Button>();
+                button.onClick.AddListener(() => ShowEffectDescription(metric.Effect.Description()));
+            }
+        } else {
+            Debug.LogWarning("Metrics null in EffectUI");
         }
     }
 

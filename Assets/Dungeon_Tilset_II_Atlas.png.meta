@@ -2922,13 +2922,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_87
+      name: acid_slime_01
       rect:
         serializedVersion: 2
-        x: 431
-        y: 383
-        width: 34
-        height: 16
+        x: 432
+        y: 384
+        width: 16
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2944,13 +2944,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_88
+      name: acid_slime_03
       rect:
         serializedVersion: 2
         x: 464
-        y: 383
+        y: 384
         width: 16
-        height: 18
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2966,13 +2966,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_89
+      name: acid_slime_04
       rect:
         serializedVersion: 2
         x: 480
-        y: 383
+        y: 384
         width: 16
-        height: 16
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7563,6 +7563,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: acid_slime_02
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 384
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca840aabc1929ff499c55e892d184f49
+      internalID: -1230132169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -7832,9 +7854,6 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_84: -5888053809107134436
       0x72_DungeonTilesetII_v1.7_85: -7777938466588127345
       0x72_DungeonTilesetII_v1.7_86: -1756731607625105984
-      0x72_DungeonTilesetII_v1.7_87: 3988327299810258889
-      0x72_DungeonTilesetII_v1.7_88: -7081194776316564605
-      0x72_DungeonTilesetII_v1.7_89: -8357587277559297099
       0x72_DungeonTilesetII_v1.7_9: -5660323637893070128
       0x72_DungeonTilesetII_v1.7_90: 5443141518175841120
       0x72_DungeonTilesetII_v1.7_91: 5652958049565504538
@@ -7847,7 +7866,10 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_98: 6662265692936726610
       0x72_DungeonTilesetII_v1.7_99: -2065985488211235582
       Dungeon_Tilset_II_Atlas_0: -1201552
-      Dungeon_Tilset_II_Atlas_1: -1916916789
+      acid_slime_01: 3988327299810258889
+      acid_slime_02: -1916916789
+      acid_slime_03: -7081194776316564605
+      acid_slime_04: -8357587277559297099
       enemy_red_01_idle: 5469658372286618560
       enemy_red_01_mov: -6594126597430979414
       enemy_red_02_idle: -5045170969038034579
