@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: open_door_full
+  m_Name: sideway_door_closed
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 642709257, guid: 3857d0118678725418113edc14768b00, type: 3}
+  m_Sprite: {fileID: 1195072555922024548, guid: 95b89f11359185e4fbbc46c66b9e5ced, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -33,4 +33,4 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
-  m_ColliderType: 0
+  m_ColliderType: 1
