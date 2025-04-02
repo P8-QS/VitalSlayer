@@ -1,5 +1,6 @@
 using Metrics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : Mover
 {
@@ -9,7 +10,7 @@ public class Player : Mover
     private Weapon weapon;
     private Animator weaponAnimator;
     public Joystick movementJoystick;
-    public float playerSpeed = 1;
+    public float speed = 1;
     private float hitAnimationTimer = 0f;
     private const float HIT_ANIMATION_DURATION = 0.15f; // Duration in seconds
 
@@ -55,7 +56,7 @@ public class Player : Mover
 
     private void FixedUpdate()
     {
-        Vector3 input = new Vector3(movementJoystick.Direction.x*playerSpeed,movementJoystick.Direction.y*playerSpeed, 0);
+        Vector3 input = new Vector3(movementJoystick.Direction.x*speed,movementJoystick.Direction.y*speed, 0);
         Animate(input);
         UpdateMotor(input);
 
