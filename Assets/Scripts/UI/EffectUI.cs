@@ -59,7 +59,6 @@ public class EffectUI : MonoBehaviour
 
     public void HideEffectDescription()
     {
-        Debug.Log("I AM CALLED!");
         effectDescriptionBox.SetActive(false);
         isDescriptionVisible = false;
     }
