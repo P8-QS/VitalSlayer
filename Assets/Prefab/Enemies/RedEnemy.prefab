@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5803905076546102479}
   - component: {fileID: 6307006354632205093}
   m_Layer: 6
-  m_Name: Red_enemy
+  m_Name: RedEnemy
   m_TagString: Fighter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.58, y: 4.6, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7520703220286422159}
