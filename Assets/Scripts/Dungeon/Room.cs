@@ -1,25 +1,21 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
-using System; // For Serializable attribute
+using System;
 
 public class Room : MonoBehaviour
 {
-    [Serializable] // Make struct serializable so it shows in Inspector/saves
+    [Serializable]
     public struct DoorInfo
     {
-        public string direction; // "North", "East", etc.
-        public Vector3 localPosition; // Position relative to room pivot
-        // Add rotation if needed: public Quaternion localRotation;
+        public string direction;
+        public Vector3 localPosition;
     }
-
-    // Store door data directly - maybe populate this via an Editor script or manually
-    // Or populate it once in Awake/Start in the editor?
-    public List<DoorInfo> doorData = new List<DoorInfo>();
-
-    // Keep the runtime list of transforms for placed instances
-    private List<Transform> doorTransforms = new List<Transform>();
-    private BoundsInt? calculatedBounds = null;
+    
+    public List<DoorInfo> doorData = new();
+    
+    private List<Transform> doorTransforms = new();
+    private BoundsInt? calculatedBounds;
 
     #if UNITY_EDITOR
     // Helper button in Inspector to find doors and populate doorData
