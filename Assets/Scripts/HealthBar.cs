@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,23 +7,24 @@ public class HealthBar : MonoBehaviour
     [Tooltip("Reference to the UI Image component used as the health bar fill")]
     public Image fillImage;
 
+    public Image bgImage;
+
+    public Image borderImage;
+
     [Tooltip("The Fighter or Enemy component this health bar is tracking")]
-    private MonoBehaviour targetEntity;
+    public MonoBehaviour targetEntity;
 
     [Tooltip("Offset from the entity position")]
-    public Vector3 offset = new Vector3(0, 0.005f, 0);
+    public Vector3 offset = new Vector3(0, 0.0f, 0);
 
     [Tooltip("Whether to show the health bar only when damaged")]
     public bool showOnlyWhenDamaged = false;
 
-    private Camera mainCamera;
     private int currentHitpoint;
     private int maxHitpoint;
 
     private void Awake()
     {
-        mainCamera = Camera.main;
-
         // Hide health bar initially if it should only show when damaged
         if (showOnlyWhenDamaged && fillImage)
         {
@@ -39,6 +41,7 @@ public class HealthBar : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+
             return;
         }
 
@@ -53,7 +56,17 @@ public class HealthBar : MonoBehaviour
     {
         if (targetEntity != null)
         {
-            transform.position = targetEntity.transform.position + offset;
+            var spriteRenderer = targetEntity.GetComponent<SpriteRenderer>();
+            if (spriteRenderer)
+            {
+                // Adjust the position based on the sprite size
+                var yOffset = -(spriteRenderer.bounds.size.y / 2) - 0.05f;
+                transform.position = targetEntity.transform.position + new Vector3(0, yOffset, 0) + offset;
+            }
+            else
+            {
+                transform.position = targetEntity.transform.position + offset;
+            }
         }
     }
 
@@ -73,12 +86,6 @@ public class HealthBar : MonoBehaviour
         {
             fillImage.transform.parent.gameObject.SetActive(healthPercentage < 1f);
         }
-
-        // Optional: Change color based on health percentage
-        // if (fillImage)
-        // {
-        //     fillImage.color = Color.Lerp(Color.red, Color.green, healthPercentage);
-        // }
     }
 
     private void GetEntityHealthValues()
@@ -90,6 +97,7 @@ public class HealthBar : MonoBehaviour
         }
         else if (targetEntity is Enemy enemy)
         {
+            Debug.LogWarning("Entity is an Enemy HEALTHBAR");
             currentHitpoint = enemy.hitpoint;
             maxHitpoint = enemy.maxHitpoint;
         }
@@ -105,6 +113,28 @@ public class HealthBar : MonoBehaviour
     public void SetTarget(MonoBehaviour entity)
     {
         targetEntity = entity;
+
+        // Set dimensions of the health bar to match the target entity collider
+        var spriteRenderer = targetEntity.GetComponent<SpriteRenderer>();
+        if (spriteRenderer)
+        {
+            Debug.LogWarning("FOUND COLLIDER SET TARGET");
+            var fillTransform = fillImage.GetComponent<RectTransform>();
+            var bgTransform = bgImage.GetComponent<RectTransform>();
+            var borderTransform = borderImage.GetComponent<RectTransform>();
+            if (fillTransform && bgTransform && borderTransform)
+            {
+                var spriteWidth = spriteRenderer.bounds.size.x;
+                var barWidth = spriteWidth + 0.25f;
+
+                Debug.LogWarning("FOUND TRANSFORMS SET TARGET");
+                fillTransform.sizeDelta = new Vector2(barWidth, 0.05f);
+                bgTransform.sizeDelta = new Vector2(barWidth, 0.05f);
+                borderTransform.sizeDelta = new Vector2(barWidth + 0.05f, 0.10f);
+            }
+        }
+
+
         UpdateHealthBar();
     }
 }
