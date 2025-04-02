@@ -57,7 +57,7 @@ public class ToxicPuddle : Collidable
             // Start coroutine to apply damage over time
             StartCoroutine(ApplyDamageOverTime(entity));
 
-            // Apply slow effectq
+            // Apply slow effect
             Player player = entity.GetComponent<Player>();
 
             if (player != null)
