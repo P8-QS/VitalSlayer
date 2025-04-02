@@ -1,3 +1,4 @@
+using Metrics;
 using UnityEngine;
 
 public class Player : Mover
@@ -16,8 +17,6 @@ public class Player : Mover
     {
 
         level = ExperienceManager.Instance.Level;
-        maxHitpoint = 100 + (int)(25 + Mathf.Pow(level, 1.2f));
-        hitpoint = maxHitpoint;
         base.Start();
         boxCollider = GetComponent<BoxCollider2D>();
         joystickMove = GetComponent<JoystickMove>();
@@ -25,6 +24,13 @@ public class Player : Mover
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
         weapon = weaponObj.GetComponent<Weapon>();
         weaponAnimator = weaponObj.GetComponent<Animator>();
+
+        var metrics = MetricsManager.Instance?.metrics.Values;
+        if (metrics != null) {
+            foreach(var metric in metrics) {
+                metric.Effect.Apply();
+            }
+        }
 
         // Get the animator component if not already assigned in Inspector
         if (animator == null)
@@ -35,7 +41,7 @@ public class Player : Mover
     {
         // Show level above player
         // TODO: Er det her scuffed?
-        GameManager.instance.ShowText("Level " + level, 20, Color.white, transform.position + Vector3.up * 0.6f, Vector3.zero, 0.0001f);
+        GameManager.instance.ShowText("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f, Vector3.zero, 0.0001f);
 
         level = ExperienceManager.Instance.Level;
         if (hitAnimationTimer > 0)
