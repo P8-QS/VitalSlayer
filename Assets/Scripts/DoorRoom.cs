@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
-public class Room : MonoBehaviour
+public class DoorRoom : MonoBehaviour
 {
     [System.Serializable]
     public enum DoorOrientation
