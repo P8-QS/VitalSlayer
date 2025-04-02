@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6751840316327776937}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.44038174, y: -0.61471605, z: -0.0022499994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -44,11 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23dab5d68b7b384b8307b1560c588b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardHealthBarPrefab: {fileID: 674234524941047591, guid: 6239ed9b84449584db2cb20ed2bfe1d1, type: 3}
-  bossHealthBarPrefab: {fileID: 674234524941047591, guid: 43d5bfae842637940b27b5619459eff7, type: 3}
+  healthBarPrefab: {fileID: 674234524941047591, guid: 6239ed9b84449584db2cb20ed2bfe1d1, type: 3}
   healthBarContainer: {fileID: 2869388674940833035}
   showOnlyWhenDamaged: 0
-  defaultOffset: {x: 0, y: -0.4, z: 0}
-  bossOffset: {x: 0, y: -1.4, z: 0}
-  autoAdjustOffsetBySize: 0
-  offsetMultiplier: -0.75
