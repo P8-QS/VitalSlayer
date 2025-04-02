@@ -1,16 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class HealthBarManager : MonoBehaviour
 {
     public static HealthBarManager Instance { get; private set; }
 
-    [Header("Prefabs")] [Tooltip("The standard health bar prefab to be instantiated")]
-    public GameObject standardHealthBarPrefab;
-
-    [Tooltip("The boss health bar prefab to be instantiated")]
-    public GameObject bossHealthBarPrefab;
+    [Header("Prefabs")] [Tooltip("The health bar prefab to be instantiated")]
+    public GameObject healthBarPrefab;
 
     [Header("Settings")] [Tooltip("The parent transform where health bars will be created")]
     public Transform healthBarContainer;
@@ -57,7 +55,7 @@ public class HealthBarManager : MonoBehaviour
         }
 
         // Create new health bar
-        GameObject healthBar = Instantiate(standardHealthBarPrefab, healthBarContainer);
+        GameObject healthBar = Instantiate(healthBarPrefab, healthBarContainer);
         healthBar.name = $"{entity.name}_HealthBar";
 
         // Set up the HealthBar component

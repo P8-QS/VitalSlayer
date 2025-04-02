@@ -13,9 +13,7 @@ public class HealthBar : MonoBehaviour
 
     [Tooltip("The Fighter or Enemy component this health bar is tracking")]
     public MonoBehaviour targetEntity;
-
-    [Tooltip("Offset from the entity position")]
-    public Vector3 offset = new Vector3(0, 0.0f, 0);
+    
 
     [Tooltip("Whether to show the health bar only when damaged")]
     public bool showOnlyWhenDamaged = false;
@@ -61,11 +59,12 @@ public class HealthBar : MonoBehaviour
             {
                 // Adjust the position based on the sprite size
                 var yOffset = -(spriteRenderer.bounds.size.y / 2) - 0.05f;
-                transform.position = targetEntity.transform.position + new Vector3(0, yOffset, 0) + offset;
+                Debug.LogError("Y Offset: " + yOffset);
+                transform.position = targetEntity.transform.position + new Vector3(0, yOffset, 0);
             }
             else
             {
-                transform.position = targetEntity.transform.position + offset;
+                transform.position = targetEntity.transform.position;
             }
         }
     }
@@ -118,7 +117,6 @@ public class HealthBar : MonoBehaviour
         var spriteRenderer = targetEntity.GetComponent<SpriteRenderer>();
         if (spriteRenderer)
         {
-            Debug.LogWarning("FOUND COLLIDER SET TARGET");
             var fillTransform = fillImage.GetComponent<RectTransform>();
             var bgTransform = bgImage.GetComponent<RectTransform>();
             var borderTransform = borderImage.GetComponent<RectTransform>();
@@ -126,8 +124,7 @@ public class HealthBar : MonoBehaviour
             {
                 var spriteWidth = spriteRenderer.bounds.size.x;
                 var barWidth = spriteWidth + 0.25f;
-
-                Debug.LogWarning("FOUND TRANSFORMS SET TARGET");
+                
                 fillTransform.sizeDelta = new Vector2(barWidth, 0.05f);
                 bgTransform.sizeDelta = new Vector2(barWidth, 0.05f);
                 borderTransform.sizeDelta = new Vector2(barWidth + 0.05f, 0.10f);
