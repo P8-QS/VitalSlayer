@@ -4,12 +4,12 @@ using UnityEngine;
 public class Player : Mover
 {
     public Animator animator;
-    private JoystickMove joystickMove;
     public float attackCooldown = 2.0f;
     public float lastAttackTime = 0f;
     private Weapon weapon;
     private Animator weaponAnimator;
-
+    public Joystick movementJoystick;
+    public float playerSpeed = 1;
     private float hitAnimationTimer = 0f;
     private const float HIT_ANIMATION_DURATION = 0.15f; // Duration in seconds
 
@@ -19,7 +19,6 @@ public class Player : Mover
         level = ExperienceManager.Instance.Level;
         base.Start();
         boxCollider = GetComponent<BoxCollider2D>();
-        joystickMove = GetComponent<JoystickMove>();
         initialSize = transform.localScale;
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
         weapon = weaponObj.GetComponent<Weapon>();
@@ -56,7 +55,7 @@ public class Player : Mover
 
     private void FixedUpdate()
     {
-        Vector3 input = new Vector3(joystickMove.movementJoystick.Direction.x, joystickMove.movementJoystick.Direction.y, 0);
+        Vector3 input = new Vector3(movementJoystick.Direction.x*playerSpeed,movementJoystick.Direction.y*playerSpeed, 0);
         Animate(input);
         UpdateMotor(input);
 
