@@ -57,11 +57,12 @@ public class ToxicPuddle : Collidable
             // Start coroutine to apply damage over time
             StartCoroutine(ApplyDamageOverTime(entity));
 
-            // Apply slow effect
-            JoystickMove joystickMove = entity.GetComponent<JoystickMove>();
-            if (joystickMove != null)
+            // Apply slow effectq
+            Player player = entity.GetComponent<Player>();
+
+            if (player != null)
             {
-                StartCoroutine(ApplySlowEffect(joystickMove));
+                StartCoroutine(ApplySlowEffect(player));
             }
         }
     }
@@ -107,19 +108,19 @@ public class ToxicPuddle : Collidable
         isApplyingDamage = false;
     }
 
-    private IEnumerator ApplySlowEffect(JoystickMove joystickMove)
+    private IEnumerator ApplySlowEffect(Player player)
     {
         // Remember the original speed
-        float originalSpeed = joystickMove.playerSpeed;
+        var originalSpeed = player.speed;
 
         // Apply the slow effect
-        joystickMove.playerSpeed *= slowFactor;
+        player.speed *= slowFactor;
 
         // Wait for a short time
         yield return new WaitForSeconds(damageTickRate * 2); // Give a bit more time for slow effect
 
         // Restore the original speed if the player is not in another puddle
-        joystickMove.playerSpeed = originalSpeed;
+        player.speed = originalSpeed;
     }
 
     private IEnumerator FadeOut()
