@@ -31,7 +31,32 @@ namespace Effects {
 
         public void Apply()
         {
-            Debug.LogWarning("Apply hallucination effect not implemented");
+            EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
+
+            if (spawner == null)
+            {
+                Debug.LogError("EnemySpawner not found in the scene.");
+                return;
+            }
+
+            int count = Level == 1 ? 1 : 2;
+
+            for (int i = 0; i < count; i++)
+            {
+                Vector3 basePosition = GameManager.instance.player.transform.position;
+
+                // Make sure spawn is not too close to the player
+                Vector2 offset;
+                do
+                {
+                    offset = UnityEngine.Random.insideUnitCircle * 3f;
+                } while (offset.magnitude < 1.5f); // Set min spawn distance
+
+                Vector3 spawnPosition = basePosition + new Vector3(offset.x, offset.y, 0);
+
+                spawner.SpawnPhantomEnemy(spawnPosition);
+            }
         }
+        
     }
 }

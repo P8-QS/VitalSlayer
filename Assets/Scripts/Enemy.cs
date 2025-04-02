@@ -9,6 +9,9 @@ public class Enemy : Mover
     private bool collidingWithPlayer;
     private Transform playerTransform;
     private Vector3 startingPosition;
+    
+    [Header ("Phantom setting")] 
+    public bool isPhantom = false;
 
     // Hitbox
     public ContactFilter2D filter;
@@ -21,6 +24,12 @@ public class Enemy : Mover
         playerTransform = GameManager.instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
+
+        if (isPhantom)
+        {
+            hitpoint = 1;
+            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
+        }
     }
 
     protected void FixedUpdate()
@@ -74,10 +83,18 @@ public class Enemy : Mover
 
     protected override void Death()
     {
-        Destroy(gameObject);
+        if (!isPhantom)
+        {
         int xp = ExperienceManager.Instance.AddEnemy(1);
         GameSummaryManager.Instance.AddEnemy();
         // GameManager.instance.XpManager.Experience += xpValue;
         GameManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        }
+        else
+        {
+            GameManager.instance.ShowText("Phantom vanished", 10, Color.gray, transform.position, Vector3.up * 1, 1.0f);
+        }
+        
+        Destroy(gameObject);
     }
 }
