@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6213459868908373152}
   - component: {fileID: 2542757981207152596}
   m_Layer: 5
-  m_Name: EffectUI
+  m_Name: EffectIcons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
