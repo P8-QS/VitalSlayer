@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6213459868908373152}
   - component: {fileID: 2542757981207152596}
   m_Layer: 5
-  m_Name: EffectUI
+  m_Name: EffectIcons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,17 +26,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751973917123679680}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 96, y: 182}
-  m_SizeDelta: {x: 519, y: 924}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 366, y: -232}
+  m_SizeDelta: {x: 200, y: 924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7735522509496600066
 CanvasRenderer:
@@ -83,4 +83,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectIconPrefab: {fileID: 6492594019917521396, guid: 4adbec96b8c930b45bcc2f717b106c93, type: 3}
+  effectDescriptionBox: {fileID: 0}
   effectDescriptionText: {fileID: 0}
