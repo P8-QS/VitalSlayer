@@ -170,6 +170,7 @@ MonoBehaviour:
   critMultiplier: 2
   canAttack: 0
   spriteRenderer: {fileID: 0}
+  hit: {fileID: 8300000, guid: 9453cfef893cf429bb68a0d8e423e61b, type: 3}
 --- !u!95 &606313415041845470
 Animator:
   serializedVersion: 7
@@ -417,7 +418,9 @@ MonoBehaviour:
   attackCooldown: 2
   lastAttackTime: 0
   movementJoystick: {fileID: 0}
-  playerSpeed: 1
+  speed: 1
+  attackSound: {fileID: 8300000, guid: e419fa0d7077e4c479b5c8fb8591094b, type: 3}
+  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
 --- !u!61 &7153521390909858909
 BoxCollider2D:
   m_ObjectHideFlags: 0

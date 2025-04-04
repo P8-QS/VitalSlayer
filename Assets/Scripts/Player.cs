@@ -14,6 +14,11 @@ public class Player : Mover
     private float hitAnimationTimer = 0f;
     private const float HIT_ANIMATION_DURATION = 0.15f; // Duration in seconds
 
+
+    public AudioClip attackSound;
+    public AudioClip deathSound;
+
+
     protected override void Start()
     {
         level = ExperienceManager.Instance.Level;
@@ -70,6 +75,7 @@ public class Player : Mover
 
     public void Attack()
     {
+        SoundFxManager.Instance.PlaySound(attackSound, transform, 0.8f);
         lastAttackTime = Time.time;
         weaponAnimator.SetTrigger("Attack");
         weapon.canAttack = true;
@@ -96,8 +102,7 @@ public class Player : Mover
 
     protected override void Death()
     {
-        Debug.Log("player died");
-
+        SoundFxManager.Instance.PlaySoundAtGlobal(deathSound, 1f);
         Destroy(gameObject);
         GameSummaryManager.Instance.Show();
     }
