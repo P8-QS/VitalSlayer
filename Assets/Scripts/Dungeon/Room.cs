@@ -15,7 +15,7 @@ public class Room : MonoBehaviour
     public List<DoorInfo> doorData = new();
     
     private List<Transform> doorTransforms = new();
-    private BoundsInt? calculatedBounds;
+    private Bounds? calculatedBounds;
 
     #if UNITY_EDITOR
     [ContextMenu("Find Doors and Populate Data")]
@@ -132,62 +132,87 @@ public class Room : MonoBehaviour
 
     // Calculate the bounds based on all child Tilemaps
     // IMPORTANT: This assumes Tilemaps are children and use the scene's main Grid
-    public BoundsInt GetRoomBounds(Grid grid)
-    {
+    public Bounds GetRoomBounds(Grid grid)
+    { ;
         if (calculatedBounds.HasValue)
         {
             return calculatedBounds.Value;
         }
 
-        BoundsInt totalBounds = new BoundsInt();
-        bool firstMap = true;
+        var result = new Bounds();
 
-        Tilemap[] tilemaps = GetComponentsInChildren<Tilemap>();
-
-        if (tilemaps.Length == 0)
+        float minX = 0;
+        float minY = 0;
+        float maxX = 0;
+        float maxY = 0;
+        
+        foreach (var door in doorData)
         {
-            Debug.LogWarning($"Room {name} has no Tilemaps to calculate bounds!", this);
-            // Return a minimal bound at origin if no tilemaps found
-             calculatedBounds = new BoundsInt(Vector3Int.zero, Vector3Int.one);
-             return calculatedBounds.Value;
-        }
-
-
-        foreach (Tilemap tm in tilemaps)
-        {
-            if (tm.cellBounds.size.x > 0 || tm.cellBounds.size.y > 0) // Only consider maps with tiles
+            switch (door.direction)
             {
-                 // Transform bounds from local space of tilemap GO to world, then to cell coords of main grid
-                Vector3Int minWorld = grid.WorldToCell(tm.transform.TransformPoint(grid.CellToLocal(tm.cellBounds.min)));
-                Vector3Int maxWorld = grid.WorldToCell(tm.transform.TransformPoint(grid.CellToLocal(tm.cellBounds.max)));
-
-                // Because WorldToCell floors, max needs adjustment to encompass the actual cells
-                BoundsInt currentBounds = new BoundsInt();
-                currentBounds.SetMinMax(minWorld, maxWorld);
-
-
-                if (firstMap)
-                {
-                    totalBounds = currentBounds;
-                    firstMap = false;
-                }
-                else
-                {
-                    // Encapsulate: Expand totalBounds to include currentBounds
-                    totalBounds.SetMinMax(
-                        Vector3Int.Min(totalBounds.min, currentBounds.min),
-                        Vector3Int.Max(totalBounds.max, currentBounds.max)
-                    );
-                }
+                case "North": 
+                    maxY =  door.localPosition.y;
+                    break;
+                case "South":
+                    minY =  door.localPosition.y;
+                    break;
+                case "East":
+                    maxX =  door.localPosition.x;
+                    break;
+                case "West":
+                    minX =  door.localPosition.x;
+                    break;
             }
         }
+        
+        result.SetMinMax(new Vector2(minX, minY), new Vector2(maxX, maxY));
+        
+        // bool firstMap = true;
+
+        // Tilemap[] tilemaps = GetComponentsInChildren<Tilemap>();
+        //
+        // if (tilemaps.Length == 0)
+        // {
+        //     Debug.LogWarning($"Room {name} has no Tilemaps to calculate bounds!", this);
+        //     // Return a minimal bound at origin if no tilemaps found
+        //      calculatedBounds = new BoundsInt(Vector3Int.zero, Vector3Int.one);
+        //      return calculatedBounds.Value;
+        // }
+        //
+        // foreach (Tilemap tm in tilemaps)
+        // {
+        //     if (tm.cellBounds.size.x > 0 || tm.cellBounds.size.y > 0) // Only consider maps with tiles
+        //     {
+        //         // Transform bounds from local space of tilemap GO to world, then to cell coords of main grid
+        //         var minWorld = tm.transform.TransformPoint(tm.localBounds.min);
+        //         var maxWorld = tm.transform.TransformPoint(tm.localBounds.max);
+        //
+        //         // Because WorldToCell floors, max needs adjustment to encompass the actual cells
+        //         BoundsInt currentBounds = new BoundsInt();
+        //         // currentBounds.SetMinMax(minWorld, maxWorld);
+        //
+        //
+        //         if (firstMap)
+        //         {
+        //             totalBounds = currentBounds;
+        //             firstMap = false;
+        //         }
+        //         else
+        //         {
+        //             // Encapsulate: Expand totalBounds to include currentBounds
+        //             totalBounds.SetMinMax(
+        //                 Vector3Int.Min(totalBounds.min, currentBounds.min),
+        //                 Vector3Int.Max(totalBounds.max, currentBounds.max)
+        //             );
+        //         }
+        //     }
+        // }
 
          // Add a small buffer if desired, e.g., to prevent walls touching directly
         // totalBounds.min -= Vector3Int.one;
         // totalBounds.max += Vector3Int.one;
 
-        calculatedBounds = totalBounds;
-        //Debug.Log($"Calculated Bounds for {name}: {calculatedBounds.Value}", this);
+        calculatedBounds = result;
         return calculatedBounds.Value;
     }
 

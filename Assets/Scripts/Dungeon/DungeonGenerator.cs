@@ -25,10 +25,10 @@ public class DungeonGenerator : MonoBehaviour
     {
         public GameObject gameObject;
         public Room roomScript;
-        public BoundsInt bounds; // Bounds in Grid cell coordinates
+        public Bounds bounds; // Bounds in Grid cell coordinates
         public List<Transform> availableDoors; // Actual Transform instances from the placed room
 
-        public RoomInstance(GameObject go, Room room, BoundsInt b)
+        public RoomInstance(GameObject go, Room room, Bounds b)
         {
             gameObject = go;
             roomScript = room;
@@ -166,8 +166,8 @@ public class DungeonGenerator : MonoBehaviour
                              Debug.LogWarning($"Could not find corresponding door transform on newly placed room {newRoomInstance.gameObject.name} matching data (Dir: {requiredOppositeDir}, LocalPos: {chosenDoorData.localPosition}). Check Room prefab's Door Data and doorPositionMatchTolerance.", newRoomInstance.gameObject);
                          }
 
-                        // Remove the door Transform we just branched FROM from the *current* room's available list
-                        currentRoomInstance.availableDoors.Remove(currentDoorTransform);
+                         // Remove the door Transform we just branched FROM from the *current* room's available list
+                         currentRoomInstance.availableDoors.Remove(currentDoorTransform);
                          // Debug.Log($"Removed originating door {currentDoorTransform.name} from room {currentRoomInstance.gameObject.name}");
 
                         roomPlacedForThisDoor = true;
@@ -202,16 +202,19 @@ public class DungeonGenerator : MonoBehaviour
 
         // Calculate Bounds in Grid Coordinates
         var roomBounds = roomScript.GetRoomBounds(grid);
-        roomBounds.position += gridPosition; // Offset bounds to placement location
-
+        
+        // TODO: DOESNT WORK WHEN SHIFTING TO THE LEFT FIIIIX
+        roomBounds.center += roomInstanceGo.transform.position;
+        // roomBounds.position += gridPosition; // Offset bounds to placement location
+        
         // TODO: Check for Overlaps
         foreach (var existingRoom in placedRooms)
         {
-            if (BoundsIntOverlap(roomBounds, existingRoom.bounds))
+            if (BoundsOverlap(roomBounds, existingRoom.bounds))
             {
-                DestroyImmediate(roomInstanceGo);
-                Debug.LogWarning($"Detected overlap between room bounds! {roomBounds}, room: {existingRoom.gameObject.name}, {existingRoom.bounds}, room: {existingRoom.gameObject.name}");
-                return false; // Overlap detected
+                Debug.LogWarning($"Detected overlap between room bounds! {roomBounds} {existingRoom} min{roomBounds.min} max{roomBounds.max}, room: {existingRoom.gameObject.name}, min{existingRoom.bounds.min} max{existingRoom.bounds.max}, room: {existingRoom.gameObject.name}");
+                // DestroyImmediate(roomInstanceGo);
+                // return false; // Overlap detected
             }
         }
 
@@ -229,11 +232,9 @@ public class DungeonGenerator : MonoBehaviour
     }
 
     // Custom BoundsInt overlap check ignoring Z axis
-    bool BoundsIntOverlap(BoundsInt a, BoundsInt b)
+    bool BoundsOverlap(Bounds a, Bounds b)
     {
-        bool separated = a.xMax <= b.xMin || a.xMin >= b.xMax ||
-                         a.yMax <= b.yMin || a.yMin >= b.yMax;
-        return !separated;
+        return a.Intersects(b);
     }
 
     [ContextMenu("Clear Dungeon")]
