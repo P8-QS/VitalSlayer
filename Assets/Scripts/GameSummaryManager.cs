@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameSummaryManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class GameSummaryManager : MonoBehaviour
     public int levelStart;
 
     public static GameSummaryManager Instance;
+    
+    public AudioClip gameWonSound;
+    public AudioClip gameLoseSound;
 
     private void Awake()
     {
@@ -60,7 +64,15 @@ public class GameSummaryManager : MonoBehaviour
         if (ExperienceManager.Instance.BonusXpEnabled) ExperienceManager.Instance.ResetCooldown();
 
         var gameWon = bossesKilled > 0;
-        if (gameWon) ExperienceManager.Instance.AddGameWin();
+        if (gameWon)
+        {
+            ExperienceManager.Instance.AddGameWin();
+            SoundFxManager.Instance.PlaySoundAtGlobal(gameWonSound, 1f);
+        }
+        else
+        {
+            SoundFxManager.Instance.PlaySoundAtGlobal(gameLoseSound, 1f);
+        }
         summaryUI.gameWon = gameWon;
 
         int totalEnemies = enemiesKilled + bossesKilled;

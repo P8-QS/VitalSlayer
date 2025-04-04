@@ -59,7 +59,6 @@ public class HealthBar : MonoBehaviour
             {
                 // Adjust the position based on the sprite size
                 var yOffset = -(spriteRenderer.bounds.size.y / 2) - 0.05f;
-                Debug.LogError("Y Offset: " + yOffset);
                 transform.position = targetEntity.transform.position + new Vector3(0, yOffset, 0);
             }
             else
@@ -96,7 +95,6 @@ public class HealthBar : MonoBehaviour
         }
         else if (targetEntity is Enemy enemy)
         {
-            Debug.LogWarning("Entity is an Enemy HEALTHBAR");
             currentHitpoint = enemy.hitpoint;
             maxHitpoint = enemy.maxHitpoint;
         }
