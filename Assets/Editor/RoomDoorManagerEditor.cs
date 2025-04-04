@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Room))]
+[CustomEditor(typeof(DoorRoom))]
 public class RoomDoorEditor : Editor
 {
     private bool isPlacingDoors = false;

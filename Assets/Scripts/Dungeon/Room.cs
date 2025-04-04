@@ -18,7 +18,6 @@ public class Room : MonoBehaviour
     private BoundsInt? calculatedBounds;
 
     #if UNITY_EDITOR
-    // Helper button in Inspector to find doors and populate doorData
     [ContextMenu("Find Doors and Populate Data")]
     void PopulateDoorDataFromChildren()
     {
@@ -40,19 +39,19 @@ public class Room : MonoBehaviour
                 }
             }
         }
-         UnityEditor.EditorUtility.SetDirty(this); // Mark object as dirty to save changes
+        UnityEditor.EditorUtility.SetDirty(this);
         Debug.Log($"Populated door data for {gameObject.name}", this);
     }
     #endif
 
 
-    void Awake()
+    private void Awake()
     {
         FindDoorTransforms(); // Still useful for runtime connections
     }
 
     // Find actual transforms at runtime
-    void FindDoorTransforms()
+    private void FindDoorTransforms()
     {
         doorTransforms.Clear();
         // Match children to the stored doorData based on position/direction

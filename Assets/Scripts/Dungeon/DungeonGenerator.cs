@@ -205,14 +205,15 @@ public class DungeonGenerator : MonoBehaviour
         roomBounds.position += gridPosition; // Offset bounds to placement location
 
         // TODO: Check for Overlaps
-        // foreach (RoomInstance existingRoom in placedRooms)
-        // {
-        //     if (BoundsIntOverlap(roomBounds, existingRoom.bounds))
-        //     {
-        //         DestroyImmediate(roomInstanceGo);
-        //         return false; // Overlap detected
-        //     }
-        // }
+        foreach (var existingRoom in placedRooms)
+        {
+            if (BoundsIntOverlap(roomBounds, existingRoom.bounds))
+            {
+                DestroyImmediate(roomInstanceGo);
+                Debug.LogWarning($"Detected overlap between room bounds! {roomBounds}, room: {existingRoom.gameObject.name}, {existingRoom.bounds}, room: {existingRoom.gameObject.name}");
+                return false; // Overlap detected
+            }
+        }
 
         // --- No Overlap - Finalize Placement ---
 
