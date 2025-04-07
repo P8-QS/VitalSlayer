@@ -37,23 +37,21 @@ public class DungeonGenerator : MonoBehaviour
         }
     }
 
-    // --- Generation Trigger ---
-    [ContextMenu("Generate Dungeon (Using Prefab Data)")] // Renamed for clarity
     public void GenerateDungeon()
     {
         ClearDungeon();
 
-        if (grid == null || startRoomPrefab == null || roomPrefabs.Count == 0)
+        if (grid is null || startRoomPrefab is null || roomPrefabs.Count == 0)
         {
             Debug.LogError("Dungeon Generator is not properly configured!");
             return;
         }
          // Ensure the Room script has the necessary data structure
-         if (startRoomPrefab.GetComponent<Room>() == null || startRoomPrefab.GetComponent<Room>().GetDoorPrefabData() == null) {
+         if (startRoomPrefab.GetComponent<Room>() is null || startRoomPrefab.GetComponent<Room>().GetDoorPrefabData() is null) {
               Debug.LogError($"Start Room Prefab '{startRoomPrefab.name}' is missing Room script or GetDoorPrefabData() method is not working correctly. Ensure Room.cs is set up for Method 2.");
               return;
          }
-         if (roomPrefabs.Any(p => p == null || p.GetComponent<Room>() == null || p.GetComponent<Room>().GetDoorPrefabData() == null)) {
+         if (roomPrefabs.Any(p => p is null || p.GetComponent<Room>() is null || p.GetComponent<Room>().GetDoorPrefabData() is null)) {
              Debug.LogError($"One or more Room Prefabs are null, missing the Room script, or GetDoorPrefabData() is not working correctly. Ensure Room.cs is set up for Method 2 and all prefabs are assigned.");
              return;
          }
@@ -64,7 +62,7 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         // Place start room
-        if (!TryPlaceRoom(startRoomPrefab, Vector3Int.zero, null, null)) // No parent room/door for start room
+        if (!TryPlaceRoom(startRoomPrefab, Vector3Int.zero, null, null))
         {
             Debug.LogError("Failed to place the starting room!");
             return;
@@ -106,7 +104,7 @@ public class DungeonGenerator : MonoBehaviour
                     var nextRoomPrefab = roomPrefabs[Random.Range(0, roomPrefabs.Count)];
                     var nextRoomScript = nextRoomPrefab.GetComponent<Room>();
 
-                    if (nextRoomScript == null)
+                    if (nextRoomScript is null)
                     {
                         Debug.LogError($"Prefab {nextRoomPrefab.name} is missing Room script! Skipping.", nextRoomPrefab);
                         continue;
@@ -153,7 +151,7 @@ public class DungeonGenerator : MonoBehaviour
                         .FirstOrDefault(t => Room.GetDoorDirection(t) == requiredOppositeDir &&
                                              Vector3.Distance(t.localPosition, chosenDoorData.localPosition) < doorPositionMatchTolerance); // Match using direction and local pos
 
-                    if (placedDoorInstance != null) {
+                    if (placedDoorInstance is not null) {
                         // Remove the corresponding Transform from the *newly placed room's* available list
                         newRoomInstance.availableDoors.Remove(placedDoorInstance);
                         // Debug.Log($"Removed connection door {placedDoorInstance.name} from newly placed room {newRoomInstance.gameObject.name}");
@@ -162,13 +160,9 @@ public class DungeonGenerator : MonoBehaviour
                         Debug.LogWarning($"Could not find corresponding door transform on newly placed room {newRoomInstance.gameObject.name} matching data (Dir: {requiredOppositeDir}, LocalPos: {chosenDoorData.localPosition}). Check Room prefab's Door Data and doorPositionMatchTolerance.", newRoomInstance.gameObject);
                     }
 
-                    // Remove the door Transform we just branched FROM from the *current* room's available list
                     currentRoomInstance.availableDoors.Remove(currentDoorTransform);
-                    // Debug.Log($"Removed originating door {currentDoorTransform.name} from room {currentRoomInstance.gameObject.name}");
-
-                    roomPlacedForThisDoor = true;
-                    break; // Exit attempt loop for this door, move to the next available door on currentRoomInstance
-                    // else: TryPlaceRoom failed (e.g., overlap). Loop continues to the next attempt for this *same* 'currentDoorTransform'.
+                    
+                    break;
                 }
                  // If after all attempts, no room was placed for 'currentDoorTransform', it remains in 'availableDoors'.
             }
@@ -182,7 +176,7 @@ public class DungeonGenerator : MonoBehaviour
     private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition, RoomInstance parentRoom, Transform parentDoor)
     {
         var roomPrefabScript = roomPrefab.GetComponent<Room>();
-        if (roomPrefabScript == null)
+        if (roomPrefabScript is null)
         {
             Debug.LogError($"Prefab {roomPrefab.name} is missing Room script!", roomPrefab);
             return false;
@@ -218,16 +212,15 @@ public class DungeonGenerator : MonoBehaviour
                !Mathf.Approximately(b.max.y, a.min.y) && b.max.y > a.min.y;
     }
 
-    [ContextMenu("Clear Dungeon")]
     public void ClearDungeon()
     {
         placedRooms.Clear();
-        var parentToClear = (generatedRoomsParent != null) ? generatedRoomsParent : grid.transform;
+        var parentToClear = generatedRoomsParent ?? grid.transform;
 
         for (var i = parentToClear.childCount - 1; i >= 0; i--)
         {
             var childGo = parentToClear.GetChild(i).gameObject;
-            if (childGo.GetComponent<Room>() == null) continue; // Identify generated rooms
+            if (childGo.GetComponent<Room>() is null) continue; // Identify generated rooms
             if (Application.isPlaying)
                 Destroy(childGo);
             else
