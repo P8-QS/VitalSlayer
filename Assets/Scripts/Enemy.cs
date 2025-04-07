@@ -40,17 +40,17 @@ public class Enemy : Mover
             {
                 if (!collidingWithPlayer)
                 {
-                    UpdateMotor((playerTransform.position - transform.position).normalized);
+                    UpdateMotor((playerTransform.position - transform.position).normalized * currentSpeed);
                 }
             }
             else
             {
-                UpdateMotor(startingPosition - transform.position);
+                UpdateMotor((startingPosition - transform.position) * currentSpeed);
             }
         }
         else
         {
-            UpdateMotor(startingPosition - transform.position);
+            UpdateMotor((startingPosition - transform.position) * currentSpeed);
             chasing = false;
         }
 

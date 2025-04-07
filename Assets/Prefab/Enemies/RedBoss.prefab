@@ -86,7 +86,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &3170335015294366140
@@ -254,7 +254,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &3458535547091722369
@@ -470,6 +470,8 @@ MonoBehaviour:
   maxHitpoint: 100
   pushRecoverySpeed: 0.2
   level: 1
+  baseSpeed: 1
+  currentSpeed: 0
   triggerLength: 5
   chaseLength: 10
   filter:
@@ -498,6 +500,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
   fireballSpeed:
   - 2.5
   - -2.5

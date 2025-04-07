@@ -1,4 +1,5 @@
 using Metrics;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,10 +11,8 @@ public class Player : Mover
     private Weapon weapon;
     private Animator weaponAnimator;
     public Joystick movementJoystick;
-    public float speed = 1;
     private float hitAnimationTimer = 0f;
     private const float HIT_ANIMATION_DURATION = 0.15f; // Duration in seconds
-
 
     public AudioClip attackSound;
     public AudioClip deathSound;
@@ -63,7 +62,7 @@ public class Player : Mover
 
     private void FixedUpdate()
     {
-        Vector3 input = new Vector3(movementJoystick.Direction.x * speed, movementJoystick.Direction.y * speed, 0);
+        Vector3 input = new Vector3(movementJoystick.Direction.x * currentSpeed, movementJoystick.Direction.y * currentSpeed, 0);
         Animate(input);
         UpdateMotor(input);
 

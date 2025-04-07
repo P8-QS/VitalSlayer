@@ -269,6 +269,8 @@ MonoBehaviour:
   maxHitpoint: 15
   pushRecoverySpeed: 0.2
   level: 1
+  baseSpeed: 1
+  currentSpeed: 0
   triggerLength: 3
   chaseLength: 5
   filter:
@@ -297,6 +299,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
   acidColor: {r: 0, g: 1, b: 0, a: 1}
   toxicPuddlePrefab: {fileID: 6172137587265226630, guid: 67b531d3ab993804abddd5e793bb1a2d, type: 3}
   puddleDuration: 7
