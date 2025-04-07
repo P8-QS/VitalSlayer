@@ -13,7 +13,7 @@ public class AcidSlime : Enemy
     public int puddleBaseMaxDamage = 3;
     public float puddleBaseScaling = 1.2f;
     public float puddleSlowFactor = 0.5f;
-
+    
     // Reference to the acid hitbox component
     private AcidSlimeHitbox acidHitbox;
 
@@ -27,6 +27,11 @@ public class AcidSlime : Enemy
         if (acidHitbox == null)
         {
             Debug.LogError("AcidSlimeHitbox component not found on the hitbox. Make sure to replace EnemyHitbox with AcidSlimeHitbox on the hitbox GameObject.");
+        }
+
+        if (isPhantom)
+        {
+            PhantomEnemy();
         }
 
         // You might want to add a visual indicator for the acid slime

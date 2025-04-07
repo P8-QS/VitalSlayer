@@ -1,4 +1,3 @@
-using System;
 using Effects;
 using UnityEngine;
 
@@ -13,7 +12,8 @@ public class Enemy : Mover
     private Vector3 startingPosition;
 
     [Header("Phantom setting")] public bool isPhantom;
-    public int PhantomHitpoints;
+    GameObject acidSlimePrefab = Resources.Load<GameObject>("Prefab/acid_slime_01");
+    //public int PhantomHitpoints;
 
     // Hitbox
     public ContactFilter2D filter;
@@ -27,12 +27,10 @@ public class Enemy : Mover
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
 
-        /*if (isPhantom)
+        if (isPhantom)
         {
-            //hitpoint = 1;
-            //GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
             PhantomEnemy();
-        }*/
+        }
     }
 
     protected void FixedUpdate()
@@ -88,7 +86,18 @@ public class Enemy : Mover
     {
         // need some way to spawn phantom enemies
         // and to test the hallucination effect i think the mock data should be changed
-        HallucinationEffect hallucinationEffect = GameManager.instance.hallucinationEffect;
+
+        if (acidSlimePrefab != null)
+        {
+            // Instantiate the prefab at the desired position and rotation
+            Instantiate(acidSlimePrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Prefab 'acid_slime_01' not found in Resources/Prefab/");
+        }
+
+        HallucinationEffect hallucinationEffect = new HallucinationEffect(acidSlimePrefab.GetComponent<SpriteRenderer>().sprite, 1);
         hallucinationEffect.Apply();
     }
 

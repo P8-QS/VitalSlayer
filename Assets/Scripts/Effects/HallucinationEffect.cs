@@ -32,24 +32,23 @@ namespace Effects {
 
         public void Apply()
         {
-            //enemy class has a method to spawn phantom enemies 
-            //need to find a way to spawn phantom enemies
+            // Apply the hallucination effect to the enemies in the room
             Enemy enemy = UnityEngine.Object.FindFirstObjectByType<Enemy>();
             
             if (_level == 1)
             {
                 Debug.Log("Phantom enemy spawned");
-                _numberOfPhantomEnemies = 1;
                 enemy.isPhantom = true;
-                enemy.PhantomHitpoints = 1;
-                //spawing phantom enemy where spawnPhamton(numberOfPhantomEnemies)/
+                _numberOfPhantomEnemies = 1;
+                enemy.hitpoint = 1;
+                //spawing phantom enemy spawnPhamton(numberOfPhantomEnemies)
                 enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
             }
             else if (_level == 2)
             {
-                _numberOfPhantomEnemies = 2;
                 enemy.isPhantom = true;
-                enemy.PhantomHitpoints = 1;
+                _numberOfPhantomEnemies = 2;
+                enemy.hitpoint = 1;
                 enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
             }
             

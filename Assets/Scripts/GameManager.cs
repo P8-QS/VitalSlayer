@@ -8,7 +8,7 @@ using Scene = UnityEngine.SceneManagement.Scene;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public HallucinationEffect hallucinationEffect;
+    //public HallucinationEffect hallucinationEffect;
     private void Awake(){
         if (GameManager.instance != null){
             Destroy(gameObject);
@@ -18,13 +18,6 @@ public class GameManager : MonoBehaviour
         instance = this;
         SceneManager.sceneLoaded += LoadState;
         DontDestroyOnLoad(gameObject);
-        
-        SleepMetric sleepMetric = MetricsManager.Instance.GetSleepMetric();
-        if (sleepMetric != null)
-        {
-            hallucinationEffect.Level = sleepMetric.Effect.Level;
-            hallucinationEffect.Apply();
-        }
     }
     
 
