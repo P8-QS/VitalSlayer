@@ -9,9 +9,9 @@ public class MainMenuPage : MonoBehaviour
 {
     public TextMeshProUGUI countdownText;
     public GameObject cooldownIcon;
-    
+
     public AudioClip menuMusic;
-    
+
     void Start()
     {
         HandleXpCooldown();
