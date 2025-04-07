@@ -54,8 +54,15 @@ public class SoundFxManager : MonoBehaviour
     /// <summary>
     /// Plays background music. Stops any currently playing track.
     /// </summary>
-    public void PlayMusic(AudioClip clip, float volume = 1f)
+    public void PlayMusic(AudioClip clip, float volume = 1f, bool continuePlayback = false)
     {
+        
+        // If continuePlayback is true, and clip have the same name, do not stop
+        if (continuePlayback && _musicSource.clip != null && _musicSource.clip.name == clip.name)
+        {
+            return;
+        }
+        
         if (_musicSource.isPlaying)
         {
             _musicSource.Stop();

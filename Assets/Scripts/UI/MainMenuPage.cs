@@ -15,7 +15,7 @@ public class MainMenuPage : MonoBehaviour
     void Start()
     {
         HandleXpCooldown();
-        SoundFxManager.Instance.PlayMusic(menuMusic, 0.2f);
+        SoundFxManager.Instance.PlayMusic(menuMusic, 0.2f, true);
     }
 
     void Update()
