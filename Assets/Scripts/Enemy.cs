@@ -21,7 +21,7 @@ public class Enemy : Mover
     protected override void Start()
     {
         base.Start();
-        playerTransform = GameManager.instance.player.transform;
+        playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
@@ -82,6 +82,6 @@ public class Enemy : Mover
         int xp = ExperienceManager.Instance.AddEnemy(1);
         GameSummaryManager.Instance.AddEnemy();
         // GameManager.instance.XpManager.Experience += xpValue;
-        GameManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        StateManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }
 }

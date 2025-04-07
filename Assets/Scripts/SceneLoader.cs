@@ -30,20 +30,28 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
     
-    public void LoadSceneWithTransition(string sceneName)
+    public void LoadSceneWithTransition(string sceneName, System.Action onLoaded = null)
     {
-        StartCoroutine(TriggerTransitionAndLoadScene(sceneName));
+        StartCoroutine(TriggerTransitionAndLoadScene(sceneName, onLoaded));
     }
 
-    
-    private IEnumerator TriggerTransitionAndLoadScene(string sceneName)
+    private IEnumerator TriggerTransitionAndLoadScene(string sceneName, System.Action onLoaded)
     {
-        // Trigger animation
         transition.SetTrigger("Start");
-
-        // Wait for the animation to finish
         yield return new WaitForSeconds(transitionTime);
-        
+
+        // Register scene load callback
+        if (onLoaded != null)
+        {
+            void Callback(Scene scene, LoadSceneMode mode)
+            {
+                onLoaded.Invoke();
+                SceneManager.sceneLoaded -= Callback;
+            }
+            SceneManager.sceneLoaded += Callback;
+        }
+
         SceneManager.LoadScene(sceneName);
     }
+
 }
