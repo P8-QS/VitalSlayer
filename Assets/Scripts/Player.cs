@@ -102,7 +102,7 @@ public class Player : Mover
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySoundAtGlobal(deathSound, 1f);
+        SoundFxManager.Instance.PlaySound(deathSound, 1f);
         Destroy(gameObject);
         GameSummaryManager.Instance.Show();
     }
