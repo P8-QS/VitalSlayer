@@ -5,6 +5,7 @@ namespace Effects {
     public class HallucinationEffect : IEffect
     {
         private int _level;
+        private int _numberOfPhantomEnemies;
         private Sprite _icon;
         public string Name => "Hallucination";
 
@@ -31,32 +32,28 @@ namespace Effects {
 
         public void Apply()
         {
-            EnemySpawner spawner = GameObject.FindObjectOfType<EnemySpawner>();
-
-            if (spawner == null)
+            //enemy class has a method to spawn phantom enemies - dont use enemy spawner
+            //need to find a way to spawn phantom enemies
+            Enemy enemy = UnityEngine.Object.FindFirstObjectByType<Enemy>();
+            
+            if (_level == 1)
             {
-                Debug.LogError("EnemySpawner not found in the scene.");
-                return;
+                Debug.Log("Phantom enemy spawned");
+                _numberOfPhantomEnemies = 1;
+                enemy.isPhantom = true;
+                enemy.hitpoint = 1;
+                enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
             }
-
-            int count = Level == 1 ? 1 : 2;
-
-            for (int i = 0; i < count; i++)
+            else if (_level == 2)
             {
-                Vector3 basePosition = GameManager.instance.player.transform.position;
-
-                // Make sure spawn is not too close to the player
-                Vector2 offset;
-                do
-                {
-                    offset = UnityEngine.Random.insideUnitCircle * 3f;
-                } while (offset.magnitude < 1.5f); // Set min spawn distance
-
-                Vector3 spawnPosition = basePosition + new Vector3(offset.x, offset.y, 0);
-
-                spawner.SpawnPhantomEnemy(spawnPosition);
+                _numberOfPhantomEnemies = 2;
+                enemy.isPhantom = true;
+                enemy.hitpoint = 1;
+                enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
             }
+            
         }
-        
+
+       
     }
 }

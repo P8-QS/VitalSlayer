@@ -85,20 +85,10 @@ public class Enemy : Mover
 
     public void PhantomEnemy()
     {
-        int hallucinationLevel = GameManager.instance.hallucinationEffect.Level;
-        if (hallucinationLevel == 1)
-        {
-            Debug.Log("Phantom enemy spawned");
-            isPhantom = true;
-            hitpoint = 1;
-            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
-        }
-        else if (hallucinationLevel == 2)
-        {
-            isPhantom = true;
-            hitpoint = 1;
-            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
-        }
+        // need some way to spawn phantom enemies
+        // and to test the hallucination effect i think the mock data should be changed
+        HallucinationEffect hallucinationEffect = GameManager.instance.hallucinationEffect;
+        hallucinationEffect.Apply();
     }
 
     protected override void Death()

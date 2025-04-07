@@ -25,5 +25,17 @@ public class MetricsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
+
+    public SleepMetric GetSleepMetric()
+    {
+        if (metrics.TryGetValue("Sleep", out var metric))
+        {
+            return metric as SleepMetric;
+        }
+
+        return null;
+    }
+       
 }
