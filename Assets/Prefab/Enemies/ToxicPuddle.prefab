@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 894772643918955270}
   - component: {fileID: 1132744793053934589}
   - component: {fileID: 1828646635695232692}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ToxicPuddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,5 +165,6 @@ MonoBehaviour:
   minDamage: 1
   maxDamage: 1
   damageTickRate: 0.5
+  dotDuration: 3
   slowFactor: 0.25
   puddleColor: {r: 0.019607844, g: 0.7490196, b: 0.18823531, a: 1}

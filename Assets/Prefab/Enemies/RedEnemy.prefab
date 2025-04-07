@@ -179,6 +179,8 @@ MonoBehaviour:
   maxHitpoint: 15
   pushRecoverySpeed: 0.2
   level: 1
+  baseSpeed: 1
+  currentSpeed: 0
   triggerLength: 2
   chaseLength: 3
   filter:
@@ -207,6 +209,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
 --- !u!114 &6307006354632205093
 MonoBehaviour:
   m_ObjectHideFlags: 0
