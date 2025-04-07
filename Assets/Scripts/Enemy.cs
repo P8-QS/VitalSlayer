@@ -14,6 +14,9 @@ public class Enemy : Mover
     public ContactFilter2D filter;
     public BoxCollider2D hitBox;
     public Collider2D[] hits = new Collider2D[10];
+    
+    public AudioClip deathSound;
+
 
     protected override void Start()
     {
@@ -74,10 +77,11 @@ public class Enemy : Mover
 
     protected override void Death()
     {
+        SoundFxManager.Instance.PlaySoundAtGlobal(deathSound, 1f);
         Destroy(gameObject);
         int xp = ExperienceManager.Instance.AddEnemy(1);
         GameSummaryManager.Instance.AddEnemy();
         // GameManager.instance.XpManager.Experience += xpValue;
-        GameManager.instance.ShowText("+" + xp + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        GameManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }
 }

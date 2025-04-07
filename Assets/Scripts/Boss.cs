@@ -22,7 +22,7 @@ public class Boss : Enemy
         Destroy(gameObject);
         int xp = ExperienceManager.Instance.AddBoss(1);
         GameSummaryManager.Instance.AddBoss();
-        GameManager.instance.ShowText("+" + xp + " xp", 30, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        GameManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
         GameSummaryManager.Instance.Show();
     }
 

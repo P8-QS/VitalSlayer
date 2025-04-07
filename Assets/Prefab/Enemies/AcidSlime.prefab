@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 3390749979562949410}
   - component: {fileID: 3455501692796417109}
   m_Layer: 0
-  m_Name: acid_slime_01
+  m_Name: AcidSlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +148,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.49, y: -0.97, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4147909595222808631}
@@ -300,7 +300,8 @@ MonoBehaviour:
   acidColor: {r: 0, g: 1, b: 0, a: 1}
   toxicPuddlePrefab: {fileID: 6172137587265226630, guid: 67b531d3ab993804abddd5e793bb1a2d, type: 3}
   puddleDuration: 7
-  puddleBaseDamage: 1
+  puddleBaseMinDamage: 1
+  puddleBaseMaxDamage: 3
   puddleBaseScaling: 1.2
   puddleSlowFactor: 0.25
 --- !u!61 &3455501692796417109
