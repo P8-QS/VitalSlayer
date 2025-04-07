@@ -9,10 +9,13 @@ public class MainMenuPage : MonoBehaviour
 {
     public TextMeshProUGUI countdownText;
     public GameObject cooldownIcon;
-
+    
+    public AudioClip menuMusic;
+    
     void Start()
     {
         HandleXpCooldown();
+        SoundFxManager.Instance.PlayMusic(menuMusic, 0.2f, true);
     }
 
     void Update()
@@ -37,7 +40,7 @@ public class MainMenuPage : MonoBehaviour
 
     public void ClickPlayButton()
     {
-        SceneLoader.Instance.LoadSceneWithTransition("Game");
+        GameManager.Instance.StartRound();
     }
 
     public void ClickMetricsButton()

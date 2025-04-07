@@ -67,11 +67,11 @@ public class GameSummaryManager : MonoBehaviour
         if (gameWon)
         {
             ExperienceManager.Instance.AddGameWin();
-            SoundFxManager.Instance.PlaySoundAtGlobal(gameWonSound, 1f);
+            SoundFxManager.Instance.PlaySound(gameWonSound, 1f);
         }
         else
         {
-            SoundFxManager.Instance.PlaySoundAtGlobal(gameLoseSound, 1f);
+            SoundFxManager.Instance.PlaySound(gameLoseSound, 1f);
         }
         summaryUI.gameWon = gameWon;
 

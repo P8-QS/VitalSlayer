@@ -27,6 +27,8 @@ public class Player : Mover
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
         weapon = weaponObj.GetComponent<Weapon>();
         weaponAnimator = weaponObj.GetComponent<Animator>();
+        movementJoystick = GameObject.Find("Canvas").transform.Find("Safe Area").Find("Variable Joystick")
+            .GetComponent<Joystick>();
 
         var metrics = MetricsManager.Instance?.metrics.Values;
         if (metrics != null)
@@ -46,7 +48,7 @@ public class Player : Mover
     {
         // Show level above player
         // TODO: Er det her scuffed?
-        GameManager.instance.ShowText("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
+        StateManager.instance.ShowText("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
             Vector3.zero, 0.0001f);
 
         level = ExperienceManager.Instance.Level;
@@ -62,7 +64,8 @@ public class Player : Mover
 
     private void FixedUpdate()
     {
-        Vector3 input = new Vector3(movementJoystick.Direction.x * currentSpeed, movementJoystick.Direction.y * currentSpeed, 0);
+        Vector3 input = new Vector3(movementJoystick.Direction.x * currentSpeed,
+            movementJoystick.Direction.y * currentSpeed, 0);
         Animate(input);
         UpdateMotor(input);
 
@@ -101,7 +104,7 @@ public class Player : Mover
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySoundAtGlobal(deathSound, 1f);
+        SoundFxManager.Instance.PlaySound(deathSound, 1f);
         Destroy(gameObject);
         GameSummaryManager.Instance.Show();
     }
