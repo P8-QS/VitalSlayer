@@ -1,3 +1,5 @@
+using System;
+using Effects;
 using UnityEngine;
 
 public class Enemy : Mover
@@ -9,9 +11,8 @@ public class Enemy : Mover
     private bool collidingWithPlayer;
     private Transform playerTransform;
     private Vector3 startingPosition;
-    
-    [Header ("Phantom setting")] 
-    public bool isPhantom = false;
+
+    [Header("Phantom setting")] public bool isPhantom;
 
     // Hitbox
     public ContactFilter2D filter;
@@ -25,11 +26,12 @@ public class Enemy : Mover
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
 
-        if (isPhantom)
+        /*if (isPhantom)
         {
-            hitpoint = 1;
-            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
-        }
+            //hitpoint = 1;
+            //GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
+            PhantomEnemy();
+        }*/
     }
 
     protected void FixedUpdate()
@@ -81,14 +83,32 @@ public class Enemy : Mover
         }
     }
 
+    public void PhantomEnemy()
+    {
+        int hallucinationLevel = GameManager.instance.hallucinationEffect.Level;
+        if (hallucinationLevel == 1)
+        {
+            Debug.Log("Phantom enemy spawned");
+            isPhantom = true;
+            hitpoint = 1;
+            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
+        }
+        else if (hallucinationLevel == 2)
+        {
+            isPhantom = true;
+            hitpoint = 1;
+            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
+        }
+    }
+
     protected override void Death()
     {
         if (!isPhantom)
         {
-        int xp = ExperienceManager.Instance.AddEnemy(1);
-        GameSummaryManager.Instance.AddEnemy();
-        // GameManager.instance.XpManager.Experience += xpValue;
-        GameManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+            int xp = ExperienceManager.Instance.AddEnemy(1);
+            GameSummaryManager.Instance.AddEnemy();
+            // GameManager.instance.XpManager.Experience += xpValue;
+            GameManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
         }
         else
         {
