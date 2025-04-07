@@ -1,5 +1,6 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 
 public class SoundFxManager : MonoBehaviour
 {
@@ -54,24 +55,67 @@ public class SoundFxManager : MonoBehaviour
     /// <summary>
     /// Plays background music. Stops any currently playing track.
     /// </summary>
-    public void PlayMusic(AudioClip clip, float volume = 1f, bool continuePlayback = false)
+    private Coroutine _crossfadeCoroutine;
+
+    public void PlayMusic(AudioClip clip, float volume = 1f, bool continuePlayback = false, float fadeDuration = 1f)
     {
-        
-        // If continuePlayback is true, and clip have the same name, do not stop
+        // Already playing same clip and continuePlayback is requested
         if (continuePlayback && _musicSource.clip != null && _musicSource.clip.name == clip.name)
         {
             return;
         }
-        
-        if (_musicSource.isPlaying)
+
+        // Start crossfade (or instant switch)
+        if (_crossfadeCoroutine != null)
         {
-            _musicSource.Stop();
+            StopCoroutine(_crossfadeCoroutine);
         }
 
-        _musicSource.clip = clip;
-        _musicSource.volume = volume;
-        _musicSource.Play();
+        _crossfadeCoroutine = StartCoroutine(CrossfadeMusic(clip, volume, fadeDuration));
     }
+
+    private IEnumerator CrossfadeMusic(AudioClip newClip, float targetVolume, float duration)
+    {
+        if (duration <= 0f)
+        {
+            // Instant switch if no fade is needed
+            _musicSource.Stop();
+            _musicSource.clip = newClip;
+            _musicSource.volume = targetVolume;
+            _musicSource.Play();
+            yield break;
+        }
+
+        float startVolume = _musicSource.volume;
+        float time = 0f;
+
+        // Fade out current music
+        while (time < duration)
+        {
+            _musicSource.volume = Mathf.Lerp(startVolume, 0f, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // Stop current music after fade-out is complete
+        _musicSource.Stop();
+        _musicSource.clip = newClip;
+        _musicSource.Play();
+
+        time = 0f;
+
+        // Fade in the new music
+        while (time < duration)
+        {
+            _musicSource.volume = Mathf.Lerp(0f, targetVolume, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure we set the final volume value at the end of the fade-in
+        _musicSource.volume = targetVolume;
+    }
+
 
     /// <summary>
     /// Stops the currently playing music.
