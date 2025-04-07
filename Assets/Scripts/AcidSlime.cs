@@ -28,11 +28,7 @@ public class AcidSlime : Enemy
         {
             Debug.LogError("AcidSlimeHitbox component not found on the hitbox. Make sure to replace EnemyHitbox with AcidSlimeHitbox on the hitbox GameObject.");
         }
-
-        if (isPhantom)
-        {
-            PhantomEnemy();
-        }
+        
 
         // You might want to add a visual indicator for the acid slime
         // For example, you could tint the sprite green
