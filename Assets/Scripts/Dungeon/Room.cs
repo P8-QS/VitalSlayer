@@ -132,7 +132,7 @@ public class Room : MonoBehaviour
 
     // Calculate the bounds based on all child Tilemaps
     // IMPORTANT: This assumes Tilemaps are children and use the scene's main Grid
-    public Bounds GetRoomBounds(Grid grid)
+    public Bounds GetRoomBounds()
     { ;
         if (calculatedBounds.HasValue)
         {

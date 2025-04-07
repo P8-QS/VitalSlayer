@@ -186,75 +186,66 @@ public class DungeonGenerator : MonoBehaviour
     // --- Helper Functions ---
     private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition, RoomInstance parentRoom, Transform parentDoor)
     {
-        // 1. Instantiate the Prefab for bounds calculation and actual placement
-        var roomInstanceGo = Instantiate(roomPrefab, generatedRoomsParent, true);
-        var roomScript = roomInstanceGo.GetComponent<Room>();
-        if (roomScript == null)
+        var roomPrefabScript = roomPrefab.GetComponent<Room>();
+        if (roomPrefabScript == null)
         {
             Debug.LogError($"Prefab {roomPrefab.name} is missing Room script!", roomPrefab);
-            Destroy(roomInstanceGo);
             return false;
         }
 
-        // 2. Set its position *before* calculating bounds relative to the grid
-        roomInstanceGo.transform.position = grid.GetCellCenterWorld(gridPosition);
-        roomScript.InvalidateBoundsCache();
+        var potentialBounds = roomPrefabScript.GetRoomBounds();
+        var potentialPosition = grid.GetCellCenterWorld(gridPosition);
+        potentialBounds.center += potentialPosition;
 
-        // Calculate Bounds in Grid Coordinates
-        var roomBounds = roomScript.GetRoomBounds(grid);
-        
-        // TODO: DOESNT WORK WHEN SHIFTING TO THE LEFT FIIIIX
-        roomBounds.center += roomInstanceGo.transform.position;
-        // roomBounds.position += gridPosition; // Offset bounds to placement location
-        
-        // TODO: Check for Overlaps
-        foreach (var existingRoom in placedRooms)
+        if (placedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.bounds)))
         {
-            if (BoundsOverlap(roomBounds, existingRoom.bounds))
-            {
-                Debug.LogWarning($"Detected overlap between room bounds! {roomBounds} {existingRoom} min{roomBounds.min} max{roomBounds.max}, room: {existingRoom.gameObject.name}, min{existingRoom.bounds.min} max{existingRoom.bounds.max}, room: {existingRoom.gameObject.name}");
-                // DestroyImmediate(roomInstanceGo);
-                // return false; // Overlap detected
-            }
+            return false; // Potential overlap detected
         }
 
-        // --- No Overlap - Finalize Placement ---
-
-        // 5. Parent the Room and Finalize Setup
-        roomInstanceGo.name = $"{roomPrefab.name}_({gridPosition.x},{gridPosition.y})";
-
-        // 6. Record Placement - Create RoomInstance AFTER GO is set up
-        // The RoomInstance constructor will call GetDoorTransforms() on the *placed instance*
-        RoomInstance newInstance = new RoomInstance(roomInstanceGo, roomScript, roomBounds);
+        // No collisions detected, safe to instantiate
+        var roomInstanceGo = Instantiate(roomPrefab, generatedRoomsParent, true);
+        roomInstanceGo.name = $"{roomPrefab.name}_({potentialBounds.center.x},{potentialBounds.center.y})";
+        roomInstanceGo.transform.position = potentialPosition;
+        var roomScript = roomInstanceGo.GetComponent<Room>();
+        roomScript.InvalidateBoundsCache();
+        
+        var newInstance = new RoomInstance(roomInstanceGo, roomScript, potentialBounds);
         placedRooms.Add(newInstance);
 
         return true;
     }
-
-    // Custom BoundsInt overlap check ignoring Z axis
+    
     bool BoundsOverlap(Bounds a, Bounds b)
     {
-        return a.Intersects(b);
+        return !Mathf.Approximately(a.max.x, b.min.x) && a.max.x > b.min.x &&
+               !Mathf.Approximately(b.max.x, a.min.x) && b.max.x > a.min.x &&
+               !Mathf.Approximately(a.max.y, b.min.y) && a.max.y > b.min.y &&
+               !Mathf.Approximately(b.max.y, a.min.y) && b.max.y > a.min.y;
     }
 
     [ContextMenu("Clear Dungeon")]
     public void ClearDungeon()
     {
         placedRooms.Clear();
-        Transform parentToClear = (generatedRoomsParent != null) ? generatedRoomsParent : grid.transform;
+        var parentToClear = (generatedRoomsParent != null) ? generatedRoomsParent : grid.transform;
 
-        for (int i = parentToClear.childCount - 1; i >= 0; i--)
+        for (var i = parentToClear.childCount - 1; i >= 0; i--)
         {
-            GameObject childGO = parentToClear.GetChild(i).gameObject;
-            if (childGO.GetComponent<Room>() != null) // Identify generated rooms
-            {
-                if (Application.isPlaying)
-                    Destroy(childGO);
-                else
-                    DestroyImmediate(childGO);
-            }
+            var childGo = parentToClear.GetChild(i).gameObject;
+            if (childGo.GetComponent<Room>() == null) continue; // Identify generated rooms
+            if (Application.isPlaying)
+                Destroy(childGo);
+            else
+                DestroyImmediate(childGo);
         }
-         if(!Application.isPlaying && parentToClear.childCount == 0) Debug.Log("Cleared previous dungeon (Editor).");
-         else if (!Application.isPlaying && parentToClear.childCount > 0) Debug.LogWarning("Clear Dungeon finished, but some children remained (maybe not rooms?).");
+        switch (Application.isPlaying)
+        {
+            case false when parentToClear.childCount == 0:
+                Debug.Log("Cleared previous dungeon (Editor).");
+                break;
+            case false when parentToClear.childCount > 0:
+                Debug.LogWarning("Clear Dungeon finished, but some children remained (maybe not rooms?).");
+                break;
+        }
     }
 }
