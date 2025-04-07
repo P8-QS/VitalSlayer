@@ -32,7 +32,7 @@ namespace Effects {
 
         public void Apply()
         {
-            //enemy class has a method to spawn phantom enemies - dont use enemy spawner
+            //enemy class has a method to spawn phantom enemies 
             //need to find a way to spawn phantom enemies
             Enemy enemy = UnityEngine.Object.FindFirstObjectByType<Enemy>();
             
@@ -41,14 +41,15 @@ namespace Effects {
                 Debug.Log("Phantom enemy spawned");
                 _numberOfPhantomEnemies = 1;
                 enemy.isPhantom = true;
-                enemy.hitpoint = 1;
+                enemy.PhantomHitpoints = 1;
+                //spawing phantom enemy where spawnPhamton(numberOfPhantomEnemies)/
                 enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
             }
             else if (_level == 2)
             {
                 _numberOfPhantomEnemies = 2;
                 enemy.isPhantom = true;
-                enemy.hitpoint = 1;
+                enemy.PhantomHitpoints = 1;
                 enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
             }
             

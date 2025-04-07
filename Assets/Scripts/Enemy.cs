@@ -13,6 +13,7 @@ public class Enemy : Mover
     private Vector3 startingPosition;
 
     [Header("Phantom setting")] public bool isPhantom;
+    public int PhantomHitpoints;
 
     // Hitbox
     public ContactFilter2D filter;
