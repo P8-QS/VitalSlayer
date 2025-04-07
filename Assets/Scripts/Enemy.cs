@@ -77,7 +77,7 @@ public class Enemy : Mover
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySound(deathSound, 1f);
+        SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
         Destroy(gameObject);
         int xp = ExperienceManager.Instance.AddEnemy(1);
         GameSummaryManager.Instance.AddEnemy();
