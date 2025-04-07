@@ -45,14 +45,14 @@ TagManager:
   - name: Floors
     uniqueID: 3933754311
     locked: 0
-  - name: Fog
-    uniqueID: 1942789759
+  - name: Walls
+    uniqueID: 2035621011
+    locked: 0
+  - name: Decorations
+    uniqueID: 440850033
     locked: 0
   - name: Actor
     uniqueID: 961828433
-    locked: 0
-  - name: Walls
-    uniqueID: 2035621011
     locked: 0
   - name: Weapon
     uniqueID: 1586919953
@@ -60,11 +60,14 @@ TagManager:
   - name: Floating Text
     uniqueID: 2411142545
     locked: 0
-  - name: Decorations
-    uniqueID: 440850033
-    locked: 0
   - name: Props
     uniqueID: 2773871127
+    locked: 0
+  - name: Fog
+    uniqueID: 1942789759
+    locked: 0
+  - name: Doors
+    uniqueID: 658814681
     locked: 0
   m_RenderingLayers:
   - Default
