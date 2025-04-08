@@ -172,8 +172,42 @@ public class DoorRoom : MonoBehaviour
 
     private void CalculateRoomBounds()
     {
+        // Find the wall tilemap specifically named "walls" in the room
+        Transform roomTransform = transform.parent;
+        Tilemap wallTilemap = null;
+        
+        // Search for a tilemap named "walls" in the parent's children
+        foreach (Tilemap tilemap in roomTransform.GetComponentsInChildren<Tilemap>())
+        {
+            if (tilemap.name.ToLower() == "walls")
+            {
+                wallTilemap = tilemap;
+                break;
+            }
+        }
+        
+        if (wallTilemap != null)
+        {
+            // Get the bounds from the wall tilemap
+            Bounds tileBounds = wallTilemap.localBounds;
+            
+            // Convert to world bounds
+            Vector3 worldMin = wallTilemap.transform.TransformPoint(tileBounds.min);
+            Vector3 worldMax = wallTilemap.transform.TransformPoint(tileBounds.max);
+            
+            // Update boundary corners based on tilemap bounds
+            boundaryCorner1 = new Vector2(worldMin.x, worldMin.y);
+            boundaryCorner2 = new Vector2(worldMax.x, worldMax.y);
+            
+            Debug.Log($"Room bounds updated from walls tilemap: {boundaryCorner1} to {boundaryCorner2}");
+        }
+        else
+        {
+            Debug.LogWarning("Walls tilemap not found. Using manually set boundaries.");
+        }
+
         // Calculate the bounds from the two corners
-        Vector3 min = new Vector3(
+/*         Vector3 min = new Vector3(
             Mathf.Min(boundaryCorner1.x, boundaryCorner2.x),
             Mathf.Min(boundaryCorner1.y, boundaryCorner2.y),
             0
@@ -188,7 +222,7 @@ public class DoorRoom : MonoBehaviour
         Vector3 center = (min + max) * 0.5f;
         Vector3 size = max - min;
 
-        roomBounds = new Bounds(center, size);
+        roomBounds = new Bounds(center, size); */
     }
 
     private void FindEnemiesInRoom()
