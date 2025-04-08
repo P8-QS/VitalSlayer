@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Fighter
+  - Room
   layers:
   - Default
   - TransparentFX

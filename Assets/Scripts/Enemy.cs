@@ -28,6 +28,8 @@ public class Enemy : Mover
 
     protected void FixedUpdate()
     {
+        if (!playerTransform) return;
+        
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
         {
@@ -82,6 +84,6 @@ public class Enemy : Mover
         int xp = ExperienceManager.Instance.AddEnemy(1);
         GameSummaryManager.Instance.AddEnemy();
         // GameManager.instance.XpManager.Experience += xpValue;
-        StateManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
     }
 }

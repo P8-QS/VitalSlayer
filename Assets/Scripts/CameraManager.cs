@@ -3,21 +3,19 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            CinemachineCamera newCam = other.GetComponentInChildren<CinemachineCamera>();
-            if (newCam != null)
-            {
-                SetActiveCamera(newCam);
-            }
-        }
+        if (!other.CompareTag("Room")) return;
+        var cam = other.GetComponentInChildren<CinemachineCamera>();
+        if (cam == null) return;
+        SetActiveCamera(cam);
+        cam.Follow = transform;
     }
 
     private void SetActiveCamera(CinemachineCamera activeCam)
     {
-        CinemachineCamera[] cams = Resources.FindObjectsOfTypeAll<CinemachineCamera>();
+        var cams = Resources.FindObjectsOfTypeAll<CinemachineCamera>();
         foreach (var cam in cams)
         {
             cam.Priority = 0;

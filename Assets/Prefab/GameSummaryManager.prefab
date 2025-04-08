@@ -50,3 +50,5 @@ MonoBehaviour:
   bossesKilled: 0
   xpStart: 0
   levelStart: 0
+  gameWonSound: {fileID: 8300000, guid: 0ead4b3c4d1f34f7390749cf0ca7bcde, type: 3}
+  gameLoseSound: {fileID: 8300000, guid: 1babeffce3e0045289f1e100f9dd8ebc, type: 3}

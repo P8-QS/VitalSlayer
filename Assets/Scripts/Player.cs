@@ -48,7 +48,7 @@ public class Player : Mover
     {
         // Show level above player
         // TODO: Er det her scuffed?
-        StateManager.instance.ShowText("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
+        FloatingTextManager.Instance.Show("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
             Vector3.zero, 0.0001f);
 
         level = ExperienceManager.Instance.Level;

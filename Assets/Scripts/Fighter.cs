@@ -131,7 +131,7 @@ public class Fighter : MonoBehaviour
             fontSize = Mathf.Clamp(fontSize, GameConstants.MIN_DAMAGE_FONT_SIZE, GameConstants.MAX_DAMAGE_FONT_SIZE);
 
             // Show damage text
-            StateManager.instance.ShowText(dmg.damageAmount.ToString(), fontSize, damageColor, textPosition, Vector3.up, 0.5f);
+            FloatingTextManager.Instance.Show(dmg.damageAmount.ToString(), fontSize, damageColor, textPosition, Vector3.up, 0.5f);
 
             // Flash the sprite
             if (damageFlash != null)
