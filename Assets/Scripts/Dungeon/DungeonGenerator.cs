@@ -7,8 +7,11 @@ namespace Dungeon
     public class DungeonGenerator : MonoBehaviour
     {
         [Header("References")]
+        [Tooltip("The grid component.")]
         public Grid grid;
-        public Transform generatedRoomsParent; // Optional
+        
+        [Tooltip("Optional. Will be populated at runtime.")]
+        public Transform generatedRoomsParent;
 
         [Header("Room Prefabs")]
         public GameObject startRoomPrefab;
@@ -21,21 +24,19 @@ namespace Dungeon
 
         private List<RoomInstance> placedRooms = new List<RoomInstance>();
 
-        // Helper class to store info about instantiated rooms
         private class RoomInstance
         {
-            public GameObject gameObject;
-            public Room roomScript;
-            public Bounds bounds; // Bounds in Grid cell coordinates
-            public List<Transform> availableDoors; // Actual Transform instances from the placed room
-
+            public GameObject GameObject;
+            public Room RoomScript;
+            public Bounds Bounds;
+            public List<Transform> AvailableDoors;
+            
             public RoomInstance(GameObject go, Room room, Bounds b)
             {
-                gameObject = go;
-                roomScript = room;
-                bounds = b;
-                // Get the actual door Transforms from the instantiated room's script at runtime
-                availableDoors = new List<Transform>(room.GetDoorTransforms());
+                GameObject = go;
+                RoomScript = room;
+                Bounds = b;
+                AvailableDoors = new List<Transform>(room.GetDoorTransforms());
             }
         }
 
@@ -57,14 +58,14 @@ namespace Dungeon
                 Debug.LogError($"One or more Room Prefabs are null, missing the Room script, or GetDoorPrefabData() is not working correctly. Ensure Room.cs is set up for Method 2 and all prefabs are assigned.");
                 return;
             }
-         
+            
             if (generatedRoomsParent is null)
             {
                 generatedRoomsParent = grid.transform;
             }
 
             // Place start room
-            if (!TryPlaceRoom(startRoomPrefab, Vector3Int.zero, null, null))
+            if (!TryPlaceRoom(startRoomPrefab, Vector3Int.zero))
             {
                 Debug.LogError("Failed to place the starting room!");
                 return;
@@ -79,28 +80,25 @@ namespace Dungeon
                 var currentRoomInstance = roomsToProcess.Dequeue();
 
                 // Shuffle actual door Transforms for randomness before processing
-                var shuffledDoorTransforms = currentRoomInstance.availableDoors.OrderBy(d => Random.value).ToList();
+                var shuffledDoorTransforms = currentRoomInstance.AvailableDoors.OrderBy(d => Random.value).ToList();
                 var numberOfDoors = Random.Range(1, shuffledDoorTransforms.Count+1);
 
                 var doorsPopulatedCount = 0;
-                foreach (var currentDoorTransform in shuffledDoorTransforms) // Iterate through the available runtime Transforms
+                foreach (var currentDoorTransform in shuffledDoorTransforms)
                 {
                     if (doorsPopulatedCount >= numberOfDoors) continue;
+                    if (!currentRoomInstance.AvailableDoors.Contains(currentDoorTransform)) continue;
                 
-                    // Check availableDoors again in case it was connected by another path
-                    if (!currentRoomInstance.availableDoors.Contains(currentDoorTransform)) continue;
-
-                    if (roomsPlacedCount >= maxRooms) break; // Stop if max rooms reached
+                    if (roomsPlacedCount >= maxRooms) break;
 
                     var currentDoorDir = Room.GetDoorDirection(currentDoorTransform);
                     var requiredOppositeDir = Room.GetOppositeDirection(currentDoorDir);
                     if (requiredOppositeDir == null)
                     {
-                        Debug.LogWarning($"Door {currentDoorTransform.name} on {currentRoomInstance.gameObject.name} has invalid direction format.", currentDoorTransform);
+                        Debug.LogWarning($"Door {currentDoorTransform.name} on {currentRoomInstance.GameObject.name} has invalid direction format.", currentDoorTransform);
                         continue; // Invalid door name/format
                     }
 
-                    var roomPlacedForThisDoor = false;
                     for (var attempt = 0; attempt < maxAttemptsPerDoor; attempt++)
                     {
                         var nextRoomPrefab = roomPrefabs[Random.Range(0, roomPrefabs.Count)];
@@ -124,49 +122,43 @@ namespace Dungeon
                         }
                     
                         var chosenDoorData = potentialNewDoorsData[0];
-
-                        // World position of the door we are branching FROM (on the already placed room)
                         var currentDoorWorldPos = currentDoorTransform.position;
-                        // Local position of the chosen door WITHIN the new room structure (from the prefab data)
                         var newRoomDoorLocalPos = chosenDoorData.localPosition;
 
-                        // Target world position for the *new* room's origin (pivot)
                         var targetNewRoomWorldPos = currentDoorWorldPos - newRoomDoorLocalPos;
                         var targetNewRoomGridPos = grid.WorldToCell(targetNewRoomWorldPos);
 
-                        // --- Step 5: Try Placing the Selected Prefab ---
-                        // No temporary instantiation needed here for checking. Directly try placement.
-                        if (!TryPlaceRoom(nextRoomPrefab, targetNewRoomGridPos, currentRoomInstance, currentDoorTransform))
-                        {
-                            continue;
-                        }
+                        if (!TryPlaceRoom(nextRoomPrefab, targetNewRoomGridPos)) continue;
                     
                         doorsPopulatedCount++;
                         roomsPlacedCount++;
-                        RoomInstance newRoomInstance = placedRooms[placedRooms.Count - 1];
-                        roomsToProcess.Enqueue(newRoomInstance); // Add the new room to the queue
-
-                        // --- Step 6: Mark Doors as Connected (Matching Transform to Data) ---
-                        // Find the actual Transform instance on the *placed* room that corresponds
-                        // to the 'chosenDoorData' we used for placement.
-                        Transform placedDoorInstance = newRoomInstance.roomScript.GetDoorTransforms()
+                        var newRoomInstance = placedRooms[^1];
+                        roomsToProcess.Enqueue(newRoomInstance);
+                        
+                        var placedDoorInstance = newRoomInstance.RoomScript.GetDoorTransforms()
                             .FirstOrDefault(t => Room.GetDoorDirection(t) == requiredOppositeDir &&
-                                                 Vector3.Distance(t.localPosition, chosenDoorData.localPosition) < doorPositionMatchTolerance); // Match using direction and local pos
+                                                 Vector3.Distance(t.localPosition, chosenDoorData.localPosition) < doorPositionMatchTolerance);
 
                         if (placedDoorInstance is not null) {
                             // Remove the corresponding Transform from the *newly placed room's* available list
-                            newRoomInstance.availableDoors.Remove(placedDoorInstance);
+                            newRoomInstance.AvailableDoors.Remove(placedDoorInstance);
+                            
                             // Debug.Log($"Removed connection door {placedDoorInstance.name} from newly placed room {newRoomInstance.gameObject.name}");
                         } else {
                             // This might happen if DoorInfo data is stale or tolerance is too small
-                            Debug.LogWarning($"Could not find corresponding door transform on newly placed room {newRoomInstance.gameObject.name} matching data (Dir: {requiredOppositeDir}, LocalPos: {chosenDoorData.localPosition}). Check Room prefab's Door Data and doorPositionMatchTolerance.", newRoomInstance.gameObject);
+                            Debug.LogWarning($"Could not find corresponding door transform on newly placed room {newRoomInstance.GameObject.name} matching data (Dir: {requiredOppositeDir}, LocalPos: {chosenDoorData.localPosition}). Check Room prefab's Door Data and doorPositionMatchTolerance.", newRoomInstance.GameObject);
                         }
 
-                        currentRoomInstance.availableDoors.Remove(currentDoorTransform);
+                        currentRoomInstance.AvailableDoors.Remove(currentDoorTransform);
                     
                         break;
                     }
                     // If after all attempts, no room was placed for 'currentDoorTransform', it remains in 'availableDoors'.
+                }
+
+                foreach (var door in currentRoomInstance.AvailableDoors)
+                {
+                    
                 }
             }
 
@@ -175,7 +167,7 @@ namespace Dungeon
         }
 
         // --- Helper Functions ---
-        private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition, RoomInstance parentRoom, Transform parentDoor)
+        private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition)
         {
             var roomPrefabScript = roomPrefab.GetComponent<Room>();
             if (roomPrefabScript is null)
@@ -188,7 +180,7 @@ namespace Dungeon
             var potentialPosition = grid.GetCellCenterWorld(gridPosition);
             potentialBounds.center += potentialPosition;
 
-            if (placedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.bounds)))
+            if (placedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.Bounds)))
             {
                 return false; // Potential overlap detected
             }
