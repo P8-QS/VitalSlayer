@@ -6,6 +6,7 @@ namespace Effects {
     {
         private int _level;
         private Sprite _icon;
+        private int _numberOfPhantomEnemies;
         public string Name => "Hallucination";
 
         public int Level { get => _level; set => _level = value; }
@@ -31,7 +32,25 @@ namespace Effects {
 
         public void Apply()
         {
-            Debug.LogWarning("Apply hallucination effect not implemented");
+            Enemy enemy = UnityEngine.Object.FindFirstObjectByType<Enemy>();
+            
+            if (_level == 1)
+            {
+                // Apply the hallucination effect to the enemies in the room
+                Debug.Log("Phantom enemy spawned");
+                enemy.isPhantom = true;
+                _numberOfPhantomEnemies = 1;
+                enemy.hitpoint = 1;
+                //spawing phantom enemy spawnPhamton(numberOfPhantomEnemies)
+                enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
+            }
+            else if (_level == 2)
+            {
+                enemy.isPhantom = true;
+                _numberOfPhantomEnemies = 2;
+                enemy.hitpoint = 1;
+                enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
+            }
         }
     }
 }
