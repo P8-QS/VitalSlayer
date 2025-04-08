@@ -10,6 +10,20 @@ public class FloatingTextManager : MonoBehaviour
 
     private List<FloatingText> floatingTexts = new List<FloatingText>();
 
+    public static FloatingTextManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Update()
     {
         foreach (FloatingText txt in floatingTexts)
@@ -33,7 +47,7 @@ public class FloatingTextManager : MonoBehaviour
 
         floatingText.Show();
     }
-        
+
     private FloatingText GetFloatingText()
     {
         FloatingText txt = floatingTexts.Find(t => !t.active);
@@ -49,5 +63,4 @@ public class FloatingTextManager : MonoBehaviour
 
         return txt;
     }
-
 }

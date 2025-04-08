@@ -44,9 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9fa6a339d9f70438c211691f1b28d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMusic: {fileID: 8300000, guid: 186926e22d1b9411988773b1aa5bb686, type: 3}
-  playerSprites: []
-  weaponSprites: []
-  xpTable: 
-  player: {fileID: 0}
-  floatingTextManager: {fileID: 0}

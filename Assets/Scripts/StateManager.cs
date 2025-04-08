@@ -5,30 +5,20 @@ using Scene = UnityEngine.SceneManagement.Scene;
 
 public class StateManager : MonoBehaviour
 {
-    public static StateManager instance;
+    public static StateManager Instance;
 
     private void Awake()
     {
-        if (StateManager.instance != null)
+        if (StateManager.Instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
+        Instance = this;
         SceneManager.sceneLoaded += LoadState;
         DontDestroyOnLoad(gameObject);
     }
-
-    public Player player;
-    public FloatingTextManager floatingTextManager;
-
-
-    public void ShowText(string msg, int fontSize, Color color, Vector3 position, Vector3 motion, float duration)
-    {
-        floatingTextManager.Show(msg, fontSize, color, position, motion, duration);
-    }
-
 
     public void SaveState()
     {
