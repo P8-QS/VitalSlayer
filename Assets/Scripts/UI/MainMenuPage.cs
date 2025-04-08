@@ -14,8 +14,9 @@ public class MainMenuPage : MonoBehaviour
 
     void Start()
     {
+        SoundFxManager.Instance.PlayClickSound();
         HandleXpCooldown();
-        SoundFxManager.Instance.PlayMusic(menuMusic, 0.2f, true);
+        SoundFxManager.Instance.PlayMusic(menuMusic, 0.1f, true);
     }
 
     void Update()
@@ -40,11 +41,13 @@ public class MainMenuPage : MonoBehaviour
 
     public void ClickPlayButton()
     {
+        SoundFxManager.Instance.PlayClickSound();
         GameManager.Instance.StartRound();
     }
 
     public void ClickMetricsButton()
     {
+        SoundFxManager.Instance.PlayClickSound();
         SceneLoader.Instance.LoadScene("Metrics");
     }
 }

@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundFxManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7839109269429272746, guid: e4460b670234a4f66b5a453c4f9a266c, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 18133caa8fa914d45bfde0fc986b8550, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,6 +1,7 @@
 using Metrics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class MetricCardUI : MonoBehaviour
@@ -13,6 +14,8 @@ public class MetricCardUI : MonoBehaviour
     public GameObject cardItemPrefab;
     public Transform modalParent;
 
+    public AudioClip clickSound;
+    
     // Method to set data dynamically
     public void SetMetric(IMetric metric)
     {
@@ -63,7 +66,7 @@ public class MetricCardUI : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("Card clicked");
+        SoundFxManager.Instance.PlayClickSound();
         GameObject modalObject = Instantiate(modal, modalParent);
         ModalUI modalUI = modalObject.GetComponent<ModalUI>();
         

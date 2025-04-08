@@ -8,6 +8,8 @@ public class SoundFxManager : MonoBehaviour
 
     public AudioSource soundFxObject;
     private AudioSource _musicSource;
+    
+    public AudioClip clickSound;
 
 
     private void Awake()
@@ -57,7 +59,7 @@ public class SoundFxManager : MonoBehaviour
     /// </summary>
     private Coroutine _crossfadeCoroutine;
 
-    public void PlayMusic(AudioClip clip, float volume = 1f, bool continuePlayback = false, float fadeDuration = 1f)
+    public void PlayMusic(AudioClip clip, float volume = 1f, bool continuePlayback = false, float fadeDuration = 0f)
     {
         // Already playing same clip and continuePlayback is requested
         if (continuePlayback && _musicSource.clip != null && _musicSource.clip.name == clip.name)
@@ -126,5 +128,13 @@ public class SoundFxManager : MonoBehaviour
         {
             _musicSource.Stop();
         }
+    }
+    
+    /// <summary>
+    /// Play UI click sound.
+    /// </summary>
+    public void PlayClickSound()
+    {
+        PlaySound(clickSound, 0.5f);
     }
 }

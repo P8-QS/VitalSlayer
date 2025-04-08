@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         // Generate map
 
         // Play game music
-        SoundFxManager.Instance.PlayMusic(gameMusic, 0.5f, false, 1f);
+        SoundFxManager.Instance.PlayMusic(gameMusic, 0.05f, false, 2f);
 
         // Load the game scene with a transition
         SceneLoader.Instance.LoadSceneWithTransition("Game", () =>
