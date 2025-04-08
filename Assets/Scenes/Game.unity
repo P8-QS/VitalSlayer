@@ -455,7 +455,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 1.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -727,63 +727,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2869388674940833035, guid: 18cc4ea3a1350e747b740479bdd56b47, type: 3}
   m_PrefabInstance: {fileID: 965775695}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1130676111
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1116263164795065179, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_Name
-      value: RedEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.23041475
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.91397846
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248459034521723298, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
 --- !u!4 &1161250021 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4005729281276977253, guid: baacc42a1b7b17f01af83b6a4ba9a39c, type: 3}
@@ -1658,14 +1601,6 @@ PrefabInstance:
       propertyPath: parentPanel
       value: 
       objectReference: {fileID: 2025400666}
-    - target: {fileID: 720405340276634263, guid: 8c65498e99f41415ca31dae9e85fdfb5, type: 3}
-      propertyPath: gameWonSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 0ead4b3c4d1f34f7390749cf0ca7bcde, type: 3}
-    - target: {fileID: 720405340276634263, guid: 8c65498e99f41415ca31dae9e85fdfb5, type: 3}
-      propertyPath: gameLoseSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 1babeffce3e0045289f1e100f9dd8ebc, type: 3}
     - target: {fileID: 1487688463842147236, guid: 8c65498e99f41415ca31dae9e85fdfb5, type: 3}
       propertyPath: m_Name
       value: GameSummaryManager
@@ -2108,14 +2043,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StateManager
       objectReference: {fileID: 0}
-    - target: {fileID: 2895096125578419220, guid: 8d90a5a89ef574553b44738419847d99, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2895096125578419220, guid: 8d90a5a89ef574553b44738419847d99, type: 3}
-      propertyPath: floatingTextManager
-      value: 
-      objectReference: {fileID: 1188720188}
     - target: {fileID: 9070774256701477555, guid: 8d90a5a89ef574553b44738419847d99, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2179,4 +2106,3 @@ SceneRoots:
   - {fileID: 1196746106417598075}
   - {fileID: 1171363889}
   - {fileID: 675929445}
-  - {fileID: 1130676111}
