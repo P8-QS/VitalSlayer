@@ -346,6 +346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6502474603146352311}
+  - component: {fileID: 7813431948375207082}
   m_Layer: 0
   m_Name: Room20x20(2)
   m_TagString: Untagged
@@ -379,6 +380,27 @@ Transform:
   - {fileID: 670669761901944970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7813431948375207082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624693480118450407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab8df46dd3baebab9ada375e46ec2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorData:
+  - direction: East
+    localPosition: {x: 2.905, y: 1.6, z: 0}
+  - direction: North
+    localPosition: {x: 1.44, y: 2.88, z: 0}
+  - direction: South
+    localPosition: {x: 1.44, y: 0, z: 0}
+  - direction: West
+    localPosition: {x: -0.025, y: 1.6, z: 0}
 --- !u!1 &2719572919318206436
 GameObject:
   m_ObjectHideFlags: 0
