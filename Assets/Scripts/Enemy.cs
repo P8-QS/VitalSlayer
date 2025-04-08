@@ -1,4 +1,5 @@
 using UnityEngine;
+using Effects;
 
 public class Enemy : Mover
 {
@@ -9,6 +10,8 @@ public class Enemy : Mover
     private bool collidingWithPlayer;
     private Transform playerTransform;
     private Vector3 startingPosition;
+    [Header("Phantom setting")] public bool isPhantom;
+    GameObject acidSlimePrefab = Resources.Load<GameObject>("Prefab/acid_slime_01");
 
     // Hitbox
     public ContactFilter2D filter;
@@ -24,6 +27,11 @@ public class Enemy : Mover
         playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        
+        if (isPhantom)
+        {
+            PhantomEnemy();
+        }
     }
 
     protected void FixedUpdate()
@@ -74,14 +82,44 @@ public class Enemy : Mover
             hits[i] = null;
         }
     }
+    
+    
+    public void PhantomEnemy()
+    {
+        // need some way to spawn phantom enemies
+        // and to test the hallucination effect i think the mock data should be changed
+        if (acidSlimePrefab != null)
+        {
+            // Instantiate the prefab at the desired position and rotation
+            Instantiate(acidSlimePrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Prefab 'acid_slime_01' not found in Resources/Prefab/");
+        }
+
+        HallucinationEffect hallucinationEffect = new HallucinationEffect(acidSlimePrefab.GetComponent<SpriteRenderer>().sprite, 1);
+        hallucinationEffect.Apply();
+    }
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
+        if(!isPhantom)
+        {
+            SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
+            int xp = ExperienceManager.Instance.AddEnemy(1);
+            GameSummaryManager.Instance.AddEnemy();
+            // GameManager.instance.XpManager.Experience += xpValue;
+            StateManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        }
+        else
+        {
+            SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
+            StateManager.instance.ShowText("Phantom vanished", 10, Color.gray, transform.position, Vector3.up * 1, 1.0f);
+        }
+        
         Destroy(gameObject);
-        int xp = ExperienceManager.Instance.AddEnemy(1);
-        GameSummaryManager.Instance.AddEnemy();
-        // GameManager.instance.XpManager.Experience += xpValue;
-        StateManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        
     }
+    
 }
