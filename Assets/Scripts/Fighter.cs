@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class Fighter : MonoBehaviour
@@ -13,6 +15,8 @@ public class Fighter : MonoBehaviour
 
     public int level;
 
+    public float baseSpeed = 1;
+    public float currentSpeed; 
 
     // Immunity
     protected float immuneTime = 1.0f;
@@ -20,6 +24,10 @@ public class Fighter : MonoBehaviour
 
     protected HealthBar healthBar;
     protected DamageFlash damageFlash;
+
+    // Effects
+    private Coroutine dotCoroutine;
+    private Coroutine slowCoroutine;
 
     protected Vector3 pushDirection;
 
@@ -40,6 +48,7 @@ public class Fighter : MonoBehaviour
 
         maxHitpoint = CalculateMaxHealth(level);
         hitpoint = maxHitpoint;
+        currentSpeed = baseSpeed;
     }
 
     // Method to calculate max health based on level
@@ -122,7 +131,7 @@ public class Fighter : MonoBehaviour
             fontSize = Mathf.Clamp(fontSize, GameConstants.MIN_DAMAGE_FONT_SIZE, GameConstants.MAX_DAMAGE_FONT_SIZE);
 
             // Show damage text
-            GameManager.instance.ShowText(dmg.damageAmount.ToString(), fontSize, damageColor, textPosition, Vector3.up, 0.5f);
+            StateManager.instance.ShowText(dmg.damageAmount.ToString(), fontSize, damageColor, textPosition, Vector3.up, 0.5f);
 
             // Flash the sprite
             if (damageFlash != null)
@@ -142,6 +151,49 @@ public class Fighter : MonoBehaviour
                 Death();
             }
         }
+    }
+
+    public void ApplyDamageOverTime(Damage damage, float duration, float tickRate) {
+        if (dotCoroutine != null)
+        {
+            StopCoroutine(dotCoroutine);
+        }
+        dotCoroutine = StartCoroutine(ApplyDamageOverTimeCoroutine(damage, duration, tickRate));
+    }
+
+    private IEnumerator ApplyDamageOverTimeCoroutine(Damage damage, float duration, float tickRate)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            // Apply damage to the target
+            ReceiveDamage(damage);
+
+            // Wait for the next tick
+            yield return new WaitForSeconds(tickRate);
+            elapsed += tickRate;
+        }
+    }
+
+    public void ApplySlowEffect(float slowFactor, float duration) {
+        if (slowCoroutine != null) 
+        {
+            StopCoroutine(slowCoroutine);
+        }
+        slowCoroutine = StartCoroutine(ApplySlowEffectCoroutine(slowFactor, duration));
+    }
+
+    private IEnumerator ApplySlowEffectCoroutine(float slowFactor, float duration)
+    {
+        // Apply the slow effect
+        currentSpeed = baseSpeed * slowFactor;
+
+        // Wait for a short time
+        yield return new WaitForSeconds(duration); // Give a bit more time for slow effect
+
+        // Restore the original speed if the player is not in another puddle
+        currentSpeed = baseSpeed;
+        slowCoroutine = null;
     }
 
     private Vector3 GetRandomPositionInCollider()

@@ -17,6 +17,8 @@ public class Weapon : Collidable
 
     private System.Random random = new System.Random();
 
+    public AudioClip hit;
+
     protected override void Update()
     {
         base.Update();
@@ -32,6 +34,7 @@ public class Weapon : Collidable
             if (enemy != null)
             {
                 enemy.ReceiveDamage(damage);
+                SoundFxManager.Instance.PlaySound(hit, transform, 0.25f);
             }
         }
     }

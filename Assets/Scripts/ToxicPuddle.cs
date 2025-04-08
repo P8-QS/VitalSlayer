@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public class ToxicPuddle : Collidable
@@ -6,17 +8,18 @@ public class ToxicPuddle : Collidable
     private AcidSlime acidSlime;
 
     public float duration = 5.0f;
+    
     public int minDamage = 1;
     public int maxDamage = 1;
     public float damageTickRate = 0.5f;
+    public float dotDuration = 3f;
     public float slowFactor = 0.5f;
+
     public Color puddleColor = new Color(0.2f, 0.8f, 0.2f, 0.6f);
 
     private float creationTime;
     private SpriteRenderer spriteRenderer;
-    private bool isApplyingDamage = false;
     private System.Random random = new System.Random();
-
 
     protected override void Start()
     {
@@ -48,79 +51,31 @@ public class ToxicPuddle : Collidable
 
     protected override void OnCollide(Collider2D coll)
     {
-        // If the collision was with the player
-        if (coll.CompareTag("Player") && !isApplyingDamage)
+        var slime = coll.GetComponent<AcidSlime>();
+
+        // If the collision was an acid slime do nothing
+        if (slime != null) 
         {
-            // Apply damage and slow effect
-            GameObject entity = coll.gameObject;
-
-            // Start coroutine to apply damage over time
-            StartCoroutine(ApplyDamageOverTime(entity));
-
-            // Apply slow effect
-            JoystickMove joystickMove = entity.GetComponent<JoystickMove>();
-            if (joystickMove != null)
-            {
-                StartCoroutine(ApplySlowEffect(joystickMove));
-            }
-        }
-    }
-
-    private IEnumerator ApplyDamageOverTime(GameObject target)
-    {
-        isApplyingDamage = true;
-
-        while (target != null && gameObject.activeSelf)
-        {
-
-            // Apply damage to the target
-            Damage puddleDmg = new Damage
-            {
-                damageAmount = GameHelpers.CalculateDamage(minDamage, maxDamage),
-                origin = transform.position,
-                pushForce = 0f, // No push force for puddle damage
-                isCritical = false,
-                minPossibleDamage = minDamage,
-                maxPossibleDamage = maxDamage,
-                useCustomColor = true,
-                customColor = new Color(puddleColor.r, puddleColor.g, puddleColor.b, 1f) // Make fully opaque for text
-            };
-
-            target.SendMessage("ReceiveDamage", puddleDmg);
-
-            // Wait for the next tick
-            yield return new WaitForSeconds(damageTickRate);
-
-            // Check if the player is still colliding with the puddle
-            BoxCollider2D collider = GetComponent<BoxCollider2D>();
-            if (collider != null)
-            {
-                Collider2D[] results = new Collider2D[1];
-                if (collider.Overlap(new ContactFilter2D().NoFilter(), results) == 0 || results[0] != target.GetComponent<Collider2D>())
-                {
-                    // Player no longer in puddle
-                    break;
-                }
-            }
+            return;
         }
 
-        isApplyingDamage = false;
+        Fighter target = coll.gameObject.GetComponent<Fighter>();
+        Damage damage = new Damage 
+        {
+            damageAmount = GameHelpers.CalculateDamage(minDamage, maxDamage),
+            origin = transform.position,
+            pushForce = 0f, // No push force for puddle damage
+            isCritical = false,
+            minPossibleDamage = minDamage,
+            maxPossibleDamage = maxDamage,
+            useCustomColor = true,
+            customColor = new Color(puddleColor.r, puddleColor.g, puddleColor.b, 1f) // Make fully opaque for text
+        };
+
+        target.ApplyDamageOverTime(damage, dotDuration, damageTickRate);
+        target.ApplySlowEffect(slowFactor, damageTickRate * 2);
     }
 
-    private IEnumerator ApplySlowEffect(JoystickMove joystickMove)
-    {
-        // Remember the original speed
-        float originalSpeed = joystickMove.playerSpeed;
-
-        // Apply the slow effect
-        joystickMove.playerSpeed *= slowFactor;
-
-        // Wait for a short time
-        yield return new WaitForSeconds(damageTickRate * 2); // Give a bit more time for slow effect
-
-        // Restore the original speed if the player is not in another puddle
-        joystickMove.playerSpeed = originalSpeed;
-    }
 
     private IEnumerator FadeOut()
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Effects;
 
 public class Enemy : Mover
 {
@@ -9,18 +10,28 @@ public class Enemy : Mover
     private bool collidingWithPlayer;
     private Transform playerTransform;
     private Vector3 startingPosition;
+    [Header("Phantom setting")] public bool isPhantom;
+    GameObject acidSlimePrefab = Resources.Load<GameObject>("Prefab/acid_slime_01");
 
     // Hitbox
     public ContactFilter2D filter;
     public BoxCollider2D hitBox;
     public Collider2D[] hits = new Collider2D[10];
+    
+    public AudioClip deathSound;
+
 
     protected override void Start()
     {
         base.Start();
-        playerTransform = GameManager.instance.player.transform;
+        playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        
+        if (isPhantom)
+        {
+            PhantomEnemy();
+        }
     }
 
     protected void FixedUpdate()
@@ -37,17 +48,17 @@ public class Enemy : Mover
             {
                 if (!collidingWithPlayer)
                 {
-                    UpdateMotor((playerTransform.position - transform.position).normalized);
+                    UpdateMotor((playerTransform.position - transform.position).normalized * currentSpeed);
                 }
             }
             else
             {
-                UpdateMotor(startingPosition - transform.position);
+                UpdateMotor((startingPosition - transform.position) * currentSpeed);
             }
         }
         else
         {
-            UpdateMotor(startingPosition - transform.position);
+            UpdateMotor((startingPosition - transform.position) * currentSpeed);
             chasing = false;
         }
 
@@ -71,13 +82,44 @@ public class Enemy : Mover
             hits[i] = null;
         }
     }
+    
+    
+    public void PhantomEnemy()
+    {
+        // need some way to spawn phantom enemies
+        // and to test the hallucination effect i think the mock data should be changed
+        if (acidSlimePrefab != null)
+        {
+            // Instantiate the prefab at the desired position and rotation
+            Instantiate(acidSlimePrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Prefab 'acid_slime_01' not found in Resources/Prefab/");
+        }
+
+        HallucinationEffect hallucinationEffect = new HallucinationEffect(acidSlimePrefab.GetComponent<SpriteRenderer>().sprite, 1);
+        hallucinationEffect.Apply();
+    }
 
     protected override void Death()
     {
+        if(!isPhantom)
+        {
+            SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
+            int xp = ExperienceManager.Instance.AddEnemy(1);
+            GameSummaryManager.Instance.AddEnemy();
+            // GameManager.instance.XpManager.Experience += xpValue;
+            StateManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        }
+        else
+        {
+            SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
+            StateManager.instance.ShowText("Phantom vanished", 10, Color.gray, transform.position, Vector3.up * 1, 1.0f);
+        }
+        
         Destroy(gameObject);
-        int xp = ExperienceManager.Instance.AddEnemy(1);
-        GameSummaryManager.Instance.AddEnemy();
-        // GameManager.instance.XpManager.Experience += xpValue;
-        GameManager.instance.ShowText("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
+        
     }
+    
 }
