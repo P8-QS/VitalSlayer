@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using Data;
+using Data.Models;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -61,6 +62,15 @@ public class LoggingManager : MonoBehaviour
         string json = JsonConvert.SerializeObject(entry);
         File.AppendAllText(logFilePath, json + "\n");
         Debug.Log($"[LOGGED] {json}");
+    }
+
+    public void LogMetric<T>(UserMetricsType type, T data)
+    {
+        var log = new Dictionary<string, object>{
+            {type.ToString(), data}
+        };
+
+        LogEvent("metric", log);
     }
 
     private void LogDeviceInfo() 

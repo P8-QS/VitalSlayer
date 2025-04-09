@@ -67,6 +67,7 @@ namespace Data
                     {
                         StepsRecords = stepsRecords;
                         Debug.Log("Steps records have been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, StepsRecords);
                         OnStepsRecordsUpdated?.Invoke(StepsRecords);
                     }
                     break;
@@ -75,6 +76,7 @@ namespace Data
                     {
                         SleepSessionRecords = sleepRecords;
                         Debug.Log("Sleep session records have been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, SleepSessionRecords);
                         OnSleepSessionRecordsUpdated?.Invoke(SleepSessionRecords);
                     }
                     break;
@@ -83,6 +85,7 @@ namespace Data
                     {
                         TotalScreenTime = totalScreenTime;
                         Debug.Log("Total screen time has been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, TotalScreenTime);
                         OnTotalScreenTimeUpdated?.Invoke(TotalScreenTime);
                     }
                     break;
