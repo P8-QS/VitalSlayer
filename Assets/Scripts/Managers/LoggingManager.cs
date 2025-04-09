@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using Data;
-using Data.Models;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -100,5 +98,9 @@ public class LoggingManager : MonoBehaviour
         };
 
         LogEvent("sessionInfo", log);
+    }
+
+    public string GetLogFilePath() {
+        return logFilePath;
     }
 }
