@@ -3620,7 +3620,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 4
-      m_TileSpriteIndex: 9
+      m_TileSpriteIndex: 10
       m_TileMatrixIndex: 4
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3665,10 +3665,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: -1347807510, guid: d3e92f2c6e21f0542a90a077dae5018a, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1347807510, guid: d3e92f2c6e21f0542a90a077dae5018a, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
@@ -6392,6 +6392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3590490454756004140}
+  - component: {fileID: 9149940981089031874}
   m_Layer: 0
   m_Name: Room20x20(4)
   m_TagString: Untagged
@@ -6424,6 +6425,27 @@ Transform:
   - {fileID: 8790647055757477658}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9149940981089031874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7678116970703698137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab8df46dd3baebab9ada375e46ec2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorData:
+  - direction: East
+    localPosition: {x: 2.905, y: 1.6, z: 0}
+  - direction: North
+    localPosition: {x: 1.44, y: 2.88, z: 0}
+  - direction: South
+    localPosition: {x: 1.44, y: 0, z: 0}
+  - direction: West
+    localPosition: {x: -0.025, y: 1.6, z: 0}
 --- !u!1001 &856141298676994182
 PrefabInstance:
   m_ObjectHideFlags: 0

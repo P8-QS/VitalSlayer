@@ -1,18 +1,17 @@
 #if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.Tilemaps;
 
-[CustomEditor(typeof(Room))]
+[CustomEditor(typeof(DoorRoom))]
 public class RoomDoorEditor : Editor
 {
     private bool isPlacingDoors = false;
     private bool isRemovingDoors = false;
-    private Room.DoorOrientation currentDoorOrientation = Room.DoorOrientation.Front;
+    private DoorRoom.DoorOrientation currentDoorOrientation = DoorRoom.DoorOrientation.Front;
 
     public override void OnInspectorGUI()
     {
-        Room room = (Room)target;
+        DoorRoom room = (DoorRoom)target;
 
         // Draw the default inspector
         DrawDefaultInspector();
@@ -32,7 +31,7 @@ public class RoomDoorEditor : Editor
                 EditorGUILayout.HelpBox("Click on the tilemap to place doors. Press 'Finish' when done.", MessageType.Info);
 
                 // Option to select door orientation
-                currentDoorOrientation = (Room.DoorOrientation)EditorGUILayout.EnumPopup("Door Orientation", currentDoorOrientation);
+                currentDoorOrientation = (DoorRoom.DoorOrientation)EditorGUILayout.EnumPopup("Door Orientation", currentDoorOrientation);
 
                 if (GUILayout.Button("Finish Placing Doors"))
                 {
@@ -82,7 +81,7 @@ public class RoomDoorEditor : Editor
 
     private void OnSceneGUI(SceneView sceneView)
     {
-        Room room = (Room)target;
+        DoorRoom room = (DoorRoom)target;
         Event currentEvent = Event.current;
 
         // Handle door placement/removal mode
@@ -92,25 +91,25 @@ public class RoomDoorEditor : Editor
         }
     }
 
-    private void HandleDoorEditingMode(Event currentEvent, Room room)
+    private void HandleDoorEditingMode(Event currentEvent, DoorRoom room)
     {
         // Change cursor
         EditorGUIUtility.AddCursorRect(new Rect(0, 0, Screen.width, Screen.height),
             isPlacingDoors ? MouseCursor.Arrow : MouseCursor.ArrowMinus);
 
         // Draw existing doors
-        foreach (Room.DoorData door in room.doors)
+        foreach (DoorRoom.DoorData door in room.doors)
         {
             Vector3 worldPos = room.doorTilemap.CellToWorld(door.position) +
                                (Vector3)room.doorTilemap.cellSize * 0.5f; // Center of the cell
             worldPos.z = 0;
 
             // Use different colors for different door orientations
-            Handles.color = door.orientation == Room.DoorOrientation.Front ? Color.yellow : Color.green;
+            Handles.color = door.orientation == DoorRoom.DoorOrientation.Front ? Color.yellow : Color.green;
             Handles.DrawWireDisc(worldPos, Vector3.forward, 0.3f);
 
             // Draw a small line to indicate orientation
-            Vector3 direction = door.orientation == Room.DoorOrientation.Front ? Vector3.up : Vector3.right;
+            Vector3 direction = door.orientation == DoorRoom.DoorOrientation.Front ? Vector3.up : Vector3.right;
             Handles.DrawLine(worldPos, worldPos + direction * 0.4f);
         }
 

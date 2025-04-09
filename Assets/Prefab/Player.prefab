@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1586919953
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 4481688978213388326, guid: 27582ee1d4fecf640a88e1e300d87d97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -362,7 +362,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 961828433
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 4265638018674371071, guid: 27582ee1d4fecf640a88e1e300d87d97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -417,7 +417,7 @@ MonoBehaviour:
   level: 0
   baseSpeed: 1
   currentSpeed: 0
-  animator: {fileID: 0}
+  animator: {fileID: 153506810354474381}
   attackCooldown: 2
   lastAttackTime: 0
   movementJoystick: {fileID: 0}
@@ -545,4 +545,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
