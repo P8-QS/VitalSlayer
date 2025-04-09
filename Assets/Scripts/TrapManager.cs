@@ -5,40 +5,50 @@ using UnityEngine.Tilemaps;
 
 public class TrapManager : MonoBehaviour
 {
+    [Header("References")]
+    public Transform playerTransform;
+    public Tilemap trapTilemap;
+
     [Header("Trap Tiles")]
     public TileBase hiddenTrapTile;
-    public TileBase[] trapAnimationTiles; // Your 3 animation tiles
+    public TileBase[] trapAnimationTiles;
 
     [Header("Settings")]
-    public float damageAmount = 10f;
-    public float animationSpeed = 0.1f;
+    [Range(0, 100)]
+    public float damagePercentage = 10f; // Damage as percentage of max HP
+    public float animationSpeed = 0.3f;
+    public float checkInterval = 0.05f;
     public bool resetAfterTriggering = true;
-    public int animationLoops = 1;
 
-    private Tilemap trapTilemap;
     private HashSet<Vector3Int> triggeredTraps = new HashSet<Vector3Int>();
+    private float lastCheckTime;
 
     void Start()
     {
-        trapTilemap = GetComponent<Tilemap>();
+        if (trapTilemap == null)
+            trapTilemap = GetComponent<Tilemap>();
 
-        if (GetComponent<TilemapCollider2D>() == null)
-            gameObject.AddComponent<TilemapCollider2D>();
-
-        GetComponent<TilemapCollider2D>().isTrigger = true;
+        if (playerTransform == null)
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void Update()
     {
-        if (other.CompareTag("Player"))
+        if (Time.time - lastCheckTime > checkInterval)
         {
-            Vector3Int cellPosition = trapTilemap.WorldToCell(other.transform.position);
-            TileBase currentTile = trapTilemap.GetTile(cellPosition);
+            CheckForTraps();
+            lastCheckTime = Time.time;
+        }
+    }
 
-            if (currentTile == hiddenTrapTile && !triggeredTraps.Contains(cellPosition))
-            {
-                StartCoroutine(TriggerTrap(cellPosition, other.gameObject));
-            }
+    void CheckForTraps()
+    {
+        Vector3Int cellPosition = trapTilemap.WorldToCell(playerTransform.position);
+        TileBase currentTile = trapTilemap.GetTile(cellPosition);
+
+        if (currentTile == hiddenTrapTile && !triggeredTraps.Contains(cellPosition))
+        {
+            StartCoroutine(TriggerTrap(cellPosition, playerTransform.gameObject));
         }
     }
 
@@ -46,31 +56,31 @@ public class TrapManager : MonoBehaviour
     {
         triggeredTraps.Add(cellPosition);
 
-        // Apply damage to player
+        // Apply damage to player based on percentage of max HP
         Fighter fighter = player.GetComponent<Fighter>();
         if (fighter != null)
         {
+            // Calculate damage as percentage of max HP
+            int calculatedDamage = Mathf.RoundToInt(fighter.maxHitpoint * (damagePercentage / 100f));
+
             Damage dmg = new Damage
             {
-                damageAmount = Mathf.RoundToInt(damageAmount),
-                origin = transform.position,
+                damageAmount = calculatedDamage,
+                origin = trapTilemap.GetCellCenterWorld(cellPosition),
                 pushForce = 2.0f,
                 isCritical = false,
-                minPossibleDamage = Mathf.RoundToInt(damageAmount),
-                maxPossibleDamage = Mathf.RoundToInt(damageAmount)
+                minPossibleDamage = calculatedDamage,
+                maxPossibleDamage = calculatedDamage
             };
 
             fighter.SendMessage("ReceiveDamage", dmg);
         }
 
         // Play animation
-        for (int loop = 0; loop < animationLoops; loop++)
+        foreach (TileBase animTile in trapAnimationTiles)
         {
-            foreach (TileBase animTile in trapAnimationTiles)
-            {
-                trapTilemap.SetTile(cellPosition, animTile);
-                yield return new WaitForSeconds(animationSpeed);
-            }
+            trapTilemap.SetTile(cellPosition, animTile);
+            yield return new WaitForSeconds(animationSpeed);
         }
 
         // Reset trap if configured to do so
@@ -84,25 +94,5 @@ public class TrapManager : MonoBehaviour
             // Leave the last animation frame
             trapTilemap.SetTile(cellPosition, trapAnimationTiles[trapAnimationTiles.Length - 1]);
         }
-    }
-
-    // Call this to reset all traps
-    public void ResetAllTraps()
-    {
-        BoundsInt bounds = trapTilemap.cellBounds;
-
-        for (int x = bounds.min.x; x < bounds.max.x; x++)
-        {
-            for (int y = bounds.min.y; y < bounds.max.y; y++)
-            {
-                Vector3Int cellPosition = new Vector3Int(x, y, 0);
-                if (trapTilemap.HasTile(cellPosition))
-                {
-                    trapTilemap.SetTile(cellPosition, hiddenTrapTile);
-                }
-            }
-        }
-
-        triggeredTraps.Clear();
     }
 }
