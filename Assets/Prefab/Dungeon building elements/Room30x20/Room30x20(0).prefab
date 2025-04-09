@@ -57,13 +57,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorData:
   - direction: North
-    localPosition: {x: 2.4, y: 2.88, z: 0}
+    localPosition: {x: 2.4, y: 3.04, z: 0}
   - direction: South
     localPosition: {x: 2.4, y: 0, z: 0}
   - direction: West
-    localPosition: {x: 0.08, y: 1.44, z: 0}
+    localPosition: {x: 0.08, y: 1.6, z: 0}
   - direction: East
-    localPosition: {x: 4.72, y: 1.44, z: 0}
+    localPosition: {x: 4.72, y: 1.6, z: 0}
 --- !u!1 &794546998523522200
 GameObject:
   m_ObjectHideFlags: 0
