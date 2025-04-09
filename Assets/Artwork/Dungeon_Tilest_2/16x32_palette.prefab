@@ -887,11 +887,21 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 0
+  - first: {x: 6, y: 2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 93
+      m_TileSpriteIndex: 66
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
   - first: {x: 6, y: 3, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 90
-      m_TileSpriteIndex: 66
+      m_TileSpriteIndex: 64
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1245,6 +1255,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 96f70a33709eef5469429be44f5ca647, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: ad75a9426e27eab429ee13377e64bd7f, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 1cb06dc55f9dbec4fb63257b056d8167, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: -1303415135, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
@@ -1374,7 +1386,7 @@ Tilemap:
     m_Data: {fileID: -2956624729849302235, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 4110507524353339581, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 124509827, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 8212776798996417746, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
@@ -1427,7 +1439,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 2143175779, guid: 8a0ed5b99f4120a4598d06daa20b606c, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 94
+  - m_RefCount: 95
     m_Data:
       e00: 1
       e01: 0
@@ -1446,7 +1458,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 94
+  - m_RefCount: 95
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -1524,7 +1536,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &3760241180723143102
+--- !u!114 &4873911239912753141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
