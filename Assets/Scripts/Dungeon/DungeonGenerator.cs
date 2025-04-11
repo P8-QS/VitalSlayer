@@ -22,9 +22,9 @@ namespace Dungeon
         public int maxAttemptsPerDoor = 10;
         public float doorPositionMatchTolerance = 0.01f;
 
-        private List<RoomInstance> placedRooms = new List<RoomInstance>();
+        public List<RoomInstance> placedRooms = new List<RoomInstance>();
 
-        private class RoomInstance
+        public class RoomInstance
         {
             public GameObject GameObject;
             public Room RoomScript;
