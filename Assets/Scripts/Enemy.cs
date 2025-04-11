@@ -6,18 +6,17 @@ public class Enemy : Mover
     // Logic
     public float triggerLength = 1;
     public float chaseLength = 5;
-    private bool chasing;
-    private bool collidingWithPlayer;
-    private Transform playerTransform;
-    private Vector3 startingPosition;
+    protected bool chasing;
+    protected bool collidingWithPlayer;
+    protected Transform playerTransform;
+    protected Vector3 startingPosition;
     [Header("Phantom setting")] public bool isPhantom;
-    GameObject acidSlimePrefab = Resources.Load<GameObject>("Prefab/acid_slime_01");
 
     // Hitbox
     public ContactFilter2D filter;
     public BoxCollider2D hitBox;
     public Collider2D[] hits = new Collider2D[10];
-    
+
     public AudioClip deathSound;
 
 
@@ -27,17 +26,13 @@ public class Enemy : Mover
         playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
-        
-        if (isPhantom)
-        {
-            PhantomEnemy();
-        }
+
     }
 
     protected void FixedUpdate()
     {
         if (!playerTransform) return;
-        
+
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
         {
@@ -84,29 +79,11 @@ public class Enemy : Mover
             hits[i] = null;
         }
     }
-    
-    
-    public void PhantomEnemy()
-    {
-        // need some way to spawn phantom enemies
-        // and to test the hallucination effect i think the mock data should be changed
-        if (acidSlimePrefab != null)
-        {
-            // Instantiate the prefab at the desired position and rotation
-            Instantiate(acidSlimePrefab, transform.position, Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogError("Prefab 'acid_slime_01' not found in Resources/Prefab/");
-        }
 
-        HallucinationEffect hallucinationEffect = new HallucinationEffect(acidSlimePrefab.GetComponent<SpriteRenderer>().sprite, 1);
-        hallucinationEffect.Apply();
-    }
 
     protected override void Death()
     {
-        if(!isPhantom)
+        if (!isPhantom)
         {
             SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
             int xp = ExperienceManager.Instance.AddEnemy(1);
@@ -119,8 +96,8 @@ public class Enemy : Mover
             SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
             FloatingTextManager.Instance.Show("Phantom vanished", 10, Color.gray, transform.position, Vector3.up * 1, 1.0f);
         }
-        
+
         Destroy(gameObject);
-        
+
     }
 }
