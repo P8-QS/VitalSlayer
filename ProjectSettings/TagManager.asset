@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Fighter
   - Room
+  - EnemySpawn
+  - PlayerSpawn
+  - World
+  - SafeArea
   layers:
   - Default
   - TransparentFX
@@ -69,6 +73,9 @@ TagManager:
     locked: 0
   - name: Props
     uniqueID: 2773871127
+    locked: 0
+  - name: Doors
+    uniqueID: 2020960013
     locked: 0
   m_RenderingLayers:
   - Default

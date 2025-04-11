@@ -32,25 +32,8 @@ namespace Effects {
 
         public void Apply()
         {
-            Enemy enemy = UnityEngine.Object.FindFirstObjectByType<Enemy>();
-            
-            if (_level == 1)
-            {
-                // Apply the hallucination effect to the enemies in the room
-                Debug.Log("Phantom enemy spawned");
-                enemy.isPhantom = true;
-                _numberOfPhantomEnemies = 1;
-                enemy.hitpoint = 1;
-                //spawing phantom enemy spawnPhamton(numberOfPhantomEnemies)
-                enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
-            }
-            else if (_level == 2)
-            {
-                enemy.isPhantom = true;
-                _numberOfPhantomEnemies = 2;
-                enemy.hitpoint = 1;
-                enemy.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f); // semi-transparent white
-            }
+            // Ved ikke hvad level er hvis man ikke har effekten :)
+            EntitySpawner.Instance.phantomEnemiesPerRoom = Level > 0 ? Level : 0; 
         }
     }
 }
