@@ -22,34 +22,29 @@ public class LogEntry
 
 public class LoggingManager : MonoBehaviour
 {
-    private static LoggingManager _instance;
     private string logFilePath;
     private DateTime sessionStart;
     private string sessionId;
 
-    public static LoggingManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                var obj = new GameObject("LoggingManager");
-                _instance = obj.AddComponent<LoggingManager>();
-                DontDestroyOnLoad(obj);
-            }
-
-            return _instance;
-        }
-    }
+    public static LoggingManager Instance;
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+           Destroy(gameObject);
+           return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
         var timestamp = DateTime.UtcNow;
         sessionStart = timestamp;
         sessionId = PlayerPrefs.GetString("unity.player_sessionid");
         string dir = Path.Combine(Application.persistentDataPath, "logs");
         Directory.CreateDirectory(dir);
-        logFilePath = Path.Combine(dir, $"session_{sessionId}_{timestamp.ToString("o")}.jsonl");
+        logFilePath = Path.Combine(dir, $"session_{sessionId}_{timestamp.ToString("yyyy-MM-dd_HH-mm-ss")}.jsonl");
 
         LogDeviceInfo();
     }
@@ -101,6 +96,6 @@ public class LoggingManager : MonoBehaviour
     }
 
     public string GetLogFilePath() {
-        return logFilePath;
+        return Instance.logFilePath;
     }
 }
