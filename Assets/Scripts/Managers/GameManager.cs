@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dungeon;
@@ -46,6 +47,9 @@ public class GameManager : MonoBehaviour
             
             EntitySpawner.Instance.FillRoomsWithEntities(0, 2);
 
+            // TODO: Ideally we would just do this in Reset(), but that is called
+            // always called when we show the game summary
+            GameSummaryManager.Instance.roundStartTime = DateTime.UtcNow;
 
             GameSummaryManager.Instance.Reset();
         });
