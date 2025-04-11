@@ -74,5 +74,8 @@ TagManager:
   - name: Props
     uniqueID: 2773871127
     locked: 0
+  - name: Doors
+    uniqueID: 2020960013
+    locked: 0
   m_RenderingLayers:
   - Default
