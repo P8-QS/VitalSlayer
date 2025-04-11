@@ -7572,7 +7572,7 @@ TextureImporter:
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -7581,6 +7581,28 @@ TextureImporter:
       bones: []
       spriteID: ca840aabc1929ff499c55e892d184f49
       internalID: -1230132169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Necromancer_Minimap
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 268
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d7050d99403fb4d96758eca1de10c6
+      internalID: -1740404279
       vertices: []
       indices: 
       edges: []
@@ -7866,6 +7888,7 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_98: 6662265692936726610
       0x72_DungeonTilesetII_v1.7_99: -2065985488211235582
       Dungeon_Tilset_II_Atlas_0: -1201552
+      Necromancer_Minimap: -1740404279
       acid_slime_01: 3988327299810258889
       acid_slime_02: -1916916789
       acid_slime_03: -7081194776316564605
