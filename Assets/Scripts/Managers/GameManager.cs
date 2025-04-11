@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             var dungeonGenerator = FindFirstObjectByType<DungeonGenerator>();
             dungeonGenerator.GenerateDungeon();
 
-            var rooms = dungeonGenerator.placedRooms.Select(room => room.GameObject).ToList();
+            var rooms = dungeonGenerator.PlacedRooms.Select(room => room.GameObject).ToList();
             EntitySpawner.Instance.rooms = rooms;
             
             var world = GameObject.FindGameObjectWithTag("World");

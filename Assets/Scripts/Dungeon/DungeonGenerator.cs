@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Dungeon
 {
@@ -9,6 +10,12 @@ namespace Dungeon
         [Header("References")]
         [Tooltip("The grid component.")]
         public Grid grid;
+
+        public TileBase doorTileOpenHorizontal;
+        public TileBase doorTileClosedHorizontal;
+        public TileBase doorTileOpenVertical;
+        public TileBase doorTileClosedVertical;
+        public TileBase wallRuleTile;
         
         [Tooltip("Optional. Will be populated at runtime.")]
         public Transform generatedRoomsParent;
@@ -22,20 +29,22 @@ namespace Dungeon
         public int maxAttemptsPerDoor = 10;
         public float doorPositionMatchTolerance = 0.01f;
 
-        public List<RoomInstance> placedRooms = new List<RoomInstance>();
+        public readonly List<RoomInstance> PlacedRooms = new();
 
         public class RoomInstance
         {
-            public GameObject GameObject;
-            public Room RoomScript;
-            public Bounds Bounds;
-            public List<Transform> AvailableDoors;
+            public readonly GameObject GameObject;
+            public readonly Room RoomScript;
+            public readonly Bounds Bounds;
+            public readonly Vector3Int Offset;
+            public readonly List<Transform> AvailableDoors;
             
-            public RoomInstance(GameObject go, Room room, Bounds b)
+            public RoomInstance(GameObject go, Room room, Bounds b, Vector3Int offset)
             {
                 GameObject = go;
                 RoomScript = room;
                 Bounds = b;
+                Offset = offset;
                 AvailableDoors = new List<Transform>(room.GetDoorTransforms());
             }
         }
@@ -49,7 +58,7 @@ namespace Dungeon
                 Debug.LogError("Dungeon Generator is not properly configured!");
                 return;
             }
-            // Ensure the Room script has the necessary data structure
+            
             if (startRoomPrefab.GetComponent<Room>()?.GetDoorPrefabData() is null) {
                 Debug.LogError($"Start Room Prefab '{startRoomPrefab.name}' is missing Room script or GetDoorPrefabData() method is not working correctly. Ensure Room.cs is set up for Method 2.");
                 return;
@@ -59,20 +68,24 @@ namespace Dungeon
                 return;
             }
             
-            if (generatedRoomsParent is null)
-            {
-                generatedRoomsParent = grid.transform;
-            }
+            generatedRoomsParent ??= grid.transform;
 
-            // Place start room
+            // Place starting room
             if (!TryPlaceRoom(startRoomPrefab, Vector3Int.zero))
             {
                 Debug.LogError("Failed to place the starting room!");
                 return;
             }
-        
+
+            GenerationLoop();
+            FillDoorLocations();
+            Debug.Log($"Dungeon generation complete. Placed {PlacedRooms.Count} rooms.");
+        }
+
+        private void GenerationLoop()
+        {
             var roomsToProcess = new Queue<RoomInstance>();
-            roomsToProcess.Enqueue(placedRooms[0]);
+            roomsToProcess.Enqueue(PlacedRooms[0]);
 
             var roomsPlacedCount = 1;
             while (roomsToProcess.Count > 0 && roomsPlacedCount < maxRooms)
@@ -132,81 +145,25 @@ namespace Dungeon
                     
                         doorsPopulatedCount++;
                         roomsPlacedCount++;
-                        var newRoomInstance = placedRooms[^1];
+                        var newRoomInstance = PlacedRooms[^1];
                         roomsToProcess.Enqueue(newRoomInstance);
-                        
-                        var placedDoorInstance = newRoomInstance.RoomScript.GetDoorTransforms()
-                            .FirstOrDefault(t => Room.GetDoorDirection(t) == requiredOppositeDir &&
-                                                 Vector3.Distance(t.localPosition, chosenDoorData.localPosition) < doorPositionMatchTolerance);
 
-                        if (placedDoorInstance is not null) {
-                            newRoomInstance.AvailableDoors.Remove(placedDoorInstance);
-                        } else {
-                            // This might happen if DoorInfo data is stale or tolerance is too small
-                            Debug.LogWarning($"Could not find corresponding door transform on newly placed room {newRoomInstance.GameObject.name} matching data (Dir: {requiredOppositeDir}, LocalPos: {chosenDoorData.localPosition}). Check Room prefab's Door Data and doorPositionMatchTolerance.", newRoomInstance.GameObject);
-                        }
-
-                        currentRoomInstance.AvailableDoors.Remove(currentDoorTransform);
+                        RemoveConnectedDoors(newRoomInstance);
                         break;
                     }
-                    // If after all attempts, no room was placed for 'currentDoorTransform', it remains in 'availableDoors'.
                 }
             }
-
-            Debug.Log($"Dungeon generation complete. Placed {placedRooms.Count} rooms.");
-            // Optional: Post-processing
-        }
-
-        // --- Helper Functions ---
-        private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition)
-        {
-            var roomPrefabScript = roomPrefab.GetComponent<Room>();
-            if (roomPrefabScript is null)
-            {
-                Debug.LogError($"Prefab {roomPrefab.name} is missing Room script!", roomPrefab);
-                return false;
-            }
-
-            var potentialBounds = roomPrefabScript.GetRoomBounds();
-            var potentialPosition = grid.GetCellCenterWorld(gridPosition);
-            potentialBounds.center += potentialPosition;
-
-            if (placedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.Bounds)))
-            {
-                Debug.LogWarning("Detected overlap");
-                // return false; // Potential overlap detected TODO: uncomment once map is fixed
-            }
-
-            // No collisions detected, safe to instantiate
-            var roomInstanceGo = Instantiate(roomPrefab, generatedRoomsParent, true);
-            roomInstanceGo.name = $"{roomPrefab.name}_({potentialBounds.center.x},{potentialBounds.center.y})";
-            roomInstanceGo.transform.position = potentialPosition;
-            var roomScript = roomInstanceGo.GetComponent<Room>();
-            roomScript.InvalidateBoundsCache();
-        
-            var newInstance = new RoomInstance(roomInstanceGo, roomScript, potentialBounds);
-            placedRooms.Add(newInstance);
-
-            return true;
-        }
-    
-        bool BoundsOverlap(Bounds a, Bounds b)
-        {
-            return !Mathf.Approximately(a.max.x, b.min.x) && a.max.x > b.min.x &&
-                   !Mathf.Approximately(b.max.x, a.min.x) && b.max.x > a.min.x &&
-                   !Mathf.Approximately(a.max.y, b.min.y) && a.max.y > b.min.y &&
-                   !Mathf.Approximately(b.max.y, a.min.y) && b.max.y > a.min.y;
         }
 
         public void ClearDungeon()
         {
-            placedRooms.Clear();
+            PlacedRooms.Clear();
             var parentToClear = generatedRoomsParent ?? grid.transform;
 
             for (var i = parentToClear.childCount - 1; i >= 0; i--)
             {
                 var childGo = parentToClear.GetChild(i).gameObject;
-                if (childGo.GetComponent<Room>() is null) continue; // Identify generated rooms
+                if (childGo.GetComponent<Room>() is null) continue;
                 if (Application.isPlaying)
                     Destroy(childGo);
                 else
@@ -221,6 +178,101 @@ namespace Dungeon
                     Debug.LogWarning("Clear Dungeon finished, but some children remained (maybe not rooms?).");
                     break;
             }
+        }
+        
+        private void RemoveConnectedDoors(RoomInstance newRoomInstance)
+        {
+            foreach (var placedRoom in PlacedRooms)
+            {
+                if (placedRoom == newRoomInstance) continue;
+
+                var doorsToRemove = placedRoom.AvailableDoors
+                    .Where(doorA => newRoomInstance.AvailableDoors
+                        .Any(doorB => Vector3.Distance(doorA.position, doorB.position) < doorPositionMatchTolerance))
+                    .Select(doorA => doorA.position)
+                    .ToList();
+                            
+                placedRoom.AvailableDoors.RemoveAll(door => doorsToRemove.Any(pos => Vector3.Distance(door.position, pos) < 0.1f));
+                newRoomInstance.AvailableDoors.RemoveAll(door => doorsToRemove.Any(pos => Vector3.Distance(door.position, pos) < 0.1f));
+            }
+        }
+
+        private void FillDoorLocations()
+        {
+            foreach (var room in PlacedRooms)
+            {
+                foreach (var doorInfo in room.RoomScript.GetDoorPrefabData())
+                {
+                    var centerGridPos = room.RoomScript.wallsTilemap.WorldToCell(doorInfo.localPosition);
+                    
+                    // Determine direction offsets
+                    Vector3Int offset1, offset2;
+            
+                    switch (doorInfo.direction)
+                    {
+                        case "North":
+                        case "South":
+                            offset1 = Vector3Int.up;
+                            offset2 = Vector3Int.right + Vector3Int.up;
+                            break;
+                        case "East":
+                        case "West":
+                            offset1 = Vector3Int.zero;
+                            offset2 = Vector3Int.up;
+                            break;
+                        default:
+                            Debug.LogWarning($"Unknown door direction: {doorInfo.direction}");
+                            continue;
+                    }
+            
+                    // Only place walls if this door is unconnected
+                    if (!room.AvailableDoors.Any(dt => 
+                            Vector3.Distance(dt.localPosition, doorInfo.localPosition) < doorPositionMatchTolerance)) continue;
+                    
+                    room.RoomScript.wallsTilemap.SetTile(centerGridPos + room.Offset + offset1, wallRuleTile);
+                    room.RoomScript.wallsTilemap.SetTile(centerGridPos + room.Offset + offset2, wallRuleTile);
+                }
+            }
+        }
+        
+        private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition)
+        {
+            var roomPrefabScript = roomPrefab.GetComponent<Room>();
+            if (roomPrefabScript is null)
+            {
+                Debug.LogError($"Prefab {roomPrefab.name} is missing Room script!", roomPrefab);
+                return false;
+            }
+
+            var potentialBounds = roomPrefabScript.GetRoomBounds();
+            var potentialPosition = grid.GetCellCenterWorld(gridPosition);
+            potentialBounds.center += potentialPosition;
+
+            if (PlacedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.Bounds)))
+            {
+                Debug.LogWarning("Detected overlap");
+                return false;
+            }
+
+            // No collisions detected, safe to instantiate
+            var roomInstanceGo = Instantiate(roomPrefab, generatedRoomsParent, true);
+            roomInstanceGo.name = $"{roomPrefab.name}_({potentialBounds.center.x},{potentialBounds.center.y})";
+            roomInstanceGo.transform.position = potentialPosition;
+            var roomScript = roomInstanceGo.GetComponent<Room>();
+            roomScript.InvalidateBoundsCache();
+        
+            var newInstance = new RoomInstance(roomInstanceGo, roomScript, potentialBounds, gridPosition);
+            PlacedRooms.Add(newInstance);
+
+            return true;
+        }
+        
+        private static bool BoundsOverlap(Bounds a, Bounds b)
+        {
+            return !Mathf.Approximately(a.max.x, b.min.x) && a.max.x > b.min.x &&
+                   !Mathf.Approximately(b.max.x, a.min.x) && b.max.x > a.min.x &&
+                   !Mathf.Approximately(a.max.y, b.min.y) && a.max.y > b.min.y &&
+                   !Mathf.Approximately(b.max.y, a.min.y) && b.max.y > a.min.y;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Dungeon
 {
@@ -12,6 +13,9 @@ namespace Dungeon
             public string direction;
             public Vector3 localPosition;
         }
+
+        public Tilemap wallsTilemap;
+        public Tilemap doorsTilemap;
         
         public List<DoorInfo> doorData = new();
     
