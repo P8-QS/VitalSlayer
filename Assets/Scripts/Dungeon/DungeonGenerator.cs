@@ -204,19 +204,24 @@ namespace Dungeon
                 foreach (var doorInfo in room.RoomScript.GetDoorPrefabData())
                 {
                     var centerGridPos = room.RoomScript.wallsTilemap.WorldToCell(doorInfo.localPosition);
+                    var isDoor = !room.AvailableDoors.Any(dt => 
+                        Vector3.Distance(dt.localPosition, doorInfo.localPosition) < doorPositionMatchTolerance);
+                        
                     
                     // Determine direction offsets
                     Vector3Int offset1, offset2;
-            
+                    TileBase tile;
                     switch (doorInfo.direction)
                     {
                         case "North":
                         case "South":
+                            tile = isDoor ? doorTileClosedHorizontal : wallRuleTile;
                             offset1 = Vector3Int.up;
                             offset2 = Vector3Int.right + Vector3Int.up;
                             break;
                         case "East":
                         case "West":
+                            tile = isDoor ? doorTileClosedVertical : wallRuleTile;
                             offset1 = Vector3Int.zero;
                             offset2 = Vector3Int.up;
                             break;
@@ -224,13 +229,16 @@ namespace Dungeon
                             Debug.LogWarning($"Unknown door direction: {doorInfo.direction}");
                             continue;
                     }
-            
-                    // Only place walls if this door is unconnected
-                    if (!room.AvailableDoors.Any(dt => 
-                            Vector3.Distance(dt.localPosition, doorInfo.localPosition) < doorPositionMatchTolerance)) continue;
-                    
-                    room.RoomScript.wallsTilemap.SetTile(centerGridPos + room.Offset + offset1, wallRuleTile);
-                    room.RoomScript.wallsTilemap.SetTile(centerGridPos + room.Offset + offset2, wallRuleTile);
+
+                    if (isDoor)
+                    {
+                        room.RoomScript.doorsTilemap.SetTile(centerGridPos + room.Offset + offset1, tile);
+                    }
+                    else
+                    {
+                        room.RoomScript.wallsTilemap.SetTile(centerGridPos + room.Offset + offset1, tile);
+                        room.RoomScript.wallsTilemap.SetTile(centerGridPos + room.Offset + offset2, tile);
+                    }
                 }
             }
         }
