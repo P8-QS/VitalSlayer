@@ -80,6 +80,22 @@ public class LoggingManager : MonoBehaviour
         LogEvent("deviceInfo", log);
     }
 
+    public void LogGameSummary(bool gameWon, int totalEnemies, int xpGained, int levelsGained, DateTime roundStartTime)
+    {
+        var roundEndTime = DateTime.UtcNow;
+        var roundDuration = roundEndTime - roundStartTime;
+
+        var log = new Dictionary<string, object>{
+            {"gameWon", gameWon},
+            {"totalEnemiesKilled", totalEnemies},
+            {"xpGained", xpGained},
+            {"levelsGained", levelsGained},
+            {"roundDuration", roundDuration}
+        };
+
+        LogEvent("gameRoundCompleted", log);
+    }
+
     void OnApplicationQuit()
     {
         var sessionEnd = DateTime.UtcNow;

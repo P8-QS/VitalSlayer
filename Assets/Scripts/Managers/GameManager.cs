@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -40,6 +41,9 @@ public class GameManager : MonoBehaviour
             var playerGo = Instantiate(playerPrefab, spawnPoint);
             player = playerGo.GetComponent<Player>();
 
+            // TODO: Ideally we would just do this in Reset(), but that is called
+            // always called when we show the game summary
+            GameSummaryManager.Instance.roundStartTime = DateTime.UtcNow;
 
             GameSummaryManager.Instance.Reset();
         });
