@@ -52,9 +52,6 @@ public class GameSummaryManager : MonoBehaviour
         bossesKilled = 0;
         xpStart = ExperienceManager.Instance.Experience;
         levelStart = ExperienceManager.Instance.Level;
-
-        var safeArea = GameObject.FindGameObjectWithTag("SafeArea");
-        parentPanel.SetParent(safeArea.transform);
     }
 
 

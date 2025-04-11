@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -30,7 +31,7 @@ public class EntitySpawner : MonoBehaviour
 
     public int maxEnemiesPerRoom = 2;
     public int minEnemiesPerRoom = 1;
-    public int phantomEnemyCount = 0;
+    public int phantomEnemiesPerRoom = 0;
 
 
     public List<GameObject> rooms;
@@ -149,8 +150,7 @@ public class EntitySpawner : MonoBehaviour
             SpawnEnemies<Enemy>(i, enemyCount);
             
             // Spawn phantom enemies
-            SpawnEnemies<Enemy>(i, playerRoomIndex, true);
-            
+            SpawnEnemies<Enemy>(i, phantomEnemiesPerRoom, true);
         }
     }
 }
