@@ -33,7 +33,7 @@ namespace Effects {
         public void Apply()
         {
             // Ved ikke hvad level er hvis man ikke har effekten :)
-            EntitySpawner.Instance.phantomEnemyCount = Level > 0 ? Level : 0; 
+            EntitySpawner.Instance.phantomEnemiesPerRoom = Level > 0 ? Level : 0; 
         }
     }
 }
