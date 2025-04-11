@@ -29,9 +29,9 @@ namespace Dungeon
         public int maxAttemptsPerDoor = 10;
         public float doorPositionMatchTolerance = 0.01f;
 
-        private readonly List<RoomInstance> _placedRooms = new();
+        public readonly List<RoomInstance> PlacedRooms = new();
 
-        private class RoomInstance
+        public class RoomInstance
         {
             public readonly GameObject GameObject;
             public readonly Room RoomScript;
@@ -79,13 +79,13 @@ namespace Dungeon
 
             GenerationLoop();
             FillDoorLocations();
-            Debug.Log($"Dungeon generation complete. Placed {_placedRooms.Count} rooms.");
+            Debug.Log($"Dungeon generation complete. Placed {PlacedRooms.Count} rooms.");
         }
 
         private void GenerationLoop()
         {
             var roomsToProcess = new Queue<RoomInstance>();
-            roomsToProcess.Enqueue(_placedRooms[0]);
+            roomsToProcess.Enqueue(PlacedRooms[0]);
 
             var roomsPlacedCount = 1;
             while (roomsToProcess.Count > 0 && roomsPlacedCount < maxRooms)
@@ -145,7 +145,7 @@ namespace Dungeon
                     
                         doorsPopulatedCount++;
                         roomsPlacedCount++;
-                        var newRoomInstance = _placedRooms[^1];
+                        var newRoomInstance = PlacedRooms[^1];
                         roomsToProcess.Enqueue(newRoomInstance);
 
                         RemoveConnectedDoors(newRoomInstance);
@@ -157,7 +157,7 @@ namespace Dungeon
 
         public void ClearDungeon()
         {
-            _placedRooms.Clear();
+            PlacedRooms.Clear();
             var parentToClear = generatedRoomsParent ?? grid.transform;
 
             for (var i = parentToClear.childCount - 1; i >= 0; i--)
@@ -182,7 +182,7 @@ namespace Dungeon
         
         private void RemoveConnectedDoors(RoomInstance newRoomInstance)
         {
-            foreach (var placedRoom in _placedRooms)
+            foreach (var placedRoom in PlacedRooms)
             {
                 if (placedRoom == newRoomInstance) continue;
 
@@ -199,7 +199,7 @@ namespace Dungeon
 
         private void FillDoorLocations()
         {
-            foreach (var room in _placedRooms)
+            foreach (var room in PlacedRooms)
             {
                 foreach (var doorInfo in room.RoomScript.GetDoorPrefabData())
                 {
@@ -248,7 +248,7 @@ namespace Dungeon
             var potentialPosition = grid.GetCellCenterWorld(gridPosition);
             potentialBounds.center += potentialPosition;
 
-            if (_placedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.Bounds)))
+            if (PlacedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.Bounds)))
             {
                 Debug.LogWarning("Detected overlap");
                 return false;
@@ -262,7 +262,7 @@ namespace Dungeon
             roomScript.InvalidateBoundsCache();
         
             var newInstance = new RoomInstance(roomInstanceGo, roomScript, potentialBounds, gridPosition);
-            _placedRooms.Add(newInstance);
+            PlacedRooms.Add(newInstance);
 
             return true;
         }
