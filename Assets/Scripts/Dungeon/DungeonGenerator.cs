@@ -22,9 +22,9 @@ namespace Dungeon
         public int maxAttemptsPerDoor = 10;
         public float doorPositionMatchTolerance = 0.01f;
 
-        private List<RoomInstance> placedRooms = new List<RoomInstance>();
+        public List<RoomInstance> placedRooms = new List<RoomInstance>();
 
-        private class RoomInstance
+        public class RoomInstance
         {
             public GameObject GameObject;
             public Room RoomScript;
@@ -140,25 +140,16 @@ namespace Dungeon
                                                  Vector3.Distance(t.localPosition, chosenDoorData.localPosition) < doorPositionMatchTolerance);
 
                         if (placedDoorInstance is not null) {
-                            // Remove the corresponding Transform from the *newly placed room's* available list
                             newRoomInstance.AvailableDoors.Remove(placedDoorInstance);
-                            
-                            // Debug.Log($"Removed connection door {placedDoorInstance.name} from newly placed room {newRoomInstance.gameObject.name}");
                         } else {
                             // This might happen if DoorInfo data is stale or tolerance is too small
                             Debug.LogWarning($"Could not find corresponding door transform on newly placed room {newRoomInstance.GameObject.name} matching data (Dir: {requiredOppositeDir}, LocalPos: {chosenDoorData.localPosition}). Check Room prefab's Door Data and doorPositionMatchTolerance.", newRoomInstance.GameObject);
                         }
 
                         currentRoomInstance.AvailableDoors.Remove(currentDoorTransform);
-                    
                         break;
                     }
                     // If after all attempts, no room was placed for 'currentDoorTransform', it remains in 'availableDoors'.
-                }
-
-                foreach (var door in currentRoomInstance.AvailableDoors)
-                {
-                    
                 }
             }
 
@@ -183,7 +174,7 @@ namespace Dungeon
             if (placedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.Bounds)))
             {
                 Debug.LogWarning("Detected overlap");
-                // return false; // Potential overlap detected
+                // return false; // Potential overlap detected TODO: uncomment once map is fixed
             }
 
             // No collisions detected, safe to instantiate

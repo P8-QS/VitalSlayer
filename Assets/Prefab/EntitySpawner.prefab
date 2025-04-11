@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6192670588039333278
+--- !u!1 &7655898203298272272
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2006711712918653651}
-  - component: {fileID: 7839109269429272746}
+  - component: {fileID: 2891038454094353569}
+  - component: {fileID: 816198906761361530}
   m_Layer: 0
-  m_Name: SoundFxManager
+  m_Name: EntitySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2006711712918653651
+--- !u!4 &2891038454094353569
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6192670588039333278}
+  m_GameObject: {fileID: 7655898203298272272}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7839109269429272746
+--- !u!114 &816198906761361530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6192670588039333278}
+  m_GameObject: {fileID: 7655898203298272272}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec14c3a48374432d8fed4a29d5f6346c, type: 3}
+  m_Script: {fileID: 11500000, guid: b72341f4780a4aa681c3243fbc41646c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundFxObject: {fileID: 196934670231764570, guid: 1f422353f444447879b16c0ef03d064b, type: 3}
-  clickSound: {fileID: 8300000, guid: 18133caa8fa914d45bfde0fc986b8550, type: 3}
+  enemyPrefabs:
+  - {fileID: 1116263164795065179, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
+  - {fileID: 2292373750007248639, guid: 77f2779fb6a90d24fa834d6d709887ff, type: 3}
+  bossPrefabs:
+  - {fileID: 6873003431374920818, guid: 2bd5cda84f5fd3141abf36a2a6090c41, type: 3}
+  playerPrefabs:
+  - {fileID: 3352625558287108809, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
+  entityParent: {fileID: 0}
+  maxEnemiesPerRoom: 4
+  minEnemiesPerRoom: 2
+  rooms: []

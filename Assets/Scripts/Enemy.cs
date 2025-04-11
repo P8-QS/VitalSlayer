@@ -6,11 +6,25 @@ public class Enemy : Mover
     // Logic
     public float triggerLength = 1;
     public float chaseLength = 5;
-    protected bool chasing;
-    protected bool collidingWithPlayer;
-    protected Transform playerTransform;
-    protected Vector3 startingPosition;
-    [Header("Phantom setting")] public bool isPhantom;
+    private bool chasing;
+    private bool collidingWithPlayer;
+    private Transform playerTransform;
+    private Vector3 startingPosition;
+
+    public bool isPhantom
+    {
+        set
+        {
+            if (value)
+            {
+                hitpoint = 1;
+                maxHitpoint = 1;
+            }
+
+            isPhantom = value;
+        }
+        get => isPhantom;
+    }
 
     // Hitbox
     public ContactFilter2D filter;
@@ -26,12 +40,12 @@ public class Enemy : Mover
         playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
-
     }
 
     protected void FixedUpdate()
     {
         if (!playerTransform) return;
+
 
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
@@ -80,24 +94,17 @@ public class Enemy : Mover
         }
     }
 
-
     protected override void Death()
     {
         if (!isPhantom)
         {
-            SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
             int xp = ExperienceManager.Instance.AddEnemy(1);
             GameSummaryManager.Instance.AddEnemy();
-            // GameManager.instance.XpManager.Experience += xpValue;
-            FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1, 1.0f);
-        }
-        else
-        {
-            SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
-            FloatingTextManager.Instance.Show("Phantom vanished", 10, Color.gray, transform.position, Vector3.up * 1, 1.0f);
+            FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
+                1.0f);
         }
 
+        SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
         Destroy(gameObject);
-
     }
 }
