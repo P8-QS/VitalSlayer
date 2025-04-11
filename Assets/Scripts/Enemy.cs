@@ -6,10 +6,10 @@ public class Enemy : Mover
     // Logic
     public float triggerLength = 1;
     public float chaseLength = 5;
-    private bool chasing;
-    private bool collidingWithPlayer;
-    private Transform playerTransform;
-    private Vector3 startingPosition;
+    protected bool chasing;
+    protected bool collidingWithPlayer;
+    protected Transform playerTransform;
+    protected Vector3 startingPosition;
 
     public bool isPhantom
     {
