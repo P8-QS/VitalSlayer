@@ -56,7 +56,7 @@ public class EntitySpawner : MonoBehaviour
         return spawnPoints;
     }
 
-    public void SpawnEnemies<T>(int roomIndex, int count, bool spawnPhantomOnly = false) where T : Enemy
+    public void SpawnEnemies<T>(int roomIndex, int count, bool isPhantomEnemy = false) where T : Enemy
     {
         var allSpawnPoints = GetEntitySpawnPoints(roomIndex, "EnemySpawn");
 
@@ -92,7 +92,7 @@ public class EntitySpawner : MonoBehaviour
             var prefab = prefabs[randomIndex];
 
             var enemy = SpawnEntity<T>(prefab, spawnPoint);
-            if (spawnPhantomOnly) enemy.isPhantom = true;
+            enemy.isPhantom = isPhantomEnemy;
         }
     }
 
