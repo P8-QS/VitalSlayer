@@ -85,15 +85,15 @@ public class LoggingManager : MonoBehaviour
         var sessionEnd = DateTime.UtcNow;
         var sessionDuration = (sessionEnd - sessionStart).TotalSeconds;
 
-        string user_id;
+        string userId;
         if (PlayerPrefs.HasKey("user_id"))
         {
-            user_id = PlayerPrefs.GetString("user_id");
+            userId = PlayerPrefs.GetString("user_id");
         }
         else
         {
-            user_id = Guid.NewGuid().ToString();
-            PlayerPrefs.SetString("user_id", user_id);
+            userId = Guid.NewGuid().ToString();
+            PlayerPrefs.SetString("user_id", userId);
             PlayerPrefs.Save();
         }
 
@@ -102,7 +102,7 @@ public class LoggingManager : MonoBehaviour
             {"sessionStartTime", sessionStart},
             {"sessionEndTime", sessionEnd},
             {"sessionDurationSeconds", sessionDuration},
-            {"userId", user_id}
+            {"userId", userId}
         };
 
         LogEvent("sessionInfo", log);
