@@ -85,17 +85,30 @@ public class LoggingManager : MonoBehaviour
         var sessionEnd = DateTime.UtcNow;
         var sessionDuration = (sessionEnd - sessionStart).TotalSeconds;
 
+        string user_id;
+        if (PlayerPrefs.HasKey("user_id"))
+        {
+            user_id = PlayerPrefs.GetString("user_id");
+        }
+        else
+        {
+            user_id = Guid.NewGuid().ToString();
+            PlayerPrefs.SetString("user_id", user_id);
+            PlayerPrefs.Save();
+        }
+
         var log = new Dictionary<string, object>{
             {"sessionId", sessionId},
             {"sessionStartTime", sessionStart},
             {"sessionEndTime", sessionEnd},
-            {"sessionDurationSeconds", sessionDuration}
+            {"sessionDurationSeconds", sessionDuration},
+            {"userId", user_id}
         };
 
         LogEvent("sessionInfo", log);
     }
 
     public string GetLogFilePath() {
-        return Instance.logFilePath;
+        return logFilePath;
     }
 }
