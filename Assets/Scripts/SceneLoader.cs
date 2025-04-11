@@ -77,6 +77,7 @@ public class SceneLoader : MonoBehaviour
         {
             void Callback(Scene scene, LoadSceneMode mode)
             {
+                if (scene.name != sceneName) return;
                 onLoaded.Invoke();
                 SceneManager.sceneLoaded -= Callback;
             }

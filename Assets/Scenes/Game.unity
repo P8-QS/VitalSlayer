@@ -478,7 +478,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7337476, y: 1.5, z: -1.1851289}
+  m_LocalPosition: {x: 0.19330597, y: 1.0000005, z: -1.1851289}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -508,8 +508,8 @@ MonoBehaviour:
     Enabled: 1
     DefaultMode: 1
   DefaultBlend:
-    Style: 1
-    Time: 0.3
+    Style: 5
+    Time: 1
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 1236386805}
   m_Layer: 5
   m_Name: Safe Area
-  m_TagString: Untagged
+  m_TagString: SafeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1150,7 +1150,7 @@ GameObject:
   - component: {fileID: 1844547157}
   m_Layer: 5
   m_Name: World Space - Canvas
-  m_TagString: Untagged
+  m_TagString: World
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
