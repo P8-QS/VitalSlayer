@@ -87,8 +87,10 @@ namespace Dungeon
 
             GenerationLoop();
             FillDoorLocations();
+            SetRoomTilemapOrder();
             Debug.Log($"Dungeon generation complete. Placed {PlacedRooms.Count} rooms.");
         }
+<<<<<<< HEAD
 
         private void InitializeSeed()
         {
@@ -118,6 +120,9 @@ namespace Dungeon
             return (float)seededRandom.NextDouble();
         }
 
+=======
+        
+>>>>>>> origin/main
         private void GenerationLoop()
         {
             var roomsToProcess = new Queue<RoomInstance>();
@@ -278,6 +283,26 @@ namespace Dungeon
                 }
             }
         }
+        
+        private void SetRoomTilemapOrder()
+        {
+            var sortedRooms = PlacedRooms
+                .OrderByDescending(r => r.GameObject.transform.position.y)
+                .ToList();
+
+            for (var i = 0; i < sortedRooms.Count; i++)
+            {
+                var baseOrder = i * 100;
+                var renderers = sortedRooms[i].GameObject.GetComponentsInChildren<TilemapRenderer>();
+
+                foreach (var tilemapRenderer in renderers)
+                {
+                    var layerOrder = SortingLayer.GetLayerValueFromID(tilemapRenderer.sortingLayerID);
+                    tilemapRenderer.sortingOrder = baseOrder + layerOrder;
+                }
+            }
+        }
+
         
         private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition)
         {
