@@ -55,6 +55,9 @@ MonoBehaviour:
   - {fileID: 1994943969328927481, guid: 2f60b26647ade81ad9c7e19613ca643d, type: 3}
   - {fileID: 2624693480118450407, guid: 2ab313e12de3b9a4c9bbff81e08c528f, type: 3}
   - {fileID: 8750685465755910275, guid: 9f3ee5bc4fed4ed47ad04af214eb0138, type: 3}
+  - {fileID: 7678116970703698137, guid: 459b634b9a15bc147a0904efb08ee00c, type: 3}
+  - {fileID: 1615997233950154234, guid: f45d45261467616458c17dd437609b96, type: 3}
+  - {fileID: 3764321035705679, guid: dadc53f634a8d4947b3b70295b378969, type: 3}
   maxRooms: 10
   maxAttemptsPerDoor: 10
   doorPositionMatchTolerance: 0.01

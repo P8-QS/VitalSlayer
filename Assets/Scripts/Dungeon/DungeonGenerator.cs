@@ -27,6 +27,14 @@ namespace Dungeon
         public int maxAttemptsPerDoor = 10;
         public float doorPositionMatchTolerance = 0.01f;
 
+        [Header("Seeding")]
+        [SerializeField] private bool useRandomSeed = true;
+        [SerializeField] private int seed;
+        [SerializeField] private bool logSeedOnGeneration = true;
+        
+        private System.Random seededRandom;
+        private int currentSeed;
+
         public readonly List<RoomInstance> PlacedRooms = new();
 
         public class RoomInstance
@@ -56,6 +64,8 @@ namespace Dungeon
                 Debug.LogError("Dungeon Generator is not properly configured!");
                 return;
             }
+
+            InitializeSeed();
             
             if (startRoomPrefab.GetComponent<Room>()?.GetDoorPrefabData() is null) {
                 Debug.LogError($"Start Room Prefab '{startRoomPrefab.name}' is missing Room script or GetDoorPrefabData() method is not working correctly. Ensure Room.cs is set up for Method 2.");
@@ -77,9 +87,42 @@ namespace Dungeon
 
             GenerationLoop();
             FillDoorLocations();
+            SetRoomTilemapOrder();
             Debug.Log($"Dungeon generation complete. Placed {PlacedRooms.Count} rooms.");
         }
+<<<<<<< HEAD
 
+        private void InitializeSeed()
+        {
+            if (useRandomSeed)
+            {
+                currentSeed = System.DateTime.Now.Millisecond;
+                seed = currentSeed;
+            }
+            else
+            {
+                currentSeed = seed;
+            }
+            seededRandom = new System.Random(currentSeed);
+            if (logSeedOnGeneration)
+            {
+                Debug.Log($"Dungeon generation seed: {currentSeed}");
+            }
+        }
+
+        private int GetRandomRange(int min, int max)
+        {
+            return seededRandom.Next(min, max);
+        }
+
+        private float GetRandomValue()
+        {
+            return (float)seededRandom.NextDouble();
+        }
+
+=======
+        
+>>>>>>> origin/main
         private void GenerationLoop()
         {
             var roomsToProcess = new Queue<RoomInstance>();
@@ -91,8 +134,8 @@ namespace Dungeon
                 var currentRoomInstance = roomsToProcess.Dequeue();
 
                 // Shuffle actual door Transforms for randomness before processing
-                var shuffledDoorTransforms = currentRoomInstance.AvailableDoors.OrderBy(d => Random.value).ToList();
-                var numberOfDoors = Random.Range(1, shuffledDoorTransforms.Count+1);
+                var shuffledDoorTransforms = currentRoomInstance.AvailableDoors.OrderBy(d => GetRandomValue()).ToList();
+                var numberOfDoors = GetRandomRange(1, shuffledDoorTransforms.Count+1);
 
                 var doorsPopulatedCount = 0;
                 foreach (var currentDoorTransform in shuffledDoorTransforms)
@@ -112,7 +155,7 @@ namespace Dungeon
 
                     for (var attempt = 0; attempt < maxAttemptsPerDoor; attempt++)
                     {
-                        var nextRoomPrefab = roomPrefabs[Random.Range(0, roomPrefabs.Count)];
+                        var nextRoomPrefab = roomPrefabs[GetRandomRange(0, roomPrefabs.Count)];
                         var nextRoomScript = nextRoomPrefab.GetComponent<Room>();
 
                         if (nextRoomScript is null)
@@ -123,7 +166,7 @@ namespace Dungeon
                     
                         var potentialNewDoorsData = nextRoomScript.GetDoorPrefabData()
                             .Where(doorInfo => doorInfo.direction == requiredOppositeDir)
-                            .OrderBy(d => Random.value) // Shuffle potential matches
+                            .OrderBy(d => GetRandomValue()) // Shuffle potential matches
                             .ToList();
 
                         if (potentialNewDoorsData.Count == 0)
@@ -240,6 +283,26 @@ namespace Dungeon
                 }
             }
         }
+        
+        private void SetRoomTilemapOrder()
+        {
+            var sortedRooms = PlacedRooms
+                .OrderByDescending(r => r.GameObject.transform.position.y)
+                .ToList();
+
+            for (var i = 0; i < sortedRooms.Count; i++)
+            {
+                var baseOrder = i * 100;
+                var renderers = sortedRooms[i].GameObject.GetComponentsInChildren<TilemapRenderer>();
+
+                foreach (var tilemapRenderer in renderers)
+                {
+                    var layerOrder = SortingLayer.GetLayerValueFromID(tilemapRenderer.sortingLayerID);
+                    tilemapRenderer.sortingOrder = baseOrder + layerOrder;
+                }
+            }
+        }
+
         
         private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition)
         {
