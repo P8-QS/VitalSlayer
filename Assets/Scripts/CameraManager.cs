@@ -18,19 +18,15 @@ public class CameraManager : MonoBehaviour
         // If we found a tilemap and it's different from the current one
         if (playerTilemap != null && playerTilemap != currentTilemap)
         {
-            // Check cooldown
             if (Time.time - lastSwitchTime < switchCooldown)
                 return;
 
-            // Get the room parent
             Transform roomTransform = playerTilemap.transform.parent;
             if (roomTransform != null)
             {
-                // Find the camera in this room
                 CinemachineCamera roomCamera = roomTransform.GetComponentInChildren<CinemachineCamera>();
                 if (roomCamera != null && roomCamera != currentCamera)
                 {
-                    // Switch camera
                     currentCamera = roomCamera;
                     currentTilemap = playerTilemap;
                     SetActiveCamera(roomCamera);
