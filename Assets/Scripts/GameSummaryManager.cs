@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -6,6 +7,8 @@ public class GameSummaryManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject gameSummaryPrefab;
     public Transform parentPanel;
+
+    public DateTime roundStartTime;
 
     public int enemiesKilled;
     public int bossesKilled;
@@ -52,9 +55,6 @@ public class GameSummaryManager : MonoBehaviour
         bossesKilled = 0;
         xpStart = ExperienceManager.Instance.Experience;
         levelStart = ExperienceManager.Instance.Level;
-
-        var safeArea = GameObject.FindGameObjectWithTag("SafeArea");
-        parentPanel.SetParent(safeArea.transform);
     }
 
 
@@ -88,6 +88,8 @@ public class GameSummaryManager : MonoBehaviour
         if (xpGained > 0) summaryUI.AddSummaryItem("Experience gained", xpGained.ToString());
         if (levelGained > 0) summaryUI.AddSummaryItem("Levels gained", levelGained.ToString());
         
+        LoggingManager.Instance.LogGameSummary(gameWon, totalEnemies, xpGained,  levelGained, roundStartTime);
+
         // Reset the summary
         Reset();
     }

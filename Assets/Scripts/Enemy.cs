@@ -11,6 +11,7 @@ public class Enemy : Mover
     protected Transform playerTransform;
     protected Vector3 startingPosition;
 
+    private bool _isPhantom;
     public bool isPhantom
     {
         set
@@ -20,10 +21,9 @@ public class Enemy : Mover
                 hitpoint = 1;
                 maxHitpoint = 1;
             }
-
-            isPhantom = value;
+            _isPhantom = value;
         }
-        get => isPhantom;
+        get => _isPhantom;
     }
 
     // Hitbox
