@@ -45,10 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
-  doorTileOpenHorizontal: {fileID: 11400000, guid: 33dfef7490c64cd41b2a6fcd44d92795, type: 2}
   doorTileClosedHorizontal: {fileID: 11400000, guid: 59cb4da8ec62ec744b1371702ca500e0, type: 2}
-  doorTileOpenVertical: {fileID: 0}
-  doorTileClosedVertical: {fileID: 0}
+  doorTileClosedVertical: {fileID: 11400000, guid: d2d482f1714e6214c839fcd5a180d944, type: 2}
   wallRuleTile: {fileID: 11400000, guid: 1cb06dc55f9dbec4fb63257b056d8167, type: 2}
   generatedRoomsParent: {fileID: 0}
   startRoomPrefab: {fileID: 3961992995672916024, guid: b9c3ed758a18f4b44a51cbca1a995bef, type: 3}
