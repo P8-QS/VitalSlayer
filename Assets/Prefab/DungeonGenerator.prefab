@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4582809338298766532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7073744967372509141}
+  - component: {fileID: 4600947590417213567}
+  m_Layer: 0
+  m_Name: DungeonGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7073744967372509141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4582809338298766532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4600947590417213567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4582809338298766532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f9fd2acc03c2a1ae928f7890acf43d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  doorTileClosedHorizontal: {fileID: 11400000, guid: 59cb4da8ec62ec744b1371702ca500e0, type: 2}
+  doorTileClosedVertical: {fileID: 11400000, guid: d2d482f1714e6214c839fcd5a180d944, type: 2}
+  wallRuleTile: {fileID: 11400000, guid: 1cb06dc55f9dbec4fb63257b056d8167, type: 2}
+  generatedRoomsParent: {fileID: 0}
+  startRoomPrefab: {fileID: 3961992995672916024, guid: b9c3ed758a18f4b44a51cbca1a995bef, type: 3}
+  roomPrefabs:
+  - {fileID: 3961992995672916024, guid: b9c3ed758a18f4b44a51cbca1a995bef, type: 3}
+  - {fileID: 1994943969328927481, guid: 2f60b26647ade81ad9c7e19613ca643d, type: 3}
+  - {fileID: 2624693480118450407, guid: 2ab313e12de3b9a4c9bbff81e08c528f, type: 3}
+  - {fileID: 8750685465755910275, guid: 9f3ee5bc4fed4ed47ad04af214eb0138, type: 3}
+  maxRooms: 10
+  maxAttemptsPerDoor: 10
+  doorPositionMatchTolerance: 0.01
