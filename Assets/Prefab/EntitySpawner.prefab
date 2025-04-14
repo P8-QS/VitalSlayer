@@ -47,6 +47,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 1116263164795065179, guid: cb6c054818f9efd438b8c96e15f27306, type: 3}
   - {fileID: 2292373750007248639, guid: 77f2779fb6a90d24fa834d6d709887ff, type: 3}
+  - {fileID: 579184342792223936, guid: ba193924570f72446b8dc787829f637e, type: 3}
   bossPrefabs:
   - {fileID: 6873003431374920818, guid: 2bd5cda84f5fd3141abf36a2a6090c41, type: 3}
   playerPrefabs:
@@ -54,4 +55,5 @@ MonoBehaviour:
   entityParent: {fileID: 0}
   maxEnemiesPerRoom: 4
   minEnemiesPerRoom: 2
+  phantomEnemiesPerRoom: 0
   rooms: []
