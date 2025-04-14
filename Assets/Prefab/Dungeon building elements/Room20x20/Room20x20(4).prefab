@@ -5644,6 +5644,7 @@ Transform:
   - {fileID: 8627969757872520162}
   - {fileID: 4439649292708896793}
   - {fileID: 5336716480302714299}
+  - {fileID: 6371364423113686562}
   - {fileID: 4595592224699143634}
   - {fileID: 2855610107487073310}
   - {fileID: 7794264079940769091}
@@ -5667,6 +5668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab8df46dd3baebab9ada375e46ec2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallsTilemap: {fileID: 5683833261983131868}
+  doorsTilemap: {fileID: 6599471141909652433}
   doorData:
   - direction: East
     localPosition: {x: 2.96, y: 1.6, z: 0}

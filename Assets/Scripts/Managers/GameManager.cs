@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Dungeon;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -25,21 +29,27 @@ public class GameManager : MonoBehaviour
 
     public void StartRound()
     {
-        // Generate map
-
-        // Play game music
         SoundFxManager.Instance.PlayMusic(gameMusic, 0.05f, false, 2f);
 
         // Load the game scene with a transition
         SceneLoader.Instance.LoadSceneWithTransition("Game", () =>
         {
-            Debug.Log("Game scene loaded, spawning player...");
+            Debug.Log("Game scene loaded. Spawning entities.");
 
-            var spawnPoint = new GameObject("Spawn").transform;
-            spawnPoint.position = new Vector3(0, 0, 0);
-            var playerGo = Instantiate(playerPrefab, spawnPoint);
-            player = playerGo.GetComponent<Player>();
+            var dungeonGenerator = FindFirstObjectByType<DungeonGenerator>();
+            dungeonGenerator.GenerateDungeon();
 
+            var rooms = dungeonGenerator.PlacedRooms.Select(room => room.GameObject).ToList();
+            EntitySpawner.Instance.rooms = rooms;
+            
+            var world = GameObject.FindGameObjectWithTag("World");
+            EntitySpawner.Instance.entityParent = world.transform;
+            
+            EntitySpawner.Instance.FillRoomsWithEntities(0, 2);
+
+            // TODO: Ideally we would just do this in Reset(), but that is called
+            // always called when we show the game summary
+            GameSummaryManager.Instance.roundStartTime = DateTime.UtcNow;
 
             GameSummaryManager.Instance.Reset();
         });
