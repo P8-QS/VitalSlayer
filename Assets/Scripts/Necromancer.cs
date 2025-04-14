@@ -148,10 +148,10 @@ public class FireballProjectile : MonoBehaviour
     private float lifetime;
     private float spawnTime;
     private float timeAlive;
+    private bool hasHitTarget = false;
 
     private Necromancer necromancer;
     private BoxCollider2D hitbox;
-    private System.Random random = new System.Random();
     private Animator animator;
 
     public void Initialize(Necromancer necromancer, Vector3 direction, float speed, int damage, float lifetime)
@@ -186,6 +186,9 @@ public class FireballProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (hasHitTarget)
+            return;
+
         // Check for collision with player or environment
         if (collision.tag == "Player")
         {
@@ -202,15 +205,32 @@ public class FireballProjectile : MonoBehaviour
             collision.SendMessage("ReceiveDamage", dmg);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag == "Blocking")
+        else if (collision.gameObject.tag == "Blocking" || collision.gameObject.name == "Walls")
         {
-            Destroy(gameObject);
+            hasHitTarget = true;
+            StartDestroySequence();
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void StartDestroySequence()
     {
-        // Destroy fireball on any collision
+        if (hitbox != null)
+            hitbox.enabled = false;
+
+        speed = 0f;
+
+        if (animator != null)
+        {
+            animator.SetTrigger("end");
+            StartCoroutine(WaitForSpecificAnimationToComplete());
+        }
+    }
+
+    private IEnumerator WaitForSpecificAnimationToComplete()
+    {
+        // Hard coded wait time for the animation to finish - maybe a little scuffed teehee
+        yield return new WaitForSeconds(0.333f);
+
         Destroy(gameObject);
     }
 
