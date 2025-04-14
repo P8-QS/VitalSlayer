@@ -808,11 +808,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 51c3fdaa-3bbc-4eeb-9ad6-7d404cf95bd0
+  cloudProjectId: 64b83b4c-be85-4188-a01d-56a774edf175
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: QSCrawler
-  organizationId: madssr
+  organizationId: p8_qs
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
