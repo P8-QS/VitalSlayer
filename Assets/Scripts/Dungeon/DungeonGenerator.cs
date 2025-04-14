@@ -11,9 +11,7 @@ namespace Dungeon
         [Tooltip("The grid component.")]
         public Grid grid;
 
-        public TileBase doorTileOpenHorizontal;
         public TileBase doorTileClosedHorizontal;
-        public TileBase doorTileOpenVertical;
         public TileBase doorTileClosedVertical;
         public TileBase wallRuleTile;
         
