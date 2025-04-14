@@ -501,7 +501,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8137476, y: 1.58, z: -1.1851289}
+  m_LocalPosition: {x: 3.8537474, y: 7.66, z: -1.1851289}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1447,30 +1447,6 @@ PrefabInstance:
       propertyPath: generatedRoomsParent
       value: 
       objectReference: {fileID: 580040774}
-    - target: {fileID: 4600947590417213567, guid: ea67009a1d4c7e44c912293a00477f3b, type: 3}
-      propertyPath: doorTileClosedVertical
-      value: 
-      objectReference: {fileID: 11400000, guid: d2d482f1714e6214c839fcd5a180d944, type: 2}
-    - target: {fileID: 4600947590417213567, guid: ea67009a1d4c7e44c912293a00477f3b, type: 3}
-      propertyPath: roomPrefabs.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4600947590417213567, guid: ea67009a1d4c7e44c912293a00477f3b, type: 3}
-      propertyPath: 'roomPrefabs.Array.data[4]'
-      value: 
-      objectReference: {fileID: 7678116970703698137, guid: 459b634b9a15bc147a0904efb08ee00c, type: 3}
-    - target: {fileID: 4600947590417213567, guid: ea67009a1d4c7e44c912293a00477f3b, type: 3}
-      propertyPath: 'roomPrefabs.Array.data[5]'
-      value: 
-      objectReference: {fileID: 1615997233950154234, guid: f45d45261467616458c17dd437609b96, type: 3}
-    - target: {fileID: 4600947590417213567, guid: ea67009a1d4c7e44c912293a00477f3b, type: 3}
-      propertyPath: 'roomPrefabs.Array.data[6]'
-      value: 
-      objectReference: {fileID: 3764321035705679, guid: dadc53f634a8d4947b3b70295b378969, type: 3}
-    - target: {fileID: 4600947590417213567, guid: ea67009a1d4c7e44c912293a00477f3b, type: 3}
-      propertyPath: 'roomPrefabs.Array.data[7]'
-      value: 
-      objectReference: {fileID: 4734635677372189992, guid: 8c251cd81d2ef429b8ee4f2edfebdc9e, type: 3}
     - target: {fileID: 7073744967372509141, guid: ea67009a1d4c7e44c912293a00477f3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

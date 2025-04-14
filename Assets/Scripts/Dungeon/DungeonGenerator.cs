@@ -250,22 +250,13 @@ namespace Dungeon
 
             for (var i = 0; i < sortedRooms.Count; i++)
             {
-                var baseOrder = i * 10;
+                var baseOrder = i * 100;
                 var renderers = sortedRooms[i].GameObject.GetComponentsInChildren<TilemapRenderer>();
 
                 foreach (var tilemapRenderer in renderers)
                 {
-                    tilemapRenderer.sortingOrder = tilemapRenderer.sortingLayerName switch
-                    {
-                        "Floors" => baseOrder + 0,
-                        "Fog" => baseOrder + 1,
-                        "Decorations" => baseOrder + 2,
-                        "Walls" => baseOrder + 3,
-                        "Foreground" => baseOrder + 4,
-                        "Props" => baseOrder + 5,
-                        "Doors" => baseOrder + 6,
-                        _ => baseOrder + 7
-                    };
+                    var layerOrder = SortingLayer.GetLayerValueFromID(tilemapRenderer.sortingLayerID);
+                    tilemapRenderer.sortingOrder = baseOrder + layerOrder;
                 }
             }
         }
