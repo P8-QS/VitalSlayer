@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dungeon;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,14 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+
+            if (SceneManager.GetSceneAt(0).name == "TestingGrounds")
+            {
+                // get player from the scene
+                player = FindFirstObjectByType<Player>();
+            }
+
+
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -41,10 +50,10 @@ public class GameManager : MonoBehaviour
 
             var rooms = dungeonGenerator.PlacedRooms.Select(room => room.GameObject).ToList();
             EntitySpawner.Instance.rooms = rooms;
-            
+
             var world = GameObject.FindGameObjectWithTag("World");
             EntitySpawner.Instance.entityParent = world.transform;
-            
+
             EntitySpawner.Instance.FillRoomsWithEntities(0, 2);
 
             // TODO: Ideally we would just do this in Reset(), but that is called
