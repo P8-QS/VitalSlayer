@@ -14,7 +14,7 @@ namespace Dungeon
         public TileBase doorTileClosedHorizontal;
         public TileBase doorTileClosedVertical;
         public TileBase wallRuleTile;
-        
+
         [Tooltip("Optional. Will be populated at runtime.")]
         public Transform generatedRoomsParent;
 
@@ -27,14 +27,6 @@ namespace Dungeon
         public int maxAttemptsPerDoor = 10;
         public float doorPositionMatchTolerance = 0.01f;
 
-        [Header("Seeding")]
-        [SerializeField] private bool useRandomSeed = true;
-        [SerializeField] private int seed;
-        [SerializeField] private bool logSeedOnGeneration = true;
-        
-        private System.Random seededRandom;
-        private int currentSeed;
-
         public readonly List<RoomInstance> PlacedRooms = new();
 
         public class RoomInstance
@@ -44,7 +36,7 @@ namespace Dungeon
             public readonly Bounds Bounds;
             public readonly Vector3Int Offset;
             public readonly List<Transform> AvailableDoors;
-            
+
             public RoomInstance(GameObject go, Room room, Bounds b, Vector3Int offset)
             {
                 GameObject = go;
@@ -65,17 +57,17 @@ namespace Dungeon
                 return;
             }
 
-            InitializeSeed();
-            
-            if (startRoomPrefab.GetComponent<Room>()?.GetDoorPrefabData() is null) {
+            if (startRoomPrefab.GetComponent<Room>()?.GetDoorPrefabData() is null)
+            {
                 Debug.LogError($"Start Room Prefab '{startRoomPrefab.name}' is missing Room script or GetDoorPrefabData() method is not working correctly. Ensure Room.cs is set up for Method 2.");
                 return;
             }
-            if (roomPrefabs.Any(p => p?.GetComponent<Room>()?.GetDoorPrefabData() is null)) {
+            if (roomPrefabs.Any(p => p?.GetComponent<Room>()?.GetDoorPrefabData() is null))
+            {
                 Debug.LogError($"One or more Room Prefabs are null, missing the Room script, or GetDoorPrefabData() is not working correctly. Ensure Room.cs is set up for Method 2 and all prefabs are assigned.");
                 return;
             }
-            
+
             generatedRoomsParent ??= grid.transform;
 
             // Place starting room
@@ -90,39 +82,7 @@ namespace Dungeon
             SetRoomTilemapOrder();
             Debug.Log($"Dungeon generation complete. Placed {PlacedRooms.Count} rooms.");
         }
-<<<<<<< HEAD
 
-        private void InitializeSeed()
-        {
-            if (useRandomSeed)
-            {
-                currentSeed = System.DateTime.Now.Millisecond;
-                seed = currentSeed;
-            }
-            else
-            {
-                currentSeed = seed;
-            }
-            seededRandom = new System.Random(currentSeed);
-            if (logSeedOnGeneration)
-            {
-                Debug.Log($"Dungeon generation seed: {currentSeed}");
-            }
-        }
-
-        private int GetRandomRange(int min, int max)
-        {
-            return seededRandom.Next(min, max);
-        }
-
-        private float GetRandomValue()
-        {
-            return (float)seededRandom.NextDouble();
-        }
-
-=======
-        
->>>>>>> origin/main
         private void GenerationLoop()
         {
             var roomsToProcess = new Queue<RoomInstance>();
@@ -134,15 +94,15 @@ namespace Dungeon
                 var currentRoomInstance = roomsToProcess.Dequeue();
 
                 // Shuffle actual door Transforms for randomness before processing
-                var shuffledDoorTransforms = currentRoomInstance.AvailableDoors.OrderBy(d => GetRandomValue()).ToList();
-                var numberOfDoors = GetRandomRange(1, shuffledDoorTransforms.Count+1);
+                var shuffledDoorTransforms = currentRoomInstance.AvailableDoors.OrderBy(d => Random.value).ToList();
+                var numberOfDoors = Random.Range(1, shuffledDoorTransforms.Count + 1);
 
                 var doorsPopulatedCount = 0;
                 foreach (var currentDoorTransform in shuffledDoorTransforms)
                 {
                     if (doorsPopulatedCount >= numberOfDoors) continue;
                     if (!currentRoomInstance.AvailableDoors.Contains(currentDoorTransform)) continue;
-                
+
                     if (roomsPlacedCount >= maxRooms) break;
 
                     var currentDoorDir = Room.GetDoorDirection(currentDoorTransform);
@@ -155,7 +115,7 @@ namespace Dungeon
 
                     for (var attempt = 0; attempt < maxAttemptsPerDoor; attempt++)
                     {
-                        var nextRoomPrefab = roomPrefabs[GetRandomRange(0, roomPrefabs.Count)];
+                        var nextRoomPrefab = roomPrefabs[Random.Range(0, roomPrefabs.Count)];
                         var nextRoomScript = nextRoomPrefab.GetComponent<Room>();
 
                         if (nextRoomScript is null)
@@ -163,10 +123,10 @@ namespace Dungeon
                             Debug.LogError($"Prefab {nextRoomPrefab.name} is missing Room script! Skipping.", nextRoomPrefab);
                             continue;
                         }
-                    
+
                         var potentialNewDoorsData = nextRoomScript.GetDoorPrefabData()
                             .Where(doorInfo => doorInfo.direction == requiredOppositeDir)
-                            .OrderBy(d => GetRandomValue()) // Shuffle potential matches
+                            .OrderBy(d => Random.value) // Shuffle potential matches
                             .ToList();
 
                         if (potentialNewDoorsData.Count == 0)
@@ -174,7 +134,7 @@ namespace Dungeon
                             Debug.Log($"Prefab {nextRoomPrefab.name} has no door data for direction {requiredOppositeDir}");
                             continue;
                         }
-                    
+
                         var chosenDoorData = potentialNewDoorsData[0];
                         var currentDoorWorldPos = currentDoorTransform.position;
                         var newRoomDoorLocalPos = chosenDoorData.localPosition;
@@ -183,7 +143,7 @@ namespace Dungeon
                         var targetNewRoomGridPos = grid.WorldToCell(targetNewRoomWorldPos);
 
                         if (!TryPlaceRoom(nextRoomPrefab, targetNewRoomGridPos)) continue;
-                    
+
                         doorsPopulatedCount++;
                         roomsPlacedCount++;
                         var newRoomInstance = PlacedRooms[^1];
@@ -220,7 +180,7 @@ namespace Dungeon
                     break;
             }
         }
-        
+
         private void RemoveConnectedDoors(RoomInstance newRoomInstance)
         {
             foreach (var placedRoom in PlacedRooms)
@@ -232,7 +192,7 @@ namespace Dungeon
                         .Any(doorB => Vector3.Distance(doorA.position, doorB.position) < doorPositionMatchTolerance))
                     .Select(doorA => doorA.position)
                     .ToList();
-                            
+
                 placedRoom.AvailableDoors.RemoveAll(door => doorsToRemove.Any(pos => Vector3.Distance(door.position, pos) < 0.1f));
                 newRoomInstance.AvailableDoors.RemoveAll(door => doorsToRemove.Any(pos => Vector3.Distance(door.position, pos) < 0.1f));
             }
@@ -245,10 +205,10 @@ namespace Dungeon
                 foreach (var doorInfo in room.RoomScript.GetDoorPrefabData())
                 {
                     var centerGridPos = room.RoomScript.wallsTilemap.WorldToCell(doorInfo.localPosition);
-                    var isDoor = !room.AvailableDoors.Any(dt => 
+                    var isDoor = !room.AvailableDoors.Any(dt =>
                         Vector3.Distance(dt.localPosition, doorInfo.localPosition) < doorPositionMatchTolerance);
-                        
-                    
+
+
                     // Determine direction offsets
                     Vector3Int offset1, offset2;
                     TileBase tile;
@@ -283,7 +243,7 @@ namespace Dungeon
                 }
             }
         }
-        
+
         private void SetRoomTilemapOrder()
         {
             var sortedRooms = PlacedRooms
@@ -303,7 +263,7 @@ namespace Dungeon
             }
         }
 
-        
+
         private bool TryPlaceRoom(GameObject roomPrefab, Vector3Int gridPosition)
         {
             var roomPrefabScript = roomPrefab.GetComponent<Room>();
@@ -329,13 +289,13 @@ namespace Dungeon
             roomInstanceGo.transform.position = potentialPosition;
             var roomScript = roomInstanceGo.GetComponent<Room>();
             roomScript.InvalidateBoundsCache();
-        
+
             var newInstance = new RoomInstance(roomInstanceGo, roomScript, potentialBounds, gridPosition);
             PlacedRooms.Add(newInstance);
 
             return true;
         }
-        
+
         private static bool BoundsOverlap(Bounds a, Bounds b)
         {
             return !Mathf.Approximately(a.max.x, b.min.x) && a.max.x > b.min.x &&
