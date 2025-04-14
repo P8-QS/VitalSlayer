@@ -174,7 +174,7 @@ namespace Dungeon
             if (placedRooms.Any(existingRoom => BoundsOverlap(potentialBounds, existingRoom.Bounds)))
             {
                 Debug.LogWarning("Detected overlap");
-                // return false; // Potential overlap detected TODO: uncomment once map is fixed
+                return false; // Potential overlap detected TODO: uncomment once map is fixed
             }
 
             // No collisions detected, safe to instantiate
