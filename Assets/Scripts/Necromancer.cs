@@ -44,8 +44,9 @@ public class Necromancer : Enemy
 
                 if (Time.time > lastAttackTime + attackCooldown && !isAttacking)
                 {
-                    StartCoroutine(CastFireball());
+                    CastFireball();
                 }
+
 
                 if (!collidingWithPlayer)
                 {
@@ -100,17 +101,23 @@ public class Necromancer : Enemy
         }
     }
 
-    private IEnumerator CastFireball()
+    private void CastFireball()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
 
-        yield return new WaitForSeconds(0.5f);
+        Vector3 directionToPlayer = playerTransform.position - transform.position;
+        if (directionToPlayer.x > 0)
+        {
+            transform.localScale = new Vector3(initialSize.x, initialSize.y, initialSize.z);
+        }
+        else if (directionToPlayer.x < 0)
+        {
+            transform.localScale = new Vector3(-initialSize.x, initialSize.y, initialSize.z);
+        }
 
         // Spawn and shoot fireball
         ShootFireball();
-
-        yield return new WaitForSeconds(0.5f);
 
         isAttacking = false;
     }
@@ -127,7 +134,7 @@ public class Necromancer : Enemy
 
         FireballProjectile fireballComponent = fireball.AddComponent<FireballProjectile>();
         int fireballDamage = GameHelpers.CalculateDamage(MinFireBallDamage, MaxFireBallDamage, 0f, 0f);
-        fireballComponent.Initialize(direction, fireballSpeed, fireballDamage, fireballLifetime);
+        fireballComponent.Initialize(this, direction, fireballSpeed, fireballDamage, fireballLifetime);
 
         // AudioManager.instance.PlaySound("fireball_cast");
     }
@@ -142,12 +149,14 @@ public class FireballProjectile : MonoBehaviour
     private float spawnTime;
     private float timeAlive;
 
+    private Necromancer necromancer;
     private BoxCollider2D hitbox;
     private System.Random random = new System.Random();
     private Animator animator;
 
-    public void Initialize(Vector3 direction, float speed, int damage, float lifetime)
+    public void Initialize(Necromancer necromancer, Vector3 direction, float speed, int damage, float lifetime)
     {
+        this.necromancer = necromancer;
         this.direction = direction;
         this.speed = speed;
         this.damage = damage;
@@ -177,6 +186,7 @@ public class FireballProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Check for collision with player or environment
         if (collision.tag == "Player")
         {
             Damage dmg = new Damage
@@ -185,17 +195,23 @@ public class FireballProjectile : MonoBehaviour
                 origin = transform.position,
                 pushForce = 2.0f,
                 isCritical = false,
-                minPossibleDamage = damage - 1,
-                maxPossibleDamage = damage + 1
+                minPossibleDamage = necromancer.MinFireBallDamage,
+                maxPossibleDamage = necromancer.MaxFireBallDamage,
             };
 
             collision.SendMessage("ReceiveDamage", dmg);
-
             Destroy(gameObject);
         }
-        else if (collision.tag == "Blocking")
+        else if (collision.gameObject.tag == "Blocking")
         {
             Destroy(gameObject);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Destroy fireball on any collision
+        Destroy(gameObject);
+    }
+
 }
