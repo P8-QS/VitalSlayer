@@ -1,7 +1,4 @@
-using Metrics;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Player : Mover
 {
