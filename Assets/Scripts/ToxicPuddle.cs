@@ -60,20 +60,23 @@ public class ToxicPuddle : Collidable
         }
 
         Fighter target = coll.gameObject.GetComponent<Fighter>();
-        Damage damage = new Damage 
+        if (target)
         {
-            damageAmount = GameHelpers.CalculateDamage(minDamage, maxDamage),
-            origin = transform.position,
-            pushForce = 0f, // No push force for puddle damage
-            isCritical = false,
-            minPossibleDamage = minDamage,
-            maxPossibleDamage = maxDamage,
-            useCustomColor = true,
-            customColor = new Color(puddleColor.r, puddleColor.g, puddleColor.b, 1f) // Make fully opaque for text
-        };
+            Damage damage = new Damage 
+            {
+                damageAmount = GameHelpers.CalculateDamage(minDamage, maxDamage),
+                origin = transform.position,
+                pushForce = 0f, // No push force for puddle damage
+                isCritical = false,
+                minPossibleDamage = minDamage,
+                maxPossibleDamage = maxDamage,
+                useCustomColor = true,
+                customColor = new Color(puddleColor.r, puddleColor.g, puddleColor.b, 1f) // Make fully opaque for text
+            };
 
-        target.ApplyDamageOverTime(damage, dotDuration, damageTickRate);
-        target.ApplySlowEffect(slowFactor, damageTickRate * 2);
+            target.ApplyDamageOverTime(damage, dotDuration, damageTickRate);
+            target.ApplySlowEffect(slowFactor, damageTickRate * 2);
+        }
     }
 
 
