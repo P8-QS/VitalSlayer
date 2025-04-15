@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewStandardEnemy", menuName = "Enemy Stats/Standard Enemy")]
-public class BaseEnemyStats : ScriptableObject
+public class BaseEnemyStats : BaseFighterStats
 {
     [Header("Basic Info")]
     public string enemyName;
@@ -11,13 +11,9 @@ public class BaseEnemyStats : ScriptableObject
     public bool isBoss = false;
 
     [Header("Base Stats")]
-    public int baseHealth = 10;
     public int baseMinDamage = 1;
     public int baseMaxDamage = 3;
-    public float baseSpeed = 1.0f;
-    public float pushRecoverySpeed = 0.2f;
     public float damageScalingFactor = 1.15f;
-    public float healthScalingFactor = 1.2f;
 
     [Header("Combat Settings")]
     public float pushForce = 2.0f;
