@@ -4,21 +4,11 @@ using UnityEngine;
 public class Fighter : MonoBehaviour
 {
     // Base stats
-    public int baseHealth = 100;
-    public float healthScalingFactor = 1.2f;
+    public BaseFighterStats baseStats;
 
     // Current stats
-    public int hitpoint;
-    public int maxHitpoint;
-    public float pushRecoverySpeed = 0.2f;
-
-    public int level;
-
-    public float baseSpeed = 1;
-    public float currentSpeed; 
-
-    // Immunity
-    protected float immuneTime = 1.0f;
+    private int hitpoint;
+    private float currentSpeed;
     protected float lastImmune;
 
     protected HealthBar healthBar;
@@ -32,7 +22,7 @@ public class Fighter : MonoBehaviour
 
     private Collider2D col;
 
-    private void Awake()
+    protected void Awake()
     {
         col = GetComponent<Collider2D>();
         damageFlash = GetComponent<DamageFlash>();
@@ -45,26 +35,8 @@ public class Fighter : MonoBehaviour
             healthBar = HealthBarManager.Instance.CreateHealthBar(this);
         }
 
-        maxHitpoint = CalculateMaxHealth(level);
-        hitpoint = maxHitpoint;
-        currentSpeed = baseSpeed;
-    }
-
-    // Method to calculate max health based on level
-    protected virtual int CalculateMaxHealth(int level)
-    {
-        return baseHealth + (int)(Mathf.Pow(level, healthScalingFactor));
-    }
-
-    public virtual void UpdateStatsForLevel(int newLevel)
-    {
-        int previousMax = maxHitpoint;
-        maxHitpoint = CalculateMaxHealth(newLevel);
-
-        if (maxHitpoint > previousMax)
-        {
-            hitpoint += (maxHitpoint - previousMax);
-        }
+        hitpoint = baseStats.baseHealth;
+        currentSpeed = baseStats.baseSpeed;
     }
 
     protected virtual void OnDestroy()
@@ -78,7 +50,7 @@ public class Fighter : MonoBehaviour
 
     public virtual void ReceiveDamage(Damage dmg)
     {
-        if (Time.time - lastImmune > immuneTime)
+        if (Time.time - lastImmune > baseStats.immuneTime)
         {
             lastImmune = Time.time;
             hitpoint -= dmg.damageAmount;
@@ -152,7 +124,8 @@ public class Fighter : MonoBehaviour
         }
     }
 
-    public void ApplyDamageOverTime(Damage damage, float duration, float tickRate) {
+    public void ApplyDamageOverTime(Damage damage, float duration, float tickRate)
+    {
         if (dotCoroutine != null)
         {
             StopCoroutine(dotCoroutine);
@@ -174,8 +147,9 @@ public class Fighter : MonoBehaviour
         }
     }
 
-    public void ApplySlowEffect(float slowFactor, float duration) {
-        if (slowCoroutine != null) 
+    public void ApplySlowEffect(float slowFactor, float duration)
+    {
+        if (slowCoroutine != null)
         {
             StopCoroutine(slowCoroutine);
         }
@@ -185,13 +159,13 @@ public class Fighter : MonoBehaviour
     private IEnumerator ApplySlowEffectCoroutine(float slowFactor, float duration)
     {
         // Apply the slow effect
-        currentSpeed = baseSpeed * slowFactor;
+        currentSpeed = baseStats.baseSpeed * slowFactor;
 
         // Wait for a short time
         yield return new WaitForSeconds(duration); // Give a bit more time for slow effect
 
         // Restore the original speed if the player is not in another puddle
-        currentSpeed = baseSpeed;
+        currentSpeed = baseStats.baseSpeed;
         slowCoroutine = null;
     }
 
