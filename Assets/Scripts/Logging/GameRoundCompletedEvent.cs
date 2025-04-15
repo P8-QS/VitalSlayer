@@ -1,6 +1,6 @@
-public class GameRoundCompletedEvent: Unity.Services.Analytics.Event
+public class GameRoundCompleted: Unity.Services.Analytics.Event
 {
-	public GameRoundCompletedEvent() : base("gameRoundCompletedEvent")
+	public GameRoundCompleted() : base("gameRoundCompleted")
 	{
 	}
 
