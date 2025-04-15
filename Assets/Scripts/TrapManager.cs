@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Tilemaps;
 
 public class TrapManager : MonoBehaviour
 {
     [Header("References")]
-    public Transform playerTransform;
+    private Transform playerTransform;
     public Tilemap trapTilemap;
 
     [Header("Trap Tiles")]
@@ -26,10 +27,10 @@ public class TrapManager : MonoBehaviour
     void Start()
     {
         if (trapTilemap == null)
-            trapTilemap = GetComponent<Tilemap>();
+            trapTilemap = transform.parent.GetComponent<Tilemap>();
 
         if (playerTransform == null)
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            playerTransform = GameManager.Instance.player.transform;
     }
 
     void Update()
@@ -43,6 +44,8 @@ public class TrapManager : MonoBehaviour
 
     void CheckForTraps()
     {
+        if (!playerTransform) return;
+        
         Vector3Int cellPosition = trapTilemap.WorldToCell(playerTransform.position);
         TileBase currentTile = trapTilemap.GetTile(cellPosition);
 

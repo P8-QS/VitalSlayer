@@ -29,7 +29,7 @@ public class EntitySpawner : MonoBehaviour
 
     public Transform entityParent;
 
-    public int maxEnemiesPerRoom = 2;
+    public int maxEnemiesPerRoom = 1;
     public int minEnemiesPerRoom = 1;
     public int phantomEnemiesPerRoom = 0;
 
@@ -148,7 +148,7 @@ public class EntitySpawner : MonoBehaviour
 
             var enemyCount = Random.Range(minEnemiesPerRoom, maxEnemiesPerRoom + 1);
             SpawnEnemies<Enemy>(i, enemyCount);
-            
+
             // Spawn phantom enemies
             SpawnEnemies<Enemy>(i, phantomEnemiesPerRoom, true);
         }
