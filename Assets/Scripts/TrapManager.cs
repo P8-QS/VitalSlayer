@@ -44,6 +44,8 @@ public class TrapManager : MonoBehaviour
 
     void CheckForTraps()
     {
+        if (!playerTransform) return;
+        
         Vector3Int cellPosition = trapTilemap.WorldToCell(playerTransform.position);
         TileBase currentTile = trapTilemap.GetTile(cellPosition);
 
