@@ -45,19 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
-  doorTileClosedHorizontal: {fileID: 11400000, guid: 59cb4da8ec62ec744b1371702ca500e0, type: 2}
-  doorTileClosedVertical: {fileID: 11400000, guid: d2d482f1714e6214c839fcd5a180d944, type: 2}
   wallRuleTile: {fileID: 11400000, guid: 1cb06dc55f9dbec4fb63257b056d8167, type: 2}
+  doorHorizontal: {fileID: 61588212227970721, guid: 7a597f5d3bc49a600aa008c3c72ad64c, type: 3}
+  doorVertical: {fileID: 4364219828165580310, guid: 73358fdccfeef1a7d86efe786191d81f, type: 3}
   generatedRoomsParent: {fileID: 0}
   startRoomPrefab: {fileID: 3961992995672916024, guid: b9c3ed758a18f4b44a51cbca1a995bef, type: 3}
   roomPrefabs:
   - {fileID: 3961992995672916024, guid: b9c3ed758a18f4b44a51cbca1a995bef, type: 3}
-  - {fileID: 1994943969328927481, guid: 2f60b26647ade81ad9c7e19613ca643d, type: 3}
-  - {fileID: 2624693480118450407, guid: 2ab313e12de3b9a4c9bbff81e08c528f, type: 3}
-  - {fileID: 8750685465755910275, guid: 9f3ee5bc4fed4ed47ad04af214eb0138, type: 3}
-  - {fileID: 7678116970703698137, guid: 459b634b9a15bc147a0904efb08ee00c, type: 3}
-  - {fileID: 1615997233950154234, guid: f45d45261467616458c17dd437609b96, type: 3}
-  - {fileID: 3764321035705679, guid: dadc53f634a8d4947b3b70295b378969, type: 3}
   maxRooms: 10
   maxAttemptsPerDoor: 10
   doorPositionMatchTolerance: 0.01
+  useRandomSeed: 1
+  seed: 135
+  logSeedOnGeneration: 1

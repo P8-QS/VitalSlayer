@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3764321035705679}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.56, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallsTilemap: {fileID: 9080452915141434154}
   doorsTilemap: {fileID: 3308101736172602377}
+  roomTileSet: {fileID: 0}
   doorData:
   - direction: North
     localPosition: {x: 2.24, y: 3.04, z: 0}
@@ -71,6 +72,7 @@ MonoBehaviour:
     localPosition: {x: -0.08, y: 1.6, z: 0}
   - direction: East
     localPosition: {x: 4.56, y: 1.6, z: 0}
+  enemyTag: Fighter
 --- !u!114 &549316681740134304
 MonoBehaviour:
   m_ObjectHideFlags: 0

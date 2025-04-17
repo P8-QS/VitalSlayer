@@ -4008,6 +4008,7 @@ GameObject:
   - component: {fileID: 3978541123509405063}
   - component: {fileID: 7699111986607893637}
   - component: {fileID: 7274131911817570955}
+  - component: {fileID: 4342640516431495419}
   m_Layer: 0
   m_Name: Doors
   m_TagString: Untagged
@@ -4120,6 +4121,44 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!19719996 &4342640516431495419
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391541217522321071}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &714053608863262634
 GameObject:
   m_ObjectHideFlags: 0
@@ -4973,7 +5012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9034183831418567975
 Transform:
   m_ObjectHideFlags: 0
@@ -5270,7 +5309,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6043,12 +6082,12 @@ Tilemap:
     m_Data: {fileID: -258901039, guid: d3e92f2c6e21f0542a90a077dae5018a, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 648099675, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 1820065380, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1820065380, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 648099675, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
   - m_RefCount: 30
     m_Data: {fileID: 1397796085348838633, guid: 356c7c8f4a4970742811346c568994d7, type: 3}
   - m_RefCount: 32
@@ -6257,6 +6296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallsTilemap: {fileID: 928141729941429643}
   doorsTilemap: {fileID: 7699111986607893637}
+  roomTileSet: {fileID: 11400000, guid: 0250227919eea1cb6b5f89c50cc7b223, type: 2}
   doorData:
   - direction: East
     localPosition: {x: 2.96, y: 1.6, z: 0}
@@ -6266,6 +6306,8 @@ MonoBehaviour:
     localPosition: {x: 1.44, y: 0, z: 0}
   - direction: West
     localPosition: {x: -0.08, y: 1.6, z: 0}
+  enemyTag: Fighter
+  ConnectedDoors: []
 --- !u!114 &83247526897766224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6705,11 +6747,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7227378861076106385, guid: 379f073d8b15945e09039ab7837cb31b, type: 3}
       propertyPath: m_Size.x
-      value: 3.1
+      value: 2.98
       objectReference: {fileID: 0}
     - target: {fileID: 7227378861076106385, guid: 379f073d8b15945e09039ab7837cb31b, type: 3}
       propertyPath: m_Size.y
-      value: 3.25
+      value: 3.04
       objectReference: {fileID: 0}
     - target: {fileID: 7227378861076106385, guid: 379f073d8b15945e09039ab7837cb31b, type: 3}
       propertyPath: m_Offset.x
@@ -6717,7 +6759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7227378861076106385, guid: 379f073d8b15945e09039ab7837cb31b, type: 3}
       propertyPath: m_Offset.y
-      value: 1.625
+      value: 1.52
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
