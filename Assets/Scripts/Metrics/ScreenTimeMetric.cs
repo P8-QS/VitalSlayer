@@ -35,8 +35,6 @@ namespace Metrics {
                 _ => 0
             };
 
-            effectLevel = 0;
-
             if (effectLevel > 0) 
             {
                 _effect = new FogEffect(SpriteManager.Instance.GetSprite("effect_fog"), effectLevel);
