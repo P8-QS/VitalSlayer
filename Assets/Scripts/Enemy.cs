@@ -50,7 +50,7 @@ public class Enemy : Mover
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
+            if (HasLineOfSight() && Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
             {
                 chasing = true;
             }
@@ -94,8 +94,27 @@ public class Enemy : Mover
         }
     }
 
-    protected override void Death()
+    public bool HasLineOfSight()
     {
+        Vector2 origin = transform.position;
+        Vector2 target = playerTransform.position;
+        Vector2 direction = (target - origin).normalized;
+        float distance = Vector2.Distance(origin, target);
+
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, LayerMask.GetMask("Default"));
+
+        if (hit.collider != null)
+        {
+            // Ray hit a wall — no line of sight
+            return false;
+        }
+
+        // No wall between enemy and player
+        return true;
+    }
+
+        protected override void Death()
+        {
         if (!isPhantom)
         {
             int xp = ExperienceManager.Instance.AddEnemy(1);
