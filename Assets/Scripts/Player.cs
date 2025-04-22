@@ -73,8 +73,7 @@ public class Player : Mover
 
     private void FixedUpdate()
     {
-        Vector3 input = new Vector3(movementJoystick.Direction.x * currentSpeed,
-            movementJoystick.Direction.y * currentSpeed, 0);
+        Vector3 input = new Vector3(movementJoystick.Direction.x * currentSpeed, movementJoystick.Direction.y * currentSpeed, 0);
         Animate(input);
         UpdateMotor(input);
 

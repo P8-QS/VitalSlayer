@@ -409,20 +409,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c73ed0c732b1f84b8f44a956b32ac3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 25
-  healthScalingFactor: 1.2
   hitpoint: 25
   maxHitpoint: 25
-  pushRecoverySpeed: 0.2
-  level: 0
-  baseSpeed: 1
   currentSpeed: 0
+  level: 0
+  playerStats: {fileID: 11400000, guid: 2e9b7c5fcf5b7ec49a07582784fc0e21, type: 2}
   animator: {fileID: 153506810354474381}
   attackCooldown: 2
   lastAttackTime: 0
   movementJoystick: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: 60cdfaadf717a418ab32f0a057cbedef, type: 3}
-  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
 --- !u!61 &7153521390909858909
 BoxCollider2D:
   m_ObjectHideFlags: 0
