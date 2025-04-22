@@ -20,12 +20,13 @@ namespace Effects {
         }
         public string Description()
         {
-            return "You can see adjacent rooms on the minimap.";
+            return "You can see current, visited and adjacent rooms on the minimap.";
         }
 
         public void Apply()
         {
-            Debug.LogWarning("Apply scouting effect not implemented");
+            MinimapManager.Instance.AdjacentRoomsVisible = true;
+            MinimapManager.Instance.VisitedRoomsVisible = true;
         }
     }
 }

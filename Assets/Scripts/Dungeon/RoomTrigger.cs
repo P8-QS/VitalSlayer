@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Dungeon
@@ -6,7 +5,7 @@ namespace Dungeon
     public class RoomTrigger : MonoBehaviour
     {
         private Room _room;
-        private bool hasBeenTriggered = false;
+        private bool _hasBeenTriggered;
 
         private void Awake()
         {
@@ -15,20 +14,13 @@ namespace Dungeon
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (hasBeenTriggered) return;
+            if (_hasBeenTriggered) return;
+            if (!other.CompareTag("Player")) return;
+            _hasBeenTriggered = true;
 
-            if (other.CompareTag("Player"))
-            {
-                var room = GetComponentInParent<RoomFogController>();
-                if (room != null)
-                {
-                    room.RevealFog();
-                    hasBeenTriggered = true;
-                }
-            
-                if (_room.isPlayerInside) return;
-                _room.isPlayerInside = true;
-            }
+            var roomGo = transform.parent.gameObject;
+            var room = new RoomInstance(roomGo, _room);
+            MinimapManager.Instance.UpdateMinimap(room);
         }
     }
 }

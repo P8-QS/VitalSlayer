@@ -31,7 +31,7 @@ namespace Effects {
 
         public void Apply()
         {
-            Debug.LogWarning("Apply fog effect not implemented");
+            MinimapManager.Instance.VisitedRoomsVisible = Level == 1;
         }
     }
 }
