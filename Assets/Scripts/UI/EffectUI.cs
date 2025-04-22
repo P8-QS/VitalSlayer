@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 
 public class EffectUI : MonoBehaviour
 {
-    public GameObject effectIconPrefab; // Prefab for effect icons
-    public GameObject effectDescriptionBox; // Floating description box
-    public TextMeshProUGUI effectDescriptionText; // Text inside the description box
+    public GameObject effectIconPrefab;
+    public GameObject effectDescriptionBox;
+    public TextMeshProUGUI effectDescriptionText;
 
     private bool isDescriptionVisible = false;
 
@@ -29,11 +29,11 @@ public class EffectUI : MonoBehaviour
 
         effectDescriptionBox.SetActive(false);
     }
-    
+
     void Update()
     {
         // Detect clicks while description box is open
-        if (isDescriptionVisible && Mouse.current.leftButton.wasPressedThisFrame) 
+        if (isDescriptionVisible && Mouse.current.leftButton.wasPressedThisFrame)
         {
             HideEffectDescription();
         }
@@ -42,14 +42,14 @@ public class EffectUI : MonoBehaviour
     void ShowEffectDescription(string description)
     {
         effectDescriptionText.text = description;
-        
+
         // Position description box near icons
         RectTransform descBoxRect = effectDescriptionBox.GetComponent<RectTransform>();
-        GameObject firstIcon = transform.GetChild(0).gameObject; 
+        GameObject firstIcon = transform.GetChild(0).gameObject;
         Vector3 firstIconWorldPos = firstIcon.transform.position;
         firstIconWorldPos.x -= firstIcon.GetComponent<RectTransform>().rect.width / 2;
         firstIconWorldPos.y -= firstIcon.GetComponent<RectTransform>().rect.height / 2;
-        
+
         Vector3 localPos = descBoxRect.parent.InverseTransformPoint(firstIconWorldPos);
         descBoxRect.localPosition = localPos;
 
