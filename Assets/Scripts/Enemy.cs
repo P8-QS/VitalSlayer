@@ -1,9 +1,11 @@
 using UnityEngine;
 using Effects;
+using Unity.VisualScripting;
 
 public class Enemy : Mover
 {
-    protected BaseEnemyStats enemyStats;
+    [HideInInspector]
+    public BaseEnemyStats enemyStats;
 
     // Logic
     protected bool chasing;
@@ -29,7 +31,7 @@ public class Enemy : Mover
     // Hitbox
     public ContactFilter2D filter;
     public BoxCollider2D hitBox;
-    public Collider2D[] hits = new Collider2D[10];
+    [HideInInspector] public Collider2D[] hits = new Collider2D[10];
 
     protected override void Start()
     {
@@ -89,7 +91,6 @@ public class Enemy : Mover
             chasing = false;
         }
 
-        // Check for overlaps
         collidingWithPlayer = false;
         boxCollider.Overlap(filter, hits);
 
@@ -105,7 +106,6 @@ public class Enemy : Mover
                 collidingWithPlayer = true;
             }
 
-            // Reset array
             hits[i] = null;
         }
     }
@@ -114,18 +114,13 @@ public class Enemy : Mover
     {
         if (!isPhantom)
         {
-            int reward = enemyStats != null ? enemyStats.GetScaledXpReward(level) : 10;
             int xp = ExperienceManager.Instance.AddEnemy(level);
             GameSummaryManager.Instance.AddEnemy();
             FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
                 1.0f);
         }
 
-        AudioClip sound = enemyStats != null ? enemyStats.deathSound : null;
-        if (sound != null)
-        {
-            SoundFxManager.Instance.PlaySound(sound, 0.5f);
-        }
+        SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);
 
         Destroy(gameObject);
     }

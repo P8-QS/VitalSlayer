@@ -14,7 +14,7 @@ public class AcidSlime : Enemy
     {
         if (acidSlimeStats != null)
         {
-            SetStats(acidSlimeStats);
+            SetEnemyStats(acidSlimeStats);
         }
 
         base.Start();

@@ -1,13 +1,19 @@
 using Metrics;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Player : Mover
 {
+    [Header("Stats")]
+    [SerializeField] private BaseFighterStats playerStats;
+
     [Header("References")]
     public Animator animator;
 
     [Header("Combat Settings")]
     public float attackCooldown = 2.0f;
+    [DoNotSerialize]
     public float lastAttackTime = 0f;
 
     private Weapon weapon;
@@ -16,12 +22,15 @@ public class Player : Mover
     private float hitAnimationTimer = 0f;
     private const float HIT_ANIMATION_DURATION = 0.15f;
 
-    public AudioClip attackSound;
-    public AudioClip deathSound;
-
-
     protected override void Start()
     {
+        if (playerStats == null)
+        {
+            Debug.LogError("Player stats not assigned to " + gameObject.name);
+            return;
+        }
+        SetStats(playerStats);
+
         level = ExperienceManager.Instance.Level;
         base.Start();
         boxCollider = GetComponent<BoxCollider2D>();
@@ -77,7 +86,7 @@ public class Player : Mover
 
     public void Attack()
     {
-        SoundFxManager.Instance.PlaySound(attackSound, transform, 0.8f);
+        SoundFxManager.Instance.PlaySound(stats.hitSound, transform, 0.8f);
         lastAttackTime = Time.time;
         weaponAnimator.SetTrigger("Attack");
         weapon.canAttack = true;
@@ -104,7 +113,7 @@ public class Player : Mover
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySound(deathSound, 1f);
+        SoundFxManager.Instance.PlaySound(stats.deathSound, 1f);
         Destroy(gameObject);
         GameSummaryManager.Instance.Show();
     }

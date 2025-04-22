@@ -1,14 +1,22 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor.EditorTools;
+using Unity.VisualScripting;
 
 public class Fighter : MonoBehaviour
 {
-    protected BaseFighterStats stats;
+    [HideInInspector] protected BaseFighterStats stats;
 
     // Current stats
+    [Tooltip("Current hitpoints of the fighter")]
+    [HideInInspector]
     public int hitpoint;
+    [Tooltip("Maximum hitpoints of the fighter")]
+    [HideInInspector]
     public int maxHitpoint;
+    [HideInInspector]
     public float currentSpeed;
+    [Tooltip("Current Level of entity")]
     public int level;
 
     // Immunity
