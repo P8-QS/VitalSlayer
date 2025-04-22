@@ -1,28 +1,19 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class Fighter : MonoBehaviour
 {
-    public BaseFighterStats baseStats;
+    protected BaseFighterStats stats;
 
     // Current stats
-    public int level;
     public int hitpoint;
-    protected bool overrideMaxHitpoint = false;
-    protected int customMaxHitpoint = 0;
-    public int maxHitpoint
-    {
-        get
-        {
-            if (overrideMaxHitpoint)
-                return customMaxHitpoint;
-            return baseStats.CalculateMaxHealth(level);
-        }
-    }
-    protected float currentSpeed;
+    public int maxHitpoint;
+    public float currentSpeed;
+    public int level;
+
+    // Immunity
     protected float lastImmune;
 
-    // 
     protected HealthBar healthBar;
     protected DamageFlash damageFlash;
 
@@ -34,7 +25,13 @@ public class Fighter : MonoBehaviour
 
     private Collider2D col;
 
-    protected void Awake()
+
+    protected void SetStats(BaseFighterStats newStats)
+    {
+        stats = newStats;
+    }
+
+    private void Awake()
     {
         col = GetComponent<Collider2D>();
         damageFlash = GetComponent<DamageFlash>();
@@ -42,17 +39,42 @@ public class Fighter : MonoBehaviour
 
     protected virtual void Start()
     {
+        if (stats == null)
+        {
+            Debug.LogError("Fighter stats not assigned to " + gameObject.name);
+            return;
+        }
+
         if (HealthBarManager.Instance != null)
         {
             healthBar = HealthBarManager.Instance.CreateHealthBar(this);
         }
 
-        hitpoint = baseStats.baseHealth;
-        currentSpeed = baseStats.baseSpeed;
+        maxHitpoint = stats.CalculateMaxHealth(level);
+        hitpoint = maxHitpoint;
+        currentSpeed = stats.baseSpeed;
+    }
+
+    // Method to calculate max health based on level
+    protected virtual int CalculateMaxHealth(int level)
+    {
+        return stats != null ? stats.CalculateMaxHealth(level) : 100;
+    }
+
+    public virtual void UpdateStatsForLevel(int newLevel)
+    {
+        int previousMax = maxHitpoint;
+        maxHitpoint = CalculateMaxHealth(newLevel);
+
+        if (maxHitpoint > previousMax)
+        {
+            hitpoint += (maxHitpoint - previousMax);
+        }
     }
 
     protected virtual void OnDestroy()
     {
+        // Remove the health bar when entity is destroyed
         if (HealthBarManager.Instance != null)
         {
             HealthBarManager.Instance.RemoveHealthBar(this);
@@ -61,18 +83,21 @@ public class Fighter : MonoBehaviour
 
     public virtual void ReceiveDamage(Damage dmg)
     {
-        if (Time.time - lastImmune > baseStats.immuneTime)
+        if (Time.time - lastImmune > (stats != null ? stats.immuneTime : 1.0f))
         {
             lastImmune = Time.time;
             hitpoint -= dmg.damageAmount;
 
             pushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce;
 
+            // Calculate damage percentage relative to max damage range
             float damagePercentage = (dmg.damageAmount - dmg.minPossibleDamage) /
                                    (float)(dmg.maxPossibleDamage - dmg.minPossibleDamage);
 
+            // Determine text color based on damage type
             Color damageColor;
 
+            // If custom color is provided, use it
             if (dmg.useCustomColor)
             {
                 damageColor = dmg.customColor;
@@ -167,13 +192,14 @@ public class Fighter : MonoBehaviour
     private IEnumerator ApplySlowEffectCoroutine(float slowFactor, float duration)
     {
         // Apply the slow effect
-        currentSpeed = baseStats.baseSpeed * slowFactor;
+        float originalSpeed = stats != null ? stats.baseSpeed : currentSpeed;
+        currentSpeed = originalSpeed * slowFactor;
 
         // Wait for a short time
-        yield return new WaitForSeconds(duration); // Give a bit more time for slow effect
+        yield return new WaitForSeconds(duration);
 
         // Restore the original speed if the player is not in another puddle
-        currentSpeed = baseStats.baseSpeed;
+        currentSpeed = originalSpeed;
         slowCoroutine = null;
     }
 
@@ -194,12 +220,6 @@ public class Fighter : MonoBehaviour
         }
 
         return transform.position; // Fallback in case there's no recognized collider
-    }
-
-    public virtual void SetMaxHitpoint(int value, bool overrideValue = true)
-    {
-        overrideMaxHitpoint = overrideValue;
-        customMaxHitpoint = value;
     }
 
     protected virtual void Death()

@@ -3,9 +3,9 @@ using Effects;
 
 public class Enemy : Mover
 {
-    // Enemy stats
-    public BaseEnemyStats enemyStats;
+    protected BaseEnemyStats enemyStats;
 
+    // Logic
     protected bool chasing;
     protected bool collidingWithPlayer;
     protected Transform playerTransform;
@@ -19,7 +19,7 @@ public class Enemy : Mover
             if (value)
             {
                 hitpoint = 1;
-                SetMaxHitpoint(1);
+                maxHitpoint = 1;
             }
             _isPhantom = value;
         }
@@ -31,26 +31,42 @@ public class Enemy : Mover
     public BoxCollider2D hitBox;
     public Collider2D[] hits = new Collider2D[10];
 
-    public AudioClip deathSound;
-
-
     protected override void Start()
     {
+        if (enemyStats == null)
+        {
+            Debug.LogError("Enemy stats not assigned to " + gameObject.name);
+            return;
+        }
+
+        if (stats == null)
+        {
+            stats = enemyStats;
+        }
+
         base.Start();
         playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
 
+    protected void SetEnemyStats(BaseEnemyStats newStats)
+    {
+        enemyStats = newStats;
+        SetStats(newStats);
+    }
+
     protected void FixedUpdate()
     {
         if (!playerTransform) return;
 
+        float chaseDistance = enemyStats != null ? enemyStats.chaseLength : 5f;
+        float triggerDistance = enemyStats != null ? enemyStats.triggerLength : 1f;
 
         // Is the player in range?
-        if (Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.chaseLength)
+        if (Vector3.Distance(playerTransform.position, startingPosition) < chaseDistance)
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
+            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerDistance)
             {
                 chasing = true;
             }
@@ -98,13 +114,19 @@ public class Enemy : Mover
     {
         if (!isPhantom)
         {
-            int xp = ExperienceManager.Instance.AddEnemy(1);
+            int reward = enemyStats != null ? enemyStats.GetScaledXpReward(level) : 10;
+            int xp = ExperienceManager.Instance.AddEnemy(level);
             GameSummaryManager.Instance.AddEnemy();
             FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
                 1.0f);
         }
 
-        SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
+        AudioClip sound = enemyStats != null ? enemyStats.deathSound : null;
+        if (sound != null)
+        {
+            SoundFxManager.Instance.PlaySound(sound, 0.5f);
+        }
+
         Destroy(gameObject);
     }
 }

@@ -1,15 +1,20 @@
+using Metrics;
 using UnityEngine;
 
 public class Player : Mover
 {
+    [Header("References")]
     public Animator animator;
+
+    [Header("Combat Settings")]
     public float attackCooldown = 2.0f;
     public float lastAttackTime = 0f;
+
     private Weapon weapon;
     private Animator weaponAnimator;
     public Joystick movementJoystick;
     private float hitAnimationTimer = 0f;
-    private const float HIT_ANIMATION_DURATION = 0.15f; // Duration in seconds
+    private const float HIT_ANIMATION_DURATION = 0.15f;
 
     public AudioClip attackSound;
     public AudioClip deathSound;
@@ -36,7 +41,6 @@ public class Player : Mover
             }
         }
 
-        // Get the animator component if not already assigned in Inspector
         if (animator == null)
             animator = GetComponent<Animator>();
     }
@@ -44,7 +48,6 @@ public class Player : Mover
     private void Update()
     {
         // Show level above player
-        // TODO: Er det her scuffed?
         FloatingTextManager.Instance.Show("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
             Vector3.zero, 0.0001f);
 

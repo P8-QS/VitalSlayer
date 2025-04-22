@@ -1,63 +1,57 @@
 using System.Collections;
 using UnityEngine;
-using Effects;
 
 public class Necromancer : Enemy
 {
-    [Header("Fireball Settings")]
-    public GameObject fireballPrefab;
-    public float fireballSpeed = 3.0f;
-    public float attackCooldown = 2.0f;
-    public int baseMinFireballDamage = 2;
-    public int baseMaxFireballDamage = 4;
-    public int MinFireBallDamage => GameHelpers.CalculateDamageStat(baseMinFireballDamage, level, fireballDamageScaling);
-    public int MaxFireBallDamage => GameHelpers.CalculateDamageStat(baseMaxFireballDamage, level, fireballDamageScaling);
-    public int fireballDamageScaling = 1;
-    public float fireballLifetime = 1.5f;
+    [Header("Ranged Settings")]
+    public RangedEnemyStats rangedStats;
+
+    [Header("Fireball References")]
     public Transform fireballSpawnPoint;
 
-    [Header("Movement Settings")]
-    public float retreatDistance = 0.5f;
-    public float chaseDistance = 0.1f;
     private float lastAttackTime;
     private Animator animator;
     private bool isAttacking = false;
 
     protected override void Start()
     {
+        // Override normal enemy stats with ranged-specific stats if provided
+        if (rangedStats != null)
+        {
+            enemyStats = rangedStats;
+        }
+
         base.Start();
         animator = GetComponent<Animator>();
-        lastAttackTime = -attackCooldown;         // Allow immediate attack when first encountering player
+        lastAttackTime = -rangedStats.attackCooldown; // Allow immediate attack when first encountering player
     }
 
     protected new void FixedUpdate()
     {
-        if (Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.chaseLength)
+        if (Vector3.Distance(playerTransform.position, startingPosition) < (enemyStats != null ? enemyStats.chaseLength : 5f))
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
+            if (Vector3.Distance(playerTransform.position, startingPosition) < (enemyStats != null ? enemyStats.triggerLength : 1f))
             {
                 chasing = true;
             }
 
             if (chasing)
             {
-
-                if (Time.time > lastAttackTime + attackCooldown && !isAttacking)
+                if (Time.time > lastAttackTime + rangedStats.attackCooldown && !isAttacking)
                 {
                     CastFireball();
                 }
 
-
                 if (!collidingWithPlayer)
                 {
                     // Try to keep some distance for ranged attacks
-                    if (Vector3.Distance(transform.position, playerTransform.position) < retreatDistance)
+                    if (Vector3.Distance(transform.position, playerTransform.position) < rangedStats.retreatDistance)
                     {
                         // Move away from player if too close
                         Vector3 directionAwayFromPlayer = (transform.position - playerTransform.position).normalized * currentSpeed;
                         UpdateMotor(directionAwayFromPlayer);
                     }
-                    else if (Vector3.Distance(transform.position, playerTransform.position) > chaseDistance)
+                    else if (Vector3.Distance(transform.position, playerTransform.position) > rangedStats.chaseDistance)
                     {
                         // Move closer if too far
                         Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized * currentSpeed;
@@ -66,7 +60,6 @@ public class Necromancer : Enemy
                     else
                     {
                         UpdateMotor(Vector3.zero);
-
                     }
                 }
             }
@@ -128,15 +121,28 @@ public class Necromancer : Enemy
             fireballSpawnPoint.position :
             transform.position + new Vector3(0, 0.1f, 0);
 
-        GameObject fireball = Instantiate(fireballPrefab, spawnPosition, Quaternion.identity);
+        GameObject fireball = Instantiate(rangedStats.projectilePrefab, spawnPosition, Quaternion.identity);
 
         Vector3 direction = (playerTransform.position - spawnPosition).normalized;
 
         FireballProjectile fireballComponent = fireball.AddComponent<FireballProjectile>();
-        int fireballDamage = GameHelpers.CalculateDamage(MinFireBallDamage, MaxFireBallDamage, 0f, 0f);
-        fireballComponent.Initialize(this, direction, fireballSpeed, fireballDamage, fireballLifetime);
 
-        // AudioManager.instance.PlaySound("fireball_cast");
+        int minDamage = rangedStats.GetScaledRangedMinDamage(level);
+        int maxDamage = rangedStats.GetScaledRangedMaxDamage(level);
+        int fireballDamage = GameHelpers.CalculateDamage(minDamage, maxDamage, 0f, 0f);
+
+        fireballComponent.Initialize(this, direction, rangedStats.projectileSpeed, fireballDamage,
+            rangedStats.projectileLifetime, minDamage, maxDamage);
+    }
+
+    public int GetMinProjectileDamage()
+    {
+        return rangedStats.GetScaledRangedMinDamage(level);
+    }
+
+    public int GetMaxProjectileDamage()
+    {
+        return rangedStats.GetScaledRangedMaxDamage(level);
     }
 }
 
@@ -149,12 +155,14 @@ public class FireballProjectile : MonoBehaviour
     private float spawnTime;
     private float timeAlive;
     private bool hasHitTarget = false;
+    private int minDamage;
+    private int maxDamage;
 
     private Necromancer necromancer;
     private BoxCollider2D hitbox;
     private Animator animator;
 
-    public void Initialize(Necromancer necromancer, Vector3 direction, float speed, int damage, float lifetime)
+    public void Initialize(Necromancer necromancer, Vector3 direction, float speed, int damage, float lifetime, int minDamage, int maxDamage)
     {
         this.necromancer = necromancer;
         this.direction = direction;
@@ -162,6 +170,8 @@ public class FireballProjectile : MonoBehaviour
         this.damage = damage;
         this.lifetime = lifetime;
         this.spawnTime = Time.time;
+        this.minDamage = minDamage;
+        this.maxDamage = maxDamage;
 
         animator = GetComponent<Animator>();
         hitbox = GetComponent<BoxCollider2D>();
@@ -174,7 +184,10 @@ public class FireballProjectile : MonoBehaviour
     private void Update()
     {
         timeAlive = (Time.time - spawnTime) / lifetime;
-        animator.SetFloat("timeAlive", timeAlive);
+        if (animator != null)
+        {
+            animator.SetFloat("timeAlive", timeAlive);
+        }
 
         transform.position += direction * speed * Time.deltaTime;
 
@@ -198,8 +211,8 @@ public class FireballProjectile : MonoBehaviour
                 origin = transform.position,
                 pushForce = 2.0f,
                 isCritical = false,
-                minPossibleDamage = necromancer.MinFireBallDamage,
-                maxPossibleDamage = necromancer.MaxFireBallDamage,
+                minPossibleDamage = minDamage,
+                maxPossibleDamage = maxDamage,
             };
 
             collision.SendMessage("ReceiveDamage", dmg);
@@ -228,10 +241,9 @@ public class FireballProjectile : MonoBehaviour
 
     private IEnumerator WaitForSpecificAnimationToComplete()
     {
-        // Hard coded wait time for the animation to finish - maybe a little scuffed teehee
+        // Hard coded wait time for the animation to finish
         yield return new WaitForSeconds(0.333f);
 
         Destroy(gameObject);
     }
-
 }

@@ -2,36 +2,47 @@ using UnityEngine;
 
 public class AcidSlime : Enemy
 {
-    [Header("Acid Properties")]
-    public Color acidColor = Color.green;
+    [Header("Acid Settings")]
+    [SerializeField] private AcidSlimeEnemyStats acidSlimeStats;
 
-    [Header("Meltdown Properties")]
+    [Header("Toxic Puddle")]
     public GameObject toxicPuddlePrefab;
 
-    public float puddleDuration = 5.0f;
-    public int puddleBaseMinDamage = 1;
-    public int puddleBaseMaxDamage = 3;
-    public float puddleBaseScaling = 1.2f;
-    public float puddleSlowFactor = 0.5f;
-
-    // Reference to the acid hitbox component
     private AcidSlimeHitbox acidHitbox;
 
     protected override void Start()
     {
+        if (acidSlimeStats != null)
+        {
+            SetStats(acidSlimeStats);
+        }
+
         base.Start();
 
-        // Find the hitbox and get the AcidSlimeHitbox component
         acidHitbox = hitBox.GetComponent<AcidSlimeHitbox>();
 
         if (acidHitbox == null)
         {
             Debug.LogError("AcidSlimeHitbox component not found on the hitbox. Make sure to replace EnemyHitbox with AcidSlimeHitbox on the hitbox GameObject.");
         }
+        else
+        {
+            ConfigureHitbox();
+        }
 
-        // You might want to add a visual indicator for the acid slime
-        // For example, you could tint the sprite green
-        GetComponent<SpriteRenderer>().color = acidColor;
+        GetComponent<SpriteRenderer>().color = acidSlimeStats.acidColor;
+    }
+
+    private void ConfigureHitbox()
+    {
+        if (acidHitbox != null && acidSlimeStats != null)
+        {
+            acidHitbox.acidMinDamage = acidSlimeStats.GetScaledAcidMinDamage(level);
+            acidHitbox.acidMaxDamage = acidSlimeStats.GetScaledAcidMaxDamage(level);
+            acidHitbox.acidDuration = acidSlimeStats.acidDuration;
+            acidHitbox.acidTickRate = acidSlimeStats.acidTickRate;
+            acidHitbox.acidColor = acidSlimeStats.acidColor;
+        }
     }
 
     // Override the Death method to spawn a toxic puddle
@@ -43,22 +54,28 @@ public class AcidSlime : Enemy
             GameObject puddle = Instantiate(toxicPuddlePrefab, transform.position, Quaternion.identity);
             ToxicPuddle puddleComponent = puddle.GetComponent<ToxicPuddle>();
 
-            if (puddleComponent != null)
+            if (puddleComponent != null && acidSlimeStats != null)
             {
-                puddleComponent.duration = puddleDuration;
-                puddleComponent.minDamage = GameHelpers.CalculateDamageStat(puddleBaseMinDamage, level, puddleBaseScaling);
-                puddleComponent.maxDamage = GameHelpers.CalculateDamageStat(puddleBaseMaxDamage, level, puddleBaseScaling);
-                puddleComponent.slowFactor = puddleSlowFactor;
-                puddleComponent.puddleColor = new Color(acidColor.r, acidColor.g, acidColor.b, 0.6f);
+                puddleComponent.duration = acidSlimeStats.puddleDuration;
+                puddleComponent.minDamage = acidSlimeStats.GetScaledAcidMinDamage(level);
+                puddleComponent.maxDamage = acidSlimeStats.GetScaledAcidMaxDamage(level);
+                puddleComponent.slowFactor = acidSlimeStats.puddleSlowFactor;
+                puddleComponent.puddleColor = new Color(acidSlimeStats.acidColor.r, acidSlimeStats.acidColor.g, acidSlimeStats.acidColor.b, 0.6f);
             }
             else
             {
-                // If no puddle component, destroy after duration
-                Destroy(puddle, puddleDuration);
+                Destroy(puddle, acidSlimeStats != null ? acidSlimeStats.puddleDuration : 5f);
             }
         }
 
-        // Call the base Death method to handle XP and destroy this object
         base.Death();
+    }
+
+    private void OnValidate()
+    {
+        if (acidSlimeStats != null)
+        {
+            SetStats(acidSlimeStats);
+        }
     }
 }
