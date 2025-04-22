@@ -62,5 +62,5 @@ MonoBehaviour:
   maxAttemptsPerDoor: 10
   doorPositionMatchTolerance: 0.01
   useRandomSeed: 1
-  seed: 687
+  seed: 892
   logSeedOnGeneration: 1
