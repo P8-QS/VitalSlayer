@@ -265,7 +265,7 @@ namespace Dungeon
 
         private Room FindOtherRoomAtPosition(RoomInstance currentRoom, Vector3 worldDoorPos)
         {
-            return PlacedRooms.SingleOrDefault(otherRoom => 
+            return PlacedRooms.FirstOrDefault(otherRoom => 
                     otherRoom != currentRoom &&
                     otherRoom.RoomScript.GetDoorPrefabData()
                         .Select(door => otherRoom.GameObject.transform.position + door.localPosition)
