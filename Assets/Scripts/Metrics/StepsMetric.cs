@@ -37,6 +37,7 @@ namespace Metrics {
                 };
 
                 _effect = new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel);
+                _effect.Apply(); // Scuffed API usage but works
             }
         }
         public string Text()

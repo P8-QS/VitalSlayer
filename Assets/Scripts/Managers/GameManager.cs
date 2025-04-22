@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dungeon;
+using Effects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public Player player;
 
+    public int mapSize = 3;
+    
     private void Awake()
     {
         // Singleton pattern
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game scene loaded. Spawning entities.");
 
             var dungeonGenerator = FindFirstObjectByType<DungeonGenerator>();
+            dungeonGenerator.roomCount = mapSize;
             dungeonGenerator.GenerateDungeon();
 
             var rooms = dungeonGenerator.PlacedRooms.Select(room => room.GameObject).ToList();
