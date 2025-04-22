@@ -42,33 +42,32 @@ public class MinimapManager : MonoBehaviour
         foreach (var room in rooms)
         {
             var fogController = room.GameObject.GetComponent<RoomFogController>();
-
+            
             if (fogController == null)
             {
                 Debug.LogWarning("No RoomFogController found on room: " + room.GameObject.name);
                 continue;
-            }
-            ;
+            };
 
             Debug.Log("Updating minimap for room fog: " + room.RoomScript.gameObject.name);
-
-            if (room == currentRoom)
+            
+            if (room.GameObject.name == currentRoom.GameObject.name)
             {
                 Debug.LogWarning("Room " + currentRoom.RoomScript.gameObject.name + " is currently in use.");
                 fogController.SetFog(false);
                 continue;
             }
-
+            
             var isAdjacent = room.RoomScript.connectedDoors
                 .Any(door => door.RoomB == currentRoom.RoomScript || door.RoomA == currentRoom.RoomScript);
-
+            
             var adjacentVisible = AdjacentRoomsVisible && isAdjacent;
             var visitedVisible = VisitedRoomsVisible && VisitedRooms.Contains(room);
             var fogEnabled = !visitedVisible && !adjacentVisible;
 
 
             Debug.Log("Setting fog to " + fogEnabled + " for room: " + room.RoomScript.gameObject.name);
-
+            
             fogController.SetFog(fogEnabled);
         }
     }

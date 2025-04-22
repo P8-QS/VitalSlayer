@@ -19,10 +19,9 @@ namespace Dungeon
             {
                 _room.isPlayerInside = false;
                 return;
-            }
-
-            _room.isPlayerInside = true;
+            };
             _hasBeenTriggered = true;
+            _room.isPlayerInside = true;
 
             var roomGo = transform.parent.gameObject;
             var room = new RoomInstance(roomGo, _room);
