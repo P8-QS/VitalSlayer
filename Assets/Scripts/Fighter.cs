@@ -3,14 +3,26 @@ using UnityEngine;
 
 public class Fighter : MonoBehaviour
 {
-    // Base stats
     public BaseFighterStats baseStats;
 
     // Current stats
-    private int hitpoint;
-    private float currentSpeed;
+    public int level;
+    public int hitpoint;
+    protected bool overrideMaxHitpoint = false;
+    protected int customMaxHitpoint = 0;
+    public int maxHitpoint
+    {
+        get
+        {
+            if (overrideMaxHitpoint)
+                return customMaxHitpoint;
+            return baseStats.CalculateMaxHealth(level);
+        }
+    }
+    protected float currentSpeed;
     protected float lastImmune;
 
+    // 
     protected HealthBar healthBar;
     protected DamageFlash damageFlash;
 
@@ -41,7 +53,6 @@ public class Fighter : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        // Remove the health bar when entity is destroyed
         if (HealthBarManager.Instance != null)
         {
             HealthBarManager.Instance.RemoveHealthBar(this);
@@ -57,14 +68,11 @@ public class Fighter : MonoBehaviour
 
             pushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce;
 
-            // Calculate damage percentage relative to max damage range
             float damagePercentage = (dmg.damageAmount - dmg.minPossibleDamage) /
                                    (float)(dmg.maxPossibleDamage - dmg.minPossibleDamage);
 
-            // Determine text color based on damage type
             Color damageColor;
 
-            // If custom color is provided, use it
             if (dmg.useCustomColor)
             {
                 damageColor = dmg.customColor;
@@ -186,6 +194,12 @@ public class Fighter : MonoBehaviour
         }
 
         return transform.position; // Fallback in case there's no recognized collider
+    }
+
+    public virtual void SetMaxHitpoint(int value, bool overrideValue = true)
+    {
+        overrideMaxHitpoint = overrideValue;
+        customMaxHitpoint = value;
     }
 
     protected virtual void Death()

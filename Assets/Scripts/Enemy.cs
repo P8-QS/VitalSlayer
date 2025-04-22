@@ -3,9 +3,9 @@ using Effects;
 
 public class Enemy : Mover
 {
-    // Logic
-    public float triggerLength = 1;
-    public float chaseLength = 5;
+    // Enemy stats
+    public BaseEnemyStats enemyStats;
+
     protected bool chasing;
     protected bool collidingWithPlayer;
     protected Transform playerTransform;
@@ -19,7 +19,7 @@ public class Enemy : Mover
             if (value)
             {
                 hitpoint = 1;
-                maxHitpoint = 1;
+                SetMaxHitpoint(1);
             }
             _isPhantom = value;
         }
@@ -48,9 +48,9 @@ public class Enemy : Mover
 
 
         // Is the player in range?
-        if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
+        if (Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.chaseLength)
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
+            if (Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
             {
                 chasing = true;
             }

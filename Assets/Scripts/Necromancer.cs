@@ -32,9 +32,9 @@ public class Necromancer : Enemy
 
     protected new void FixedUpdate()
     {
-        if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
+        if (Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.chaseLength)
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
+            if (Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
             {
                 chasing = true;
             }
