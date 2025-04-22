@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 95b89f11359185e4fbbc46c66b9e5ced
+guid: 0131ea127c46347a6ac0ddf143c9146a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4026934544628997898
-    second: sidewaydoors_0
-  - first:
-      213: -7983771373350679573
-    second: sidewaydoors_1
-  - first:
-      213: 1195072555922024548
-    second: sidewaydoors_2
+      213: 5114380859719756931
+    second: starter_room_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -43,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -81,19 +75,6 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -103,7 +84,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -128,71 +109,40 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sidewaydoors_0
+      name: starter_room_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 240
-        width: 6
-        height: 16
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6f0a3a50e547d18c0800000000000000
-      internalID: -4026934544628997898
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sidewaydoors_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 240
-        width: 6
-        height: 16
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: beb008b5c32f33190800000000000000
-      internalID: -7983771373350679573
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sidewaydoors_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 224
-        width: 6
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 468ec886820c59010800000000000000
-      internalID: 1195072555922024548
+      spriteID: 38c27a57b4ee9f640800000000000000
+      internalID: 5114380859719756931
       vertices: []
       indices: 
       edges: []
@@ -201,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: eaf909af97f465345822e2f1a2f5fa45
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -211,10 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sidewaydoors_0: -4026934544628997898
-      sidewaydoors_1: -7983771373350679573
-      sidewaydoors_2: 1195072555922024548
-      sidewaydoors_3: 440367277
+      starter_room_0: 5114380859719756931
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

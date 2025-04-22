@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.Tilemaps;
 
 public class TrapManager : MonoBehaviour
@@ -44,6 +43,8 @@ public class TrapManager : MonoBehaviour
 
     void CheckForTraps()
     {
+        if (!playerTransform) return;
+        
         Vector3Int cellPosition = trapTilemap.WorldToCell(playerTransform.position);
         TileBase currentTile = trapTilemap.GetTile(cellPosition);
 

@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 
 public class EffectUI : MonoBehaviour
 {
-    public GameObject effectIconPrefab;
-    public GameObject effectDescriptionBox;
-    public TextMeshProUGUI effectDescriptionText;
+    public GameObject effectIconPrefab; // Prefab for effect icons
+    public GameObject effectDescriptionBox; // Floating description box
+    public TextMeshProUGUI effectDescriptionText; // Text inside the description box
 
     private bool isDescriptionVisible = false;
 
@@ -29,11 +29,11 @@ public class EffectUI : MonoBehaviour
 
         effectDescriptionBox.SetActive(false);
     }
-
+    
     void Update()
     {
         // Detect clicks while description box is open
-        if (isDescriptionVisible && Mouse.current.leftButton.wasPressedThisFrame)
+        if (isDescriptionVisible && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
         {
             HideEffectDescription();
         }
@@ -42,16 +42,20 @@ public class EffectUI : MonoBehaviour
     void ShowEffectDescription(string description)
     {
         effectDescriptionText.text = description;
-
+        
         // Position description box near icons
         RectTransform descBoxRect = effectDescriptionBox.GetComponent<RectTransform>();
-        GameObject firstIcon = transform.GetChild(0).gameObject;
+        GameObject firstIcon = transform.GetChild(0).gameObject; 
         Vector3 firstIconWorldPos = firstIcon.transform.position;
-        firstIconWorldPos.x -= firstIcon.GetComponent<RectTransform>().rect.width / 2;
-        firstIconWorldPos.y -= firstIcon.GetComponent<RectTransform>().rect.height / 2;
 
-        Vector3 localPos = descBoxRect.parent.InverseTransformPoint(firstIconWorldPos);
-        descBoxRect.localPosition = localPos;
+        // Scuffed! but position tracks the middle of the icon. You would then assume you could just offset
+        // position x and y by half width and height, but nope that doesn't work properly.
+        // Also the position relative to the icons somehow change depending on aspect ratio even though
+        // we are directly offsetting from the icon position
+        firstIconWorldPos.x -= firstIcon.GetComponent<RectTransform>().rect.width + 11;
+        firstIconWorldPos.y -= firstIcon.GetComponent<RectTransform>().rect.height + 11;
+
+        descBoxRect.position = firstIconWorldPos;
 
         effectDescriptionBox.SetActive(true);
         isDescriptionVisible = true;

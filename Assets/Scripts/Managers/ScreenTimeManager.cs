@@ -45,6 +45,11 @@ public class ScreenTimeManager : MonoBehaviour
         try {
             List<ScreenTime> screenTimeList = GetScreenTime(startTime.ToUnixTimeMilliseconds(), endTime.ToUnixTimeMilliseconds());
 
+            if (screenTimeList == null) {
+                Debug.LogWarning("Screen time is null");
+                return;
+            }
+
             foreach (ScreenTime screenTime in screenTimeList) {
                 totalScreenTime += screenTime.screenTime;
             }
