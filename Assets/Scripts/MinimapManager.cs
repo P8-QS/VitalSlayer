@@ -45,13 +45,13 @@ public class MinimapManager : MonoBehaviour
             
             if (fogController == null)
             {
-                Debug.LogError("No RoomFogController found on room: " + room.GameObject.name);
+                Debug.LogWarning("No RoomFogController found on room: " + room.GameObject.name);
                 continue;
             };
 
             Debug.Log("Updating minimap for room fog: " + room.RoomScript.gameObject.name);
             
-            if (room == currentRoom)
+            if (room.GameObject.name == currentRoom.GameObject.name)
             {
                 Debug.LogWarning("Room " + currentRoom.RoomScript.gameObject.name + " is currently in use.");
                 fogController.SetFog(false);

@@ -30,7 +30,7 @@ namespace Dungeon
         public bool isPlayerInside;
 
         private readonly List<Transform> _doorTransforms = new();
-        private readonly List<GameObject> _roomEnemies = new();
+        public readonly List<GameObject> RoomEnemies = new();
         private Bounds? _calculatedBounds;
         private bool _isCleared;
 
@@ -70,7 +70,7 @@ namespace Dungeon
 
         private void Update()
         {
-            while (_roomEnemies.Count == 0 && firstCheck)
+            while (RoomEnemies.Count == 0 && firstCheck)
             {
                 FindEnemiesInRoom();
                 firstCheck = false;
@@ -79,7 +79,7 @@ namespace Dungeon
             if (_isCleared)
                 return;
 
-            if (isPlayerInside && _roomEnemies.Count > 0 && !shouldCloseDoors)
+            if (isPlayerInside && RoomEnemies.Count > 0 && !shouldCloseDoors)
             {
                 shouldCloseDoors = true;
                 doorCloseTimer = 0f;
@@ -100,15 +100,15 @@ namespace Dungeon
 
             // Iterate through enemies to see if any are still alive
             var allDefeated = true;
-            for (var i = _roomEnemies.Count - 1; i >= 0; i--)
+            for (var i = RoomEnemies.Count - 1; i >= 0; i--)
             {
-                if (_roomEnemies[i])
+                if (RoomEnemies[i])
                 {
                     allDefeated = false;
                     break;
                 }
 
-                _roomEnemies.RemoveAt(i);
+                RoomEnemies.RemoveAt(i);
             }
 
             // If all enemies are defeated and the player is inside the room, open the doors
@@ -123,9 +123,9 @@ namespace Dungeon
             }
         }
 
-        private void FindEnemiesInRoom()
+        public void FindEnemiesInRoom()
         {
-            _roomEnemies.Clear();
+            RoomEnemies.Clear();
             GetOrCalculateRoomBounds();
 
             var taggedObjects = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -134,7 +134,7 @@ namespace Dungeon
             {
                 if (obj.name != "Player" && _calculatedBounds != null && _calculatedBounds.Value.Contains(obj.transform.position))
                 {
-                    _roomEnemies.Add(obj);
+                    RoomEnemies.Add(obj);
                 }
             }
         }
