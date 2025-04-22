@@ -5,10 +5,6 @@ public class BaseEnemyStats : BaseFighterStats
 {
     [Header("Basic Info")]
     public string enemyName;
-    public Sprite enemySprite;
-    public RuntimeAnimatorController animatorController;
-    public GameObject prefab;
-    public bool isBoss = false;
 
     [Header("Base Stats")]
     public int baseMinDamage = 1;

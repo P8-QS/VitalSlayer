@@ -9,8 +9,8 @@ public class BaseFighterStats : ScriptableObject
     public float baseSpeed = 1.0f;
     public float healthScalingFactor = 1.2f;
     public float pushRecoverySpeed = 0.2f;
+    public float immuneTime = 0.5f;
 
-    // Common calculation methods
     public virtual int CalculateMaxHealth(int level)
     {
         return baseHealth + (int)(Mathf.Pow(level, healthScalingFactor));
