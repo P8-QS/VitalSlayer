@@ -81,7 +81,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 961828433
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -8424996936303349370, guid: 8364e555d2c03424dbe1ac5f5854ee8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -194,16 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210b7d90a36cb17468a6af3887668485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 5
-  healthScalingFactor: 2
   hitpoint: 5
   maxHitpoint: 5
-  pushRecoverySpeed: 0.2
-  level: 1
-  baseSpeed: 0.3
   currentSpeed: 0.3
-  triggerLength: 1
-  chaseLength: 5
+  level: 1
+  enemyStats: {fileID: 0}
   filter:
     useTriggers: 0
     useLayerMask: 0
@@ -230,17 +225,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  deathSound: {fileID: 0}
-  fireballPrefab: {fileID: 1118404643008871529, guid: 6be0740e35a79f243a09376156e32a79, type: 3}
-  fireballSpeed: 1
-  attackCooldown: 2.25
-  baseMinFireballDamage: 2
-  baseMaxFireballDamage: 4
-  fireballDamageScaling: 1
-  fireballLifetime: 1.5
+  rangedStats: {fileID: 11400000, guid: 95f74132dcd74e1449be0513716da56e, type: 2}
   fireballSpawnPoint: {fileID: 4242671425623670884}
-  retreatDistance: 0.4
-  chaseDistance: 0.75
 --- !u!1 &2385960789898648950
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,12 +333,6 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   enemy: {fileID: 0}
-  baseMinDamage: 1
-  baseMaxDamage: 1
-  damageScalingFactor: 1.1
-  pushForce: 3
-  critChance: 0.1
-  critMultiplier: 1.5
 --- !u!1 &6588070823379871777
 GameObject:
   m_ObjectHideFlags: 0
