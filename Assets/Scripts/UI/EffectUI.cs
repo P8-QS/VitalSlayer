@@ -33,7 +33,7 @@ public class EffectUI : MonoBehaviour
     void Update()
     {
         // Detect clicks while description box is open
-        if (isDescriptionVisible && Mouse.current.leftButton.wasPressedThisFrame) 
+        if (isDescriptionVisible && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
         {
             HideEffectDescription();
         }
@@ -47,11 +47,16 @@ public class EffectUI : MonoBehaviour
         RectTransform descBoxRect = effectDescriptionBox.GetComponent<RectTransform>();
         GameObject firstIcon = transform.GetChild(0).gameObject; 
         Vector3 firstIconWorldPos = firstIcon.transform.position;
-        firstIconWorldPos.x -= firstIcon.GetComponent<RectTransform>().rect.width / 2;
-        firstIconWorldPos.y -= firstIcon.GetComponent<RectTransform>().rect.height / 2;
-        
-        Vector3 localPos = descBoxRect.parent.InverseTransformPoint(firstIconWorldPos);
-        descBoxRect.localPosition = localPos;
+
+        // Scuffed! but position tracks the middle of the icon. You would then assume you could just offset
+        // position x and y by half width and height, but nope that doesn't work properly.  
+        firstIconWorldPos.x -= firstIcon.GetComponent<RectTransform>().rect.width + 11;
+        firstIconWorldPos.y -= firstIcon.GetComponent<RectTransform>().rect.height + 11;
+
+        descBoxRect.position = firstIconWorldPos;
+
+        Debug.Log($"descBoxRect pos: {descBoxRect.position}");
+        Debug.Log($"firstIcon pos: {firstIcon.transform.position}");
 
         effectDescriptionBox.SetActive(true);
         isDescriptionVisible = true;
