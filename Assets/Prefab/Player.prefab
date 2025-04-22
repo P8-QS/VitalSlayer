@@ -162,8 +162,8 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  baseMinDamage: 1
-  baseMaxDamage: 5
+  baseMinDamage: 3
+  baseMaxDamage: 10
   damageScalingFactor: 1.15
   basePushForce: 10
   critChance: 0.1
