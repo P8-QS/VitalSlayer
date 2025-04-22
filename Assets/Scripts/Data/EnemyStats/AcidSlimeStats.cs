@@ -14,7 +14,6 @@ public class AcidSlimeEnemyStats : BaseEnemyStats
     public float puddleDuration = 5.0f;
     public float puddleSlowFactor = 0.5f;
 
-    // Get scaled acid damage
     public int GetScaledAcidMinDamage(int level)
     {
         return GameHelpers.CalculateDamageStat(acidMinDamage, level, damageScalingFactor);

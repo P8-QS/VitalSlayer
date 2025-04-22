@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Base combat stats for all fighting entities
 [CreateAssetMenu(fileName = "NewFighterStats", menuName = "Combat Stats/Base Fighter Stats")]
 public class BaseFighterStats : ScriptableObject
 {
