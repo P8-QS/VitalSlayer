@@ -49,14 +49,13 @@ public class EffectUI : MonoBehaviour
         Vector3 firstIconWorldPos = firstIcon.transform.position;
 
         // Scuffed! but position tracks the middle of the icon. You would then assume you could just offset
-        // position x and y by half width and height, but nope that doesn't work properly.  
+        // position x and y by half width and height, but nope that doesn't work properly.
+        // Also the position relative to the icons somehow change depending on aspect ratio even though
+        // we are directly offsetting from the icon position
         firstIconWorldPos.x -= firstIcon.GetComponent<RectTransform>().rect.width + 11;
         firstIconWorldPos.y -= firstIcon.GetComponent<RectTransform>().rect.height + 11;
 
         descBoxRect.position = firstIconWorldPos;
-
-        Debug.Log($"descBoxRect pos: {descBoxRect.position}");
-        Debug.Log($"firstIcon pos: {firstIcon.transform.position}");
 
         effectDescriptionBox.SetActive(true);
         isDescriptionVisible = true;
