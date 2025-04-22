@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-namespace Effects {
+namespace Effects
+{
     public class HallucinationEffect : IEffect
     {
         private int _level;
@@ -12,7 +13,8 @@ namespace Effects {
         public int Level { get => _level; set => _level = value; }
         public Sprite Icon { get => _icon; }
 
-        public HallucinationEffect(Sprite icon, int level) {
+        public HallucinationEffect(Sprite icon, int level)
+        {
             _icon = icon;
             _level = level;
         }
@@ -33,7 +35,7 @@ namespace Effects {
         public void Apply()
         {
             // Ved ikke hvad level er hvis man ikke har effekten :)
-            EntitySpawner.Instance.phantomEnemiesPerRoom = Level > 0 ? Level : 0; 
+            GameManager.Instance.phantomEnemiesPerRoom = Level > 0 ? Level : 0;
         }
     }
 }
