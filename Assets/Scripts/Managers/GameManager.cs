@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
             GameSummaryManager.Instance.roundStartTime = DateTime.UtcNow;
 
             GameSummaryManager.Instance.Reset();
+            MinimapManager.Instance.VisitedRooms.Clear();
         });
     }
 }
