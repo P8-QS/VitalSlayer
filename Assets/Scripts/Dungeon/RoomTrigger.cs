@@ -15,7 +15,13 @@ namespace Dungeon
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (_hasBeenTriggered) return;
-            if (!other.CompareTag("Player")) return;
+            if (!other.CompareTag("Player"))
+            {
+                _room.isPlayerInside = false;
+                return;
+            }
+
+            _room.isPlayerInside = true;
             _hasBeenTriggered = true;
 
             var roomGo = transform.parent.gameObject;
