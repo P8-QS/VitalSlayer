@@ -10,6 +10,10 @@ public class BaseFighterStats : ScriptableObject
     public float pushRecoverySpeed = 0.2f;
     public float immuneTime = 0.5f;
 
+    [Header("Audio")]
+    public AudioClip deathSound;
+    public AudioClip hitSound;
+
     public virtual int CalculateMaxHealth(int level)
     {
         return baseHealth + (int)(Mathf.Pow(level, healthScalingFactor));

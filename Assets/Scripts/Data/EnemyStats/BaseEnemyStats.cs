@@ -23,10 +23,6 @@ public class BaseEnemyStats : BaseFighterStats
     [Header("Drop Settings")]
     public int xpReward = 10;
 
-    [Header("Audio")]
-    public AudioClip deathSound;
-    public AudioClip hitSound;
-
     // Calculate scaled stats based on level
     public virtual int GetScaledHealth(int level)
     {
@@ -46,5 +42,29 @@ public class BaseEnemyStats : BaseFighterStats
     public virtual int GetScaledXpReward(int level)
     {
         return xpReward * (level * level);
+    }
+
+    public Damage CalculateDamageObject(int level, Vector3 origin)
+    {
+        int minDamage = GetScaledMinDamage(level);
+        int maxDamage = GetScaledMaxDamage(level);
+        int actualDamage = Random.Range(minDamage, maxDamage + 1);
+        bool isCritical = Random.value < critChance;
+
+        if (isCritical)
+        {
+            actualDamage = Mathf.RoundToInt(actualDamage * critMultiplier);
+        }
+
+        return new Damage
+        {
+            damageAmount = actualDamage,
+            origin = origin,
+            pushForce = pushForce,
+            isCritical = isCritical,
+            minPossibleDamage = minDamage,
+            maxPossibleDamage = maxDamage,
+            useCustomColor = false
+        };
     }
 }
