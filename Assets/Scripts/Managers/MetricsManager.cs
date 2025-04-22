@@ -7,6 +7,18 @@ public class MetricsManager : MonoBehaviour
     public static MetricsManager Instance { get; private set; }
     public Dictionary<string, IMetric> metrics = new Dictionary<string, IMetric>();
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         if (Instance == null)
