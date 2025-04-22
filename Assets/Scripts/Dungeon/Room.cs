@@ -181,17 +181,35 @@ namespace Dungeon
         {
             float minX = 0, minY = 0, maxX = 0, maxY = 0;
 
-            foreach (var door in doorData)
+            if (doorData.Count == 4)
             {
-                switch (door.direction)
+                foreach (var door in doorData)
                 {
-                    case "North": maxY = door.localPosition.y; break;
-                    case "South": minY = door.localPosition.y; break;
-                    case "East":  maxX = door.localPosition.x; break;
-                    case "West":  minX = door.localPosition.x; break;
+                    switch (door.direction)
+                    {
+                        case "North": maxY = door.localPosition.y; break;
+                        case "South": minY = door.localPosition.y; break;
+                        case "East":  maxX = door.localPosition.x; break;
+                        case "West":  minX = door.localPosition.x; break;
+                    }
+                
                 }
             }
-
+            else
+            {
+                var floorTM = GetComponentsInChildren<Tilemap>().FirstOrDefault(t => t.gameObject.name == "Floor");
+                if (floorTM)
+                {
+                    var minLocal = floorTM.CellToLocal(floorTM.cellBounds.min);
+                    var maxLocal = floorTM.CellToLocal(floorTM.cellBounds.max);
+                
+                    minX = minLocal.x;
+                    minY = minLocal.y;
+                    maxX = maxLocal.x;
+                    maxY = maxLocal.y;
+                }
+            }
+            
             var bounds = new Bounds();
             bounds.SetMinMax(new Vector2(minX, minY), new Vector2(maxX, maxY));
             bounds.center += simulatedWorldPosition;
