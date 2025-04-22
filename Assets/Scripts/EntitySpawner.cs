@@ -86,6 +86,12 @@ public class EntitySpawner : MonoBehaviour
             var availablePoints = new List<Vector3>(allSpawnPoints);
             availablePoints.RemoveAll(p => usedPoints.Contains(p));
 
+            if (availablePoints.Count == 0)
+            {
+                Debug.LogWarning($"No available spawn points for {typeof(T).Name} in room {roomIndex}");
+                return;
+            }
+            
             var spawnPoint = availablePoints[Random.Range(0, availablePoints.Count)];
             usedPoints.Add(spawnPoint);
 
