@@ -37,7 +37,7 @@ public class Weapon : Collidable
             if (enemy != null)
             {
                 enemy.ReceiveDamage(damage);
-                SoundFxManager.Instance.PlaySound(playerStats.enemyHitSound, transform, 0.25f);
+                SoundFxManager.Instance.PlaySound(playerStats.hitSound, transform, 0.25f);
             }
         }
     }

@@ -4,7 +4,8 @@ using Data.Models;
 using Effects;
 using UnityEngine;
 
-namespace Metrics {
+namespace Metrics
+{
     public class ScreenTimeMetric : IMetric
     {
         private long _data;
@@ -23,9 +24,10 @@ namespace Metrics {
             set => _icon = value;
         }
 
-        public ScreenTimeMetric() {
+        public ScreenTimeMetric()
+        {
             Data = UserMetricsHandler.Instance.TotalScreenTime;
-            
+
             Icon = SpriteManager.Instance.GetSprite("metric_screen_time");
 
             int effectLevel = (Data / (1000 * 60 * 60)) switch
@@ -35,11 +37,11 @@ namespace Metrics {
                 _ => 0
             };
 
-            if (effectLevel > 0) 
+            if (effectLevel > 0)
             {
                 _effect = new FogEffect(SpriteManager.Instance.GetSprite("effect_fog"), effectLevel);
             }
-            else 
+            else
             {
                 _effect = new ScoutingEffect(SpriteManager.Instance.GetSprite("effect_scouting"), effectLevel);
             }
@@ -47,13 +49,13 @@ namespace Metrics {
         public string Text()
         {
             long hours = Data / (1000 * 60 * 60);
-            long minutes = Data / (1000 * 60) % 60; 
+            long minutes = Data / (1000 * 60) % 60;
             return $"You have spent <b>{hours} hours and {minutes} minutes</b> on your phone. This gives you {Effect.Text()}.";
         }
         public string Description()
         {
             long hours = Data / (1000 * 60 * 60);
-            long minutes = Data / (1000 * 60) % 60; 
+            long minutes = Data / (1000 * 60) % 60;
             return $"You have spent {hours} hours and {minutes} minutes on your phone yesterday. Consider balancing screen time for better focus.";
         }
     }
