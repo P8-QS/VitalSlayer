@@ -21,9 +21,7 @@ public class RoomFogController : MonoBehaviour
         var room = gameObject.GetComponent<Room>();
         room.FindEnemiesInRoom();
         var enemies = room.RoomEnemies;
-
-        Debug.Log("Found " + enemies.Count + " enemies in room: " + gameObject.name);
-
+        
         foreach (var enemy in enemies)
         {
             var enemyFog = enemy.transform.Find("Minimap GFX")?.gameObject;
