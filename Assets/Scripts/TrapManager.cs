@@ -22,6 +22,8 @@ public class TrapManager : MonoBehaviour
 
     private HashSet<Vector3Int> triggeredTraps = new HashSet<Vector3Int>();
     private float lastCheckTime;
+    
+    public AudioClip trapSound;
 
     void Start()
     {
@@ -58,6 +60,8 @@ public class TrapManager : MonoBehaviour
     {
         triggeredTraps.Add(cellPosition);
 
+        SoundFxManager.Instance.PlaySound(trapSound, 0.3f);
+        
         // Apply damage to player based on percentage of max HP
         Fighter fighter = player.GetComponent<Fighter>();
         if (fighter != null)
