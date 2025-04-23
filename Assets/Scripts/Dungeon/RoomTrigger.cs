@@ -16,6 +16,10 @@ public class RoomTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        var roomGo = transform.parent.gameObject;
+        var room = new RoomInstance(roomGo, _room);
+        MinimapManager.Instance.UpdateMinimap(room);
+        
         if (_hasBeenTriggered) return;
         if (!other.CompareTag("Player"))
         {
@@ -26,9 +30,6 @@ public class RoomTrigger : MonoBehaviour
         _hasBeenTriggered = true;
         _room.isPlayerInside = true;
 
-        var roomGo = transform.parent.gameObject;
-        var room = new RoomInstance(roomGo, _room);
-        MinimapManager.Instance.UpdateMinimap(room);
 
         OnPlayerEnterRoom?.Invoke();
     }
