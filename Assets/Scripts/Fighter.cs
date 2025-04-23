@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.EditorTools;
-using Unity.VisualScripting;
 
 public class Fighter : MonoBehaviour
 {
