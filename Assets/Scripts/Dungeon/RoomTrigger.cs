@@ -25,7 +25,6 @@ namespace Dungeon
                 return;
             }
 
-            _room.isPlayerInside = true;
             OnPlayerEnterRoom?.Invoke();
         }
     }
