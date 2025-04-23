@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 14403200563263841}
   - component: {fileID: 3390749979562949410}
   - component: {fileID: 3455501692796417109}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AcidSlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
