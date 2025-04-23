@@ -1515,26 +1515,6 @@ PrefabInstance:
       propertyPath: slashEffectPrefab
       value: 
       objectReference: {fileID: 6583441689873896192, guid: 04002f450902bf343b4798f478ca449e, type: 3}
-    - target: {fileID: 711778155035283422, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
-      propertyPath: slashRotationOffset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 711778155035283422, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
-      propertyPath: slashRotationOffset.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 711778155035283422, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
-      propertyPath: useDefaultSlashOrientation
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982994156261145945, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
-      propertyPath: stats
-      value: 
-      objectReference: {fileID: 11400000, guid: 2e9b7c5fcf5b7ec49a07582784fc0e21, type: 2}
-    - target: {fileID: 2982994156261145945, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
-      propertyPath: playerStats
-      value: 
-      objectReference: {fileID: 11400000, guid: 7685d1c861d33a84fb77bcd66c7007ab, type: 2}
     - target: {fileID: 2982994156261145945, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
       propertyPath: movementJoystick
       value: 
