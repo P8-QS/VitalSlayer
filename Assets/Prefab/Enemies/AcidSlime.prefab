@@ -125,9 +125,9 @@ GameObject:
   - component: {fileID: 14403200563263841}
   - component: {fileID: 3390749979562949410}
   - component: {fileID: 3455501692796417109}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AcidSlime
-  m_TagString: Untagged
+  m_TagString: Fighter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -347,7 +347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8298127888886511197}
   - component: {fileID: 8794125047193977162}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Minimap GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
