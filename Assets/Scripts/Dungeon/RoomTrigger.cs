@@ -16,14 +16,11 @@ namespace Dungeon
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (!other.CompareTag("Player")) return;
+
             var roomGo = transform.parent.gameObject;
             var room = new RoomInstance(roomGo, _room);
             MinimapManager.Instance.UpdateMinimap(room);
-
-            if (!other.CompareTag("Player"))
-            {
-                return;
-            }
 
             OnPlayerEnterRoom?.Invoke();
         }
