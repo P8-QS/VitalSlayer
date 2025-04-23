@@ -1,21 +1,14 @@
-using Metrics;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Player : Mover
 {
     [Header("Stats")]
-    [SerializeField] private BaseFighterStats playerStats;
+    public PlayerStats playerStats;
 
     [Header("References")]
     public Animator animator;
 
-    [Header("Combat Settings")]
-    public float attackCooldown = 2.0f;
-    [DoNotSerialize]
-    public float lastAttackTime = 0f;
-
+    private float lastAttackTime = 0f;
     private Weapon weapon;
     private Animator weaponAnimator;
     public Joystick movementJoystick;
@@ -29,15 +22,20 @@ public class Player : Mover
             Debug.LogError("Player stats not assigned to " + gameObject.name);
             return;
         }
+
         SetStats(playerStats);
+        weapon = GetComponentInChildren<Weapon>();
 
         level = ExperienceManager.Instance.Level;
         base.Start();
+
         boxCollider = GetComponent<BoxCollider2D>();
         initialSize = transform.localScale;
+
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
-        weapon = weaponObj.GetComponent<Weapon>();
+
         weaponAnimator = weaponObj.GetComponent<Animator>();
+
         movementJoystick = GameObject.Find("Canvas").transform.Find("Safe Area").Find("Variable Joystick")
             .GetComponent<Joystick>();
 
@@ -73,11 +71,12 @@ public class Player : Mover
 
     private void FixedUpdate()
     {
-        Vector3 input = new Vector3(movementJoystick.Direction.x * currentSpeed, movementJoystick.Direction.y * currentSpeed, 0);
+        Vector3 input = new Vector3(movementJoystick.Direction.x * currentSpeed,
+            movementJoystick.Direction.y * currentSpeed, 0);
         Animate(input);
         UpdateMotor(input);
 
-        if (Time.time >= lastAttackTime + attackCooldown)
+        if (Time.time >= lastAttackTime + playerStats.attackCooldown)
         {
             Attack();
         }
@@ -85,7 +84,7 @@ public class Player : Mover
 
     public void Attack()
     {
-        SoundFxManager.Instance.PlaySound(stats.hitSound, transform, 0.8f);
+        SoundFxManager.Instance.PlaySound(playerStats.attackSound, transform, 0.8f);
         lastAttackTime = Time.time;
         weaponAnimator.SetTrigger("Attack");
         weapon.canAttack = true;
@@ -112,7 +111,7 @@ public class Player : Mover
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySound(stats.deathSound, 1f);
+        SoundFxManager.Instance.PlaySound(playerStats.deathSound, 1f);
         Destroy(gameObject);
         GameSummaryManager.Instance.Show();
     }

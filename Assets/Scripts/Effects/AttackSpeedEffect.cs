@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-namespace Effects {
+namespace Effects
+{
     public class AttackSpeedEffect : IEffect
     {
         private int _level;
@@ -12,7 +13,8 @@ namespace Effects {
         int IEffect.Level { get => _level; set => _level = value; }
         Sprite IEffect.Icon { get => _icon; }
 
-        public AttackSpeedEffect(Sprite icon, int level) {
+        public AttackSpeedEffect(Sprite icon, int level)
+        {
             _icon = icon;
             _level = level;
         }
@@ -29,8 +31,8 @@ namespace Effects {
             Player player = UnityEngine.Object.FindFirstObjectByType<Player>();
             if (player != null)
             {
-                player.attackCooldown *= attackSpeedMultiplier;
-                Debug.Log($"Attack speed effect applied. New attack cooldown: {player.attackCooldown}");
+                player.playerStats.attackCooldown *= attackSpeedMultiplier;
+                Debug.Log($"Attack speed effect applied. New attack cooldown: {player.playerStats.attackCooldown}");
             }
             else
             {

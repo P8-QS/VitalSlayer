@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30df066105fbdd64b9442abed26d9807, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bb4fc7156528fc40b9c72e544f0b3a5, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   baseHealth: 100
@@ -19,3 +19,11 @@ MonoBehaviour:
   immuneTime: 1
   deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
   hitSound: {fileID: 8300000, guid: 9453cfef893cf429bb68a0d8e423e61b, type: 3}
+  attackCooldown: 1.5
+  baseMinDamage: 3
+  baseMaxDamage: 8
+  damageScalingFactor: 1.15
+  pushForce: 5
+  critChance: 0.1
+  critMultiplier: 2
+  attackSound: {fileID: 8300000, guid: 60cdfaadf717a418ab32f0a057cbedef, type: 3}

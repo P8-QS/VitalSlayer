@@ -162,12 +162,6 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  baseMinDamage: 3
-  baseMaxDamage: 10
-  damageScalingFactor: 1.15
-  basePushForce: 10
-  critChance: 0.1
-  critMultiplier: 2
   canAttack: 0
   spriteRenderer: {fileID: 0}
   hit: {fileID: 8300000, guid: 9453cfef893cf429bb68a0d8e423e61b, type: 3}
@@ -412,11 +406,9 @@ MonoBehaviour:
   hitpoint: 25
   maxHitpoint: 25
   currentSpeed: 0
-  level: 0
-  playerStats: {fileID: 11400000, guid: 2e9b7c5fcf5b7ec49a07582784fc0e21, type: 2}
+  level: 1
+  playerStats: {fileID: 11400000, guid: 7685d1c861d33a84fb77bcd66c7007ab, type: 2}
   animator: {fileID: 153506810354474381}
-  attackCooldown: 2
-  lastAttackTime: 0
   movementJoystick: {fileID: 0}
 --- !u!61 &7153521390909858909
 BoxCollider2D:
