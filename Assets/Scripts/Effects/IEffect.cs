@@ -1,4 +1,3 @@
-using NUnit.Framework.Internal.Commands;
 using UnityEngine;
 
 namespace Effects
