@@ -90,6 +90,7 @@ public class GameSummaryManager : MonoBehaviour
         LoggingManager.Instance.LogGameSummary(gameWon, totalEnemies, xpGained,  levelGained, roundStartTime);
 
         // Reset the summary
+        StateManager.Instance.SaveState();
         Reset();
     }
 }

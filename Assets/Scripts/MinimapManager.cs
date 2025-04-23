@@ -1,13 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dungeon;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class MinimapManager : MonoBehaviour
 {
-    public List<RoomInstance> VisitedRooms = new();
+    public List<string> VisitedRooms = new();
 
     public static MinimapManager Instance;
 
@@ -34,14 +33,14 @@ public class MinimapManager : MonoBehaviour
 
     public void UpdateMinimap(RoomInstance currentRoom)
     {
-        VisitedRooms.Add(currentRoom);
+        VisitedRooms.Add(currentRoom.GameObject.name);
 
         var rooms = GetRooms();
 
         foreach (var room in rooms)
         {
             var fogController = room.GameObject.GetComponent<RoomFogController>();
-            
+
             if (fogController == null)
             {
                 continue;
@@ -52,12 +51,12 @@ public class MinimapManager : MonoBehaviour
                 fogController.SetFog(false);
                 continue;
             }
-            
+
             var isAdjacent = room.RoomScript.connectedDoors
                 .Any(door => door.RoomB == currentRoom.RoomScript || door.RoomA == currentRoom.RoomScript);
-            
+
             var adjacentVisible = AdjacentRoomsVisible && isAdjacent;
-            var visitedVisible = VisitedRoomsVisible && VisitedRooms.Contains(room);
+            var visitedVisible = VisitedRoomsVisible && VisitedRooms.Contains(room.GameObject.name);
             var fogEnabled = !visitedVisible && !adjacentVisible;
 
             fogController.SetFog(fogEnabled);
