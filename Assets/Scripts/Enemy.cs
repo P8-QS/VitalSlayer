@@ -1,6 +1,4 @@
 using UnityEngine;
-using Effects;
-using Unity.VisualScripting;
 
 public class Enemy : Mover
 {

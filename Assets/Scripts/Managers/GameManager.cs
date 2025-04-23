@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Dungeon;
-using Effects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

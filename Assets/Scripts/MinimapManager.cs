@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Dungeon;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class MinimapManager : MonoBehaviour
 {
