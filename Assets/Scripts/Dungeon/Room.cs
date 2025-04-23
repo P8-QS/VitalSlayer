@@ -29,11 +29,15 @@ namespace Dungeon
         [HideInInspector]
         public bool isPlayerInside;
 
-        private readonly List<Transform> _doorTransforms = new();
         public readonly List<GameObject> RoomEnemies = new();
+        private readonly List<Transform> _doorTransforms = new();
         private Bounds? _calculatedBounds;
         private bool _isCleared;
 
+        private bool _firstCheck = true;
+        private float _doorCloseDelay = 0.5f;
+        private bool _shouldCloseDoors = false;
+        private float _doorCloseTimer = 0f;
 
 #if UNITY_EDITOR
         public void PopulateDoorDataFromChildren()
@@ -57,38 +61,34 @@ namespace Dungeon
             Debug.Log($"Populated door data for {gameObject.name}", this);
         }
 #endif
-        private bool firstCheck = true;
-        private float doorCloseDelay = 0.5f;
-        private bool shouldCloseDoors = false;
-        private float doorCloseTimer = 0f;
-        private void Awake()
+        
+        private void Start()
         {
             FindDoorTransforms();
-            //Awake is ran before enemies have been spawned, this this always resulting in doors not acting as expected.
-            //FindEnemiesInRoom();
+            FindEnemiesInRoom();
+            
+            var trigger = GetComponentInChildren<RoomTrigger>();
+            if (trigger != null)
+            {
+                trigger.OnPlayerEnterRoom += OnPlayerEnterRoom;
+            }
         }
-
+        
         private void Update()
         {
-            while (RoomEnemies.Count == 0 && firstCheck)
-            {
-                FindEnemiesInRoom();
-                firstCheck = false;
-            }
-
             if (_isCleared)
                 return;
 
-            if (isPlayerInside && RoomEnemies.Count > 0 && !shouldCloseDoors)
+            if (isPlayerInside && RoomEnemies.Count > 0 && !_shouldCloseDoors)
             {
-                shouldCloseDoors = true;
-                doorCloseTimer = 0f;
+                _shouldCloseDoors = true;
+                _doorCloseTimer = 0f;
 
             }
-            if (shouldCloseDoors)
+            if (_shouldCloseDoors)
             {
-                doorCloseTimer += Time.deltaTime;
-                if (doorCloseTimer >= doorCloseDelay)
+                _doorCloseTimer += Time.deltaTime;
+                if (_doorCloseTimer >= _doorCloseDelay)
 
                 {
                     foreach (var door in connectedDoors)
@@ -114,7 +114,7 @@ namespace Dungeon
             // If all enemies are defeated and the player is inside the room, open the doors
             if (allDefeated && isPlayerInside)
             {
-                //_isCleared = true;
+                _isCleared = true;
 
                 foreach (var door in connectedDoors)
                 {
@@ -138,29 +138,7 @@ namespace Dungeon
                 }
             }
         }
-
-        private void FindDoorTransforms()
-        {
-            _doorTransforms.Clear();
-
-            foreach (Transform child in transform)
-            {
-                if (!child.name.StartsWith("Door_")) continue;
-
-                var dir = GetDoorDirection(child);
-                if (dir == null) continue;
-
-                if (doorData.Any(data => data.direction == dir && Vector3.Distance(data.localPosition, child.localPosition) < 0.01f))
-                {
-                    _doorTransforms.Add(child);
-                }
-                else
-                {
-                    Debug.LogWarning($"Door transform {child.name} found but no matching entry in doorData list.", this);
-                }
-            }
-        }
-
+        
         public List<Transform> GetDoorTransforms()
         {
             if (_doorTransforms.Count == 0)
@@ -237,6 +215,33 @@ namespace Dungeon
             bounds.center += simulatedWorldPosition;
 
             return bounds;
+        }
+        
+        private void OnPlayerEnterRoom()
+        {
+            isPlayerInside = true;
+        }
+
+        private void FindDoorTransforms()
+        {
+            _doorTransforms.Clear();
+
+            foreach (Transform child in transform)
+            {
+                if (!child.name.StartsWith("Door_")) continue;
+
+                var dir = GetDoorDirection(child);
+                if (dir == null) continue;
+
+                if (doorData.Any(data => data.direction == dir && Vector3.Distance(data.localPosition, child.localPosition) < 0.01f))
+                {
+                    _doorTransforms.Add(child);
+                }
+                else
+                {
+                    Debug.LogWarning($"Door transform {child.name} found but no matching entry in doorData list.", this);
+                }
+            }
         }
     }
 }

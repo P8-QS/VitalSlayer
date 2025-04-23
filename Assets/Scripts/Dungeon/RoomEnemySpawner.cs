@@ -77,7 +77,6 @@ public class RoomEnemySpawner : MonoBehaviour
         // If fog is removed and enemies haven't been spawned yet, spawn them
         if (!isFogActive && !hasSpawnedEnemies)
         {
-            Debug.Log($"Fog cleared in room {gameObject.name}, spawning enemies");
             SpawnEnemiesInRoom();
             hasSpawnedEnemies = true;
         }
@@ -85,8 +84,6 @@ public class RoomEnemySpawner : MonoBehaviour
 
     private void SpawnEnemiesInRoom()
     {
-        Debug.Log($"Spawning enemies in room: {gameObject.name}");
-
         int roomIndex = EntitySpawner.Instance.rooms.IndexOf(gameObject);
         if (roomIndex == -1)
         {
