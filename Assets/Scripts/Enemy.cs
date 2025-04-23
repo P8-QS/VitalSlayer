@@ -1,11 +1,13 @@
 using UnityEngine;
 using Effects;
+using Unity.VisualScripting;
 
 public class Enemy : Mover
 {
+    [HideInInspector]
+    public BaseEnemyStats enemyStats;
+
     // Logic
-    public float triggerLength = 1;
-    public float chaseLength = 5;
     protected bool chasing;
     protected bool collidingWithPlayer;
     protected Transform playerTransform;
@@ -29,28 +31,44 @@ public class Enemy : Mover
     // Hitbox
     public ContactFilter2D filter;
     public BoxCollider2D hitBox;
-    public Collider2D[] hits = new Collider2D[10];
-
-    public AudioClip deathSound;
-
+    [HideInInspector] public Collider2D[] hits = new Collider2D[10];
 
     protected override void Start()
     {
+        if (enemyStats == null)
+        {
+            Debug.LogError("Enemy stats not assigned to " + gameObject.name);
+            return;
+        }
+
+        if (stats == null)
+        {
+            stats = enemyStats;
+        }
+
         base.Start();
         playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
 
+    protected void SetEnemyStats(BaseEnemyStats newStats)
+    {
+        enemyStats = newStats;
+        SetStats(newStats);
+    }
+
     protected void FixedUpdate()
     {
         if (!playerTransform) return;
 
+        float chaseDistance = enemyStats != null ? enemyStats.chaseLength : 5f;
+        float triggerDistance = enemyStats != null ? enemyStats.triggerLength : 1f;
 
         // Is the player in range?
-        if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
+        if (Vector3.Distance(playerTransform.position, startingPosition) < chaseDistance)
         {
-            if (HasLineOfSight() && Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
+            if (HasLineOfSight() && Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
             {
                 chasing = true;
             }
@@ -73,7 +91,6 @@ public class Enemy : Mover
             chasing = false;
         }
 
-        // Check for overlaps
         collidingWithPlayer = false;
         boxCollider.Overlap(filter, hits);
 
@@ -89,7 +106,6 @@ public class Enemy : Mover
                 collidingWithPlayer = true;
             }
 
-            // Reset array
             hits[i] = null;
         }
     }
@@ -117,13 +133,14 @@ public class Enemy : Mover
         {
         if (!isPhantom)
         {
-            int xp = ExperienceManager.Instance.AddEnemy(1);
+            int xp = ExperienceManager.Instance.AddEnemy(level);
             GameSummaryManager.Instance.AddEnemy();
             FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
                 1.0f);
         }
 
-        SoundFxManager.Instance.PlaySound(deathSound, 0.5f);
+        SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);
+
         Destroy(gameObject);
     }
 }

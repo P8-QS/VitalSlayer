@@ -1,31 +1,35 @@
 using UnityEngine;
+using System;
+using Dungeon;
 
-namespace Dungeon
+public class RoomTrigger : MonoBehaviour
 {
-    public class RoomTrigger : MonoBehaviour
+    public event Action OnPlayerEnterRoom;
+
+    private Room _room;
+    private bool _hasBeenTriggered;
+
+    private void Awake()
     {
-        private Room _room;
-        private bool _hasBeenTriggered;
+        _room = GetComponentInParent<Room>();
+    }
 
-        private void Awake()
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (_hasBeenTriggered) return;
+        if (!other.CompareTag("Player"))
         {
-            _room = GetComponentInParent<Room>();
+            _room.isPlayerInside = false;
+            return;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (_hasBeenTriggered) return;
-            if (!other.CompareTag("Player"))
-            {
-                _room.isPlayerInside = false;
-                return;
-            };
-            _hasBeenTriggered = true;
-            _room.isPlayerInside = true;
+        _hasBeenTriggered = true;
+        _room.isPlayerInside = true;
 
-            var roomGo = transform.parent.gameObject;
-            var room = new RoomInstance(roomGo, _room);
-            MinimapManager.Instance.UpdateMinimap(room);
-        }
+        var roomGo = transform.parent.gameObject;
+        var room = new RoomInstance(roomGo, _room);
+        MinimapManager.Instance.UpdateMinimap(room);
+
+        OnPlayerEnterRoom?.Invoke();
     }
 }

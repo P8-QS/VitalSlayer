@@ -116,12 +116,6 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   enemy: {fileID: 0}
-  baseMinDamage: 1
-  baseMaxDamage: 1
-  damageScalingFactor: 1.1
-  pushForce: 5
-  critChance: 0.1
-  critMultiplier: 1.5
 --- !u!61 &3667946519810245338
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -371,12 +365,6 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   enemy: {fileID: 0}
-  baseMinDamage: 1
-  baseMaxDamage: 1
-  damageScalingFactor: 1.1
-  pushForce: 5
-  critChance: 0.1
-  critMultiplier: 1.5
 --- !u!61 &7788382818662538674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -552,16 +540,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e964a396ca9e70b4ea02c3a5b266bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 50
-  healthScalingFactor: 1.2
   hitpoint: 100
   maxHitpoint: 100
-  pushRecoverySpeed: 0.2
-  level: 1
-  baseSpeed: 1
   currentSpeed: 0
-  triggerLength: 5
-  chaseLength: 10
+  level: 1
+  enemyStats: {fileID: 0}
   filter:
     useTriggers: 0
     useLayerMask: 0
@@ -588,14 +571,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
-  fireballSpeed:
-  - 2.5
-  - -2.5
-  distance: 0.25
-  fireballs:
-  - {fileID: 259320759020967408}
-  - {fileID: 2612123055764867860}
+  redBossStats: {fileID: 11400000, guid: 729339d70e4061244ab4b915dc3b48aa, type: 2}
 --- !u!61 &5716022383855224245
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -768,9 +744,3 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   enemy: {fileID: 0}
-  baseMinDamage: 1
-  baseMaxDamage: 1
-  damageScalingFactor: 1.1
-  pushForce: 8
-  critChance: 0.1
-  critMultiplier: 1.5

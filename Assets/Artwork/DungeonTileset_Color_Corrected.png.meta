@@ -5951,7 +5951,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_16x16DungeonTileset_Color_Corrected_278
+      name: fireball_minion
       rect:
         serializedVersion: 2
         x: 32
@@ -7034,7 +7034,6 @@ TextureImporter:
       0x72_16x16DungeonTileset_Color_Corrected_275: -1588820691
       0x72_16x16DungeonTileset_Color_Corrected_276: 713907719
       0x72_16x16DungeonTileset_Color_Corrected_277: 731852109
-      0x72_16x16DungeonTileset_Color_Corrected_278: -214966990
       0x72_16x16DungeonTileset_Color_Corrected_279: -1595039715
       0x72_16x16DungeonTileset_Color_Corrected_28: 2153313479990196577
       0x72_16x16DungeonTileset_Color_Corrected_280: -271636
@@ -7153,6 +7152,7 @@ TextureImporter:
       DungeonTileset_Color_Corrected_2: -263560834
       doorClosed: 146985855
       doorOpen: -300032663
+      fireball_minion: -214966990
       torch_0: -1684632002
       torch_1: -372233162
       torch_2: -1820072652

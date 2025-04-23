@@ -1,8 +1,11 @@
 using Dungeon;
 using UnityEngine;
+using System;
 
 public class RoomFogController : MonoBehaviour
 {
+    public event Action<bool> OnFogVisibilityChanged;
+
     public GameObject fogOverlay; // Assign in inspector or find via script
 
     public void SetFog(bool active)
@@ -20,7 +23,7 @@ public class RoomFogController : MonoBehaviour
         var enemies = room.RoomEnemies;
 
         Debug.Log("Found " + enemies.Count + " enemies in room: " + gameObject.name);
-        
+
         foreach (var enemy in enemies)
         {
             var enemyFog = enemy.transform.Find("Minimap GFX")?.gameObject;
@@ -29,5 +32,6 @@ public class RoomFogController : MonoBehaviour
                 enemyFog.SetActive(!active);
             }
         }
+        OnFogVisibilityChanged?.Invoke(active);
     }
 }

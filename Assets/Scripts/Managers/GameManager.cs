@@ -16,7 +16,12 @@ public class GameManager : MonoBehaviour
     public Player player;
 
     public int mapSize = 3;
-    
+
+    [Header("Enemy Spawning")]
+    public int minEnemiesPerRoom = 1;
+    public int maxEnemiesPerRoom = 3;
+    public int phantomEnemiesPerRoom = 0;
+
     private void Awake()
     {
         // Singleton pattern
@@ -46,7 +51,7 @@ public class GameManager : MonoBehaviour
         // Load the game scene with a transition
         SceneLoader.Instance.LoadSceneWithTransition("Game", () =>
         {
-            Debug.Log("Game scene loaded. Spawning entities.");
+            Debug.Log("Game scene loaded. Generating dungeon.");
 
             var dungeonGenerator = FindFirstObjectByType<DungeonGenerator>();
             dungeonGenerator.roomCount = mapSize;
@@ -58,12 +63,27 @@ public class GameManager : MonoBehaviour
             var world = GameObject.FindGameObjectWithTag("World");
             EntitySpawner.Instance.entityParent = world.transform;
 
-            EntitySpawner.Instance.FillRoomsWithEntities(0, 2);
+            // Only spawn the player in the first room
+            int playerRoomIndex = 0;
+            var player = EntitySpawner.Instance.SpawnPlayer(playerRoomIndex);
+            GameManager.Instance.player = player;
 
-            // TODO: Ideally we would just do this in Reset(), but that is called
-            // always called when we show the game summary
+            // Add RoomEnemySpawner to all rooms if they don't already have it
+            foreach (var room in rooms)
+            {
+                if (room.GetComponent<RoomEnemySpawner>() == null)
+                {
+                    room.AddComponent<RoomEnemySpawner>();
+                }
+            }
+
+            var bossRoom = rooms[rooms.Count - 1].GetComponent<RoomEnemySpawner>();
+            if (bossRoom != null)
+            {
+                bossRoom.isBossRoom = true;
+            }
+
             GameSummaryManager.Instance.roundStartTime = DateTime.UtcNow;
-
             GameSummaryManager.Instance.Reset();
             MinimapManager.Instance.VisitedRooms.Clear();
         });

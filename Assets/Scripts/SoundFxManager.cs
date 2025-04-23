@@ -8,7 +8,7 @@ public class SoundFxManager : MonoBehaviour
 
     public AudioSource soundFxObject;
     private AudioSource _musicSource;
-    
+
     public AudioClip clickSound;
 
 
@@ -35,6 +35,11 @@ public class SoundFxManager : MonoBehaviour
     /// </summary>
     public void PlaySound(AudioClip clip, Transform parent, float volume = 1f)
     {
+        if (clip == null)
+        {
+            Debug.LogWarning("SoundFxManager: Attempted to play a null clip.");
+            return;
+        }
         AudioSource audioSource = Instantiate(soundFxObject, parent);
         audioSource.clip = clip;
         audioSource.volume = volume;
@@ -129,7 +134,7 @@ public class SoundFxManager : MonoBehaviour
             _musicSource.Stop();
         }
     }
-    
+
     /// <summary>
     /// Play UI click sound.
     /// </summary>

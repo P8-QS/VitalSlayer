@@ -106,12 +106,6 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   enemy: {fileID: 0}
-  baseMinDamage: 1
-  baseMaxDamage: 3
-  damageScalingFactor: 1.1
-  pushForce: 5
-  critChance: 0.1
-  critMultiplier: 1.5
   acidMinDamage: 1
   acidMaxDamage: 1
   acidDuration: 3
@@ -264,16 +258,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0ea2f895e2f584b99e4ab10cd422aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 5
-  healthScalingFactor: 1.2
   hitpoint: 15
   maxHitpoint: 15
-  pushRecoverySpeed: 0.2
-  level: 1
-  baseSpeed: 1
   currentSpeed: 0
-  triggerLength: 3
-  chaseLength: 5
+  level: 1
+  enemyStats: {fileID: 0}
   filter:
     useTriggers: 0
     useLayerMask: 0
@@ -300,14 +289,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
-  acidColor: {r: 0, g: 1, b: 0, a: 1}
+  acidSlimeStats: {fileID: 11400000, guid: 8ff62710c351bcc4798fdae2b35c6227, type: 2}
   toxicPuddlePrefab: {fileID: 6172137587265226630, guid: 67b531d3ab993804abddd5e793bb1a2d, type: 3}
-  puddleDuration: 7
-  puddleBaseMinDamage: 1
-  puddleBaseMaxDamage: 3
-  puddleBaseScaling: 1.2
-  puddleSlowFactor: 0.25
 --- !u!61 &3455501692796417109
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4303373275712784214}
   - component: {fileID: 5436314793241927997}
   - component: {fileID: 1449387699967367181}
-  - component: {fileID: 5803905076546102479}
   - component: {fileID: 6307006354632205093}
+  - component: {fileID: 4647274742629633953}
   m_Layer: 6
   m_Name: RedEnemy
   m_TagString: Fighter
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 961828433
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 5469658372286618560, guid: 27582ee1d4fecf640a88e1e300d87d97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -161,7 +161,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07121667, y: 0.08092009}
   m_EdgeRadius: 0
---- !u!114 &5803905076546102479
+--- !u!114 &6307006354632205093
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,19 +170,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1116263164795065179}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 931989ca136f7784194d1c5d326ebf27, type: 3}
+  m_Script: {fileID: 11500000, guid: 13c7e6dde825d3e4a8ef2ac8bc44fe2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 10
-  healthScalingFactor: 1.2
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashTime: 0.25
+  _flashSpeedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &4647274742629633953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116263164795065179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f33a06bc6b78b741a2540ebd997bf9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   hitpoint: 15
   maxHitpoint: 15
-  pushRecoverySpeed: 0.2
-  level: 1
-  baseSpeed: 1
   currentSpeed: 0
-  triggerLength: 2
-  chaseLength: 3
+  level: 1
+  enemyStats: {fileID: 0}
   filter:
     useTriggers: 0
     useLayerMask: 0
@@ -209,27 +224,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  deathSound: {fileID: 8300000, guid: 48cad7ffd0d7547fda77bba67b2ee862, type: 3}
---- !u!114 &6307006354632205093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116263164795065179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13c7e6dde825d3e4a8ef2ac8bc44fe2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _flashColor: {r: 1, g: 1, b: 1, a: 1}
-  _flashTime: 0.25
-  _flashSpeedCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  redEnemyStats: {fileID: 11400000, guid: b3aa8c856fcafeb4b84288d0e098d8c5, type: 2}
 --- !u!1 &2267502000419641557
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,9 +418,3 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   enemy: {fileID: 0}
-  baseMinDamage: 1
-  baseMaxDamage: 1
-  damageScalingFactor: 1.1
-  pushForce: 3
-  critChance: 0.1
-  critMultiplier: 1.5

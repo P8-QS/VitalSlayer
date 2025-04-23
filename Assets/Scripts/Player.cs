@@ -2,28 +2,40 @@ using UnityEngine;
 
 public class Player : Mover
 {
+    [Header("Stats")]
+    public PlayerStats playerStats;
+
+    [Header("References")]
     public Animator animator;
-    public float attackCooldown = 2.0f;
-    public float lastAttackTime = 0f;
+
+    private float lastAttackTime = 0f;
     private Weapon weapon;
     private Animator weaponAnimator;
     public Joystick movementJoystick;
     private float hitAnimationTimer = 0f;
-    private const float HIT_ANIMATION_DURATION = 0.15f; // Duration in seconds
-
-    public AudioClip attackSound;
-    public AudioClip deathSound;
-
+    private const float HIT_ANIMATION_DURATION = 0.15f;
 
     protected override void Start()
     {
+        if (playerStats == null)
+        {
+            Debug.LogError("Player stats not assigned to " + gameObject.name);
+            return;
+        }
+
+        SetStats(playerStats);
+        weapon = GetComponentInChildren<Weapon>();
+
         level = ExperienceManager.Instance.Level;
         base.Start();
+
         boxCollider = GetComponent<BoxCollider2D>();
         initialSize = transform.localScale;
+
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
-        weapon = weaponObj.GetComponent<Weapon>();
+
         weaponAnimator = weaponObj.GetComponent<Animator>();
+
         movementJoystick = GameObject.Find("Canvas").transform.Find("Safe Area").Find("Variable Joystick")
             .GetComponent<Joystick>();
 
@@ -36,7 +48,6 @@ public class Player : Mover
             }
         }
 
-        // Get the animator component if not already assigned in Inspector
         if (animator == null)
             animator = GetComponent<Animator>();
     }
@@ -44,7 +55,6 @@ public class Player : Mover
     private void Update()
     {
         // Show level above player
-        // TODO: Er det her scuffed?
         FloatingTextManager.Instance.Show("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
             Vector3.zero, 0.0001f);
 
@@ -66,7 +76,7 @@ public class Player : Mover
         Animate(input);
         UpdateMotor(input);
 
-        if (Time.time >= lastAttackTime + attackCooldown)
+        if (Time.time >= lastAttackTime + playerStats.attackCooldown)
         {
             Attack();
         }
@@ -74,7 +84,7 @@ public class Player : Mover
 
     public void Attack()
     {
-        SoundFxManager.Instance.PlaySound(attackSound, transform, 0.8f);
+        SoundFxManager.Instance.PlaySound(playerStats.attackSound, transform, 0.8f);
         lastAttackTime = Time.time;
         weaponAnimator.SetTrigger("Attack");
         weapon.canAttack = true;
@@ -101,7 +111,7 @@ public class Player : Mover
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySound(deathSound, 1f);
+        SoundFxManager.Instance.PlaySound(playerStats.deathSound, 1f);
         Destroy(gameObject);
         GameSummaryManager.Instance.Show();
     }
