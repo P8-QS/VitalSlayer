@@ -87,7 +87,17 @@ public class Player : Mover
     {
         SoundFxManager.Instance.PlaySound(playerStats.attackSound, transform, 0.8f);
         lastAttackTime = Time.time;
+
+        float anim_length = GetWeaponAnimationClipLength("weapon_swing");
+
+        if (playerStats.attackCooldown < anim_length)
+        {
+            float anim_speed = anim_length / playerStats.attackCooldown;
+            weaponAnimator.speed = anim_speed;
+        }
+
         weaponAnimator.SetTrigger("Attack");
+
         weapon.canAttack = true;
 
         weapon.CreateSlashEffect();
@@ -135,4 +145,16 @@ public class Player : Mover
             Debug.LogWarning("Animator component not found on Player!");
         }
     }
+
+    private float GetWeaponAnimationClipLength(string clipName)
+    {
+        foreach (var clip in weaponAnimator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == clipName)
+                return clip.length;
+        }
+
+        Debug.LogWarning("Animation clip not found!");
+        return 1f;
+    }       
 }
