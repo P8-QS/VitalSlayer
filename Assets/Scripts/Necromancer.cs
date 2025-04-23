@@ -30,7 +30,7 @@ public class Necromancer : Enemy
     {
         if (Vector3.Distance(playerTransform.position, startingPosition) < (enemyStats != null ? enemyStats.chaseLength : 5f))
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < (enemyStats != null ? enemyStats.triggerLength : 1f))
+            if (HasLineOfSight() && Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
             {
                 chasing = true;
             }

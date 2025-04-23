@@ -33,7 +33,10 @@ public class EffectUI : MonoBehaviour
     void Update()
     {
         // Detect clicks while description box is open
-        if (isDescriptionVisible && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
+        if (isDescriptionVisible && 
+            Touchscreen.current != null && 
+            Touchscreen.current.primaryTouch.press.wasPressedThisFrame ||
+            Mouse.current.leftButton.wasPressedThisFrame)
         {
             HideEffectDescription();
         }
