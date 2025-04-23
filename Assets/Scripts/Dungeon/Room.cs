@@ -79,22 +79,11 @@ namespace Dungeon
             if (_isCleared)
                 return;
 
-            if (isPlayerInside && RoomEnemies.Count > 0 && !_shouldCloseDoors)
+            if (isPlayerInside && RoomEnemies.Count > 0)
             {
-                _shouldCloseDoors = true;
-                _doorCloseTimer = 0f;
-
-            }
-            if (_shouldCloseDoors)
-            {
-                _doorCloseTimer += Time.deltaTime;
-                if (_doorCloseTimer >= _doorCloseDelay)
-
+                foreach (var door in connectedDoors)
                 {
-                    foreach (var door in connectedDoors)
-                    {
-                        door.Close();
-                    }
+                    door.Close();
                 }
             }
 

@@ -19,7 +19,7 @@ MonoBehaviour:
   immuneTime: 1
   deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
   hitSound: {fileID: 8300000, guid: 9453cfef893cf429bb68a0d8e423e61b, type: 3}
-  attackCooldown: 1.5
+  attackCooldown: 2
   baseMinDamage: 3
   baseMaxDamage: 8
   damageScalingFactor: 1.15
@@ -27,3 +27,4 @@ MonoBehaviour:
   critChance: 0.1
   critMultiplier: 2
   attackSound: {fileID: 8300000, guid: 60cdfaadf717a418ab32f0a057cbedef, type: 3}
+  enemyHitSound: {fileID: 0}
