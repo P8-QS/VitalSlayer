@@ -1,18 +1,23 @@
 using UnityEngine;
 
+
 public class Weapon : Collidable
 {
     [HideInInspector] public bool canAttack = false;
     public SpriteRenderer spriteRenderer;
+
+    [Header("Slash Effect")]
+    public GameObject slashEffectPrefab;
+    public Vector2 slashOffset = new Vector2(0.5f, 0f);
+
     private Player player;
-    private PlayerStats playerStats;
+    [HideInInspector] public PlayerStats playerStats;
     private System.Random random = new System.Random();
 
     protected override void Start()
     {
         base.Start();
 
-        // Find parent Player component
         player = GetComponentInParent<Player>();
         if (player == null)
         {
@@ -29,9 +34,9 @@ public class Weapon : Collidable
 
     protected override void OnCollide(Collider2D other)
     {
-        if (canAttack)
+        if (canAttack && slashEffectPrefab == null)
         {
-            Damage damage = calcWeaponDmg();
+            Damage damage = CalcWeaponDmg();
 
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
@@ -42,7 +47,31 @@ public class Weapon : Collidable
         }
     }
 
-    private Damage calcWeaponDmg()
+    public void CreateSlashEffect()
+    {
+        if (slashEffectPrefab == null)
+        {
+            Debug.LogWarning("No slash effect prefab assigned to weapon!");
+            return;
+        }
+
+        bool isFacingRight = player.transform.localScale.x > 0;
+        Vector3 facingDirection = isFacingRight ? Vector3.right : Vector3.left;
+
+        Vector3 slashPosition = transform.position + new Vector3(
+            slashOffset.x * facingDirection.x,
+            isFacingRight ? slashOffset.y : -slashOffset.y,
+            0
+        );
+
+        Quaternion slashRotation = Quaternion.Euler(0, 0, isFacingRight ? 90 : -90);
+        GameObject slashObj = Instantiate(slashEffectPrefab, slashPosition, slashRotation, player.transform);
+
+        SlashEffect slashEffect = slashObj.GetComponent<SlashEffect>();
+        slashEffect.Initialize(this, slashPosition, CalcWeaponDmg());
+    }
+
+    public Damage CalcWeaponDmg()
     {
         int playerLevel = ExperienceManager.Instance.Level;
 

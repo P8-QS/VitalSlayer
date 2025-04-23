@@ -82,12 +82,16 @@ public class Player : Mover
         }
     }
 
+
     public void Attack()
     {
         SoundFxManager.Instance.PlaySound(playerStats.attackSound, transform, 0.8f);
         lastAttackTime = Time.time;
         weaponAnimator.SetTrigger("Attack");
         weapon.canAttack = true;
+
+        weapon.CreateSlashEffect();
+
         Invoke(nameof(DisableWeaponCollider), 0.3f);
     }
 

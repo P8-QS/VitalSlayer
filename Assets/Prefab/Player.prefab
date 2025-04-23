@@ -164,7 +164,8 @@ MonoBehaviour:
     maxNormalAngle: 0
   canAttack: 0
   spriteRenderer: {fileID: 0}
-  hit: {fileID: 8300000, guid: 9453cfef893cf429bb68a0d8e423e61b, type: 3}
+  slashEffectPrefab: {fileID: 6583441689873896192, guid: 04002f450902bf343b4798f478ca449e, type: 3}
+  slashOffset: {x: 0.15, y: 0}
 --- !u!95 &606313415041845470
 Animator:
   serializedVersion: 7
