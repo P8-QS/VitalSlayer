@@ -8,10 +8,6 @@ public interface IPerk
     public int Level { get; set; }
     public string Description();
     public void Apply();
-    
-    public void Upgrade()
-    {
-        Level++;
-        Cost++;
-    }
+
+    public void Upgrade();
 }

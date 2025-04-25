@@ -55,7 +55,7 @@ public class StateManager : MonoBehaviour
 
         var stateString = PlayerPrefs.GetString("SaveState");
         var state = JsonUtility.FromJson<State>(stateString);
-        
+
         ExperienceManager.Instance.Experience = state.experience;
         PerksManager.Instance.Points = state.points;
 
