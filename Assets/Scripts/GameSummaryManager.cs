@@ -88,9 +88,11 @@ public class GameSummaryManager : MonoBehaviour
         if (levelGained > 0) summaryUI.AddSummaryItem("Levels gained", levelGained.ToString());
         
         LoggingManager.Instance.LogGameSummary(gameWon, totalEnemies, xpGained,  levelGained, roundStartTime);
-
-        // Reset the summary
+        
+        PerksManager.Instance.AddPoints(levelGained);
         StateManager.Instance.SaveState();
+        
+        // Reset the summary
         Reset();
     }
 }
