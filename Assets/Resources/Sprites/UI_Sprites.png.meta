@@ -637,6 +637,72 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: perk_cost
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 278
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13611b02033c54afaab7992731588d24
+      internalID: 66928372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perk_level
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 278
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b890b279690941cca4b0f49345bdf5d
+      internalID: 1781617118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perk_cost_disabled
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 278
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c4a9acd740b7449592d3df9aa9af97f
+      internalID: -1354790923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -671,6 +737,9 @@ TextureImporter:
       metric_sleep: -1584988502
       metric_steps: -1623889329
       minimap_base: -1305819460
+      perk_cost: 66928372
+      perk_cost_disabled: -1354790923
+      perk_level: 1781617118
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
