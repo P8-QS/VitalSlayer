@@ -28,10 +28,12 @@ public class PerksManager : MonoBehaviour
         var healthPerk = new HealthPerk();
         var experiencePerk = new ExperiencePerk();
         var attackSpeedPerk = new AttackSpeedPerk();
-
+        var movementSpeedPerk = new MovementSpeedPerk();
+        
         Perks.Add(healthPerk.Name, healthPerk);
         Perks.Add(experiencePerk.Name, experiencePerk);
         Perks.Add(attackSpeedPerk.Name, attackSpeedPerk);
+        Perks.Add(movementSpeedPerk.Name, movementSpeedPerk);
     }
 
     public void Upgrade(IPerk perk)
