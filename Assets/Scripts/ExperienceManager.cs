@@ -24,7 +24,7 @@ public class ExperienceManager
     /// <summary>
     /// The bonus multiplier for experience.
     /// </summary>
-    public readonly double BonusXpMultiplier = 72.5;
+    public readonly double BonusXpMultiplier = 1.5;
 
     /// <summary>
     /// Whether the bonus multiplier is enabled.

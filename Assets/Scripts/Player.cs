@@ -47,6 +47,15 @@ public class Player : Mover
                 metric.Effect.Apply();
             }
         }
+        
+        var perks = PerksManager.Instance?.Perks.Values;
+        if (perks != null)
+        {
+            foreach (var perk in perks)
+            {
+                perk.Apply();
+            }
+        }
 
         if (animator == null)
             animator = GetComponent<Animator>();
