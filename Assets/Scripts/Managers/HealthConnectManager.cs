@@ -40,7 +40,7 @@ namespace Managers
             }
             
             var endDate = DateTime.Today;
-            var startDate = endDate.AddDays(-7);
+            var startDate = endDate.AddDays(-1);
 
             var ldt = new AndroidJavaClass("java.time.LocalDateTime");
             _endLdt = ldt.CallStatic<AndroidJavaObject>("of", endDate.Year, endDate.Month, endDate.Day, 0, 0, 0);
