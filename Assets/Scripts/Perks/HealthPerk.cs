@@ -15,6 +15,6 @@ public class HealthPerk : IPerk
 
     public void Apply()
     {
-        throw new NotImplementedException();
+        Debug.Log("Health perk applied!");
     }
 }
