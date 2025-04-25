@@ -13,14 +13,16 @@ namespace Managers
     {
         public const string Steps = "STEPS";
         public const string SleepSession = "SLEEP_SESSION";
+        public const string ExerciseSession = "EXERCISE_SESSION";
     }
 
     public static class RequiredPermissions
     {
-        public const string ReadSteps = "android.permission.health.READ_STEPS";
-        public const string ReadSleep = "android.permission.health.READ_SLEEP";
+        public const string StepsRead = "android.permission.health.READ_STEPS";
+        public const string SleepRead = "android.permission.health.READ_SLEEP";
+        public const string ExerciseRead = "android.permission.health.READ_EXERCISE";
 
-        public static readonly string[] All = { ReadSteps, ReadSleep };
+        public static readonly string[] All = { StepsRead, SleepRead, ExerciseRead };
     }
     
     public class HealthConnectManager : MonoBehaviour
@@ -38,7 +40,7 @@ namespace Managers
             }
             
             var endDate = DateTime.Today;
-            var startDate = endDate.AddDays(-1);
+            var startDate = endDate.AddDays(-7);
 
             var ldt = new AndroidJavaClass("java.time.LocalDateTime");
             _endLdt = ldt.CallStatic<AndroidJavaObject>("of", endDate.Year, endDate.Month, endDate.Day, 0, 0, 0);
@@ -96,6 +98,7 @@ namespace Managers
             // All required permissions are available from this point
             GetUserSteps();
             GetUserSleepSessions();
+            GetUserExerciseSessions();
         }
         
         private static bool HasAllRequiredPermissions()
@@ -107,11 +110,9 @@ namespace Managers
                 Debug.Log("All Health Connect permissions have not been granted. Requesting from user");
                 return false;    
             }
-            else
-            {
-                Debug.Log("All Health Connect permissions have been granted.");
-                return true;
-            }
+
+            Debug.Log("All Health Connect permissions have been granted.");
+            return true;
         }
 
         private void OnPermissionGranted(string permissionName)
@@ -121,11 +122,14 @@ namespace Managers
 
             switch (permissionName)
             {
-                case RequiredPermissions.ReadSteps:
+                case RequiredPermissions.StepsRead:
                     GetUserSteps();
                     break;
-                case RequiredPermissions.ReadSleep:
+                case RequiredPermissions.SleepRead:
                     GetUserSleepSessions();
+                    break;
+                case RequiredPermissions.ExerciseRead:
+                    GetUserExerciseSessions();
                     break;
             }
         }
@@ -178,6 +182,26 @@ namespace Managers
             
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.SleepSessionRecords, records);
+        }
+        
+        private void GetUserExerciseSessions()
+        {
+            Debug.Log($"Getting user exercise data from: {_startLdt.Call<string>("toString")} to: {_endLdt.Call<string>("toString")}");
+            
+            var timeRangeFilterClass = new AndroidJavaClass("androidx.health.connect.client.time.TimeRangeFilter");
+            var timeRangeFilter = timeRangeFilterClass.CallStatic<AndroidJavaObject>("between", _startLdt, _endLdt);
+            
+            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.ExerciseSession, gameObject.name, "OnExerciseRecordsReceived");
+        }
+        
+        private void OnExerciseRecordsReceived(string response)
+        {
+            Debug.Log("Received Health Connect exercise data response from HealthConnectPlugin!");
+            
+            Debug.Log(response);
+            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ExerciseSessionRecord>>(response);
+            Debug.Log(records.ToString());
+            UserMetricsHandler.Instance.SetData(UserMetricsType.ExerciseSessionRecords, records);
         }
         
         private void RedirectToPlayStore()

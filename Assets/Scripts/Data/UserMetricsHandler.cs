@@ -9,6 +9,7 @@ namespace Data
 {
     public enum UserMetricsType
     {
+        ExerciseSessionRecords,
         StepsRecords,
         SleepSessionRecords,
         TotalScreenTime
@@ -31,10 +32,17 @@ namespace Data
         /// </summary>
         public IReadOnlyCollection<SleepSessionRecord> SleepSessionRecords { get; private set; }
         
+        /// <summary>
+        /// Contains the user's exercise session records. Can be null, so either null check or use the event instead.
+        /// </summary>
+        public IReadOnlyCollection<ExerciseSessionRecord> ExerciseSessionRecords { get; private set; } 
+        
         public long TotalScreenTime { get; private set; }
 
         public event Action<IReadOnlyCollection<StepsRecord>> OnStepsRecordsUpdated;
         public event Action<IReadOnlyCollection<SleepSessionRecord>> OnSleepSessionRecordsUpdated;
+        public event Action<IReadOnlyCollection<ExerciseSessionRecord>> OnExerciseSessionRecordsUpdated;
+        
         public event Action<long> OnTotalScreenTimeUpdated;
         
         private void Awake()
@@ -77,6 +85,15 @@ namespace Data
                         Debug.Log("Sleep session records have been updated");
                         LoggingManager.Instance.LogMetric(userMetricsType, SleepSessionRecords);
                         OnSleepSessionRecordsUpdated?.Invoke(SleepSessionRecords);
+                    }
+                    break;
+                case UserMetricsType.ExerciseSessionRecords:
+                    if (data is IReadOnlyCollection<ExerciseSessionRecord> exerciseRecords)
+                    {
+                        ExerciseSessionRecords = exerciseRecords;
+                        Debug.Log("Exercise records have been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, ExerciseSessionRecords);
+                        OnExerciseSessionRecordsUpdated?.Invoke(ExerciseSessionRecords);
                     }
                     break;
                 case UserMetricsType.TotalScreenTime:

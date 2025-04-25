@@ -1,29 +1,34 @@
-using UnityEngine;
-using Metrics;
 using System.Collections.Generic;
+using Metrics;
+using UnityEngine;
 
-public class MetricsManager : MonoBehaviour
+namespace Managers
 {
-    public static MetricsManager Instance { get; private set; }
-    public Dictionary<string, IMetric> metrics = new Dictionary<string, IMetric>();
-
-    void Start()
+    public class MetricsManager : MonoBehaviour
     {
-        if (Instance == null)
-        {
-            Instance = this;
+        public static MetricsManager Instance { get; private set; }
+        public Dictionary<string, IMetric> metrics = new Dictionary<string, IMetric>();
 
-            StepsMetric stepsMetric = new StepsMetric();
-            SleepMetric sleepMetric = new SleepMetric();
-            ScreenTimeMetric screenTimeMetric = new ScreenTimeMetric();
-
-            if (stepsMetric.Data != null) metrics.Add(stepsMetric.Name, stepsMetric);
-            if (sleepMetric.Data != null) metrics.Add(sleepMetric.Name, sleepMetric);
-            if (screenTimeMetric.Data != 0) metrics.Add(screenTimeMetric.Name, screenTimeMetric);
-        }
-        else
+        public void Start()
         {
-            Destroy(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+
+                var stepsMetric = new StepsMetric();
+                var sleepMetric = new SleepMetric();
+                // var exerciseMetric = new ExerciseMetric();
+                var screenTimeMetric = new ScreenTimeMetric();
+
+                if (stepsMetric.Data != null) metrics.Add(stepsMetric.Name, stepsMetric);
+                if (sleepMetric.Data != null) metrics.Add(sleepMetric.Name, sleepMetric);
+                // if (exerciseMetric.Data != null) metrics.Add(exerciseMetric.Name, exerciseMetric);
+                if (screenTimeMetric.Data != 0) metrics.Add(screenTimeMetric.Name, screenTimeMetric);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
