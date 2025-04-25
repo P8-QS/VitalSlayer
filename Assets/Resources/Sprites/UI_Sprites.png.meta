@@ -593,6 +593,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: metric_exercise
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 650
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ab29add9d0d483eaddca278ac04e63
+      internalID: -1992498260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_crit_chance
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a60afd45b5660464d9fcc5358463ce4b
+      internalID: -947679280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -614,6 +658,7 @@ TextureImporter:
       effect_attack_speed: -230250835
       effect_base_negative: -1510483472
       effect_base_positive: 1603008240
+      effect_crit_chance: -947679280
       effect_fog: 477256500
       effect_hallucination: 1397055168
       effect_scouting: 2133868775
@@ -621,6 +666,7 @@ TextureImporter:
       icon_close: 1150477062
       icon_help: 969690327
       metric_base: 540699176
+      metric_exercise: -1992498260
       metric_screen_time: -1068340718
       metric_sleep: -1584988502
       metric_steps: -1623889329
