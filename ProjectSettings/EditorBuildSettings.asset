@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Metrics.unity
     guid: 973681afbfeff4c349df4763fd360f1d
   - enabled: 1
+    path: Assets/Scenes/Perks.unity
+    guid: ccbfb8fac70ec4e17bc2fee687bf9e90
+  - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: e12eddd9fb769894093bc01bb354a7e7
   - enabled: 1
