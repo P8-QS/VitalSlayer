@@ -17,12 +17,11 @@ public class TrapManager : MonoBehaviour
     [Range(0, 100)]
     public float damagePercentage = 10f; // Damage as percentage of max HP
     public float animationSpeed = 0.3f;
-    public float checkInterval = 0.05f;
     public bool resetAfterTriggering = true;
 
     private HashSet<Vector3Int> triggeredTraps = new HashSet<Vector3Int>();
-    private float lastCheckTime;
     
+    [SerializeField] private GameObject trapTriggerPrefab;
     public AudioClip trapSound;
 
     void Start()
@@ -32,27 +31,31 @@ public class TrapManager : MonoBehaviour
 
         if (playerTransform == null)
             playerTransform = GameManager.Instance.player.transform;
+
+        SetTrapTriggers();
     }
 
-    void Update()
+    void SetTrapTriggers()
     {
-        if (Time.time - lastCheckTime > checkInterval)
+        foreach (Vector3Int pos in trapTilemap.cellBounds.allPositionsWithin)
         {
-            CheckForTraps();
-            lastCheckTime = Time.time;
+            if (trapTilemap.GetTile(pos) == hiddenTrapTile)
+            {
+                Vector3 worldPos = trapTilemap.GetCellCenterWorld(pos);
+                GameObject triggerObj = Instantiate(trapTriggerPrefab.gameObject, worldPos, Quaternion.identity);
+
+                var trapTrigger = triggerObj.GetComponent<TrapTrigger>();
+                trapTrigger.trapManager = this;
+                trapTrigger.trapCellPosition = pos;
+            }
         }
     }
 
-    void CheckForTraps()
+    public void TriggerTrapAt(Vector3Int cellPosition, GameObject player)
     {
-        if (!playerTransform) return;
-        
-        Vector3Int cellPosition = trapTilemap.WorldToCell(playerTransform.position);
-        TileBase currentTile = trapTilemap.GetTile(cellPosition);
-
-        if (currentTile == hiddenTrapTile && !triggeredTraps.Contains(cellPosition))
+        if (!triggeredTraps.Contains(cellPosition))
         {
-            StartCoroutine(TriggerTrap(cellPosition, playerTransform.gameObject));
+            StartCoroutine(TriggerTrap(cellPosition, player));
         }
     }
 
@@ -79,7 +82,7 @@ public class TrapManager : MonoBehaviour
                 maxPossibleDamage = calculatedDamage
             };
 
-            fighter.SendMessage("ReceiveDamage", dmg);
+            fighter.ReceiveDamage(dmg);
         }
 
         // Play animation
