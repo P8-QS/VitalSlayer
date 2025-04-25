@@ -9,6 +9,8 @@ public class PerksManagerUI : MonoBehaviour
     public TextMeshProUGUI pointsText;
     // public Transform modalParent; // The UI Panel that holds all modals
 
+    private List<PerkCardUI> perksCards = new();
+
     void Start()
     {
         Debug.Log("PerksManagerUI is running!");
@@ -24,19 +26,25 @@ public class PerksManagerUI : MonoBehaviour
         {
             ShowErrorText("No perks available.");
         }
-        
+
         pointsText.text = PerksManager.Instance.Points.ToString();
     }
 
     void Update()
     {
         pointsText.text = PerksManager.Instance.Points.ToString();
+        foreach (var perk in perksCards)
+        {
+            perk.UpdatePerk();
+        }
     }
+
     void AddPerk(IPerk perk)
     {
         GameObject newCard = Instantiate(perkCardPrefab, parentPanel);
         PerkCardUI perkCardUI = newCard.GetComponent<PerkCardUI>();
         perkCardUI.SetPerk(perk);
+        perksCards.Add(perkCardUI);
     }
 
     void ShowErrorText(string message)

@@ -41,7 +41,7 @@ public class PerkCardUI : MonoBehaviour
         }
     }
 
-    private void UpdatePerk()
+    public void UpdatePerk()
     {
         if (perk == null) return;
 

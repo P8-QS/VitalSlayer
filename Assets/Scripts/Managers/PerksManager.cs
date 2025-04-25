@@ -25,12 +25,11 @@ public class PerksManager : MonoBehaviour
     private PerksManager()
     {
         // Add default perks
-        var healthPerk = new HealthPerk
-        {
-            Cost = 1,
-            Level = 1
-        };
+        var healthPerk = new HealthPerk();
         Perks.Add(healthPerk.Name, healthPerk);
+
+        var experiencePerk = new ExperiencePerk();
+        Perks.Add(experiencePerk.Name, experiencePerk);
     }
 
     public void Upgrade(IPerk perk)
@@ -49,6 +48,7 @@ public class PerksManager : MonoBehaviour
 
         Points -= perk.Cost;
         perk.Upgrade();
+        StateManager.Instance.SaveState();
     }
 
     public void AddPoints(int points)
