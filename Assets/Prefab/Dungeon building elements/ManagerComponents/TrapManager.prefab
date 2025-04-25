@@ -54,4 +54,5 @@ MonoBehaviour:
   animationSpeed: 0.3
   checkInterval: 0.025
   resetAfterTriggering: 1
+  trapTriggerPrefab: {fileID: 7974842640826330014, guid: ce342e78837c7b111bb22505a2ad2f5e, type: 3}
   trapSound: {fileID: 8300000, guid: e45a47d5a9d52425382470d6e88d716b, type: 3}
