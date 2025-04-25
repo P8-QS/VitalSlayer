@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = UnityEngine.SceneManagement.Scene;
@@ -21,15 +22,28 @@ public class StateManager : MonoBehaviour
 
     public void SaveState()
     {
-        Debug.Log("Saving game...");
+        Debug.Log("Saving game state...");
 
-        string s = "";
+        var perks = new List<Perk>();
+        foreach (var perk in PerksManager.Instance.Perks)
+        {
+            perks.Add(new Perk
+            {
+                name = perk.Value.Name,
+                cost = perk.Value.Cost,
+                level = perk.Value.Level,
+            });
+        }
 
-        s += "0" + "|";
-        s += ExperienceManager.Instance.Experience + "|";
-        s += "0";
+        var state = new State
+        {
+            experience = ExperienceManager.Instance.Experience,
+            perks = perks,
+            points = PerksManager.Instance.Points,
+        };
 
-        PlayerPrefs.SetString("SaveState", s);
+        string stateString = JsonUtility.ToJson(state);
+        PlayerPrefs.SetString("SaveState", stateString);
     }
 
     public void LoadState(Scene s, LoadSceneMode mode)
@@ -39,9 +53,27 @@ public class StateManager : MonoBehaviour
             return;
         }
 
-        string[] data = PlayerPrefs.GetString("SaveState").Split('|');
-        int experience = int.Parse(data[1]);
-        ExperienceManager.Instance.Experience = experience;
-        Debug.Log("Loading game...");
+        var stateString = PlayerPrefs.GetString("SaveState");
+        var state = JsonUtility.FromJson<State>(stateString);
+        
+        ExperienceManager.Instance.Experience = state.experience;
+        PerksManager.Instance.Points = state.points;
+
+        // Set perks
+        foreach (var perk in state.perks)
+        {
+            if (PerksManager.Instance.Perks.ContainsKey(perk.name))
+            {
+                PerksManager.Instance.Perks[perk.name].Level = perk.level;
+                PerksManager.Instance.Perks[perk.name].Cost = perk.cost;
+            }
+            else
+            {
+                Debug.Log($"Perk {perk.name} not found in the current perks list.");
+            }
+        }
+
+
+        Debug.Log("Game state loaded!");
     }
 }

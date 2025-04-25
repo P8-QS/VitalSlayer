@@ -46,4 +46,10 @@ public class MainMenuPage : MonoBehaviour
         SoundFxManager.Instance.PlayClickSound();
         SceneLoader.Instance.LoadScene("Metrics");
     }
+    
+    public void ClickPerksButton()
+    {
+        SoundFxManager.Instance.PlayClickSound();
+        SceneLoader.Instance.LoadScene("Perks");
+    }
 }
