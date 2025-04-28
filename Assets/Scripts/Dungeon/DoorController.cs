@@ -14,7 +14,7 @@ namespace Dungeon
         public Sprite openSprite;
         public Sprite closedSprite;
         
-        private bool _isOpen;
+        public bool isOpen;
         private Collider2D _doorCollider;
         private SpriteRenderer _spriteRenderer;
 
@@ -26,20 +26,20 @@ namespace Dungeon
         
         public void Open()
         {
-            if (_isOpen) return;
+            if (isOpen) return;
 
             _spriteRenderer.sprite = openSprite;
             _doorCollider.enabled = false;
-            _isOpen = true;
+            isOpen = true;
         }
 
         public void Close()
         {
-            if (!_isOpen) return;
+            if (!isOpen) return;
             
             _spriteRenderer.sprite = closedSprite;
             _doorCollider.enabled = true;
-            _isOpen = false;
+            isOpen = false;
         }
 
         public bool ConnectsTo(Room room) => room == RoomA || room == RoomB;
