@@ -51,9 +51,9 @@ public class Fighter : MonoBehaviour
             return;
         }
 
-        if (HealthBarManager.Instance != null)
+        if (EnemyUIManager.Instance != null)
         {
-            healthBar = HealthBarManager.Instance.CreateHealthBar(this);
+            healthBar = EnemyUIManager.Instance.CreateHealthBar(this);
         }
 
         maxHitpoint = stats.CalculateMaxHealth(level);
@@ -81,9 +81,9 @@ public class Fighter : MonoBehaviour
     protected virtual void OnDestroy()
     {
         // Remove the health bar when entity is destroyed
-        if (HealthBarManager.Instance != null)
+        if (EnemyUIManager.Instance != null)
         {
-            HealthBarManager.Instance.RemoveHealthBar(this);
+            EnemyUIManager.Instance.RemoveHealthBar(this);
         }
     }
 

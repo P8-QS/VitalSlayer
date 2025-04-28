@@ -1,26 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class HealthBarManager : MonoBehaviour
+public class EnemyUIManager : MonoBehaviour
 {
-    public static HealthBarManager Instance { get; private set; }
+    public static EnemyUIManager Instance { get; private set; }
 
-    [Header("Prefabs")] [Tooltip("The health bar prefab to be instantiated")]
+    [Header("Prefabs")]
+    [Tooltip("The health bar prefab to be instantiated")]
     public GameObject healthBarPrefab;
+    [Tooltip("The level indicator prefab to be instantiated")]
+    public GameObject levelIndicatorPrefab;
 
-    [Header("Settings")] [Tooltip("The parent transform where health bars will be created")]
-    public Transform healthBarContainer;
-
+    [Header("Settings")]
+    [Tooltip("The parent transform where health bars will be created")]
+    public Transform UIContainer;
     [Tooltip("Whether to show health bars only when entities are damaged")]
     public bool showOnlyWhenDamaged = false;
 
     // Dictionary to track active health bars
     private Dictionary<MonoBehaviour, GameObject> activeHealthBars = new Dictionary<MonoBehaviour, GameObject>();
+    // Dictionary to track active level indicators
+    private Dictionary<MonoBehaviour, GameObject> activeLevelIndicators = new Dictionary<MonoBehaviour, GameObject>();
 
     private void Awake()
     {
-        // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
@@ -30,11 +33,10 @@ public class HealthBarManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Create container if it doesn't exist
-        if (healthBarContainer == null)
+        if (UIContainer == null)
         {
-            healthBarContainer = new GameObject("HealthBarContainer").transform;
-            healthBarContainer.SetParent(transform);
+            UIContainer = new GameObject("UIContainer").transform;
+            UIContainer.SetParent(transform);
         }
     }
 
@@ -43,45 +45,67 @@ public class HealthBarManager : MonoBehaviour
     /// </summary>
     /// <param name="entity">The Fighter or Enemy entity</param>
     /// <param name="customOffset">Optional custom offset from entity</param>
-    /// <param name="type">Type of health bar to create</param>
     /// <returns>The created HealthBar component</returns>
     public HealthBar CreateHealthBar(MonoBehaviour entity, Vector3? customOffset = null)
     {
-        // If this entity already has a health bar, return it
         if (activeHealthBars.TryGetValue(entity, out GameObject existingBar))
         {
             return existingBar.GetComponent<HealthBar>();
         }
 
-        // Create new health bar
-        GameObject healthBar = Instantiate(healthBarPrefab, healthBarContainer);
+        GameObject healthBar = Instantiate(healthBarPrefab, UIContainer);
         healthBar.name = $"{entity.name}_HealthBar";
 
-        // Set up the HealthBar component
         HealthBar healthBarComponent = healthBar.GetComponent<HealthBar>();
-
         healthBarComponent.showOnlyWhenDamaged = showOnlyWhenDamaged;
-
-        // Set the target entity
         healthBarComponent.SetTarget(entity);
 
-        // Track this health bar
         activeHealthBars[entity] = healthBar;
+
+        if (entity is Enemy)
+        {
+            CreateLevelIndicator(entity, healthBarComponent);
+        }
 
         return healthBarComponent;
     }
 
+    /// <summary>
+    /// Creates a level indicator for the given enemy entity
+    /// </summary>
+    private void CreateLevelIndicator(MonoBehaviour entity, HealthBar healthBar)
+    {
+        if (levelIndicatorPrefab == null)
+        {
+            Debug.LogWarning("Level indicator prefab not assigned to EnemyUIManager");
+            return;
+        }
+
+        GameObject levelIndicator = Instantiate(levelIndicatorPrefab, UIContainer);
+        levelIndicator.name = $"{entity.name}_LevelIndicator";
+
+        LevelIndicator levelIndicatorComponent = levelIndicator.GetComponent<LevelIndicator>();
+        levelIndicatorComponent.Initialize(entity, healthBar);
+
+        activeLevelIndicators[entity] = levelIndicator;
+    }
 
     /// <summary>
-    /// Removes the health bar for the given entity
+    /// Removes the health bar and level indicator for the given entity
     /// </summary>
-    /// <param name="entity">The entity whose health bar should be removed</param>
+    /// <param name="entity">The entity whose bars should be removed</param>
     public void RemoveHealthBar(MonoBehaviour entity)
     {
         if (activeHealthBars.TryGetValue(entity, out GameObject healthBar))
         {
             Destroy(healthBar);
             activeHealthBars.Remove(entity);
+        }
+
+        if (activeLevelIndicators.TryGetValue(entity, out GameObject levelIndicator))
+        {
+            Destroy(levelIndicator);
+            activeLevelIndicators.Remove(entity);
         }
     }
 
