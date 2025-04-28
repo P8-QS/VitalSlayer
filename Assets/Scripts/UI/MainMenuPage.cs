@@ -38,7 +38,10 @@ public class MainMenuPage : MonoBehaviour
     public void ClickPlayButton()
     {
         SoundFxManager.Instance.PlayClickSound();
-        GameManager.Instance.StartRound();
+        if (ExperienceManager.Instance.BonusXpEnabled)
+            SceneLoader.Instance.LoadScene("MetricsScreen");
+        else
+            GameManager.Instance.StartRound();
     }
 
     public void ClickMetricsButton()
@@ -46,7 +49,7 @@ public class MainMenuPage : MonoBehaviour
         SoundFxManager.Instance.PlayClickSound();
         SceneLoader.Instance.LoadScene("Metrics");
     }
-    
+
     public void ClickPerksButton()
     {
         SoundFxManager.Instance.PlayClickSound();
