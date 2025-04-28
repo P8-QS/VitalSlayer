@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 931989ca136f7784194d1c5d326ebf27
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthPotionPrefab: {fileID: 5097287688909406268, guid: a57e75df47d5a1c4b86dd6117ac09365, type: 3}
+  - enemyStats: {instanceID: 0}
+  - hitBox: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

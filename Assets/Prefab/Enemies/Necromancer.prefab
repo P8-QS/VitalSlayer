@@ -198,6 +198,7 @@ MonoBehaviour:
   maxHitpoint: 5
   currentSpeed: 0.3
   level: 1
+  healthPotionPrefab: {fileID: 5097287688909406268, guid: a57e75df47d5a1c4b86dd6117ac09365, type: 3}
   enemyStats: {fileID: 0}
   filter:
     useTriggers: 0

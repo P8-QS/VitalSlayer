@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Enemy : Mover
 {
+    [Header("Drops")]
+    [Tooltip("Health potion prefab that may drop when enemy dies")]
+    public GameObject healthPotionPrefab;
     [HideInInspector]
     public BaseEnemyStats enemyStats;
 
@@ -135,6 +138,12 @@ public class Enemy : Mover
             GameSummaryManager.Instance.AddEnemy();
             FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
                 1.0f);
+
+
+            if (Random.value < 0.05f && healthPotionPrefab != null)
+             {
+                Instantiate(healthPotionPrefab, transform.position, Quaternion.identity);
+             }
         }
 
         SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);

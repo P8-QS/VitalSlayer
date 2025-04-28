@@ -69,7 +69,8 @@ public class ToxicPuddle : Collidable
                 minPossibleDamage = minDamage,
                 maxPossibleDamage = maxDamage,
                 useCustomColor = true,
-                customColor = new Color(puddleColor.r, puddleColor.g, puddleColor.b, 1f) // Make fully opaque for text
+                /*customColor = new Color(puddleColor.r, puddleColor.g, puddleColor.b, 1f) // Make fully opaque for text */
+                customColor = Color.red // Use red for damage text
             };
 
             target.ApplyDamageOverTime(damage, dotDuration, damageTickRate);

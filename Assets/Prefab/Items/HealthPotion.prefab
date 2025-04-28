@@ -125,7 +125,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.1
+  m_Radius: 0.06
 --- !u!114 &-1583756505958147503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8c9aefa5d481842bbae0f6fb8c5ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healAmount: 1.25
+  healAmount: 0.25
 --- !u!50 &4442075597609154263
 Rigidbody2D:
   serializedVersion: 5
