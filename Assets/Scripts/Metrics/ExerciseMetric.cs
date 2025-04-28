@@ -19,19 +19,17 @@ namespace Metrics
             Data = UserMetricsHandler.Instance.ExerciseSessionRecords;
             Icon = SpriteManager.Instance.GetSprite("metric_exercise");
 
-            if (Data.Count > 0)
+            if (!(Data?.Count > 0)) return;
+            var effectLevel = Data.Sum(exercise => exercise.Duration.TotalMinutes) switch
             {
-                var effectLevel = Data.Sum(exercise => exercise.Duration.TotalMinutes) switch
-                {
-                    > 30 => 2,
-                    > 1 => 1,
-                    _ => 0
-                };
+                > 30 => 2,
+                > 1 => 1,
+                _ => 0
+            };
 
-                if (effectLevel > 0)
-                {
-                    Effect = new CriticalChanceEffect(SpriteManager.Instance.GetSprite("effect_crit_chance"), effectLevel);
-                }
+            if (effectLevel > 0)
+            {
+                Effect = new CriticalChanceEffect(SpriteManager.Instance.GetSprite("effect_crit_chance"), effectLevel);
             }
         }
 

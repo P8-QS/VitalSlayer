@@ -19,6 +19,7 @@ namespace Data
     {
         public string stepsRecordsSamplePath = "Assets/Resources/Data/StepsRecordsSample.json";
         public string sleepRecordsSamplePath = "Assets/Resources/Data/SleepSessionRecordsSample.json";
+        public string exerciseRecordsSamplePath = "Assets/Resources/Data/ExerciseSessionRecordsSample.json";
         
         public static UserMetricsHandler Instance { get; private set; }
         
@@ -128,6 +129,15 @@ namespace Data
             else
             {
                 Debug.LogWarning($"{nameof(UserMetricsHandler)} sleep records sample file not found");
+            }
+
+            if (File.Exists(exerciseRecordsSamplePath))
+            {
+                SetData(UserMetricsType.ExerciseSessionRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<ExerciseSessionRecord>>(File.ReadAllText(exerciseRecordsSamplePath)));
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(UserMetricsHandler)} exercise records sample file not found");
             }
             
             SetData(UserMetricsType.TotalScreenTime, (long)TimeSpan.FromHours(2).TotalMilliseconds);
