@@ -1,9 +1,6 @@
 using System;
-<<<<<<< HEAD
 using System.Collections;
 using System.Threading.Tasks;
-=======
->>>>>>> main
 using Data;
 using Newtonsoft.Json;
 using Unity.Services.Analytics;
@@ -16,11 +13,7 @@ public class LoggingManager : MonoBehaviour
     private bool _isReady = false;
     private Queue _queuedEvents = new();
 
-<<<<<<< HEAD
     async void Awake()
-=======
-    private void Awake()
->>>>>>> main
     {
         if (Instance != null && Instance != this)
         {
