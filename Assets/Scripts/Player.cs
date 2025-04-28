@@ -1,13 +1,14 @@
+using System.Linq;
+using Effects;
 using Managers;
+using NUnit.Framework;
 using UnityEngine;
 
 public class Player : Mover
 {
-    [Header("Stats")]
-    public PlayerStats playerStats;
+    [Header("Stats")] public PlayerStats playerStats;
 
-    [Header("References")]
-    public Animator animator;
+    [Header("References")] public Animator animator;
 
     private float lastAttackTime = 0f;
     private Weapon weapon;
@@ -43,12 +44,12 @@ public class Player : Mover
         var metrics = MetricsManager.Instance?.metrics.Values;
         if (metrics != null)
         {
-            foreach (var metric in metrics)
+            foreach (var effect in metrics.SelectMany(metric => metric.Effects))
             {
-                metric.Effect.Apply();
+                effect.Apply();
             }
         }
-        
+
         var perks = PerksManager.Instance?.Perks.Values;
         if (perks != null)
         {
@@ -166,5 +167,5 @@ public class Player : Mover
 
         Debug.LogWarning("Animation clip not found!");
         return 1f;
-    }       
+    }
 }

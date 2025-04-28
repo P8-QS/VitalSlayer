@@ -11,7 +11,7 @@ namespace Metrics
     {
         public IReadOnlyCollection<ExerciseSessionRecord> Data { get; }
         public string Name => "Exercise";
-        public IEffect Effect { get; }
+        public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
      
         public ExerciseMetric()
@@ -29,14 +29,16 @@ namespace Metrics
 
             if (effectLevel > 0)
             {
-                Effect = new CriticalChanceEffect(SpriteManager.Instance.GetSprite("effect_crit_chance"), effectLevel);
+                Effects.Add(new DodgeTrapsEffect(SpriteManager.Instance.GetSprite("effect_dodge_traps"), 1));
             }
         }
 
         public string Text()
         {
-            return $"You have exercised for <b>{Data.Sum(e => e.Duration.TotalMinutes)} minutes</b>. This gives you {Effect.Text()}.";
+            return $"You have exercised for <b>{Data.Sum(e => e.Duration.TotalMinutes)} minutes</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
+
+        
 
         public string Description()
         {
