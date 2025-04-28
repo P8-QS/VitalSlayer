@@ -53,7 +53,6 @@ MonoBehaviour:
   playerPrefabs:
   - {fileID: 3352625558287108809, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
   entityParent: {fileID: 0}
-  maxEnemiesPerRoom: 4
-  minEnemiesPerRoom: 2
-  phantomEnemiesPerRoom: 0
   rooms: []
+  levelDistribution: {fileID: 11400000, guid: 93ab91e642eaba444bf8fdc02d909057, type: 2}
+  eliteEnemyChance: 0.1
