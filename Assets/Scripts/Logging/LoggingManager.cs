@@ -1,5 +1,6 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
+using System.Threading.Tasks;
 using Data;
 using Newtonsoft.Json;
 using Unity.Services.Analytics;
@@ -9,8 +10,10 @@ using UnityEngine;
 public class LoggingManager : MonoBehaviour
 {
     public static LoggingManager Instance;
+    private bool _isReady = false;
+    private Queue _queuedEvents = new();
 
-    void Awake()
+    async void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -21,8 +24,34 @@ public class LoggingManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        UnityServices.Instance.InitializeAsync();
+        await InitializeUnityServices();
+    }
+
+    private async Task InitializeUnityServices()
+    {
+        await UnityServices.InitializeAsync();
+        Debug.Log("UnityServices Initialized!");
         AnalyticsService.Instance.StartDataCollection();
+
+        _isReady = true;
+
+        while (_queuedEvents.Count > 0)
+        {
+            var logEvent = (Unity.Services.Analytics.Event)_queuedEvents.Dequeue();
+            AnalyticsService.Instance.RecordEvent(logEvent);
+        }
+    }
+
+    private void LogEvent(Unity.Services.Analytics.Event eventLog)
+    {
+        if (_isReady)
+        {
+            AnalyticsService.Instance.RecordEvent(eventLog);
+        }
+        else
+        {
+            _queuedEvents.Enqueue(eventLog);
+        }
     }
 
     public void LogMetric<T>(UserMetricsType type, T data)
@@ -34,7 +63,7 @@ public class LoggingManager : MonoBehaviour
         }
         var metricSetEvent = new MetricSetEvent(type, dataCopy);
 
-        AnalyticsService.Instance.RecordEvent(metricSetEvent);
+        LogEvent(metricSetEvent);
     }
 
     public void LogGameSummary(bool gameWon, int totalEnemies, int xpGained, int levelsGained, DateTime roundStartTime)
@@ -50,6 +79,7 @@ public class LoggingManager : MonoBehaviour
             LevelsGained = levelsGained,
             RoundDuration = roundDuration
         };
-        AnalyticsService.Instance.RecordEvent(gameSummaryEvent);
+
+        LogEvent(gameSummaryEvent);
     }
 }

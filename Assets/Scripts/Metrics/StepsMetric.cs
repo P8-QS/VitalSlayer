@@ -24,11 +24,12 @@ namespace Metrics {
         }
 
         public StepsMetric() {
-            Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
-            
-            Icon = SpriteManager.Instance.GetSprite("metric_steps");
+            if (UserMetricsHandler.Instance.StepsRecords != null)
+            {
+                Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
+                
+                Icon = SpriteManager.Instance.GetSprite("metric_steps");
 
-            if (Data != null) {
                 int effectLevel = Data.StepsCount switch
                 {
                     < 4000 => 1,
@@ -37,6 +38,10 @@ namespace Metrics {
                 };
 
                 _effect = new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel);
+            }
+            else
+            {
+                Data = null;
             }
         }
         public string Text()

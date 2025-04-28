@@ -24,11 +24,11 @@ namespace Metrics {
         }
 
         public SleepMetric() {
-            Data = UserMetricsHandler.Instance.SleepSessionRecords.FirstOrDefault();
-            
-            Icon = SpriteManager.Instance.GetSprite("metric_sleep");
+            if (UserMetricsHandler.Instance.SleepSessionRecords != null) {
+                Data = UserMetricsHandler.Instance.SleepSessionRecords.FirstOrDefault();
+                
+                Icon = SpriteManager.Instance.GetSprite("metric_sleep");
 
-            if (Data != null) {
                 int effectLevel = Data.SleepTime.TotalHours switch
                 {
                     < 5 => 2,
@@ -44,6 +44,10 @@ namespace Metrics {
                 {
                     _effect = new AttackSpeedEffect(SpriteManager.Instance.GetSprite("effect_attack_speed"), effectLevel);
                 }
+            } 
+            else
+            {
+                Data = null;
             }
         }
         public string Text()
