@@ -139,8 +139,8 @@ public class Enemy : Mover
             FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
                 1.0f);
 
-
-            if (Random.value < 0.05f && healthPotionPrefab != null)
+            //Adjust chance of dropping health potion here:
+            if (Random.value < 0.10f && healthPotionPrefab != null)
              {
                 Instantiate(healthPotionPrefab, transform.position, Quaternion.identity);
              }

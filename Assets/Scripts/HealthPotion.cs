@@ -24,8 +24,8 @@ public class HealthPotion : MonoBehaviour
                     player.hitpoint += actualHealAmount;
                     
                     // Show healing effect
-                    FloatingTextManager.Instance.Show("+" + actualHealAmount.ToString(), 25, Color.green, 
-                        transform.position, Vector3.up * 30, 1.0f);
+                    FloatingTextManager.Instance.Show("+" + actualHealAmount.ToString(), 10, Color.green, 
+                        transform.position, Vector3.up, 1.0f);
                         
                     Destroy(gameObject);
                 }
