@@ -9,7 +9,7 @@ public class LoggingManager : MonoBehaviour
 {
     public static LoggingManager Instance;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -28,7 +28,7 @@ public class LoggingManager : MonoBehaviour
     {
         object dataCopy = data;
 
-        if (type == UserMetricsType.SleepSessionRecords || type == UserMetricsType.StepsRecords) {
+        if (type is UserMetricsType.SleepSessionRecords or UserMetricsType.StepsRecords or UserMetricsType.ExerciseSessionRecords) {
             dataCopy = JsonConvert.SerializeObject(data);
         }
         var metricSetEvent = new MetricSetEvent(type, dataCopy);

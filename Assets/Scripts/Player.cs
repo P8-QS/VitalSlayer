@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 
 public class Player : Mover
@@ -45,6 +46,15 @@ public class Player : Mover
             foreach (var metric in metrics)
             {
                 metric.Effect.Apply();
+            }
+        }
+        
+        var perks = PerksManager.Instance?.Perks.Values;
+        if (perks != null)
+        {
+            foreach (var perk in perks)
+            {
+                perk.Apply();
             }
         }
 

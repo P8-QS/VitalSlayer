@@ -69,11 +69,11 @@ public class GameSummaryManager : MonoBehaviour
         if (gameWon)
         {
             ExperienceManager.Instance.AddGameWin();
-            SoundFxManager.Instance.PlaySound(gameWonSound, 1f);
+            SoundFxManager.Instance.PlaySound(gameWonSound, 0.3f);
         }
         else
         {
-            SoundFxManager.Instance.PlaySound(gameLoseSound, 1f);
+            SoundFxManager.Instance.PlaySound(gameLoseSound, 0.3f);
         }
         summaryUI.gameWon = gameWon;
 
@@ -88,9 +88,11 @@ public class GameSummaryManager : MonoBehaviour
         if (levelGained > 0) summaryUI.AddSummaryItem("Levels gained", levelGained.ToString());
         
         LoggingManager.Instance.LogGameSummary(gameWon, totalEnemies, xpGained,  levelGained, roundStartTime);
-
-        // Reset the summary
+        
+        PerksManager.Instance.AddPoints(levelGained);
         StateManager.Instance.SaveState();
+        
+        // Reset the summary
         Reset();
     }
 }

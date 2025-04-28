@@ -34,11 +34,6 @@ namespace Dungeon
         private Bounds? _calculatedBounds;
         private bool _isCleared;
 
-        private bool _firstCheck = true;
-        private float _doorCloseDelay = 0.5f;
-        private bool _shouldCloseDoors = false;
-        private float _doorCloseTimer = 0f;
-
 #if UNITY_EDITOR
         public void PopulateDoorDataFromChildren()
         {
