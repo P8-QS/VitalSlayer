@@ -1,20 +1,22 @@
+using Effects;
 using Metrics;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MetricCardUI : MonoBehaviour
 {
     private IMetric cardMetric;
-    public TextMeshProUGUI titleText;  // Title
-    public TextMeshProUGUI descriptionText;  // Description
-    public GameObject icons;  // Reference to the icons
+    public TextMeshProUGUI titleText; // Title
+    public TextMeshProUGUI descriptionText; // Description
+    public GameObject icons; // Reference to the icons
     public GameObject modal;
     public GameObject cardItemPrefab;
     public Transform modalParent;
 
     public AudioClip clickSound;
-    
+
     // Method to set data dynamically
     public void SetMetric(IMetric metric)
     {
@@ -22,24 +24,36 @@ public class MetricCardUI : MonoBehaviour
 
         titleText.text = cardMetric.Name;
         descriptionText.text = cardMetric.Text();
-        
+
         // Add icons dynamically, the metric icon should be added first
         // Instantiate image metric icon and attach to "icons" GameObject
-        AddIcon(metric.Icon, false);
-        AddIcon(metric.Effect.Icon, true);    
+        AddIcon(metric);
+        foreach (var effect in metric.Effects)
+        {
+            AddIcon(effect, true);
+        }
     }
 
-    private void AddIcon(Sprite icon, bool display_level_indicator)
+    private void AddIcon(IMetric metric)
     {
         GameObject metricIconObject = new GameObject("Icon");
         metricIconObject.transform.SetParent(icons.transform);
         metricIconObject.transform.localScale = Vector3.one;
         var metricIconImage = metricIconObject.AddComponent<Image>();
-        metricIconImage.sprite = icon;
+        metricIconImage.sprite = metric.Icon;
+    }
 
-        if (cardMetric.Effect.Level > 0 && display_level_indicator) 
+    private void AddIcon(IEffect effect, bool displayLevelIndicator)
+    {
+        GameObject metricIconObject = new GameObject("Icon");
+        metricIconObject.transform.SetParent(icons.transform);
+        metricIconObject.transform.localScale = Vector3.one;
+        var metricIconImage = metricIconObject.AddComponent<Image>();
+        metricIconImage.sprite = effect.Icon;
+
+        if (effect.Level > 0 && displayLevelIndicator)
         {
-            GameObject levelIndicatorBackground = new GameObject("LevelIndicatorBackground"); 
+            GameObject levelIndicatorBackground = new GameObject("LevelIndicatorBackground");
             levelIndicatorBackground.transform.SetParent(metricIconObject.transform);
             levelIndicatorBackground.transform.localScale = Vector3.one;
             var levelIndicatorBackgroundImage = levelIndicatorBackground.AddComponent<Image>();
@@ -51,14 +65,14 @@ public class MetricCardUI : MonoBehaviour
             levelIndicatorObject.transform.localPosition = Vector3.zero;
 
             var levelIndicatorText = levelIndicatorObject.AddComponent<TextMeshProUGUI>();
-            levelIndicatorText.text = $"{cardMetric.Effect.Level}";
+            levelIndicatorText.text = $"{effect.Level}";
             levelIndicatorText.fontSize = 12;
-            levelIndicatorText.color = Color.black;  
+            levelIndicatorText.color = Color.black;
             levelIndicatorText.alignment = TextAlignmentOptions.Center;
 
             var levelTextSize = levelIndicatorText.GetPreferredValues();
             var backgroundRect = levelIndicatorBackground.GetComponent<RectTransform>();
-            backgroundRect.sizeDelta = new Vector2(levelTextSize.x + 2, levelTextSize.y); 
+            backgroundRect.sizeDelta = new Vector2(levelTextSize.x + 2, levelTextSize.y);
             backgroundRect.localPosition = new Vector3(14, 12, 0);
         }
     }
@@ -68,24 +82,18 @@ public class MetricCardUI : MonoBehaviour
         SoundFxManager.Instance.PlayClickSound();
         GameObject modalObject = Instantiate(modal, modalParent);
         ModalUI modalUI = modalObject.GetComponent<ModalUI>();
-        
+
         // Create CardItems dynamically
         GameObject cardItem = Instantiate(cardItemPrefab, modalUI.content.transform);
         CardItemUI cardItemUI = cardItem.GetComponent<CardItemUI>();
-        
+
         cardItemUI.SetCard(cardMetric.Icon, cardMetric.Name, cardMetric.Description());
-        
-        bool first = true;
-        foreach (Transform icon in icons.transform)
+
+        foreach (IEffect effect in cardMetric.Effects)
         {
-            if (first)
-            {
-                first = false;
-                continue;
-            }
             GameObject effectItem = Instantiate(cardItemPrefab, modalUI.content.transform);
             CardItemUI effectItemUI = effectItem.GetComponent<CardItemUI>();
-            effectItemUI.SetCard(cardMetric.Effect.Icon, cardMetric.Effect.Name, cardMetric.Effect.Description());
+            effectItemUI.SetCard(effect.Icon, effect.Name, effect.Description());
         }
     }
 }

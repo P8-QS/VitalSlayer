@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Data.Models;
@@ -8,7 +9,6 @@ namespace Metrics {
     public class SleepMetric : IMetric
     {
         private SleepSessionRecord _data;
-        private IEffect _effect;
         private Sprite _icon;
         public string Name => "Sleep";
         public SleepSessionRecord Data
@@ -16,7 +16,7 @@ namespace Metrics {
             get => _data;
             set => _data = value;
         }
-        public IEffect Effect { get => _effect; }
+        public List<IEffect> Effects { get; } = new();
         public Sprite Icon
         {
             get => _icon;
@@ -38,11 +38,12 @@ namespace Metrics {
 
                 if (effectLevel > 0) 
                 {
-                    _effect = new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"), effectLevel);
+                    Effects.Add(new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"),
+                        effectLevel));
                 }
                 else 
                 {
-                    _effect = new AttackSpeedEffect(SpriteManager.Instance.GetSprite("effect_attack_speed"), effectLevel);
+                    Effects.Add(new AttackSpeedEffect(SpriteManager.Instance.GetSprite("effect_attack_speed"), effectLevel));
                 }
             } 
             else
@@ -52,7 +53,7 @@ namespace Metrics {
         }
         public string Text()
         {
-            return $"You have slept <b>{Data.Duration.TotalHours} hours and {Data.Duration.Minutes} minutes</b>. This gives you {Effect.Text()}.";
+            return $"You have slept <b>{Data.Duration.TotalHours} hours and {Data.Duration.Minutes} minutes</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
         public string Description()
         {
