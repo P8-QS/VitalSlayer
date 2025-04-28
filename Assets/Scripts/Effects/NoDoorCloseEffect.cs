@@ -44,8 +44,10 @@ namespace Effects
                 foreach (var door in connectedDoors)
                 {
                     door.isOpen = true;
+                    Debug.Log("Doors is open");
                 }
             }
+            Debug.Log("Doors will open when all the enemies within a rooms are killed");
         }
     }
 }
