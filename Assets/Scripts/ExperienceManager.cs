@@ -83,7 +83,7 @@ public class ExperienceManager
     /// </summary>
     /// <param name="level">Level to reach.</param>
     /// <returns>Experience required to reach the level.</returns>
-    private static int LevelToXpRequired(int level) => (int)Math.Pow(level, 1.5) * 100;
+    private static int LevelToXpRequired(int level) => (int)Math.Pow(level, 2) * 25;
 
 
     /// <summary>
