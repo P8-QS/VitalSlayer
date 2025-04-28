@@ -12,6 +12,7 @@ public class PerkCardUI : MonoBehaviour
     public Sprite enabledIcon;
     public Sprite disabledIcon;
     public GameObject upgradeButton;
+    public AudioClip upgradeSound;
 
     // Method to set data dynamically
     public void SetPerk(IPerk perk)
@@ -53,7 +54,7 @@ public class PerkCardUI : MonoBehaviour
 
     public void OnClick()
     {
-        SoundFxManager.Instance.PlayClickSound();
+        SoundFxManager.Instance.PlaySound(upgradeSound, 0.3f);
         PerksManager.Instance.Upgrade(perk);
         UpdatePerk();
     }
