@@ -14,6 +14,9 @@ namespace Managers
         public const string Steps = "STEPS";
         public const string SleepSession = "SLEEP_SESSION";
         public const string ExerciseSession = "EXERCISE_SESSION";
+        public const string HeartRateVariability = "HEART_RATE_VARIABILITY";
+        public const string ActiveCaloriesBurned = "ACTIVE_CALORIES_BURNED";
+        public const string Vo2Max = "VO2_MAX";
     }
 
     public static class RequiredPermissions
@@ -21,6 +24,9 @@ namespace Managers
         public const string StepsRead = "android.permission.health.READ_STEPS";
         public const string SleepRead = "android.permission.health.READ_SLEEP";
         public const string ExerciseRead = "android.permission.health.READ_EXERCISE";
+        public const string HeartRateVariabilityRead = "android.permission.health.READ_HEART_RATE_VARIABILITY";
+        public const string ActiveCaloriesBurnedRead = "android.permission.health.READ_ACTIVE_CALORIES_BURNED";
+        public const string Vo2MaxRead = "android.permission.health.READ_VO2_MAX";
 
         public static readonly string[] All = { StepsRead, SleepRead, ExerciseRead };
     }
