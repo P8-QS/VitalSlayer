@@ -21,7 +21,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: Library
-          key: Library-${{ matrix.targetPlatform }}
+          key: Library-${{ matrix.targetPlatform }}-g8111
           restore-keys: Library-
       - if: matrix.targetPlatform == 'Android'
         uses: jlumbroso/free-disk-space@v1.3.1
