@@ -1,28 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Effects;
+using Managers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TrapManager : MonoBehaviour
 {
-    [Header("References")]
-    private Transform playerTransform;
+    [Header("References")] private Transform playerTransform;
     public Tilemap trapTilemap;
 
-    [Header("Trap Tiles")]
-    public TileBase hiddenTrapTile;
+    [Header("Trap Tiles")] public TileBase hiddenTrapTile;
     public TileBase[] trapAnimationTiles;
 
-    [Header("Settings")]
-    [Range(0, 100)]
-    public float damagePercentage = 10f; // Damage as percentage of max HP
+    [Header("Settings")] [Range(0, 100)] public float damagePercentage = 10f; // Damage as percentage of max HP
     public float animationSpeed = 0.3f;
     public bool resetAfterTriggering = true;
 
     private HashSet<Vector3Int> triggeredTraps = new HashSet<Vector3Int>();
-    
+
     [SerializeField] private GameObject trapTriggerPrefab;
     public AudioClip trapSound;
+
+    private bool _dodgeTraps;
 
     void Start()
     {
@@ -32,6 +33,10 @@ public class TrapManager : MonoBehaviour
         if (playerTransform == null)
             playerTransform = GameManager.Instance.player.transform;
 
+        // Scuffed way to apply DodgeTraps effect
+        var effects = MetricsManager.Instance.metrics.Values.Select(m => m.Effects).ToArray();
+        _dodgeTraps = effects.Any(e => e is DodgeTrapsEffect);
+        
         SetTrapTriggers();
     }
 
@@ -53,7 +58,7 @@ public class TrapManager : MonoBehaviour
 
     public void TriggerTrapAt(Vector3Int cellPosition, GameObject player)
     {
-        if (!triggeredTraps.Contains(cellPosition))
+        if (!_dodgeTraps &&!triggeredTraps.Contains(cellPosition))
         {
             StartCoroutine(TriggerTrap(cellPosition, player));
         }
@@ -64,7 +69,7 @@ public class TrapManager : MonoBehaviour
         triggeredTraps.Add(cellPosition);
 
         SoundFxManager.Instance.PlaySound(trapSound, 0.3f);
-        
+
         // Apply damage to player based on percentage of max HP
         Fighter fighter = player.GetComponent<Fighter>();
         if (fighter != null)
