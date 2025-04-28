@@ -13,7 +13,7 @@ public class SlashEffect : MonoBehaviour
     public Animator animator;
 
     private Weapon sourceWeapon;
-    private BoxCollider2D hitBox;
+    private BoxCollider2D hitBox;   
     private Damage damage;
     private bool hasDealtDamage = false;
 
