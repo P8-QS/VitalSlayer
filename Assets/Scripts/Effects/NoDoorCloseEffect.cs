@@ -37,17 +37,40 @@ namespace Effects
 
         public void Apply()
         {
+            var doorControllers = UnityEngine.Object.FindObjectsOfType<DoorController>();
+            if (doorControllers == null || doorControllers.Length == 0)
+            {
+                Debug.LogWarning("No door controllers found.");
+                return;
+            }
+
             if (Level == 0)
             {
-                List<DoorController> connectedDoors = new();
-                if (connectedDoors == null) throw new ArgumentNullException(nameof(connectedDoors));
-                foreach (var door in connectedDoors)
+                foreach (var door in doorControllers)
                 {
-                    door.isOpen = true;
-                    Debug.Log("Doors is open");
+                    door.Open();
                 }
+
+
+                var rooms = UnityEngine.Object.FindObjectsOfType<Room>();
+                foreach (var room in rooms)
+                {
+                    room._isCleared = true;
+                }
+
+                Debug.Log("Noor doors closed effect applied. All doors are open.");
+            } 
+            else
+            {
+                var rooms = UnityEngine.Object.FindObjectsOfType<Room>();
+                foreach (var room in rooms)
+                {
+                    room._isCleared = false;
+                }
+                Debug.Log("Door will close when entering rooms and open when all enemies are defeated.");
             }
-            Debug.Log("Doors will open when all the enemies within a rooms are killed");
+
+
         }
     }
 }
