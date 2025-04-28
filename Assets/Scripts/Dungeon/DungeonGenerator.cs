@@ -23,7 +23,7 @@ namespace Dungeon
         public List<GameObject> roomPrefabs;
 
         [Header("Generation Settings")]
-        public int maxRooms = 15;
+        public int roomCount = 15;
         public int maxAttemptsPerDoor = 10;
         public float doorPositionMatchTolerance = 0.01f;
 
@@ -109,7 +109,7 @@ namespace Dungeon
             roomsToProcess.Enqueue(PlacedRooms[0]);
 
             var roomsPlacedCount = 1;
-            while (roomsToProcess.Count > 0 && roomsPlacedCount < maxRooms)
+            while (roomsToProcess.Count > 0 && roomsPlacedCount < roomCount)
             {
                 var currentRoomInstance = roomsToProcess.Dequeue();
 
@@ -123,7 +123,7 @@ namespace Dungeon
                     if (doorsPopulatedCount >= numberOfDoors) continue;
                     if (!currentRoomInstance.AvailableDoors.Contains(currentDoorTransform)) continue;
 
-                    if (roomsPlacedCount >= maxRooms) break;
+                    if (roomsPlacedCount >= roomCount) break;
 
                     var currentDoorDir = Room.GetDoorDirection(currentDoorTransform);
                     var requiredOppositeDir = Room.GetOppositeDirection(currentDoorDir);
@@ -264,7 +264,7 @@ namespace Dungeon
 
         private Room FindOtherRoomAtPosition(RoomInstance currentRoom, Vector3 worldDoorPos)
         {
-            return PlacedRooms.SingleOrDefault(otherRoom => 
+            return PlacedRooms.FirstOrDefault(otherRoom => 
                     otherRoom != currentRoom &&
                     otherRoom.RoomScript.GetDoorPrefabData()
                         .Select(door => otherRoom.GameObject.transform.position + door.localPosition)

@@ -1,9 +1,5 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class MainMenuPage : MonoBehaviour
 {
@@ -49,5 +45,11 @@ public class MainMenuPage : MonoBehaviour
     {
         SoundFxManager.Instance.PlayClickSound();
         SceneLoader.Instance.LoadScene("Metrics");
+    }
+    
+    public void ClickPerksButton()
+    {
+        SoundFxManager.Instance.PlayClickSound();
+        SceneLoader.Instance.LoadScene("Perks");
     }
 }

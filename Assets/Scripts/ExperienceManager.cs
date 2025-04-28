@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using Managers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
 
 public class ExperienceManager
@@ -28,6 +25,11 @@ public class ExperienceManager
     /// The bonus multiplier for experience.
     /// </summary>
     public readonly double BonusXpMultiplier = 1.5;
+
+    /// <summary>
+    /// The perk multiplier for experience.
+    /// </summary>
+    public double PerkXpMultiplier = 1.0;
 
     /// <summary>
     /// Whether the bonus multiplier is enabled.
@@ -96,7 +98,7 @@ public class ExperienceManager
     /// <returns> The experience added.</returns>
     private int AddExperience(int xp)
     {
-        var adjustedXp = (int)(xp * (BonusXpEnabled ? BonusXpMultiplier : 1));
+        var adjustedXp = (int)(xp * PerkXpMultiplier * (BonusXpEnabled ? BonusXpMultiplier : 1));
         Experience += adjustedXp;
         return adjustedXp;
     }
@@ -147,6 +149,7 @@ public class ExperienceManager
         {
             nextReset = nextReset.AddDays(1);
         }
+
         CooldownEnd = nextReset;
         PlayerPrefs.SetString("Cooldown", CooldownEnd.ToString());
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class FPSLimiter : MonoBehaviour
@@ -16,5 +17,6 @@ public class FPSLimiter : MonoBehaviour
         Application.targetFrameRate = (int)targetFPS;
         Debug.Log($"RefreshRateRatio: {maxFPS}");
         Debug.Log($"Set targetFrameRate (FPS): {targetFPS}");
+        EditorPrefs.SetString("GradleDistribution", "https://services.gradle.org/distributions/gradle-8.11.1-all.zip");
     }
 }

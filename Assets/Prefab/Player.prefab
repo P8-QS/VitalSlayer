@@ -162,15 +162,10 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  baseMinDamage: 1
-  baseMaxDamage: 5
-  damageScalingFactor: 1.15
-  basePushForce: 10
-  critChance: 0.1
-  critMultiplier: 2
   canAttack: 0
   spriteRenderer: {fileID: 0}
-  hit: {fileID: 8300000, guid: 9453cfef893cf429bb68a0d8e423e61b, type: 3}
+  slashEffectPrefab: {fileID: 6583441689873896192, guid: 04002f450902bf343b4798f478ca449e, type: 3}
+  slashOffset: {x: 0.15, y: 0}
 --- !u!95 &606313415041845470
 Animator:
   serializedVersion: 7
@@ -203,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6266461442089042493}
   - component: {fileID: 523076886658917624}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Minimap GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,20 +404,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c73ed0c732b1f84b8f44a956b32ac3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 25
-  healthScalingFactor: 1.2
   hitpoint: 25
   maxHitpoint: 25
-  pushRecoverySpeed: 0.2
-  level: 0
-  baseSpeed: 1
   currentSpeed: 0
+  level: 1
+  playerStats: {fileID: 11400000, guid: 7685d1c861d33a84fb77bcd66c7007ab, type: 2}
   animator: {fileID: 153506810354474381}
-  attackCooldown: 2
-  lastAttackTime: 0
   movementJoystick: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: 60cdfaadf717a418ab32f0a057cbedef, type: 3}
-  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
 --- !u!61 &7153521390909858909
 BoxCollider2D:
   m_ObjectHideFlags: 0

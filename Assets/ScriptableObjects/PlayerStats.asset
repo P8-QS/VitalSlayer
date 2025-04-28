@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb4fc7156528fc40b9c72e544f0b3a5, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: 
+  baseHealth: 100
+  baseSpeed: 1
+  healthScalingFactor: 1.2
+  pushRecoverySpeed: 0.2
+  immuneTime: 1
+  deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
+  hitSound: {fileID: 8300000, guid: 9453cfef893cf429bb68a0d8e423e61b, type: 3}
+  attackCooldown: 2
+  baseMinDamage: 3
+  baseMaxDamage: 8
+  damageScalingFactor: 1.15
+  pushForce: 5
+  critChance: 0.1
+  critMultiplier: 2
+  attackSound: {fileID: 8300000, guid: 60cdfaadf717a418ab32f0a057cbedef, type: 3}
+  enemyHitSound: {fileID: 0}

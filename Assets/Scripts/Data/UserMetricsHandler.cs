@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Data.Models;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -10,6 +9,7 @@ namespace Data
 {
     public enum UserMetricsType
     {
+        ExerciseSessionRecords,
         StepsRecords,
         SleepSessionRecords,
         TotalScreenTime
@@ -19,6 +19,7 @@ namespace Data
     {
         public string stepsRecordsSamplePath = "Assets/Resources/Data/StepsRecordsSample.json";
         public string sleepRecordsSamplePath = "Assets/Resources/Data/SleepSessionRecordsSample.json";
+        public string exerciseRecordsSamplePath = "Assets/Resources/Data/ExerciseSessionRecordsSample.json";
         
         public static UserMetricsHandler Instance { get; private set; }
         
@@ -32,10 +33,17 @@ namespace Data
         /// </summary>
         public IReadOnlyCollection<SleepSessionRecord> SleepSessionRecords { get; private set; }
         
+        /// <summary>
+        /// Contains the user's exercise session records. Can be null, so either null check or use the event instead.
+        /// </summary>
+        public IReadOnlyCollection<ExerciseSessionRecord> ExerciseSessionRecords { get; private set; } 
+        
         public long TotalScreenTime { get; private set; }
 
         public event Action<IReadOnlyCollection<StepsRecord>> OnStepsRecordsUpdated;
         public event Action<IReadOnlyCollection<SleepSessionRecord>> OnSleepSessionRecordsUpdated;
+        public event Action<IReadOnlyCollection<ExerciseSessionRecord>> OnExerciseSessionRecordsUpdated;
+        
         public event Action<long> OnTotalScreenTimeUpdated;
         
         private void Awake()
@@ -80,6 +88,15 @@ namespace Data
                         OnSleepSessionRecordsUpdated?.Invoke(SleepSessionRecords);
                     }
                     break;
+                case UserMetricsType.ExerciseSessionRecords:
+                    if (data is IReadOnlyCollection<ExerciseSessionRecord> exerciseRecords)
+                    {
+                        ExerciseSessionRecords = exerciseRecords;
+                        Debug.Log("Exercise records have been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, ExerciseSessionRecords);
+                        OnExerciseSessionRecordsUpdated?.Invoke(ExerciseSessionRecords);
+                    }
+                    break;
                 case UserMetricsType.TotalScreenTime:
                     if (data is long totalScreenTime)
                     {
@@ -112,6 +129,15 @@ namespace Data
             else
             {
                 Debug.LogWarning($"{nameof(UserMetricsHandler)} sleep records sample file not found");
+            }
+
+            if (File.Exists(exerciseRecordsSamplePath))
+            {
+                SetData(UserMetricsType.ExerciseSessionRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<ExerciseSessionRecord>>(File.ReadAllText(exerciseRecordsSamplePath)));
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(UserMetricsHandler)} exercise records sample file not found");
             }
             
             SetData(UserMetricsType.TotalScreenTime, (long)TimeSpan.FromHours(2).TotalMilliseconds);

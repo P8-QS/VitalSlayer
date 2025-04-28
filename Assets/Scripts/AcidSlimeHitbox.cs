@@ -12,34 +12,27 @@ public class AcidSlimeHitbox : EnemyHitbox
 
     protected override void OnCollide(Collider2D coll)
     {
-        // First, trigger the normal damage from EnemyHitbox
         base.OnCollide(coll);
 
-        // Then, if the collision was with the player, apply the acid effect
         if (coll.CompareTag("Player"))
         {
-            // Apply the acid damage over time effect
             StartCoroutine(ApplyAcidDamageCoroutine(coll.gameObject));
         }
     }
 
-    // Coroutine to apply damage over time
     private IEnumerator ApplyAcidDamageCoroutine(GameObject target)
     {
         float elapsedTime = 0.0f;
 
         while (elapsedTime < acidDuration)
         {
-            // Wait for the next tick
             yield return new WaitForSeconds(acidTickRate);
 
-            // Make sure the target still exists
             if (target == null)
                 yield break;
 
             int damage = random.Next(acidMinDamage, acidMaxDamage + 1);
 
-            // Apply damage to the target
             Damage acidDmg = new Damage
             {
                 damageAmount = damage,

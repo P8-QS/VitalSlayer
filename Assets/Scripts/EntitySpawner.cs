@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 
@@ -28,11 +26,6 @@ public class EntitySpawner : MonoBehaviour
     public List<GameObject> playerPrefabs;
 
     public Transform entityParent;
-
-    public int maxEnemiesPerRoom = 1;
-    public int minEnemiesPerRoom = 1;
-    public int phantomEnemiesPerRoom = 0;
-
 
     public List<GameObject> rooms;
     private Dictionary<int, HashSet<Vector3>> _usedSpawnPoints = new();
@@ -91,7 +84,7 @@ public class EntitySpawner : MonoBehaviour
                 Debug.LogWarning($"No available spawn points for {typeof(T).Name} in room {roomIndex}");
                 return;
             }
-            
+
             var spawnPoint = availablePoints[Random.Range(0, availablePoints.Count)];
             usedPoints.Add(spawnPoint);
 
@@ -125,38 +118,5 @@ public class EntitySpawner : MonoBehaviour
         entityInstance.transform.SetParent(entityParent, true);
 
         return entity;
-    }
-
-    /// <summary>
-    /// Fills all rooms with enemies and a player. Should only be called once at the start of the game.
-    /// </summary>
-    /// <param name="playerRoomIndex"></param>
-    /// <param name="boosRoomIndex"></param>
-    public void FillRoomsWithEntities(int playerRoomIndex, int boosRoomIndex)
-    {
-        // Clear used spawn points for all rooms
-        _usedSpawnPoints.Clear();
-
-        // Spawn enemies and bosses in each room
-        for (var i = 0; i < rooms.Count; i++)
-        {
-            if (i == playerRoomIndex)
-            {
-                var player = SpawnPlayer(playerRoomIndex);
-                GameManager.Instance.player = player;
-            }
-
-            if (i == boosRoomIndex)
-            {
-                SpawnEnemies<Boss>(i, 1);
-                continue; // Don't spawn other enemies for this room
-            }
-
-            var enemyCount = Random.Range(minEnemiesPerRoom, maxEnemiesPerRoom + 1);
-            SpawnEnemies<Enemy>(i, enemyCount);
-
-            // Spawn phantom enemies
-            SpawnEnemies<Enemy>(i, phantomEnemiesPerRoom, true);
-        }
     }
 }

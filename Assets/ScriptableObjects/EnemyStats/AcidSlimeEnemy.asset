@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf2078633c98c248a838b6931b10242, type: 3}
+  m_Name: AcidSlimeEnemy
+  m_EditorClassIdentifier: 
+  baseHealth: 10
+  baseSpeed: 0.5
+  healthScalingFactor: 1.2
+  pushRecoverySpeed: 0.2
+  immuneTime: 0.5
+  deathSound: {fileID: 8300000, guid: 48cad7ffd0d7547fda77bba67b2ee862, type: 3}
+  hitSound: {fileID: 0}
+  enemyName: Acid Slime
+  baseMinDamage: 1
+  baseMaxDamage: 3
+  damageScalingFactor: 1.15
+  pushForce: 2
+  critChance: 0.1
+  critMultiplier: 1.5
+  chaseLength: 5
+  triggerLength: 1
+  xpReward: 10
+  acidMinDamage: 1
+  acidMaxDamage: 1
+  acidDuration: 3
+  acidTickRate: 1
+  acidColor: {r: 0, g: 1, b: 0, a: 1}
+  puddleDuration: 5
+  puddleSlowFactor: 0.5

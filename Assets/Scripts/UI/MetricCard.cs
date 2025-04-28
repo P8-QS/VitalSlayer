@@ -1,7 +1,6 @@
 using Metrics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class MetricCardUI : MonoBehaviour

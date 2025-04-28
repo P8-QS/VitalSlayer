@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59121ee6ac7d6c40b8e5a8acf763b80, type: 3}
+  m_Name: RedBoss
+  m_EditorClassIdentifier: 
+  baseHealth: 30
+  baseSpeed: 0.3
+  healthScalingFactor: 1.2
+  pushRecoverySpeed: 0.6
+  immuneTime: 0.5
+  deathSound: {fileID: 8300000, guid: 48cad7ffd0d7547fda77bba67b2ee862, type: 3}
+  hitSound: {fileID: 0}
+  enemyName: Red Boss
+  baseMinDamage: 3
+  baseMaxDamage: 5
+  damageScalingFactor: 1.15
+  pushForce: 4
+  critChance: 0.1
+  critMultiplier: 1.5
+  chaseLength: 10
+  triggerLength: 5
+  xpReward: 10
+  grantsAchievement: 0
+  achievementId: 
+  fireballSpeed:
+  - 1
+  - -1
+  fireballDistance: 0.45
+  numFireballs: 2
+  fireballPrefab: {fileID: 3950012930920923247, guid: 151365a3b3ea96a4e95414533460f91b, type: 3}

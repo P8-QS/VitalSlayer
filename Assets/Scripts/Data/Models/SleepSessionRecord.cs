@@ -8,7 +8,7 @@ namespace Data.Models
     public class SleepSessionRecord
     {
         [JsonIgnore]
-        public TimeSpan SleepTime => EndTime - StartTime;
+        public TimeSpan Duration => EndTime - StartTime;
         
         [JsonProperty("startTime")]
         public DateTime StartTime { get; set; }

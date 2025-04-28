@@ -29,7 +29,7 @@ namespace Metrics {
                 
                 Icon = SpriteManager.Instance.GetSprite("metric_sleep");
 
-                int effectLevel = Data.SleepTime.TotalHours switch
+                int effectLevel = Data.Duration.TotalHours switch
                 {
                     < 5 => 2,
                     < 7 => 1,
@@ -52,11 +52,11 @@ namespace Metrics {
         }
         public string Text()
         {
-            return $"You have slept <b>{Data.SleepTime.TotalHours} hours and {Data.SleepTime.Minutes} minutes</b>. This gives you {Effect.Text()}.";
+            return $"You have slept <b>{Data.Duration.TotalHours} hours and {Data.Duration.Minutes} minutes</b>. This gives you {Effect.Text()}.";
         }
         public string Description()
         {
-            return $"You slept for {Data.SleepTime.TotalHours} hours and {Data.SleepTime.Minutes} minutes yesterday. Proper rest is essential for recovery and focus.";
+            return $"You slept for {Data.Duration.TotalHours} hours and {Data.Duration.Minutes} minutes yesterday. Proper rest is essential for recovery and focus.";
         }
     }
 }

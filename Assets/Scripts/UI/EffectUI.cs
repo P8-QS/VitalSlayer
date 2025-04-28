@@ -1,8 +1,8 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Metrics;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class EffectUI : MonoBehaviour

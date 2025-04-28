@@ -1,6 +1,9 @@
 using System;
+<<<<<<< HEAD
 using System.Collections;
 using System.Threading.Tasks;
+=======
+>>>>>>> main
 using Data;
 using Newtonsoft.Json;
 using Unity.Services.Analytics;
@@ -13,7 +16,11 @@ public class LoggingManager : MonoBehaviour
     private bool _isReady = false;
     private Queue _queuedEvents = new();
 
+<<<<<<< HEAD
     async void Awake()
+=======
+    private void Awake()
+>>>>>>> main
     {
         if (Instance != null && Instance != this)
         {
@@ -58,7 +65,7 @@ public class LoggingManager : MonoBehaviour
     {
         object dataCopy = data;
 
-        if (type == UserMetricsType.SleepSessionRecords || type == UserMetricsType.StepsRecords) {
+        if (type is UserMetricsType.SleepSessionRecords or UserMetricsType.StepsRecords or UserMetricsType.ExerciseSessionRecords) {
             dataCopy = JsonConvert.SerializeObject(data);
         }
         var metricSetEvent = new MetricSetEvent(type, dataCopy);

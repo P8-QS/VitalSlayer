@@ -46,3 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3352625558287108809, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
   gameMusic: {fileID: 8300000, guid: 186926e22d1b9411988773b1aa5bb686, type: 3}
+  player: {fileID: 0}
+  mapSize: 5
+  minEnemiesPerRoom: 1
+  maxEnemiesPerRoom: 3
+  phantomEnemiesPerRoom: 0
