@@ -198,9 +198,7 @@ namespace Managers
         {
             Debug.Log("Received Health Connect exercise data response from HealthConnectPlugin!");
             
-            Debug.Log(response);
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ExerciseSessionRecord>>(response);
-            Debug.Log(records.ToString());
             UserMetricsHandler.Instance.SetData(UserMetricsType.ExerciseSessionRecords, records);
         }
         
