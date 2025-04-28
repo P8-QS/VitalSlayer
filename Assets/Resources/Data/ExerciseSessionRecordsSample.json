@@ -1,0 +1,27 @@
+[
+  {
+    "startTime": "2025-05-14T08:00:00.000Z",
+    "startZoneOffset": "+01:00",
+    "endTime": "2025-05-14T08:35:00.000Z",
+    "endZoneOffset": "+01:00",
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "68b442da-61f8-4b6c-a151-ec3de397581b",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    },
+    "exerciseType": 56,
+    "title": "UNIRUN",
+    "notes": "Notes for UNIRUN",
+    "segments": [],
+    "laps": [],
+    "exerciseRoute": {},
+    "plannedExerciseSessionId": "0"
+  }
+]

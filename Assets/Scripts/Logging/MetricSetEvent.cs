@@ -1,6 +1,7 @@
 using Data;
+using Unity.Services.Analytics;
 
-public class MetricSetEvent: Unity.Services.Analytics.Event
+public class MetricSetEvent : Event
 {
     public MetricSetEvent(UserMetricsType metricsType, object value) : base("metricSetEvent")
     {
