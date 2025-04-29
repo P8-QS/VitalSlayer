@@ -137,7 +137,7 @@ namespace Data
                     if (data is IReadOnlyCollection<HeartRateVariabilityRmssdRecord> heartrateRecords)
                     {
                         HeartRateVariabilityRmssdRecords = heartrateRecords;
-                        Debug.Log("Heartrate variability records have been updated");
+                        Debug.Log("Heart rate variability records have been updated");
                         LoggingManager.Instance.LogMetric(userMetricsType, HeartRateVariabilityRmssdRecords);
                         OnHeartRateVariabilityRecordsUpdated?.Invoke(heartrateRecords);
                     }
