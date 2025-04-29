@@ -13,7 +13,7 @@ public class Enemy : Mover
     protected bool collidingWithPlayer;
     protected Transform playerTransform;
     protected Vector3 startingPosition;
-
+    public GameObject room;
     private bool _isPhantom;
     public bool isPhantom
     {
@@ -57,13 +57,16 @@ public class Enemy : Mover
         enemyStats = newStats;
         SetStats(newStats);
     }
-
     protected void FixedUpdate()
     {
         if (!playerTransform) return;
 
         float chaseDistance = enemyStats != null ? enemyStats.chaseLength : 5f;
         float triggerDistance = enemyStats != null ? enemyStats.triggerLength : 1f;
+
+        var roomBoundsCollider = room.GetComponentInChildren<BoxCollider2D>();
+
+        Bounds bounds = roomBoundsCollider.bounds;
 
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseDistance)
@@ -77,7 +80,17 @@ public class Enemy : Mover
             {
                 if (!collidingWithPlayer)
                 {
-                    UpdateMotor((playerTransform.position - transform.position).normalized * currentSpeed);
+                    Vector3 velocity = (playerTransform.position - transform.position).normalized * currentSpeed;
+                    Vector3 nextPos = transform.position + velocity * Time.deltaTime;
+
+                    if (bounds.Contains(nextPos))
+                    {
+                        UpdateMotor(velocity);
+                    }
+                    else
+                    {
+                        chasing = false;
+                    }
                 }
             }
             else

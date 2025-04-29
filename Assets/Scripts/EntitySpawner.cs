@@ -100,9 +100,10 @@ public class EntitySpawner : MonoBehaviour
             int enemyLevel = DetermineEnemyLevel(isBoss);
 
             enemy.level = enemyLevel;
+            enemy.room = rooms[roomIndex];
 
             string enemyType = isBoss ? "Boss" : "Normal";
-            Debug.Log($"Spawned {enemyType}(Phantom: {enemy.isPhantom}) enemy at level {enemyLevel} and hitpoints {enemy.hitpoint}(Player level: {ExperienceManager.Instance.Level})");
+            // Debug.Log($"Spawned {enemyType} enemy at level {enemyLevel} Player level: {ExperienceManager.Instance.Level})");
         }
     }
 
