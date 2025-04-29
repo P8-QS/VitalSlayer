@@ -46,20 +46,20 @@ namespace Effects
 
             if (Level == 1)
             {
-                // First, open all doors
+                
                 foreach (var door in doorControllers)
                 {
                     door.Open();
                 }
 
-                // Force rooms to consider themselves cleared
+                
                 var rooms = UnityEngine.Object.FindObjectsOfType<Room>();
                 foreach (var room in rooms)
                 {
-                    // Directly set the public field
+                    
                     room._isCleared = true;
 
-                    // Also clear enemies as a backup approach
+                    
                     for (int i = room.RoomEnemies.Count - 1; i >= 0; i--)
                     {
                         if (room.RoomEnemies[i] != null)
@@ -72,7 +72,7 @@ namespace Effects
 
                 Debug.Log("No Door Close effect applied: All doors will remain open.");
             }
-            else // Level 0 - normal behavior
+            else 
             {
                 Debug.Log("Doors will close when entering rooms and open when all enemies are defeated");
             }
