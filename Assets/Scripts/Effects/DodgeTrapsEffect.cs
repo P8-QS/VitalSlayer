@@ -16,7 +16,7 @@ namespace Effects {
         }
         public string Text()
         {
-            return $"<color=#3AE75B>dodge spike traps</color>";
+            return $"<color=#3AE75B>dodge spike traps ability</color>";
         }
         public string Description()
         {
