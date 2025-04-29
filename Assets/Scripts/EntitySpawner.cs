@@ -101,14 +101,8 @@ public class EntitySpawner : MonoBehaviour
 
             enemy.level = enemyLevel;
 
-            if (enemy.enemyStats != null && enemy.isPhantom != true)
-            {
-                enemy.maxHitpoint = enemy.enemyStats.GetScaledHealth(enemyLevel);
-                enemy.hitpoint = enemy.maxHitpoint;
-            }
-
             string enemyType = isBoss ? "Boss" : "Normal";
-            Debug.Log($"Spawned {enemyType} enemy at level {enemyLevel} (Player level: {ExperienceManager.Instance.Level})");
+            Debug.Log($"Spawned {enemyType}(Phantom: {enemy.isPhantom}) enemy at level {enemyLevel} and hitpoints {enemy.hitpoint}(Player level: {ExperienceManager.Instance.Level})");
         }
     }
 

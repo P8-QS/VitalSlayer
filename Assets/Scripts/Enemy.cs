@@ -17,15 +17,7 @@ public class Enemy : Mover
     private bool _isPhantom;
     public bool isPhantom
     {
-        set
-        {
-            if (value)
-            {
-                hitpoint = 1;
-                maxHitpoint = 1;
-            }
-            _isPhantom = value;
-        }
+        set => _isPhantom = value;
         get => _isPhantom;
     }
 
@@ -48,6 +40,13 @@ public class Enemy : Mover
         }
 
         base.Start();
+
+        if (_isPhantom)
+        {
+            maxHitpoint = 1;
+            hitpoint = maxHitpoint;
+        }
+
         playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
