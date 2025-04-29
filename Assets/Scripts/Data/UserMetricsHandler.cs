@@ -9,10 +9,13 @@ namespace Data
 {
     public enum UserMetricsType
     {
+        ActiveCaloriesBurned,
         ExerciseSessionRecords,
+        HeartRateVariabilityRmssd,
         StepsRecords,
         SleepSessionRecords,
-        TotalScreenTime
+        TotalScreenTime,
+        Vo2Max
     }
     
     public class UserMetricsHandler : MonoBehaviour
@@ -38,11 +41,18 @@ namespace Data
         /// </summary>
         public IReadOnlyCollection<ExerciseSessionRecord> ExerciseSessionRecords { get; private set; } 
         
+        public IReadOnlyCollection<HeartRateVariabilityRmssdRecord> HeartRateVariabilityRmssdRecords { get; private set; }
+        public IReadOnlyCollection<ActiveCaloriesBurnedRecord> ActiveCaloriesBurnedRecords { get; private set; }
+        public IReadOnlyCollection<Vo2MaxRecord> Vo2MaxRecords { get; private set; }
+        
         public long TotalScreenTime { get; private set; }
 
         public event Action<IReadOnlyCollection<StepsRecord>> OnStepsRecordsUpdated;
         public event Action<IReadOnlyCollection<SleepSessionRecord>> OnSleepSessionRecordsUpdated;
         public event Action<IReadOnlyCollection<ExerciseSessionRecord>> OnExerciseSessionRecordsUpdated;
+        public event Action<IReadOnlyCollection<HeartRateVariabilityRmssdRecord>> OnHeartRateVariabilityRecordsUpdated;
+        public event Action<IReadOnlyCollection<ActiveCaloriesBurnedRecord>> OnActiveCaloriesBurnedRecordsUpdated;
+        public event Action<IReadOnlyCollection<Vo2MaxRecord>> OnVo2MaxRecordsUpdated;
         
         public event Action<long> OnTotalScreenTimeUpdated;
         
@@ -95,6 +105,33 @@ namespace Data
                         Debug.Log("Exercise records have been updated");
                         LoggingManager.Instance.LogMetric(userMetricsType, ExerciseSessionRecords);
                         OnExerciseSessionRecordsUpdated?.Invoke(ExerciseSessionRecords);
+                    }
+                    break;
+                case UserMetricsType.ActiveCaloriesBurned:
+                    if (data is IReadOnlyCollection<ActiveCaloriesBurnedRecord> caloriesRecords)
+                    {
+                        ActiveCaloriesBurnedRecords = caloriesRecords;
+                        Debug.Log("Active calories burned records have been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, ActiveCaloriesBurnedRecords);
+                        OnActiveCaloriesBurnedRecordsUpdated?.Invoke(caloriesRecords);
+                    }
+                    break;
+                case UserMetricsType.HeartRateVariabilityRmssd:
+                    if (data is IReadOnlyCollection<HeartRateVariabilityRmssdRecord> heartrateRecords)
+                    {
+                        HeartRateVariabilityRmssdRecords = heartrateRecords;
+                        Debug.Log("Heartrate variability records have been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, HeartRateVariabilityRmssdRecords);
+                        OnHeartRateVariabilityRecordsUpdated?.Invoke(heartrateRecords);
+                    }
+                    break;
+                case UserMetricsType.Vo2Max:
+                    if (data is IReadOnlyCollection<Vo2MaxRecord> vo2MaxRecords)
+                    {
+                        Vo2MaxRecords = vo2MaxRecords;
+                        Debug.Log("Vo2 Max records have been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, Vo2MaxRecords);
+                        OnVo2MaxRecordsUpdated?.Invoke(vo2MaxRecords);
                     }
                     break;
                 case UserMetricsType.TotalScreenTime:
