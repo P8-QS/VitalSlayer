@@ -1,0 +1,19 @@
+[
+  {
+    "time": "2025-04-15T08:47:27.309Z",
+    "zoneOffset": "+01:00",
+    "heartRateVariabilityMillis": 70.2,
+    "metadata": {
+      "clientRecordVersion": 0,
+      "dataOrigin": {
+        "packageName": "com.sec.android.app.shealth"
+      },
+      "device": {
+        "type": 0
+      },
+      "id": "68b442da-61f8-4b6c-a151-ec3de397581b",
+      "lastModifiedTime": {},
+      "recordingMethod": 0
+    }
+  }
+]
