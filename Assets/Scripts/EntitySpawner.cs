@@ -103,10 +103,6 @@ public class EntitySpawner : MonoBehaviour
             enemy.room = rooms[roomIndex];
 
             string enemyType = isBoss ? "Boss" : "Normal";
-<<<<<<< HEAD
-            // Debug.Log($"Spawned {enemyType} enemy at level {enemyLevel} Player level: {ExperienceManager.Instance.Level})");
-=======
->>>>>>> main
         }
     }
 
