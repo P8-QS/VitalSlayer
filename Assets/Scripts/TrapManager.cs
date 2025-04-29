@@ -34,7 +34,7 @@ public class TrapManager : MonoBehaviour
             playerTransform = GameManager.Instance.player.transform;
 
         // Scuffed way to apply DodgeTraps effect
-        var effects = MetricsManager.Instance.metrics.Values.Select(m => m.Effects).ToArray();
+        var effects = MetricsManager.Instance.metrics.Values.SelectMany(metrics => metrics.Effects);
         _dodgeTraps = effects.Any(e => e is DodgeTrapsEffect);
         
         SetTrapTriggers();
