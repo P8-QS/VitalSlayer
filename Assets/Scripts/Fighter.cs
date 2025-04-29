@@ -80,7 +80,6 @@ public class Fighter : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        // Remove the health bar when entity is destroyed
         if (EnemyUIManager.Instance != null)
         {
             EnemyUIManager.Instance.RemoveHealthBar(this);
