@@ -41,6 +41,13 @@ public class Enemy : Mover
 
         base.Start();
 
+
+        if (EnemyUIManager.Instance != null)
+        {
+            EnemyUIManager.Instance.CreateLevelIndicator(this);
+        }
+
+
         if (_isPhantom)
         {
             maxHitpoint = 1;
@@ -142,8 +149,8 @@ public class Enemy : Mover
         return true;
     }
 
-        protected override void Death()
-        {
+    protected override void Death()
+    {
         if (!isPhantom)
         {
             int xp = ExperienceManager.Instance.AddEnemy(level);
@@ -153,13 +160,22 @@ public class Enemy : Mover
 
             //Adjust chance of dropping health potion here:
             if (Random.value < 0.10f && healthPotionPrefab != null)
-             {
+            {
                 Instantiate(healthPotionPrefab, transform.position, Quaternion.identity);
-             }
+            }
         }
 
         SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);
 
         Destroy(gameObject);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (EnemyUIManager.Instance != null)
+        {
+            EnemyUIManager.Instance.RemoveLevelIndicator(this);
+        }
     }
 }
