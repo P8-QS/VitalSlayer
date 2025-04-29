@@ -62,8 +62,8 @@ public class Boss : Enemy
     protected override void Death()
     {
         Destroy(gameObject);
-        int reward = enemyStats != null ? enemyStats.GetScaledXpReward(level) : 30;
-        int xp = ExperienceManager.Instance.AddBoss(level);
+        int reward = enemyStats.GetScaledXpReward(level);
+        int xp = ExperienceManager.Instance.AddExperience(reward);
         GameSummaryManager.Instance.AddBoss();
         FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
             1.0f);

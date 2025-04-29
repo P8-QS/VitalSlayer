@@ -36,7 +36,6 @@ public class BaseEnemyStats : BaseFighterStats
     public float levelDifferenceImpact = 0.15f;
 
 
-    // Calculate scaled stats based on level
     public virtual int GetScaledHealth(int level)
     {
         if (level <= 0)
@@ -44,17 +43,17 @@ public class BaseEnemyStats : BaseFighterStats
             return baseHealth;
         }
 
-        return baseHealth + (int)(Mathf.Pow(level, healthScalingFactor));
+        return baseHealth + (int)Mathf.Pow(level, healthScalingFactor);
     }
 
     public virtual int GetScaledMinDamage(int level)
     {
-        return CalculateDamageStat(baseMinDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(baseMinDamage, level, damageScalingFactor);
     }
 
     public virtual int GetScaledMaxDamage(int level)
     {
-        return CalculateDamageStat(baseMaxDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(baseMaxDamage, level, damageScalingFactor);
     }
 
     public virtual int GetScaledXpReward(int level)
@@ -83,25 +82,12 @@ public class BaseEnemyStats : BaseFighterStats
         }
         else
         {
-            // Same level - normal XP
             xpMultiplier = 1.0f;
         }
 
-        // Calculate final XP reward
         int finalXp = Mathf.RoundToInt(baseXp * xpMultiplier);
 
-        // Ensure minimum XP
         return Mathf.Max(finalXp, 1);
-    }
-
-    public static int CalculateDamageStat(int baseDamage, int level, float scalingFactor)
-    {
-        if (level <= 0)
-        {
-            return baseDamage;
-        }
-
-        return baseDamage + (int)(baseDamage * (Mathf.Pow(level - 1, scalingFactor) * 0.1f));
     }
 
     public Damage CalculateDamageObject(int level, Vector3 origin)

@@ -130,20 +130,21 @@ public class Enemy : Mover
         return true;
     }
 
-        protected override void Death()
-        {
+    protected override void Death()
+    {
         if (!isPhantom)
         {
-            int xp = ExperienceManager.Instance.AddEnemy(level);
+            int reward = enemyStats.GetScaledXpReward(level);
+            int xp = ExperienceManager.Instance.AddExperience(reward);
             GameSummaryManager.Instance.AddEnemy();
             FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
                 1.0f);
 
             //Adjust chance of dropping health potion here:
             if (Random.value < 0.10f && healthPotionPrefab != null)
-             {
+            {
                 Instantiate(healthPotionPrefab, transform.position, Quaternion.identity);
-             }
+            }
         }
 
         SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);
