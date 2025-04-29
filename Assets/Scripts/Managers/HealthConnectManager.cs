@@ -105,6 +105,7 @@ namespace Managers
             GetUserSteps();
             GetUserSleepSessions();
             GetUserExerciseSessions();
+            GetUserVo2Max();
         }
         
         private static bool HasAllRequiredPermissions()
@@ -136,6 +137,9 @@ namespace Managers
                     break;
                 case RequiredPermissions.ExerciseRead:
                     GetUserExerciseSessions();
+                    break;
+                case RequiredPermissions.Vo2MaxRead:
+                    GetUserVo2Max();
                     break;
             }
         }
@@ -181,7 +185,7 @@ namespace Managers
             
             _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.SleepSession, gameObject.name, "OnSleepRecordsReceived");
         }
-        
+
         private void OnSleepRecordsReceived(string response)
         {
             Debug.Log("Received Health Connect sleep data response from HealthConnectPlugin!");
@@ -206,6 +210,23 @@ namespace Managers
             
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ExerciseSessionRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.ExerciseSessionRecords, records);
+        }
+        
+        private void GetUserVo2Max()
+        {
+            Debug.Log($"Getting user vo2 max data from: {_startLdt.Call<string>("toString")} to: {_endLdt.Call<string>("toString")}");
+            
+            var timeRangeFilterClass = new AndroidJavaClass("androidx.health.connect.client.time.TimeRangeFilter");
+            var timeRangeFilter = timeRangeFilterClass.CallStatic<AndroidJavaObject>("between", _startLdt, _endLdt);
+            
+            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.SleepSession, gameObject.name, "OnVo2RecordsReceived");
+        }
+
+        private void OnVo2RecordsReceived(string response)
+        {
+            Debug.Log("Received Health Connect vo2 max data response from HealthConnectPlugin!");
+            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<Vo2MaxRecord>>(response);
+            UserMetricsHandler.Instance.SetData(UserMetricsType.Vo2Max, records);
         }
         
         private void RedirectToPlayStore()
