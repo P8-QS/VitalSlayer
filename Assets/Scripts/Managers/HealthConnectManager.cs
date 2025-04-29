@@ -14,7 +14,7 @@ namespace Managers
         public const string Steps = "STEPS";
         public const string SleepSession = "SLEEP_SESSION";
         public const string ExerciseSession = "EXERCISE_SESSION";
-        public const string HeartRateVariability = "HEART_RATE_VARIABILITY";
+        public const string HeartRateVariabilityRmssd = "HEART_RATE_VARIABILITY_RMSSD";
         public const string ActiveCaloriesBurned = "ACTIVE_CALORIES_BURNED";
         public const string Vo2Max = "VO2_MAX";
     }
@@ -238,6 +238,7 @@ namespace Managers
         private void OnActiveCaloriesRecordsReceived(string response)
         {
             Debug.Log("Received Health Connect active calories burned data response from HealthConnectPlugin!");
+            Debug.Log(response);
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ActiveCaloriesBurnedRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.ActiveCaloriesBurned, records);
         }
@@ -249,7 +250,7 @@ namespace Managers
             var timeRangeFilterClass = new AndroidJavaClass("androidx.health.connect.client.time.TimeRangeFilter");
             var timeRangeFilter = timeRangeFilterClass.CallStatic<AndroidJavaObject>("between", _startLdt, _endLdt);
             
-            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.HeartRateVariability, gameObject.name, "OnHeartRateVariabilityRecordsReceived");
+            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.HeartRateVariabilityRmssd, gameObject.name, "OnHeartRateVariabilityRecordsReceived");
         }
 
         private void OnHeartRateVariabilityRecordsReceived(string response)
