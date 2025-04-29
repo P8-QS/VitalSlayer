@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Data.Models
 {
     [Serializable]
-    public class ActiveCaloriesBurnedRecord
+    public class TotalCaloriesBurnedRecord
     {
         [JsonProperty("startTime")]
         public DateTime StartTime { get; set; }
