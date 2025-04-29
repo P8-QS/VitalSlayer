@@ -13,7 +13,7 @@ namespace Data.Models
         public string ZoneOffset { get; set; }
         
         [JsonProperty("heartRateVariabilityMillis")]
-        public decimal Energy { get; set; }
+        public decimal HeartRateVariabilityMillis { get; set; }
         
         [JsonProperty("metadata")]
         public Metadata Metadata { get; set; }
