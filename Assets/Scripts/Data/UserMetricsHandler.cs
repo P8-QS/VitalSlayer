@@ -23,6 +23,9 @@ namespace Data
         public string stepsRecordsSamplePath = "Assets/Resources/Data/StepsRecordsSample.json";
         public string sleepRecordsSamplePath = "Assets/Resources/Data/SleepSessionRecordsSample.json";
         public string exerciseRecordsSamplePath = "Assets/Resources/Data/ExerciseSessionRecordsSample.json";
+        public string acbRecordsSamplePath = "Assets/Resources/Data/ActiveCaloriesBurnedRecordsSample.json";
+        public string hrvRecordsSamplePath = "Assets/Resources/Data/HeartRateVariabilityRmssdRecordsSample.json";
+        public string vo2MaxRecordsSamplePath = "Assets/Resources/Data/Vo2MaxRecordsSample.json";
         
         public static UserMetricsHandler Instance { get; private set; }
         
@@ -150,35 +153,28 @@ namespace Data
         
         private void SetMockData()
         {
-            if (File.Exists(stepsRecordsSamplePath))
-            {
-                SetData(UserMetricsType.StepsRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<StepsRecord>>(File.ReadAllText(stepsRecordsSamplePath)));
-            }
-            else
-            {
-                Debug.LogWarning($"{nameof(UserMetricsHandler)} steps records sample file not found");
-            }
-
-            if (File.Exists(sleepRecordsSamplePath))
-            {
-                SetData(UserMetricsType.SleepSessionRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(File.ReadAllText(sleepRecordsSamplePath)));
-            }
-            else
-            {
-                Debug.LogWarning($"{nameof(UserMetricsHandler)} sleep records sample file not found");
-            }
-
-            if (File.Exists(exerciseRecordsSamplePath))
-            {
-                SetData(UserMetricsType.ExerciseSessionRecords, JsonConvert.DeserializeObject<IReadOnlyCollection<ExerciseSessionRecord>>(File.ReadAllText(exerciseRecordsSamplePath)));
-            }
-            else
-            {
-                Debug.LogWarning($"{nameof(UserMetricsHandler)} exercise records sample file not found");
-            }
+            TrySetDataFromFile<StepsRecord>(UserMetricsType.StepsRecords, stepsRecordsSamplePath);
+            TrySetDataFromFile<SleepSessionRecord>(UserMetricsType.SleepSessionRecords, sleepRecordsSamplePath);
+            TrySetDataFromFile<ExerciseSessionRecord>(UserMetricsType.ExerciseSessionRecords, exerciseRecordsSamplePath);
+            TrySetDataFromFile<ActiveCaloriesBurnedRecord>(UserMetricsType.ActiveCaloriesBurned, acbRecordsSamplePath);
+            TrySetDataFromFile<HeartRateVariabilityRmssdRecord>(UserMetricsType.HeartRateVariabilityRmssd, hrvRecordsSamplePath);
+            TrySetDataFromFile<Vo2MaxRecord>(UserMetricsType.Vo2Max, vo2MaxRecordsSamplePath);
             
             SetData(UserMetricsType.TotalScreenTime, (long)TimeSpan.FromHours(2).TotalMilliseconds);
             Debug.Log("Mock data has been set!");
+        }
+        
+        private void TrySetDataFromFile<T>(UserMetricsType type, string path)
+        {
+            if (File.Exists(path))
+            {
+                var data = JsonConvert.DeserializeObject<IReadOnlyCollection<T>>(File.ReadAllText(path));
+                SetData(type, data);
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(UserMetricsHandler)} {type} sample file not found");
+            }
         }
     }
 }
