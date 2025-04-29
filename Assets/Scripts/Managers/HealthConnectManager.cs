@@ -105,6 +105,8 @@ namespace Managers
             GetUserSteps();
             GetUserSleepSessions();
             GetUserExerciseSessions();
+            GetUserHeartRateVariability();
+            GetUserActiveCaloriesBurned();
             GetUserVo2Max();
         }
         
@@ -140,6 +142,12 @@ namespace Managers
                     break;
                 case RequiredPermissions.Vo2MaxRead:
                     GetUserVo2Max();
+                    break;
+                case RequiredPermissions.HeartRateVariabilityRead:
+                    GetUserHeartRateVariability();
+                    break;
+                case RequiredPermissions.ActiveCaloriesBurnedRead:
+                    GetUserActiveCaloriesBurned();
                     break;
             }
         }
@@ -210,6 +218,40 @@ namespace Managers
             
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ExerciseSessionRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.ExerciseSessionRecords, records);
+        }
+
+        private void GetUserActiveCaloriesBurned()
+        {
+            Debug.Log($"Getting user active calories burned data from: {_startLdt.Call<string>("toString")} to: {_endLdt.Call<string>("toString")}");
+            
+            var timeRangeFilterClass = new AndroidJavaClass("androidx.health.connect.client.time.TimeRangeFilter");
+            var timeRangeFilter = timeRangeFilterClass.CallStatic<AndroidJavaObject>("between", _startLdt, _endLdt);
+            
+            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.ActiveCaloriesBurned, gameObject.name, "OnActiveCaloriesRecordsReceived");
+        }
+
+        private void OnActiveCaloriesRecordsReceived(string response)
+        {
+            Debug.Log("Received Health Connect active calories burned data response from HealthConnectPlugin!");
+            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ActiveCaloriesBurnedRecord>>(response);
+            UserMetricsHandler.Instance.SetData(UserMetricsType.ActiveCaloriesBurned, records);
+        }
+
+        private void GetUserHeartRateVariability()
+        {
+            Debug.Log($"Getting user heart rate variability data from: {_startLdt.Call<string>("toString")} to: {_endLdt.Call<string>("toString")}");
+            
+            var timeRangeFilterClass = new AndroidJavaClass("androidx.health.connect.client.time.TimeRangeFilter");
+            var timeRangeFilter = timeRangeFilterClass.CallStatic<AndroidJavaObject>("between", _startLdt, _endLdt);
+            
+            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.HeartRateVariability, gameObject.name, "OnHeartRateVariabilityRecordsReceived");
+        }
+
+        private void OnHeartRateVariabilityRecordsReceived(string response)
+        {
+            Debug.Log("Received Health Connect heart rate variability data response from HealthConnectPlugin!");
+            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<HeartRateVariabilityRmssdRecord>>(response);
+            UserMetricsHandler.Instance.SetData(UserMetricsType.HeartRateVariabilityRmssd, records);
         }
         
         private void GetUserVo2Max()
