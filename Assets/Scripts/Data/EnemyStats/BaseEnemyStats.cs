@@ -21,27 +21,87 @@ public class BaseEnemyStats : BaseFighterStats
     public float triggerLength = 1.0f;
 
     [Header("Drop Settings")]
-    public int xpReward = 10;
+    public int baseXpReward = 10;
+
+    [Tooltip("Maximum bonus multiplier for fighting enemies above your level (1.5 = 50% more XP)")]
+    [Range(1.0f, 3.0f)]
+    public float aboveLevelXpMultiplier = 1.5f;
+
+    [Tooltip("Minimum multiplier for fighting enemies below your level (0.5 = 50% less XP)")]
+    [Range(0.1f, 1.0f)]
+    public float belowLevelXpMinimum = 0.5f;
+
+    [Tooltip("How quickly XP scales with level difference")]
+    [Range(0.05f, 0.3f)]
+    public float levelDifferenceImpact = 0.15f;
+
 
     // Calculate scaled stats based on level
     public virtual int GetScaledHealth(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseHealth, level, healthScalingFactor);
+        if (level <= 0)
+        {
+            return baseHealth;
+        }
+
+        return baseHealth + (int)(Mathf.Pow(level, healthScalingFactor));
     }
 
     public virtual int GetScaledMinDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseMinDamage, level, damageScalingFactor);
+        return CalculateDamageStat(baseMinDamage, level, damageScalingFactor);
     }
 
     public virtual int GetScaledMaxDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseMaxDamage, level, damageScalingFactor);
+        return CalculateDamageStat(baseMaxDamage, level, damageScalingFactor);
     }
 
     public virtual int GetScaledXpReward(int level)
     {
-        return xpReward * (level * level);
+        int playerLevel = ExperienceManager.Instance.Level;
+
+        float baseXp = baseXpReward * Mathf.Pow(level, 1.2f);
+
+        int levelDifference = level - playerLevel;
+
+        float xpMultiplier;
+
+        if (levelDifference > 0)
+        {
+            xpMultiplier = Mathf.Min(
+                1.0f + (levelDifference * levelDifferenceImpact),
+                aboveLevelXpMultiplier
+            );
+        }
+        else if (levelDifference < 0)
+        {
+            xpMultiplier = Mathf.Max(
+                1.0f + (levelDifference * levelDifferenceImpact),
+                belowLevelXpMinimum
+            );
+        }
+        else
+        {
+            // Same level - normal XP
+            xpMultiplier = 1.0f;
+        }
+
+        // Calculate final XP reward
+        int finalXp = Mathf.RoundToInt(baseXp * xpMultiplier);
+
+        // Ensure minimum XP
+        return Mathf.Max(finalXp, 1);
+    }
+
+    public static int CalculateDamageStat(int baseDamage, int level, float scalingFactor)
+    {
+        if (level <= 0)
+        {
+            return baseDamage;
+        }
+
+        return baseDamage + (int)(baseDamage * (Mathf.Pow(level - 1, scalingFactor) * 0.1f));
     }
 
     public Damage CalculateDamageObject(int level, Vector3 origin)

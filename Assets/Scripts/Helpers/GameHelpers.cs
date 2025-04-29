@@ -25,21 +25,4 @@ public static class GameHelpers
         return damage;
     }
 
-    /// <summary>
-    /// Calculates damage based on base damage, level and scaling factor.
-    /// </summary>
-    /// <param name="baseDamage"></param>
-    /// <param name="level"></param>
-    /// <param name="scalingFactor"></param>
-    /// <returns></returns>
-    public static int CalculateDamageStat(int baseDamage, int level, float scalingFactor)
-    {
-        if (level <= 0)
-        {
-            return baseDamage;
-        }
-
-        return baseDamage + (int)(baseDamage * (Mathf.Pow(level - 1, scalingFactor) * 0.1f));
-    }
-
 }

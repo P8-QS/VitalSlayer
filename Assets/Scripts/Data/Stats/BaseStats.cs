@@ -18,4 +18,5 @@ public class BaseFighterStats : ScriptableObject
     {
         return baseHealth + (int)(Mathf.Pow(level, healthScalingFactor));
     }
+
 }
