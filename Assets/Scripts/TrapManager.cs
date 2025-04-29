@@ -1,27 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Effects;
+using Managers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TrapManager : MonoBehaviour
 {
-    [Header("References")]
-    private Transform playerTransform;
+    [Header("References")] private Transform playerTransform;
     public Tilemap trapTilemap;
 
-    [Header("Trap Tiles")]
-    public TileBase hiddenTrapTile;
+    [Header("Trap Tiles")] public TileBase hiddenTrapTile;
     public TileBase[] trapAnimationTiles;
 
-    [Header("Settings")]
-    [Range(0, 100)]
-    public float damagePercentage = 10f; // Damage as percentage of max HP
+    [Header("Settings")] [Range(0, 100)] public float damagePercentage = 10f; // Damage as percentage of max HP
     public float animationSpeed = 0.3f;
-    public float checkInterval = 0.05f;
     public bool resetAfterTriggering = true;
 
     private HashSet<Vector3Int> triggeredTraps = new HashSet<Vector3Int>();
-    private float lastCheckTime;
+
+    [SerializeField] private GameObject trapTriggerPrefab;
+    public AudioClip trapSound;
+
+    private bool _dodgeTraps;
 
     void Start()
     {
@@ -30,33 +32,43 @@ public class TrapManager : MonoBehaviour
 
         if (playerTransform == null)
             playerTransform = GameManager.Instance.player.transform;
+
+        // Scuffed way to apply DodgeTraps effect
+        var effects = MetricsManager.Instance.metrics.Values.Select(m => m.Effects).ToArray();
+        _dodgeTraps = effects.Any(e => e is DodgeTrapsEffect);
+        
+        SetTrapTriggers();
     }
 
-    void Update()
+    void SetTrapTriggers()
     {
-        if (Time.time - lastCheckTime > checkInterval)
+        foreach (Vector3Int pos in trapTilemap.cellBounds.allPositionsWithin)
         {
-            CheckForTraps();
-            lastCheckTime = Time.time;
+            if (trapTilemap.GetTile(pos) == hiddenTrapTile)
+            {
+                Vector3 worldPos = trapTilemap.GetCellCenterWorld(pos);
+                GameObject triggerObj = Instantiate(trapTriggerPrefab.gameObject, worldPos, Quaternion.identity);
+
+                var trapTrigger = triggerObj.GetComponent<TrapTrigger>();
+                trapTrigger.trapManager = this;
+                trapTrigger.trapCellPosition = pos;
+            }
         }
     }
 
-    void CheckForTraps()
+    public void TriggerTrapAt(Vector3Int cellPosition, GameObject player)
     {
-        if (!playerTransform) return;
-        
-        Vector3Int cellPosition = trapTilemap.WorldToCell(playerTransform.position);
-        TileBase currentTile = trapTilemap.GetTile(cellPosition);
-
-        if (currentTile == hiddenTrapTile && !triggeredTraps.Contains(cellPosition))
+        if (!_dodgeTraps &&!triggeredTraps.Contains(cellPosition))
         {
-            StartCoroutine(TriggerTrap(cellPosition, playerTransform.gameObject));
+            StartCoroutine(TriggerTrap(cellPosition, player));
         }
     }
 
     IEnumerator TriggerTrap(Vector3Int cellPosition, GameObject player)
     {
         triggeredTraps.Add(cellPosition);
+
+        SoundFxManager.Instance.PlaySound(trapSound, 0.3f);
 
         // Apply damage to player based on percentage of max HP
         Fighter fighter = player.GetComponent<Fighter>();
@@ -75,7 +87,7 @@ public class TrapManager : MonoBehaviour
                 maxPossibleDamage = calculatedDamage
             };
 
-            fighter.SendMessage("ReceiveDamage", dmg);
+            fighter.ReceiveDamage(dmg);
         }
 
         // Play animation

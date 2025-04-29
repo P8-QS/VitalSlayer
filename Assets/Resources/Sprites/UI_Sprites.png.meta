@@ -593,6 +593,248 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: metric_exercise
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 650
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ab29add9d0d483eaddca278ac04e63
+      internalID: -1992498260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_crit_chance
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a60afd45b5660464d9fcc5358463ce4b
+      internalID: -947679280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perk_cost
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 278
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13611b02033c54afaab7992731588d24
+      internalID: 66928372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perk_level
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 278
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b890b279690941cca4b0f49345bdf5d
+      internalID: 1781617118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perk_cost_disabled
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 278
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c4a9acd740b7449592d3df9aa9af97f
+      internalID: -1354790923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_dodge_traps
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf7de56e9b4542b7bc8a2ee23eb9be5
+      internalID: -966133891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_no_doors
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe07b8355681d4e9c81d3743c905f2f3
+      internalID: -1796768506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_enemy_spawn
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08ae690aa60f24e0f820362b93c01ab3
+      internalID: 1325008176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: metric_calories
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 650
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac7c1c7eaced045ea86d61ef7c33d0a9
+      internalID: -979697091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: metric_vo2_max
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 650
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6baf473e59a07439e842536f842d9495
+      internalID: -1924939035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: metric_hrv
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 650
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e57fa881e6f74069bcbd83066a26ca4
+      internalID: 993597588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -614,17 +856,28 @@ TextureImporter:
       effect_attack_speed: -230250835
       effect_base_negative: -1510483472
       effect_base_positive: 1603008240
+      effect_crit_chance: -947679280
+      effect_dodge_traps: -966133891
+      effect_enemy_spawn: 1325008176
       effect_fog: 477256500
       effect_hallucination: 1397055168
+      effect_no_doors: -1796768506
       effect_scouting: 2133868775
       icon_clock: 1355181629
       icon_close: 1150477062
       icon_help: 969690327
       metric_base: 540699176
+      metric_calories: -979697091
+      metric_exercise: -1992498260
+      metric_hrv: 993597588
       metric_screen_time: -1068340718
       metric_sleep: -1584988502
       metric_steps: -1623889329
+      metric_vo2_max: -1924939035
       minimap_base: -1305819460
+      perk_cost: 66928372
+      perk_cost_disabled: -1354790923
+      perk_level: 1781617118
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

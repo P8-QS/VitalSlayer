@@ -1,7 +1,8 @@
+using System.Linq;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Metrics;
 using UnityEngine.InputSystem;
 
 public class EffectUI : MonoBehaviour
@@ -15,25 +16,25 @@ public class EffectUI : MonoBehaviour
     void Start()
     {
         var metrics = MetricsManager.Instance.metrics.Values;
-        foreach (IMetric metric in metrics)
+        foreach (var effect in metrics.SelectMany(m => m.Effects))
         {
             // Instantiate effect icon inside EffectIconsContainer
             GameObject effectIconInstance = Instantiate(effectIconPrefab, transform);
-            effectIconInstance.GetComponent<Image>().sprite = metric.Effect.Icon;
+            effectIconInstance.GetComponent<Image>().sprite = effect.Icon;
 
             // Add click listener to show effect description
             Button button = effectIconInstance.AddComponent<Button>();
-            button.onClick.AddListener(() => ShowEffectDescription(metric.Effect.Description()));
+            button.onClick.AddListener(() => ShowEffectDescription(effect.Description()));
         }
 
         effectDescriptionBox.SetActive(false);
     }
-    
+
     void Update()
     {
         // Detect clicks while description box is open
-        if (isDescriptionVisible && 
-            Touchscreen.current != null && 
+        if (isDescriptionVisible &&
+            Touchscreen.current != null &&
             Touchscreen.current.primaryTouch.press.wasPressedThisFrame ||
             Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -44,10 +45,10 @@ public class EffectUI : MonoBehaviour
     void ShowEffectDescription(string description)
     {
         effectDescriptionText.text = description;
-        
+
         // Position description box near icons
         RectTransform descBoxRect = effectDescriptionBox.GetComponent<RectTransform>();
-        GameObject firstIcon = transform.GetChild(0).gameObject; 
+        GameObject firstIcon = transform.GetChild(0).gameObject;
         Vector3 firstIconWorldPos = firstIcon.transform.position;
 
         // Scuffed! but position tracks the middle of the icon. You would then assume you could just offset

@@ -28,6 +28,8 @@ public class Necromancer : Enemy
 
     protected new void FixedUpdate()
     {
+        if (playerTransform == null) return;
+
         if (Vector3.Distance(playerTransform.position, startingPosition) < (enemyStats != null ? enemyStats.chaseLength : 5f))
         {
             if (HasLineOfSight() && Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)

@@ -1,34 +1,40 @@
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Data.Models;
 using Effects;
 using UnityEngine;
 
-namespace Metrics {
-    public class StepsMetric: IMetric
+namespace Metrics
+{
+    public class StepsMetric : IMetric
     {
         private StepsRecord _data;
-        private IEffect _effect;
         private Sprite _icon;
         public string Name => "Steps";
+
         public StepsRecord Data
         {
             get => _data;
             set => _data = value;
         }
-        public IEffect Effect { get => _effect; }
+
+        public List<IEffect> Effects { get; } = new();
+
         public Sprite Icon
         {
             get => _icon;
             set => _icon = value;
         }
 
-        public StepsMetric() {
-            Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
-            
-            Icon = SpriteManager.Instance.GetSprite("metric_steps");
+        public StepsMetric()
+        {
+            if (UserMetricsHandler.Instance.StepsRecords != null)
+            {
+                Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
 
-            if (Data != null) {
+                Icon = SpriteManager.Instance.GetSprite("metric_steps");
+
                 int effectLevel = Data.StepsCount switch
                 {
                     < 4000 => 1,
@@ -36,15 +42,22 @@ namespace Metrics {
                     _ => 3
                 };
 
-                _effect = new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel);
-                _effect.Apply(); // Scuffed API usage but works
+                Effects.Add(new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel));
+                Effects[0].Apply(); // Scuffed API usage but works
+            }
+            else
+            {
+                Data = null;
             }
         }
+
         public string Text()
         {
             string formattedSteps = Data.StepsCount.ToString("N0");
-            return $"You have taken <b>{formattedSteps} steps</b>. This gives you {Effect.Text()}.";
+            return
+                $"You have taken <b>{formattedSteps} steps</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
+
         public string Description()
         {
             string formattedSteps = Data.StepsCount.ToString("N0");

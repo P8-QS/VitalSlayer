@@ -34,11 +34,6 @@ namespace Dungeon
         private Bounds? _calculatedBounds;
         private bool _isCleared;
 
-        private bool _firstCheck = true;
-        private float _doorCloseDelay = 0.5f;
-        private bool _shouldCloseDoors = false;
-        private float _doorCloseTimer = 0f;
-
 #if UNITY_EDITOR
         public void PopulateDoorDataFromChildren()
         {
@@ -79,22 +74,11 @@ namespace Dungeon
             if (_isCleared)
                 return;
 
-            if (isPlayerInside && RoomEnemies.Count > 0 && !_shouldCloseDoors)
+            if (isPlayerInside && RoomEnemies.Count > 0)
             {
-                _shouldCloseDoors = true;
-                _doorCloseTimer = 0f;
-
-            }
-            if (_shouldCloseDoors)
-            {
-                _doorCloseTimer += Time.deltaTime;
-                if (_doorCloseTimer >= _doorCloseDelay)
-
+                foreach (var door in connectedDoors)
                 {
-                    foreach (var door in connectedDoors)
-                    {
-                        door.Close();
-                    }
+                    door.Close();
                 }
             }
 

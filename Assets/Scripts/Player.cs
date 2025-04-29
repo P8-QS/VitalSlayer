@@ -1,12 +1,14 @@
+using System.Linq;
+using Effects;
+using Managers;
+using NUnit.Framework;
 using UnityEngine;
 
 public class Player : Mover
 {
-    [Header("Stats")]
-    public PlayerStats playerStats;
+    [Header("Stats")] public PlayerStats playerStats;
 
-    [Header("References")]
-    public Animator animator;
+    [Header("References")] public Animator animator;
 
     private float lastAttackTime = 0f;
     private Weapon weapon;
@@ -42,9 +44,18 @@ public class Player : Mover
         var metrics = MetricsManager.Instance?.metrics.Values;
         if (metrics != null)
         {
-            foreach (var metric in metrics)
+            foreach (var effect in metrics.SelectMany(metric => metric.Effects))
             {
-                metric.Effect.Apply();
+                effect.Apply();
+            }
+        }
+
+        var perks = PerksManager.Instance?.Perks.Values;
+        if (perks != null)
+        {
+            foreach (var perk in perks)
+            {
+                perk.Apply();
             }
         }
 
@@ -87,7 +98,17 @@ public class Player : Mover
     {
         SoundFxManager.Instance.PlaySound(playerStats.attackSound, transform, 0.8f);
         lastAttackTime = Time.time;
+
+        float anim_length = GetWeaponAnimationClipLength("weapon_swing");
+
+        if (playerStats.attackCooldown < anim_length)
+        {
+            float anim_speed = anim_length / playerStats.attackCooldown;
+            weaponAnimator.speed = anim_speed;
+        }
+
         weaponAnimator.SetTrigger("Attack");
+
         weapon.canAttack = true;
 
         weapon.CreateSlashEffect();
@@ -134,5 +155,17 @@ public class Player : Mover
         {
             Debug.LogWarning("Animator component not found on Player!");
         }
+    }
+
+    private float GetWeaponAnimationClipLength(string clipName)
+    {
+        foreach (var clip in weaponAnimator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == clipName)
+                return clip.length;
+        }
+
+        Debug.LogWarning("Animation clip not found!");
+        return 1f;
     }
 }

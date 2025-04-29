@@ -41,7 +41,7 @@ public class AcidSlime : Enemy
             acidHitbox.acidMaxDamage = acidSlimeStats.GetScaledAcidMaxDamage(level);
             acidHitbox.acidDuration = acidSlimeStats.acidDuration;
             acidHitbox.acidTickRate = acidSlimeStats.acidTickRate;
-            acidHitbox.acidColor = acidSlimeStats.acidColor;
+            acidHitbox.acidColor = Color.red;
         }
     }
 
