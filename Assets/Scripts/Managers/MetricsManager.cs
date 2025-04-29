@@ -19,11 +19,13 @@ namespace Managers
                 var sleepMetric = new SleepMetric();
                 var exerciseMetric = new ExerciseMetric();
                 var screenTimeMetric = new ScreenTimeMetric();
+                var activeCaloriesMetric = new ActiveCaloriesMetric();
 
                 if (stepsMetric.Data != null) metrics.Add(stepsMetric.Name, stepsMetric);
                 if (sleepMetric.Data != null) metrics.Add(sleepMetric.Name, sleepMetric);
                 if (exerciseMetric.Data != null) metrics.Add(exerciseMetric.Name, exerciseMetric);
                 if (screenTimeMetric.Data != 0) metrics.Add(screenTimeMetric.Name, screenTimeMetric);
+                if (activeCaloriesMetric.Data != null) metrics.Add(activeCaloriesMetric.Name, activeCaloriesMetric);
             }
             else
             {
