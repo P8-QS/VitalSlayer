@@ -261,7 +261,7 @@ namespace Managers
             var timeRangeFilterClass = new AndroidJavaClass("androidx.health.connect.client.time.TimeRangeFilter");
             var timeRangeFilter = timeRangeFilterClass.CallStatic<AndroidJavaObject>("between", _startLdt, _endLdt);
             
-            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.SleepSession, gameObject.name, "OnVo2RecordsReceived");
+            _healthConnectPlugin.Call("ReadHealthRecords", timeRangeFilter, HealthRecordType.Vo2Max, gameObject.name, "OnVo2RecordsReceived");
         }
 
         private void OnVo2RecordsReceived(string response)
