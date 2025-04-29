@@ -74,6 +74,7 @@ namespace Managers
             }));
         }
 
+        #region Health Connect plugin callbacks
         private void OnHealthConnectUnavailable(string response)
         {
             Debug.Log("Received Health Connect unavailable response from HealthConnectPlugin");
@@ -109,7 +110,9 @@ namespace Managers
             GetUserActiveCaloriesBurned();
             GetUserVo2Max();
         }
-        
+        #endregion
+
+        #region Permission methods
         private static bool HasAllRequiredPermissions()
         {
             var authorizedPermissions = RequiredPermissions.All.Select(Permission.HasUserAuthorizedPermission);
@@ -165,7 +168,9 @@ namespace Managers
             Debug.Log($"Permission request dismissed: {permissionName}");
             // TODO: Implement permission request dismissed logic
         }
-        
+        #endregion
+
+        #region Get user data methods
         private void GetUserSteps()
         {
             Debug.Log($"Getting user steps from: {_startLdt.Call<string>("toString")} to: {_endLdt.Call<string>("toString")}");
@@ -270,6 +275,7 @@ namespace Managers
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<Vo2MaxRecord>>(response);
             UserMetricsHandler.Instance.SetData(UserMetricsType.Vo2Max, records);
         }
+        #endregion
         
         private void RedirectToPlayStore()
         {
