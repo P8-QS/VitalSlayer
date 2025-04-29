@@ -14,8 +14,9 @@ namespace Data
         HeartRateVariabilityRmssd,
         StepsRecords,
         SleepSessionRecords,
+        TotalCaloriesBurned,
         TotalScreenTime,
-        Vo2Max
+        Vo2Max,
     }
     
     public class UserMetricsHandler : MonoBehaviour
@@ -24,6 +25,7 @@ namespace Data
         public string sleepRecordsSamplePath = "Assets/Resources/Data/SleepSessionRecordsSample.json";
         public string exerciseRecordsSamplePath = "Assets/Resources/Data/ExerciseSessionRecordsSample.json";
         public string acbRecordsSamplePath = "Assets/Resources/Data/ActiveCaloriesBurnedRecordsSample.json";
+        public string tcbRecordsSamplePath = "Assets/Resources/Data/TotalCaloriesBurnedRecordsSample.json";
         public string hrvRecordsSamplePath = "Assets/Resources/Data/HeartRateVariabilityRmssdRecordsSample.json";
         public string vo2MaxRecordsSamplePath = "Assets/Resources/Data/Vo2MaxRecordsSample.json";
         
@@ -46,7 +48,9 @@ namespace Data
         
         public IReadOnlyCollection<HeartRateVariabilityRmssdRecord> HeartRateVariabilityRmssdRecords { get; private set; }
         public IReadOnlyCollection<ActiveCaloriesBurnedRecord> ActiveCaloriesBurnedRecords { get; private set; }
+        public IReadOnlyCollection<TotalCaloriesBurnedRecord> TotalCaloriesBurnedRecords { get; private set; }
         public IReadOnlyCollection<Vo2MaxRecord> Vo2MaxRecords { get; private set; }
+        
         
         public long TotalScreenTime { get; private set; }
 
@@ -55,6 +59,7 @@ namespace Data
         public event Action<IReadOnlyCollection<ExerciseSessionRecord>> OnExerciseSessionRecordsUpdated;
         public event Action<IReadOnlyCollection<HeartRateVariabilityRmssdRecord>> OnHeartRateVariabilityRecordsUpdated;
         public event Action<IReadOnlyCollection<ActiveCaloriesBurnedRecord>> OnActiveCaloriesBurnedRecordsUpdated;
+        public event Action<IReadOnlyCollection<TotalCaloriesBurnedRecord>> OnTotalCaloriesBurnedRecordsUpdated; 
         public event Action<IReadOnlyCollection<Vo2MaxRecord>> OnVo2MaxRecordsUpdated;
         
         public event Action<long> OnTotalScreenTimeUpdated;
@@ -111,12 +116,21 @@ namespace Data
                     }
                     break;
                 case UserMetricsType.ActiveCaloriesBurned:
-                    if (data is IReadOnlyCollection<ActiveCaloriesBurnedRecord> caloriesRecords)
+                    if (data is IReadOnlyCollection<ActiveCaloriesBurnedRecord> acbRecords)
                     {
-                        ActiveCaloriesBurnedRecords = caloriesRecords;
+                        ActiveCaloriesBurnedRecords = acbRecords;
                         Debug.Log("Active calories burned records have been updated");
                         LoggingManager.Instance.LogMetric(userMetricsType, ActiveCaloriesBurnedRecords);
-                        OnActiveCaloriesBurnedRecordsUpdated?.Invoke(caloriesRecords);
+                        OnActiveCaloriesBurnedRecordsUpdated?.Invoke(acbRecords);
+                    }
+                    break;
+                case UserMetricsType.TotalCaloriesBurned:
+                    if (data is IReadOnlyCollection<TotalCaloriesBurnedRecord> tcbRecords)
+                    {
+                        TotalCaloriesBurnedRecords = tcbRecords;
+                        Debug.Log("Total calories burned records have been updated");
+                        LoggingManager.Instance.LogMetric(userMetricsType, TotalCaloriesBurnedRecords);
+                        OnTotalCaloriesBurnedRecordsUpdated?.Invoke(tcbRecords);
                     }
                     break;
                 case UserMetricsType.HeartRateVariabilityRmssd:
@@ -157,6 +171,7 @@ namespace Data
             TrySetDataFromFile<SleepSessionRecord>(UserMetricsType.SleepSessionRecords, sleepRecordsSamplePath);
             TrySetDataFromFile<ExerciseSessionRecord>(UserMetricsType.ExerciseSessionRecords, exerciseRecordsSamplePath);
             TrySetDataFromFile<ActiveCaloriesBurnedRecord>(UserMetricsType.ActiveCaloriesBurned, acbRecordsSamplePath);
+            TrySetDataFromFile<TotalCaloriesBurnedRecord>(UserMetricsType.TotalCaloriesBurned, tcbRecordsSamplePath);
             TrySetDataFromFile<HeartRateVariabilityRmssdRecord>(UserMetricsType.HeartRateVariabilityRmssd, hrvRecordsSamplePath);
             TrySetDataFromFile<Vo2MaxRecord>(UserMetricsType.Vo2Max, vo2MaxRecordsSamplePath);
             
