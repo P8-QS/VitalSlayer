@@ -29,7 +29,7 @@ namespace Metrics
 
             if (effectLevel > 0)
             {
-                Effects.Add(new DodgeTrapsEffect(SpriteManager.Instance.GetSprite("effect_dodge_traps"), 1));
+                Effects.Add(new DodgeTrapsEffect(SpriteManager.Instance.GetSprite("effect_dodge_traps"), 0));
             }
         }
 
