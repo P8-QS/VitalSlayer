@@ -6,7 +6,7 @@
     "endZoneOffset": "+01:00",
     "energy": {
       "type": "CALORIES",
-      "value": 200000
+      "value": 230000
     },
     "metadata": {
       "clientRecordVersion": 0,
@@ -28,7 +28,7 @@
     "endZoneOffset": "+01:00",
     "energy": {
       "type": "CALORIES",
-      "value": 210000
+      "value": 270000
     },
     "metadata": {
       "clientRecordVersion": 0,
@@ -50,7 +50,7 @@
     "endZoneOffset": "+01:00",
     "energy": {
       "type": "CALORIES",
-      "value": 220000
+      "value": 260000
     },
     "metadata": {
       "clientRecordVersion": 0,
