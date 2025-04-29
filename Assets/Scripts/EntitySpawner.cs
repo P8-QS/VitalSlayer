@@ -100,6 +100,7 @@ public class EntitySpawner : MonoBehaviour
             int enemyLevel = DetermineEnemyLevel(isBoss);
 
             enemy.level = enemyLevel;
+            enemy.room = rooms[roomIndex];
 
             string enemyType = isBoss ? "Boss" : "Normal";
         }
