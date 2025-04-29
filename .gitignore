@@ -86,3 +86,4 @@ crashlytics-build.properties
 #misc
 Assets/External/TextMesh Pro/Resources/Fonts & Materials/MinecraftRegular SDF.asset
 Assets/External/TextMesh Pro/Resources/Fonts & Materials/MinecraftBold SDF.asset
+Assets/Reports/*
