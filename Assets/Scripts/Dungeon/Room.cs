@@ -32,7 +32,7 @@ namespace Dungeon
         public readonly List<GameObject> RoomEnemies = new();
         private readonly List<Transform> _doorTransforms = new();
         private Bounds? _calculatedBounds;
-        private bool _isCleared;
+        public bool _isCleared;
 
 #if UNITY_EDITOR
         public void PopulateDoorDataFromChildren()
