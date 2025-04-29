@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2869388674940833035}
   - component: {fileID: 6035740301828732056}
   m_Layer: 0
-  m_Name: HealthBarManager
+  m_Name: EnemyUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,5 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 674234524941047591, guid: 6239ed9b84449584db2cb20ed2bfe1d1, type: 3}
+  levelIndicatorPrefab: {fileID: 1283628788454990060, guid: bc7cd868288666c408b6b6cd3c0e72ec, type: 3}
   healthBarContainer: {fileID: 2869388674940833035}
   showOnlyWhenDamaged: 0

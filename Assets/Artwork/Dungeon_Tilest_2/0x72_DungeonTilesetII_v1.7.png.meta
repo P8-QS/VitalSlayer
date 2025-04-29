@@ -4946,13 +4946,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_179
+      name: necromancer_00
       rect:
         serializedVersion: 2
-        x: 368
+        x: 367
         y: 263
-        width: 15
-        height: 17
+        width: 16
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4968,12 +4968,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_180
+      name: necromancer_01
       rect:
         serializedVersion: 2
-        x: 385
+        x: 383
         y: 263
-        width: 14
+        width: 16
         height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -4990,13 +4990,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_181
+      name: necromancer_02
       rect:
         serializedVersion: 2
-        x: 400
+        x: 399
         y: 263
-        width: 15
-        height: 18
+        width: 16
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5012,13 +5012,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0x72_DungeonTilesetII_v1.7_182
+      name: necromancer_03
       rect:
         serializedVersion: 2
         x: 415
         y: 263
         width: 16
-        height: 16
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7732,11 +7732,7 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_176: -4669373383469370021
       0x72_DungeonTilesetII_v1.7_177: -4948316847329570964
       0x72_DungeonTilesetII_v1.7_178: 2616254980156781774
-      0x72_DungeonTilesetII_v1.7_179: -8832995882494473905
       0x72_DungeonTilesetII_v1.7_18: -488972454529861262
-      0x72_DungeonTilesetII_v1.7_180: 2735211189993247945
-      0x72_DungeonTilesetII_v1.7_181: 6198357885843175324
-      0x72_DungeonTilesetII_v1.7_182: -958540702186921012
       0x72_DungeonTilesetII_v1.7_183: 8436500793266356257
       0x72_DungeonTilesetII_v1.7_184: -1223718610375802490
       0x72_DungeonTilesetII_v1.7_185: 2986457445477678054
@@ -7944,6 +7940,10 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_97: -4554979505065217262
       0x72_DungeonTilesetII_v1.7_98: 6662265692936726610
       0x72_DungeonTilesetII_v1.7_99: -2065985488211235582
+      necromancer_00: -8832995882494473905
+      necromancer_01: 2735211189993247945
+      necromancer_02: 6198357885843175324
+      necromancer_03: -958540702186921012
       red_fountain_00: -1174415457
       red_fountain_01: -1646023482
       red_fountain_02: 1171724232

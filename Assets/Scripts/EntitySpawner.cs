@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-
 public class EntitySpawner : MonoBehaviour
 {
     public static EntitySpawner Instance;
@@ -30,6 +29,9 @@ public class EntitySpawner : MonoBehaviour
     public List<GameObject> rooms;
     private Dictionary<int, HashSet<Vector3>> _usedSpawnPoints = new();
 
+    [Header("Enemy Level Scaling")]
+    [Tooltip("Configuration for enemy level distribution")]
+    public EnemyLevelDistribution levelDistribution;
 
     private List<Vector3> GetEntitySpawnPoints(int roomIndex, string pointTag)
     {
@@ -93,9 +95,59 @@ public class EntitySpawner : MonoBehaviour
 
             var enemy = SpawnEntity<T>(prefab, spawnPoint);
             enemy.isPhantom = isPhantomEnemy;
+
+            bool isBoss = enemy is Boss;
+            int enemyLevel = DetermineEnemyLevel(isBoss);
+
+            enemy.level = enemyLevel;
+
+            if (enemy.enemyStats != null && enemy.isPhantom != true)
+            {
+                enemy.maxHitpoint = enemy.enemyStats.GetScaledHealth(enemyLevel);
+                enemy.hitpoint = enemy.maxHitpoint;
+            }
+
+            string enemyType = isBoss ? "Boss" : "Normal";
+            Debug.Log($"Spawned {enemyType} enemy at level {enemyLevel} (Player level: {ExperienceManager.Instance.Level})");
         }
     }
 
+    private int DetermineEnemyLevel(bool isBoss)
+    {
+        int playerLevel = ExperienceManager.Instance.Level;
+
+        if (isBoss && levelDistribution != null)
+        {
+            return Mathf.Max(levelDistribution.minimumLevel, playerLevel + levelDistribution.bossLevelBonus);
+        }
+
+        if (levelDistribution == null || levelDistribution.levelChances.Count == 0)
+        {
+            Debug.LogWarning("No enemy level distribution set. Using player level.");
+            return playerLevel;
+        }
+
+        int totalWeight = 0;
+        foreach (var chance in levelDistribution.levelChances)
+        {
+            totalWeight += chance.weight;
+        }
+
+        int randomWeight = Random.Range(0, totalWeight);
+        int currentWeight = 0;
+
+        foreach (var chance in levelDistribution.levelChances)
+        {
+            currentWeight += chance.weight;
+            if (randomWeight < currentWeight)
+            {
+                int enemyLevel = playerLevel + chance.levelDifference;
+                return Mathf.Max(levelDistribution.minimumLevel, enemyLevel);
+            }
+        }
+
+        return playerLevel;
+    }
 
     public Player SpawnPlayer(int roomIndex)
     {
