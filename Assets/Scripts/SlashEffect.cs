@@ -12,6 +12,7 @@ public class SlashEffect : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Animator animator;
 
+    private Player player;
     private Weapon sourceWeapon;
     private BoxCollider2D hitBox;
     private Damage damage;
@@ -24,8 +25,9 @@ public class SlashEffect : MonoBehaviour
         if (!animator) animator = GetComponent<Animator>();
     }
 
-    public void Initialize(Weapon weapon, Vector3 position, Damage dmg)
+    public void Initialize(Weapon weapon, Player player, Vector3 position, Damage dmg)
     {
+        this.player = player;
         sourceWeapon = weapon;
         transform.position = position;
         damage = dmg;
@@ -63,6 +65,20 @@ public class SlashEffect : MonoBehaviour
             Enemy enemyComponent = enemy.GetComponent<Enemy>();
             if (enemyComponent != null)
             {
+                Vector2 playerPos = player.transform.position;
+                Vector2 enemyPos = enemy.transform.position;
+                Vector2 direction = (enemyPos - playerPos).normalized;
+                float distance = Vector2.Distance(playerPos, enemyPos);
+
+                RaycastHit2D hit = Physics2D.Raycast(playerPos, direction, distance, LayerMask.GetMask("Default"));
+                Debug.DrawRay(playerPos, direction * distance, Color.red, 2f);
+                if (hit.collider != null)
+                {
+                    // Something is blocking the attack
+                    Debug.Log("Hit something other than enemy");
+                    return;
+                }
+
                 enemyComponent.ReceiveDamage(damage);
 
                 SoundFxManager.Instance.PlaySound(sourceWeapon.playerStats.hitSound, transform, 0.25f);
