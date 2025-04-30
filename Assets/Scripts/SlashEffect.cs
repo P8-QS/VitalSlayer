@@ -65,7 +65,7 @@ public class SlashEffect : MonoBehaviour
             {
                 enemyComponent.ReceiveDamage(damage);
 
-                SoundFxManager.Instance.PlaySound(sourceWeapon.playerStats.hitSound, transform, 0.25f);
+                SoundFxManager.Instance.PlaySound(sourceWeapon.playerStats.HitSound, transform, 0.25f);
             }
         }
     }
