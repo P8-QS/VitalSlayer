@@ -14,7 +14,7 @@ public class AcidSlimeHitbox : EnemyHitbox
     {
         base.OnCollide(coll);
 
-        if (coll.CompareTag("Player"))
+        if (coll.CompareTag("Player") && !enemy.isPhantom)
         {
             StartCoroutine(ApplyAcidDamageCoroutine(coll.gameObject));
         }

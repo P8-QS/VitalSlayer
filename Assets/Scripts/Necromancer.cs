@@ -229,7 +229,16 @@ public class FireballProjectile : MonoBehaviour
                 maxPossibleDamage = maxDamage,
             };
 
-            collision.SendMessage("ReceiveDamage", dmg);
+            if (!necromancer.isPhantom)
+            {
+                collision.SendMessage("ReceiveDamage", dmg);
+            }
+            else
+            {
+                StartDestroySequence();
+                return;
+            }
+
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "Blocking" || collision.gameObject.name == "Walls")
