@@ -42,7 +42,7 @@ public class Weapon : Collidable
             if (enemy != null)
             {
                 enemy.ReceiveDamage(damage);
-                SoundFxManager.Instance.PlaySound(playerStats.hitSound, transform, 0.25f);
+                SoundFxManager.Instance.PlaySound(playerStats.HitSound, transform, 0.25f);
             }
         }
     }
@@ -79,14 +79,14 @@ public class Weapon : Collidable
         int maxDamage = playerStats.CalculateMaxDamage(playerLevel);
 
         int damageAmount = random.Next(minDamage, maxDamage + 1);
-        bool isCritical = random.NextDouble() < playerStats.critChance;
+        bool isCritical = random.NextDouble() < playerStats.CritChance;
 
         if (isCritical)
         {
-            damageAmount = Mathf.RoundToInt(damageAmount * playerStats.critMultiplier);
+            damageAmount = Mathf.RoundToInt(damageAmount * playerStats.CritMultiplier);
         }
 
-        float pushForce = playerStats.pushForce * (damageAmount / (float)maxDamage);
+        float pushForce = playerStats.PushForce * (damageAmount / (float)maxDamage);
 
         Damage result = new Damage
         {
