@@ -20,7 +20,7 @@ public class Player : Mover
     private float hitAnimationTimer = 0f;
     private const float HIT_ANIMATION_DURATION = 0.15f;
 
-    protected override void Start()
+    protected void Awake()
     {
         if (basePlayerStats == null)
         {
@@ -34,14 +34,24 @@ public class Player : Mover
 
         weapon = GetComponentInChildren<Weapon>();
 
-        level = ExperienceManager.Instance.Level;
-        base.Start();
-
         boxCollider = GetComponent<BoxCollider2D>();
         initialSize = transform.localScale;
 
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
         weaponAnimator = weaponObj.GetComponent<Animator>();
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
+
+        currentSpeed = playerStats.BaseSpeed;
+
+        
+    }
+
+    protected override void Start()
+    {
+        level = ExperienceManager.Instance.Level;
+        base.Start();
 
         movementJoystick = GameObject.Find("Canvas").transform.Find("Safe Area").Find("Variable Joystick")
             .GetComponent<Joystick>();
@@ -63,11 +73,6 @@ public class Player : Mover
                 perk.Apply();
             }
         }
-
-        if (animator == null)
-            animator = GetComponent<Animator>();
-
-        currentSpeed = playerStats.BaseSpeed;
     }
 
     private void Update()

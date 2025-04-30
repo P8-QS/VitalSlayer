@@ -82,7 +82,7 @@ public class PerksManager : MonoBehaviour
     /// </summary>
     public void ApplyPerksToPlayer()
     {
-        if (GameManager.Instance?.player == null) return;
+        if (!GameManager.Instance.player) return;
 
         GameManager.Instance.player.playerStats.Reset();
 
