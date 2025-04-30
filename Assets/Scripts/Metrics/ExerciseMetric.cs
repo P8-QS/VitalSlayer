@@ -13,7 +13,7 @@ namespace Metrics
         public string Name => "Exercise";
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
-
+     
         public ExerciseMetric()
         {
             Data = UserMetricsHandler.Instance.ExerciseSessionRecords;
@@ -37,14 +37,12 @@ namespace Metrics
 
         public string Text()
         {
-            return
-                $"You have exercised for <b>{Data.Sum(e => e.Duration.TotalMinutes)} minutes</b>. This gives you {(this as IMetric).EffectsToString()}.";
+            return $"You have exercised for <b>{Data.Sum(e => e.Duration.TotalMinutes):0.##} minutes</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
-
-
+        
         public string Description()
         {
-            return $"You have exercised for {Data.Sum(e => e.Duration.TotalMinutes)} minutes yesterday.";
+            return $"You have exercised for {Data.Sum(e => e.Duration.TotalMinutes):0.##} minutes yesterday.";
         }
     }
 }
