@@ -12,6 +12,8 @@ public class FPSLimiter : MonoBehaviour
         var maxFPS = resolutions.Max(res => res.refreshRateRatio.value);
         var targetFPS = Math.Max(FallbackFPS, maxFPS);
         
+        DontDestroyOnLoad(gameObject);
+        
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = (int)targetFPS;
         Debug.Log($"RefreshRateRatio: {maxFPS}");
