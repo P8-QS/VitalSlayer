@@ -8,6 +8,8 @@ namespace Metrics
 {
     public class ActiveCaloriesMetric : IMetric
     {
+        private IReadOnlyCollection<ActiveCaloriesBurnedRecord> _data;
+
         public string Name => "Active Calories Burned";
         public IReadOnlyCollection<ActiveCaloriesBurnedRecord> Data { get; }
         public List<IEffect> Effects { get; } = new();
@@ -29,30 +31,27 @@ namespace Metrics
                 }
             }
 
-            var effectLevel = _totalCalories switch
+            switch (_totalCalories)
             {
-                >= 300 => 1,
-                _ => 0
-            };
-
-            if (effectLevel > 0)
-            {
-                Effects.Add(new NoDoorCloseEffect(SpriteManager.Instance.GetSprite("effect_no_doors"), 0));
-                Effects[0].Apply();
+                case >= 300:
+                    Effects.Add(new NoDoorCloseEffect(SpriteManager.Instance.GetSprite("effect_no_doors_positive"),
+                        1)); break;
+                default:
+                    Effects.Add(new NoDoorCloseEffect(SpriteManager.Instance.GetSprite("effect_no_doors_negative"),
+                        0)); break;
             }
-            
         }
 
         public string Text()
         {
-            return $"You burned <b>{_totalCalories} active calories</b> today. This gives you {(this as IMetric).EffectsToString()}.";
+            return
+                $"You burned <b>{_totalCalories} active calories</b> today. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         public string Description()
         {
             return $"You've burned a total of {_totalCalories} active calories. " +
                    $"Staying physically active improves endurance, mood, and overall health.";
-        } 
+        }
     }
 }
-

@@ -19,20 +19,18 @@ namespace Dungeon
 
         public List<DoorInfo> doorData = new();
 
-        [Header("Enemy Settings")]
-        [Tooltip("Tag used to identify enemies that need to be defeated")]
+        [Header("Enemy Settings")] [Tooltip("Tag used to identify enemies that need to be defeated")]
         public string enemyTag = nameof(Fighter);
 
-        [HideInInspector]
-        public List<DoorController> connectedDoors = new();
+        [HideInInspector] public List<DoorController> connectedDoors = new();
 
-        [HideInInspector]
-        public bool isPlayerInside;
+        [HideInInspector] public bool isPlayerInside;
 
         public readonly List<GameObject> RoomEnemies = new();
         private readonly List<Transform> _doorTransforms = new();
         private Bounds? _calculatedBounds;
         public bool _isCleared;
+        public bool DoorsAlwaysOpen;
 
 #if UNITY_EDITOR
         public void PopulateDoorDataFromChildren()
@@ -52,29 +50,30 @@ namespace Dungeon
                     localPosition = child.localPosition
                 });
             }
+
             UnityEditor.EditorUtility.SetDirty(this);
             Debug.Log($"Populated door data for {gameObject.name}", this);
         }
 #endif
-        
+
         private void Start()
         {
             FindDoorTransforms();
             FindEnemiesInRoom();
-            
+
             var trigger = GetComponentInChildren<RoomTrigger>();
             if (trigger != null)
             {
                 trigger.OnPlayerEnterRoom += OnPlayerEnterRoom;
             }
         }
-        
+
         private void Update()
         {
             if (_isCleared)
                 return;
 
-            if (isPlayerInside && RoomEnemies.Count > 0)
+            if (!DoorsAlwaysOpen && isPlayerInside && RoomEnemies.Count > 0)
             {
                 foreach (var door in connectedDoors)
                 {
@@ -105,6 +104,14 @@ namespace Dungeon
                     door.Open();
                 }
             }
+
+            if (DoorsAlwaysOpen)
+            {
+                foreach (var door in connectedDoors)
+                {
+                    door.Open();
+                }
+            }
         }
 
         public void FindEnemiesInRoom()
@@ -116,19 +123,21 @@ namespace Dungeon
 
             foreach (var obj in taggedObjects)
             {
-                if (obj.name != "Player" && _calculatedBounds != null && _calculatedBounds.Value.Contains(obj.transform.position))
+                if (obj.name != "Player" && _calculatedBounds != null &&
+                    _calculatedBounds.Value.Contains(obj.transform.position))
                 {
                     RoomEnemies.Add(obj);
                 }
             }
         }
-        
+
         public List<Transform> GetDoorTransforms()
         {
             if (_doorTransforms.Count == 0)
             {
                 FindDoorTransforms();
             }
+
             return _doorTransforms;
         }
 
@@ -173,10 +182,9 @@ namespace Dungeon
                     {
                         case "North": maxY = door.localPosition.y; break;
                         case "South": minY = door.localPosition.y; break;
-                        case "East":  maxX = door.localPosition.x; break;
-                        case "West":  minX = door.localPosition.x; break;
+                        case "East": maxX = door.localPosition.x; break;
+                        case "West": minX = door.localPosition.x; break;
                     }
-                
                 }
             }
             else
@@ -186,21 +194,21 @@ namespace Dungeon
                 {
                     var minLocal = floorTM.CellToLocal(floorTM.cellBounds.min);
                     var maxLocal = floorTM.CellToLocal(floorTM.cellBounds.max);
-                
+
                     minX = minLocal.x;
                     minY = minLocal.y;
                     maxX = maxLocal.x;
                     maxY = maxLocal.y;
                 }
             }
-            
+
             var bounds = new Bounds();
             bounds.SetMinMax(new Vector2(minX, minY), new Vector2(maxX, maxY));
             bounds.center += simulatedWorldPosition;
 
             return bounds;
         }
-        
+
         private void OnPlayerEnterRoom()
         {
             isPlayerInside = true;
@@ -217,13 +225,15 @@ namespace Dungeon
                 var dir = GetDoorDirection(child);
                 if (dir == null) continue;
 
-                if (doorData.Any(data => data.direction == dir && Vector3.Distance(data.localPosition, child.localPosition) < 0.01f))
+                if (doorData.Any(data =>
+                        data.direction == dir && Vector3.Distance(data.localPosition, child.localPosition) < 0.01f))
                 {
                     _doorTransforms.Add(child);
                 }
                 else
                 {
-                    Debug.LogWarning($"Door transform {child.name} found but no matching entry in doorData list.", this);
+                    Debug.LogWarning($"Door transform {child.name} found but no matching entry in doorData list.",
+                        this);
                 }
             }
         }
