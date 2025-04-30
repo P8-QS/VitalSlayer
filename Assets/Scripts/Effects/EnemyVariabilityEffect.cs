@@ -6,7 +6,7 @@ namespace Effects
 {
     public class EnemyVariabilityEffect : IEffect
     {
-        public string Name { get; }
+        public string Name => "Enemy Variability";
         public int Level { get; set; }
         public Sprite Icon { get; }
 
@@ -18,7 +18,7 @@ namespace Effects
         
         public string Text()
         {
-            return $"<color=#EA2E1E>enemy variability level {Level}</color>";
+            return $"<color=#F5CC45>enemy variability level {Level}</color>";
         }
 
         public string Description()
@@ -26,6 +26,7 @@ namespace Effects
             return (HeartRateVariabilityMetric.Hrv)Level switch
             {
                 HeartRateVariabilityMetric.Hrv.Low => "Enemies have low variability",
+                HeartRateVariabilityMetric.Hrv.Normal => "Enemy variability is not affected",
                 HeartRateVariabilityMetric.Hrv.High => "Enemies have high variability",
                 _ => throw new ArgumentOutOfRangeException()
             };
@@ -33,7 +34,7 @@ namespace Effects
 
         public void Apply()
         {
-            GameManager
+            EntitySpawner.Instance.DistributionLevel = Level;
         }
     }
 }

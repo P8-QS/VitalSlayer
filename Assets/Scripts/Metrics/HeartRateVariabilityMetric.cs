@@ -16,38 +16,35 @@ namespace Metrics
 
         public HeartRateVariabilityMetric()
         {
-            Data = UserMetricsHandler.Instance.HeartRateVariabilityRmssdRecords;
+            Data = UserMetricsHandler.Instance.HeartRateVariabilityRmssdRecords.OrderByDescending(d => d.Time).ToList();
             Icon = SpriteManager.Instance.GetSprite("metric_hrv");
             
             if (!(Data?.Count > 0)) return;
-            var effectLevel = Data.OrderByDescending(d => d.Time).FirstOrDefault()?.HeartRateVariabilityMillis switch
+            var effectLevel = Data.FirstOrDefault()?.HeartRateVariabilityMillis switch
             {
                 > 70 => Hrv.High,
                 > 30 => Hrv.Normal,
                 _ => Hrv.Low
             };
 
-            if (effectLevel is Hrv.Low or Hrv.High)
-            {
-                Effects.Add(new EnemyVariabilityEffect(SpriteManager.Instance.GetSprite("effect_enemy_spawn"), (int)effectLevel));
-            }
+            Effects.Add(new EnemyVariabilityEffect(SpriteManager.Instance.GetSprite("effect_enemy_spawn"), (int)effectLevel));
         }
         
         public string Text()
         {
-            throw new System.NotImplementedException();
+            return $"Your heart rate variability is <b>{Data.FirstOrDefault()?.HeartRateVariabilityMillis}</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         public string Description()
         {
-            throw new System.NotImplementedException();
+            return $"Your heart rate variability is {Data.FirstOrDefault()?.HeartRateVariabilityMillis}.";
         }
 
         public enum Hrv
         {
-            Low,
-            Normal,
-            High
+            Low = 1,
+            Normal = 2,
+            High = 3
         }
     }
 }
