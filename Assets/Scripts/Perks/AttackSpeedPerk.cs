@@ -29,10 +29,10 @@ public class AttackSpeedPerk : IPerk
 
     public void Apply()
     {
-        if (GameManager.Instance == null || GameManager.Instance.player == null ||
+        if (GameManager.Instance == null || GameManager.Instance.player == null || 
             GameManager.Instance.player.playerStats == null)
             return;
-
+            
         var player = GameManager.Instance.player;
         var baseCooldown = player.playerStats.AttackCooldown;
         var multiplier = 1 + (GetMultiplier(Level) / 100.0);

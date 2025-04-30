@@ -29,6 +29,10 @@ public class AttackDamagePerk : IPerk
 
     public void Apply()
     {
+        if (GameManager.Instance == null || GameManager.Instance.player == null ||
+            GameManager.Instance.player.playerStats == null)
+            return;
+
         var player = GameManager.Instance.player;
         var baseMinFactor = player.playerStats.MinDamageScalingFactor;
         var baseMaxFactor = player.playerStats.MaxDamageScalingFactor;
