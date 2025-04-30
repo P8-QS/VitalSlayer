@@ -93,15 +93,6 @@ public class Player : Mover
         }
     }
 
-    private float GetModifiedAttackCooldown()
-    {
-        float baseCooldown = playerStats.attackCooldown;
-
-        float modifier = StatsModifier.Instance.GetModifier(StatsModifier.StatType.AttackSpeed);
-
-        return baseCooldown / modifier;
-    }
-
 
     public void Attack()
     {
@@ -110,9 +101,9 @@ public class Player : Mover
 
         float anim_length = GetWeaponAnimationClipLength("weapon_swing");
 
-        if (GetModifiedAttackCooldown() < anim_length)
+        if (playerStats.attackCooldown < anim_length)
         {
-            float anim_speed = anim_length / GetModifiedAttackCooldown();
+            float anim_speed = anim_length / playerStats.attackCooldown;
             weaponAnimator.speed = anim_speed;
         }
 

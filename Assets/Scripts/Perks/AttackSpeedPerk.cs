@@ -29,7 +29,9 @@ public class AttackSpeedPerk : IPerk
 
     public void Apply()
     {
-        float multiplier = 1 + (GetMultiplier(Level) / 100f);
-        StatsModifier.Instance.SetModifier(StatsModifier.StatType.DamageMin, multiplier);
+        var baseCooldown = GameManager.Instance.player.playerStats.attackCooldown;
+        var multiplier = 1 + (GetMultiplier(Level) / 100.0);
+        float newSpeed = (float)(baseCooldown / multiplier);
+        GameManager.Instance.player.playerStats.attackCooldown = newSpeed;
     }
 }
