@@ -19,6 +19,7 @@ namespace Metrics
      
         public ExerciseMetric()
         {
+            if (UserMetricsHandler.Instance.ExerciseSessionRecords is null) return;
             Data = UserMetricsHandler.Instance.ExerciseSessionRecords.OrderByDescending(e => e.StartTime).ToList();
             Icon = SpriteManager.Instance.GetSprite("metric_exercise");
 

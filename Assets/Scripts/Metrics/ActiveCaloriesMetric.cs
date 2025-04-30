@@ -17,6 +17,7 @@ namespace Metrics
 
         public ActiveCaloriesMetric()
         {
+            if (UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords is null) return;
             Data = UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords;
             Icon = SpriteManager.Instance.GetSprite("metric_calories");
 

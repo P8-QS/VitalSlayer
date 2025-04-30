@@ -18,6 +18,7 @@ namespace Metrics {
         
         public SleepMetric() 
         {
+            if (UserMetricsHandler.Instance.SleepSessionRecords is null) return;
             Data = UserMetricsHandler.Instance.SleepSessionRecords.OrderByDescending(s => s.StartTime).ToList();
             Icon = SpriteManager.Instance.GetSprite("metric_sleep");
 

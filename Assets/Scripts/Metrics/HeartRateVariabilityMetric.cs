@@ -16,6 +16,7 @@ namespace Metrics
 
         public HeartRateVariabilityMetric()
         {
+            if (UserMetricsHandler.Instance.HeartRateVariabilityRmssdRecords is null) return;
             Data = UserMetricsHandler.Instance.HeartRateVariabilityRmssdRecords.OrderByDescending(d => d.Time).FirstOrDefault();
             Icon = SpriteManager.Instance.GetSprite("metric_hrv");
 

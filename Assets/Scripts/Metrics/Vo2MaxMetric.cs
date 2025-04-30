@@ -18,6 +18,7 @@ namespace Metrics
 
         public Vo2MaxMetric()
         {
+            if (UserMetricsHandler.Instance.Vo2MaxRecords is null) return;
             Data = UserMetricsHandler.Instance.Vo2MaxRecords.FirstOrDefault();
             Icon = SpriteManager.Instance.GetSprite("metric_vo2_max");
 

@@ -16,26 +16,20 @@ namespace Metrics
 
         public StepsMetric()
         {
-            if (UserMetricsHandler.Instance.StepsRecords != null)
-            {
-                Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
-                Icon = SpriteManager.Instance.GetSprite("metric_steps");
+            if (UserMetricsHandler.Instance.StepsRecords is null) return;
+            Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
+            Icon = SpriteManager.Instance.GetSprite("metric_steps");
 
-                if (Data is null) return;
-                var effectLevel = Data.StepsCount switch
-                {
-                    < 4000 => 1,
-                    < 8000 => 2,
-                    _ => 3
-                };
-
-                Effects.Add(new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel));
-                Effects[0].Apply(); // Scuffed API usage but works
-            }
-            else
+            if (Data is null) return;
+            var effectLevel = Data.StepsCount switch
             {
-                Data = null;
-            }
+                < 4000 => 1,
+                < 8000 => 2,
+                _ => 3
+            };
+
+            Effects.Add(new MapEffect(SpriteManager.Instance.GetSprite("effect_map"), effectLevel));
+            Effects[0].Apply(); // Scuffed API usage but works
         }
 
         public string Text()
