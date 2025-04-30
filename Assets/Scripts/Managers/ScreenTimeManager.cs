@@ -73,15 +73,19 @@ public class ScreenTimeManager : MonoBehaviour
         } 
     }
 
-    void OnApplicationFocus(bool hasFocus)
+    void OnApplicationPause(bool pause)
     {
-        if (hasFocus && openedUsageAccessSettings)
+        if (!pause && openedUsageAccessSettings)
         {
             openedUsageAccessSettings = false;
-
             if (CheckPermission())
             {
+                Debug.LogWarning("Permissions granted after opening settings");
                 OnPermissionGranted();
+            }
+            else
+            {
+                Debug.Log("Returned from settings without granting permissions");
             }
         }
     }
