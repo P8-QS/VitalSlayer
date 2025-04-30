@@ -86,7 +86,6 @@ public class PerksManager : MonoBehaviour
 
         GameManager.Instance.player.playerStats.Reset();
 
-        // Apply all active perks
         foreach (var perk in Perks.Values)
         {
             if (perk.Level > 0)
