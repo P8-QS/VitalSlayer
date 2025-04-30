@@ -9,13 +9,16 @@ public class LevelIndicator : MonoBehaviour
     [SerializeField] private float additionalYOffset = -0.02f;
 
     [Header("Level Colors")]
+    [SerializeField] private Color safeColor = Color.grey;
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private Color warningColor = Color.yellow;
     [SerializeField] private Color dangerColor = Color.red;
 
     [Header("Level Thresholds")]
+    [SerializeField] private int safeThreshold = -1; // Levels below player for grey
     [SerializeField] private int warningThreshold = 2; // Levels above player for yellow
-    [SerializeField] private int dangerThreshold = 4;  // Levels above player for red
+    [SerializeField] private int dangerThreshold = 3;  // Levels above player for red
+
 
     private MonoBehaviour targetEntity;
     private int entityLevel;
@@ -113,6 +116,14 @@ public class LevelIndicator : MonoBehaviour
             else if (levelDifference >= warningThreshold)
             {
                 levelText.color = warningColor;
+            }
+            else if (levelDifference >= safeThreshold)
+            {
+                levelText.color = normalColor;
+            }
+            else if (levelDifference < safeThreshold)
+            {
+                levelText.color = safeColor;
             }
             else
             {
