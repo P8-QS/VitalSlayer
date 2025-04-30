@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
@@ -8,56 +9,45 @@ using UnityEngine;
 namespace Metrics {
     public class SleepMetric : IMetric
     {
-        private SleepSessionRecord _data;
-        private Sprite _icon;
         public string Name => "Sleep";
-        public SleepSessionRecord Data
-        {
-            get => _data;
-            set => _data = value;
-        }
+        public IReadOnlyCollection<SleepSessionRecord> Data { get; }
         public List<IEffect> Effects { get; } = new();
-        public Sprite Icon
+        public Sprite Icon { get; }
+
+        private readonly TimeSpan _sleepDuration;
+        
+        public SleepMetric() 
         {
-            get => _icon;
-            set => _icon = value;
-        }
+            if (UserMetricsHandler.Instance.SleepSessionRecords is null) return;
+            Data = UserMetricsHandler.Instance.SleepSessionRecords.OrderByDescending(s => s.StartTime).ToList();
+            Icon = SpriteManager.Instance.GetSprite("metric_sleep");
 
-        public SleepMetric() {
-            if (UserMetricsHandler.Instance.SleepSessionRecords != null) {
-                Data = UserMetricsHandler.Instance.SleepSessionRecords.FirstOrDefault();
-                
-                Icon = SpriteManager.Instance.GetSprite("metric_sleep");
-
-                int effectLevel = Data.Duration.TotalHours switch
-                {
-                    < 5 => 2,
-                    < 7 => 1,
-                    _ => 0
-                };
-
-                if (effectLevel > 0) 
-                {
-                    Effects.Add(new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"),
-                        effectLevel));
-                }
-                else 
-                {
-                    Effects.Add(new AttackSpeedEffect(SpriteManager.Instance.GetSprite("effect_attack_speed"), effectLevel));
-                }
-            } 
-            else
+            if (Data is null) return;
+            _sleepDuration = new TimeSpan(Data.Sum(s => s.Duration.Ticks));
+            var effectLevel = _sleepDuration.TotalHours switch
             {
-                Data = null;
+                < 5 => 2,
+                < 7 => 1,
+                _ => 0
+            };
+
+            if (effectLevel > 0) 
+            {
+                Effects.Add(new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"),
+                    effectLevel));
+            }
+            else 
+            {
+                Effects.Add(new AttackSpeedEffect(SpriteManager.Instance.GetSprite("effect_attack_speed"), effectLevel));
             }
         }
         public string Text()
         {
-            return $"You have slept <b>{Data.Duration.TotalHours} hours and {Data.Duration.Minutes} minutes</b>. This gives you {(this as IMetric).EffectsToString()}.";
+            return $"You have slept <b>{_sleepDuration.Hours} hours and {_sleepDuration.Minutes} minutes</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
         public string Description()
         {
-            return $"You slept for {Data.Duration.TotalHours} hours and {Data.Duration.Minutes} minutes yesterday. Proper rest is essential for recovery and focus.";
+            return $"You slept for {_sleepDuration.Hours} hours and {_sleepDuration.Minutes} minutes yesterday. Proper rest is essential for recovery and focus.";
         }
     }
 }

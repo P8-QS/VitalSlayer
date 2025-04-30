@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -31,8 +33,13 @@ public class EntitySpawner : MonoBehaviour
 
     [Header("Enemy Level Scaling")]
     [Tooltip("Configuration for enemy level distribution")]
-    public EnemyLevelDistribution levelDistribution;
-
+    public EnemyLevelDistribution levelDistributionLow;
+    public EnemyLevelDistribution levelDistributionNormal;
+    public EnemyLevelDistribution levelDistributionHigh;
+    
+    [NonSerialized]
+    public int DistributionLevel = 0;
+    
     private List<Vector3> GetEntitySpawnPoints(int roomIndex, string pointTag)
     {
         List<Vector3> spawnPoints = new List<Vector3>();
@@ -108,7 +115,8 @@ public class EntitySpawner : MonoBehaviour
 
     private int DetermineEnemyLevel(bool isBoss)
     {
-        int playerLevel = ExperienceManager.Instance.Level;
+        var playerLevel = ExperienceManager.Instance.Level;
+        var levelDistribution = GetLevelDistribution();
 
         if (isBoss && levelDistribution != null)
         {
@@ -121,26 +129,33 @@ public class EntitySpawner : MonoBehaviour
             return playerLevel;
         }
 
-        int totalWeight = 0;
-        foreach (var chance in levelDistribution.levelChances)
-        {
-            totalWeight += chance.weight;
-        }
+        var totalWeight = levelDistribution.levelChances.Sum(chance => chance.weight);
 
-        int randomWeight = Random.Range(0, totalWeight);
-        int currentWeight = 0;
+        var randomWeight = Random.Range(0, totalWeight);
+        var currentWeight = 0;
 
         foreach (var chance in levelDistribution.levelChances)
         {
             currentWeight += chance.weight;
             if (randomWeight < currentWeight)
             {
-                int enemyLevel = playerLevel + chance.levelDifference;
+                var enemyLevel = playerLevel + chance.levelDifference;
                 return Mathf.Max(levelDistribution.minimumLevel, enemyLevel);
             }
         }
 
         return playerLevel;
+    }
+
+    private EnemyLevelDistribution GetLevelDistribution()
+    {
+        return DistributionLevel switch
+        {
+            0 => levelDistributionLow,
+            1 => levelDistributionNormal,
+            2 => levelDistributionHigh,
+            _ => null
+        };
     }
 
     public Player SpawnPlayer(int roomIndex)

@@ -30,7 +30,7 @@ public class MetricCardUI : MonoBehaviour
         AddIcon(metric);
         foreach (var effect in metric.Effects)
         {
-            AddIcon(effect, true);
+            AddIcon(effect, false);
         }
     }
 

@@ -9,66 +9,64 @@ namespace Metrics
 {
     public class Vo2MaxMetric : IMetric
     {
-        public IReadOnlyCollection<Vo2MaxRecord> Data { get; }
+        public Vo2MaxRecord Data { get; }
         public string Name => "VO2 Max";
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
 
-        private Vo2MaxRecord _record;
-        private int level;
+        private readonly int _level;
 
         public Vo2MaxMetric()
         {
-            Data = UserMetricsHandler.Instance.Vo2MaxRecords;
+            if (UserMetricsHandler.Instance.Vo2MaxRecords is null) return;
+            Data = UserMetricsHandler.Instance.Vo2MaxRecords.FirstOrDefault();
             Icon = SpriteManager.Instance.GetSprite("metric_vo2_max");
 
-            if (!(Data?.Count > 0)) return;
-
-            _record = Data.OrderByDescending(record => record.Time).FirstOrDefault();
-
-            if (_record == null) return;
-
-            level = _record.Vo2MillilitersPerMinuteKilogram switch
+            if (Data is null) return;
+            _level = Data.Vo2MillilitersPerMinuteKilogram switch
             {
-                > 45 => 2,
-                > 35 => 1,
-                _ => 0
+                > 45 => 3,
+                > 35 => 2,
+                _ => 1
             };
             
-            if (level == 2)
-            {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_positive"), 2));
-            } else if (level == 1)
-            {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_neutral"), 1));
-            }
-            else
-            {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_negative"), 0));
-            }
+
+            Effects.Add(new AcidSlimePuddleEffect(SpriteManager.Instance.GetSprite(LevelToEffectIconName()),
+                _level));
         }
 
         public string Text()
         {
             return
-                $"Your VO2 max is <b>{_record.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This gives you {(this as IMetric).EffectsToString()}.";
+                $"Your VO2 max is <b>{Data.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         private string LevelToString()
         {
-            return level switch
+            return _level switch
             {
-                0 => "below average",
-                1 => "average",
-                2 => "above average",
+                1 => "below average",
+                2 => "average",
+                3 => "above average",
                 _ => "unknown"
+            };
+        }
+
+        private string LevelToEffectIconName()
+        {
+            return _level switch
+            {
+                1 => "effect_slime_puddle_negative",
+                2 => "effect_slime_puddle_neutral",
+                3 => "effect_slime_puddle_positive",
+                _ => "effect_slime_puddle_neutral"
             };
         }
 
         public string Description()
         {
             return
-                $"Your VO2 max is <b>{_record.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This is considered {LevelToString()}. VO2 max is a measure of your body's ability to utilize oxygen during exercise. ";
+                $"Your VO2 max is <b>{Data.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This is considered {LevelToString()}. VO2 max is a measure of your body's ability to utilize oxygen during exercise. ";
         }
     }
 }

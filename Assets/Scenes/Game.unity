@@ -960,6 +960,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1236386803}
     m_Modifications:
+    - target: {fileID: 2494114774186364878, guid: 73feffc07d538f489b05800d3a944417, type: 3}
+      propertyPath: minimapRect
+      value: 
+      objectReference: {fileID: 1027685181}
+    - target: {fileID: 2494114774186364878, guid: 73feffc07d538f489b05800d3a944417, type: 3}
+      propertyPath: effectIconsRect
+      value: 
+      objectReference: {fileID: 1531111614}
     - target: {fileID: 6000476641517157181, guid: 73feffc07d538f489b05800d3a944417, type: 3}
       propertyPath: m_Name
       value: Minimap
@@ -1057,6 +1065,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73feffc07d538f489b05800d3a944417, type: 3}
+--- !u!224 &1531111614 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5480373568971907339, guid: 73feffc07d538f489b05800d3a944417, type: 3}
+  m_PrefabInstance: {fileID: 1531111613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1844547156
 GameObject:
   m_ObjectHideFlags: 0
