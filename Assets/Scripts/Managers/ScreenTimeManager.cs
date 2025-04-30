@@ -73,12 +73,11 @@ public class ScreenTimeManager : MonoBehaviour
         } 
     }
 
-    void OnApplicationFocus(bool hasFocus)
+    void OnApplicationPause(bool pause)
     {
-        if (hasFocus && openedUsageAccessSettings)
+        if (!pause && openedUsageAccessSettings)
         {
             openedUsageAccessSettings = false;
-
             if (CheckPermission())
             {
                 OnPermissionGranted();
