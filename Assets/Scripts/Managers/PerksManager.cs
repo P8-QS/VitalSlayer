@@ -29,38 +29,23 @@ public class PerksManager : MonoBehaviour
             InitializePerks();
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void InitializePerks()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            // Add default perks
-            var healthPerk = new HealthPerk();
-            var experiencePerk = new ExperiencePerk();
-            var attackSpeedPerk = new AttackSpeedPerk();
-            var movementSpeedPerk = new MovementSpeedPerk();
-            var criticalChancePerk = new CriticalChancePerk();
-            var attackDamagePerk = new AttackDamagePerk();
+        var healthPerk = new HealthPerk();
+        var experiencePerk = new ExperiencePerk();
+        var attackSpeedPerk = new AttackSpeedPerk();
+        var movementSpeedPerk = new MovementSpeedPerk();
+        var criticalChancePerk = new CriticalChancePerk();
+        var attackDamagePerk = new AttackDamagePerk();
 
-            Perks.Add(healthPerk.Name, healthPerk);
-            Perks.Add(experiencePerk.Name, experiencePerk);
-            Perks.Add(attackSpeedPerk.Name, attackSpeedPerk);
-            Perks.Add(movementSpeedPerk.Name, movementSpeedPerk);
-            Perks.Add(criticalChancePerk.Name, criticalChancePerk);
-            Perks.Add(attackDamagePerk.Name, attackDamagePerk);
-
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Perks.Add(healthPerk.Name, healthPerk);
+        Perks.Add(experiencePerk.Name, experiencePerk);
+        Perks.Add(attackSpeedPerk.Name, attackSpeedPerk);
+        Perks.Add(movementSpeedPerk.Name, movementSpeedPerk);
+        Perks.Add(criticalChancePerk.Name, criticalChancePerk);
+        Perks.Add(attackDamagePerk.Name, attackDamagePerk);
     }
 
     public void Upgrade(IPerk perk)
@@ -170,15 +155,15 @@ public class PerksManager : MonoBehaviour
 
         // Create formatted string for debug output
         string report = "====== PLAYER STATS (LEVEL " + level + ") ======\n" +
-            $"Health:       {beforeHealth} → {afterHealth} ({healthChange:+0.0;-0.0;0}%)\n" +
-            $"Min Damage:   {beforeMinDamage} → {afterMinDamage} ({minDamageChange:+0.0;-0.0;0}%)\n" +
-            $"Max Damage:   {beforeMaxDamage} → {afterMaxDamage} ({maxDamageChange:+0.0;-0.0;0}%)\n" +
-            $"Attack Speed: {1f / beforeAttackCooldown:F2}/s → {1f / afterAttackCooldown:F2}/s ({attackSpeedChange:+0.0;-0.0;0}%)\n" +
-            $"Move Speed:   {beforeSpeed:F2} → {afterSpeed:F2} ({moveSpeedChange:+0.0;-0.0;0}%)\n" +
-            $"Crit Chance:  {beforeCritChance * 100:F1}% → {afterCritChance * 100:F1}% ({critChanceChange:+0.0;-0.0;0}%)\n" +
-            $"Health Mult:  x{healthMultiplier:F2}\n" +
-            $"Damage Mult:  x{damageMultiplier:F2}\n" +
-            "======================================";
+                        $"Health:       {beforeHealth} → {afterHealth} ({healthChange:+0.0;-0.0;0}%)\n" +
+                        $"Min Damage:   {beforeMinDamage} → {afterMinDamage} ({minDamageChange:+0.0;-0.0;0}%)\n" +
+                        $"Max Damage:   {beforeMaxDamage} → {afterMaxDamage} ({maxDamageChange:+0.0;-0.0;0}%)\n" +
+                        $"Attack Speed: {1f / beforeAttackCooldown:F2}/s → {1f / afterAttackCooldown:F2}/s ({attackSpeedChange:+0.0;-0.0;0}%)\n" +
+                        $"Move Speed:   {beforeSpeed:F2} → {afterSpeed:F2} ({moveSpeedChange:+0.0;-0.0;0}%)\n" +
+                        $"Crit Chance:  {beforeCritChance * 100:F1}% → {afterCritChance * 100:F1}% ({critChanceChange:+0.0;-0.0;0}%)\n" +
+                        $"Health Mult:  x{healthMultiplier:F2}\n" +
+                        $"Damage Mult:  x{damageMultiplier:F2}\n" +
+                        "======================================";
 
         Debug.Log(report);
     }
