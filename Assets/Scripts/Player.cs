@@ -1,14 +1,18 @@
 using System.Linq;
 using Effects;
 using Managers;
-using NUnit.Framework;
 using UnityEngine;
 
 public class Player : Mover
 {
-    [Header("Stats")] public PlayerStats playerStats;
+    [Header("Stats")]
+    public PlayerStats basePlayerStats;
 
-    [Header("References")] public Animator animator;
+    // Runtime stats that can be modified by perks
+    [HideInInspector] public RuntimePlayerStats playerStats;
+
+    [Header("References")]
+    public Animator animator;
 
     private float lastAttackTime = 0f;
     private Weapon weapon;
@@ -19,13 +23,18 @@ public class Player : Mover
 
     protected override void Start()
     {
-        if (playerStats == null)
+        if (basePlayerStats == null)
         {
-            Debug.LogError("Player stats not assigned to " + gameObject.name);
+            Debug.LogError("Player base stats not assigned to " + gameObject.name);
             return;
         }
 
-        SetStats(playerStats);
+        // Create runtime stats from base stats
+        playerStats = new RuntimePlayerStats(basePlayerStats);
+
+        // Set fighter stats using base stats (since Mover needs the ScriptableObject)
+        SetStats(basePlayerStats);
+
         weapon = GetComponentInChildren<Weapon>();
 
         level = ExperienceManager.Instance.Level;
@@ -35,7 +44,6 @@ public class Player : Mover
         initialSize = transform.localScale;
 
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
-
         weaponAnimator = weaponObj.GetComponent<Animator>();
 
         movementJoystick = GameObject.Find("Canvas").transform.Find("Safe Area").Find("Variable Joystick")
@@ -61,6 +69,9 @@ public class Player : Mover
 
         if (animator == null)
             animator = GetComponent<Animator>();
+
+        // Update current speed from runtime stats after perks are applied
+        currentSpeed = playerStats.BaseSpeed;
     }
 
     private void Update()
@@ -87,30 +98,28 @@ public class Player : Mover
         Animate(input);
         UpdateMotor(input);
 
-        if (Time.time >= lastAttackTime + playerStats.attackCooldown)
+        if (Time.time >= lastAttackTime + playerStats.AttackCooldown)
         {
             Attack();
         }
     }
 
-
     public void Attack()
     {
-        SoundFxManager.Instance.PlaySound(playerStats.attackSound, transform, 0.8f);
+        SoundFxManager.Instance.PlaySound(playerStats.AttackSound, transform, 0.8f);
         lastAttackTime = Time.time;
 
         float anim_length = GetWeaponAnimationClipLength("weapon_swing");
 
-        if (playerStats.attackCooldown < anim_length)
+        if (playerStats.AttackCooldown < anim_length)
         {
-            float anim_speed = anim_length / playerStats.attackCooldown;
+            float anim_speed = anim_length / playerStats.AttackCooldown;
             weaponAnimator.speed = anim_speed;
         }
 
         weaponAnimator.SetTrigger("Attack");
 
         weapon.canAttack = true;
-
         weapon.CreateSlashEffect();
 
         Invoke(nameof(DisableWeaponCollider), 0.3f);
@@ -136,7 +145,7 @@ public class Player : Mover
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySound(playerStats.deathSound, 1f);
+        SoundFxManager.Instance.PlaySound(playerStats.DeathSound, 1f);
         Destroy(gameObject);
         GameSummaryManager.Instance.Show();
     }

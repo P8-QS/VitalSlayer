@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PerksManager : MonoBehaviour
 {
-    private static PerksManager _instance;
-    public static PerksManager Instance => _instance ??= new PerksManager();
+    public static PerksManager Instance;
 
     private int _points;
 
@@ -22,7 +20,21 @@ public class PerksManager : MonoBehaviour
 
     public Dictionary<String, IPerk> Perks = new();
 
-    private PerksManager()
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            InitializePerks();
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void InitializePerks()
     {
         // Add default perks
         var healthPerk = new HealthPerk();
@@ -62,5 +74,27 @@ public class PerksManager : MonoBehaviour
     public void AddPoints(int points)
     {
         Points += points;
+    }
+
+    /// <summary>
+    /// Apply all perks to the current player
+    /// Called when a new game starts
+    /// </summary>
+    public void ApplyPerksToPlayer()
+    {
+        if (GameManager.Instance?.player == null) return;
+
+        GameManager.Instance.player.playerStats.Reset();
+
+        // Apply all active perks
+        foreach (var perk in Perks.Values)
+        {
+            if (perk.Level > 0)
+            {
+                perk.Apply();
+            }
+        }
+
+        Debug.Log("Applied all perks to player");
     }
 }
