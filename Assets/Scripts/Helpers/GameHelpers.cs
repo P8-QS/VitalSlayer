@@ -25,14 +25,15 @@ public static class GameHelpers
         return damage;
     }
 
-    public static int CalculateDamageStat(int baseDamage, int level, float scalingFactor)
+    public static int CalculateDamageStat(int baseStat, int level, float scalingFactor, float multiplier = 1.0f)
     {
         if (level <= 0)
         {
-            return baseDamage;
+            return Mathf.RoundToInt(baseStat * multiplier);
         }
 
-        return baseDamage + (int)Mathf.Pow(level - 1, scalingFactor);
+        int calculatedStat = baseStat + (int)Mathf.Pow(level - 1, scalingFactor);
+        return Mathf.RoundToInt(calculatedStat * multiplier);
     }
 
 }

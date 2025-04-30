@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Runtime version of player stats that can be modified by perks
-/// without affecting the original ScriptableObject
-/// </summary>
 public class RuntimePlayerStats
 {
     // Reference to the original ScriptableObject
@@ -21,10 +17,14 @@ public class RuntimePlayerStats
     public float BaseSpeed { get; set; }
     public int BaseHealth { get; set; }
 
+    // Multipliers
+    public float DamageMultiplier { get; set; } = 1.0f;
+    public float HealthMultiplier { get; set; } = 1.0f;
+
+    // Audio references and other properties
     public AudioClip AttackSound => _baseStats.attackSound;
     public AudioClip DeathSound => _baseStats.deathSound;
     public AudioClip HitSound => _baseStats.hitSound;
-
     public float ImmunityTime => _baseStats.immuneTime;
     public float PushRecoverySpeed => _baseStats.pushRecoverySpeed;
 
@@ -34,9 +34,6 @@ public class RuntimePlayerStats
         Reset();
     }
 
-    /// <summary>
-    /// Reset all runtime values to their base values from the ScriptableObject
-    /// </summary>
     public void Reset()
     {
         AttackCooldown = _baseStats.attackCooldown;
@@ -49,20 +46,24 @@ public class RuntimePlayerStats
         CritMultiplier = _baseStats.critMultiplier;
         BaseSpeed = _baseStats.baseSpeed;
         BaseHealth = _baseStats.baseHealth;
+
+        DamageMultiplier = 1.0f;
+        HealthMultiplier = 1.0f;
     }
 
     public int CalculateMinDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(BaseMinDamage, level, MinDamageScalingFactor);
+        return GameHelpers.CalculateDamageStat(BaseMinDamage, level, MinDamageScalingFactor, DamageMultiplier);
     }
 
     public int CalculateMaxDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(BaseMaxDamage, level, MaxDamageScalingFactor);
+        return GameHelpers.CalculateDamageStat(BaseMaxDamage, level, MaxDamageScalingFactor, DamageMultiplier);
     }
 
     public int CalculateMaxHealth(int level)
     {
-        return _baseStats.CalculateMaxHealth(level);
+        int baseCalculation = BaseHealth + (int)Mathf.Pow(level - 1, _baseStats.healthScalingFactor);
+        return Mathf.RoundToInt(baseCalculation * HealthMultiplier);
     }
 }
