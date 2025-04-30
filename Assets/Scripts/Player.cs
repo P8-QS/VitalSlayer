@@ -29,10 +29,8 @@ public class Player : Mover
             return;
         }
 
-        // Create runtime stats from base stats
         playerStats = new RuntimePlayerStats(basePlayerStats);
 
-        // Set fighter stats using base stats (since Mover needs the ScriptableObject)
         SetStats(basePlayerStats);
 
         weapon = GetComponentInChildren<Weapon>();
@@ -70,13 +68,11 @@ public class Player : Mover
         if (animator == null)
             animator = GetComponent<Animator>();
 
-        // Update current speed from runtime stats after perks are applied
         currentSpeed = playerStats.BaseSpeed;
     }
 
     private void Update()
     {
-        // Show level above player
         FloatingTextManager.Instance.Show("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
             Vector3.zero, 0.0001f);
 

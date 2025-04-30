@@ -30,8 +30,8 @@ namespace Effects
             Player player = UnityEngine.Object.FindFirstObjectByType<Player>();
             if (player != null)
             {
-                player.playerStats.attackCooldown *= attackSpeedMultiplier;
-                Debug.Log($"Attack speed effect applied. New attack cooldown: {player.playerStats.attackCooldown}");
+                player.playerStats.AttackCooldown *= attackSpeedMultiplier;
+                Debug.Log($"Attack speed effect applied. New attack cooldown: {player.playerStats.AttackCooldown}");
             }
             else
             {
