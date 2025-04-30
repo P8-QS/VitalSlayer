@@ -64,7 +64,7 @@ public class ExperienceManager
     /// <summary>
     /// The current level.
     /// </summary>
-    public int Level { get; private set; } = 1;
+    public int Level { get; set; } = 1;
 
     /// <summary>
     /// The time when the bonus multiplier cooldown ends.
@@ -88,7 +88,7 @@ public class ExperienceManager
     /// </summary>
     /// <param name="level">Level to reach.</param>
     /// <returns>Experience required to reach the level.</returns>
-    public static int LevelToXpRequired(int level) => (int)Math.Pow(level, 2) * 25;
+    public static int LevelToXpRequired(int level) => (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR));
 
 
     /// <summary>

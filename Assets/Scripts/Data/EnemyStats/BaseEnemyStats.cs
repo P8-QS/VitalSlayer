@@ -1,4 +1,6 @@
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "NewStandardEnemy", menuName = "Enemy Stats/Standard Enemy")]
 public class BaseEnemyStats : BaseFighterStats
@@ -21,7 +23,7 @@ public class BaseEnemyStats : BaseFighterStats
     public float triggerLength = 1.0f;
 
     [Header("Drop Settings")]
-    public int baseXpReward = 10;
+    public int baseXpReward = 1;
 
     [Tooltip("Maximum bonus multiplier for fighting enemies above your level (1.5 = 50% more XP)")]
     [Range(1.0f, 3.0f)]
@@ -86,7 +88,6 @@ public class BaseEnemyStats : BaseFighterStats
         }
 
         int finalXp = Mathf.RoundToInt(baseXp * xpMultiplier);
-
         return Mathf.Max(finalXp, 1);
     }
 
