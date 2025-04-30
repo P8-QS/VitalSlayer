@@ -726,7 +726,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: effect_no_doors
+      name: effect_no_doors_positive
       rect:
         serializedVersion: 2
         x: 557
@@ -835,6 +835,204 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: effect_combat_info_positive
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e197575aaf52d4783b1a19e93cdf63d7
+      internalID: -1642273872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_slime_puddle_neutral
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71efba07599a34dc69fdecbd9e199789
+      internalID: -942542311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_combat_info_negative
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c5b08664888d4f27b08f5eeb6281889
+      internalID: 1329381489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_slime_puddle_positive
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c315f6c8c40bd4bc28426f7977d3aaed
+      internalID: -1037138771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_slime_puddle_negative
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b32dcbe6292b43cdb5371be0dd1f426
+      internalID: -446145827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_no_doors_negative
+      rect:
+        serializedVersion: 2
+        x: 1033
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f12043b2c24c547dab822a4cf6666c9a
+      internalID: -347461990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_level_indicator_neutral
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 434
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c39242259ec1c4ac6802d835e08375cb
+      internalID: 1331970037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_level_indicator_negative
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 434
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 914b508985d3b4bf3be66a75d56eaad7
+      internalID: -1147998433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_level_indicator_positive
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 434
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aee1bf0574044dd699d2d2c89c125fb
+      internalID: -477243895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -856,13 +1054,22 @@ TextureImporter:
       effect_attack_speed: -230250835
       effect_base_negative: -1510483472
       effect_base_positive: 1603008240
+      effect_combat_info_negative: 1329381489
+      effect_combat_info_positive: -1642273872
       effect_crit_chance: -947679280
       effect_dodge_traps: -966133891
       effect_enemy_spawn: 1325008176
       effect_fog: 477256500
       effect_hallucination: 1397055168
-      effect_no_doors: -1796768506
+      effect_level_indicator_negative: -1147998433
+      effect_level_indicator_neutral: 1331970037
+      effect_level_indicator_positive: -477243895
+      effect_no_doors_negative: -347461990
+      effect_no_doors_positive: -1796768506
       effect_scouting: 2133868775
+      effect_slime_puddle_negative: -446145827
+      effect_slime_puddle_neutral: -942542311
+      effect_slime_puddle_positive: -1037138771
       icon_clock: 1355181629
       icon_close: 1150477062
       icon_help: 969690327

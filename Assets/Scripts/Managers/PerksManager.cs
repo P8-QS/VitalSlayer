@@ -37,20 +37,30 @@ public class PerksManager : MonoBehaviour
 
     private void InitializePerks()
     {
-        // Add default perks
-        var healthPerk = new HealthPerk();
-        var experiencePerk = new ExperiencePerk();
-        var attackSpeedPerk = new AttackSpeedPerk();
-        var movementSpeedPerk = new MovementSpeedPerk();
-        var criticalChancePerk = new CriticalChancePerk();
-        var attackDamagePerk = new AttackDamagePerk();
+        if (Instance == null)
+        {
+            Instance = this;
+            // Add default perks
+            var healthPerk = new HealthPerk();
+            var experiencePerk = new ExperiencePerk();
+            var attackSpeedPerk = new AttackSpeedPerk();
+            var movementSpeedPerk = new MovementSpeedPerk();
+            var criticalChancePerk = new CriticalChancePerk();
+            var attackDamagePerk = new AttackDamagePerk();
 
-        Perks.Add(healthPerk.Name, healthPerk);
-        Perks.Add(experiencePerk.Name, experiencePerk);
-        Perks.Add(attackSpeedPerk.Name, attackSpeedPerk);
-        Perks.Add(movementSpeedPerk.Name, movementSpeedPerk);
-        Perks.Add(criticalChancePerk.Name, criticalChancePerk);
-        Perks.Add(attackDamagePerk.Name, attackDamagePerk);
+            Perks.Add(healthPerk.Name, healthPerk);
+            Perks.Add(experiencePerk.Name, experiencePerk);
+            Perks.Add(attackSpeedPerk.Name, attackSpeedPerk);
+            Perks.Add(movementSpeedPerk.Name, movementSpeedPerk);
+            Perks.Add(criticalChancePerk.Name, criticalChancePerk);
+            Perks.Add(attackDamagePerk.Name, attackDamagePerk);
+
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Upgrade(IPerk perk)

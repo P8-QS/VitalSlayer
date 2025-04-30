@@ -1,31 +1,26 @@
+using System.Linq;
+using Effects;
+using Managers;
 using UnityEngine;
 
 public class Enemy : Mover
 {
-    [Header("Drops")]
-    [Tooltip("Health potion prefab that may drop when enemy dies")]
+    [Header("Drops")] [Tooltip("Health potion prefab that may drop when enemy dies")]
     public GameObject healthPotionPrefab;
-    [HideInInspector]
-    public BaseEnemyStats enemyStats;
+
+    [HideInInspector] public BaseEnemyStats enemyStats;
 
     // Logic
     protected bool chasing;
     protected bool collidingWithPlayer;
     protected Transform playerTransform;
     protected Vector3 startingPosition;
-
+    public GameObject room;
     private bool _isPhantom;
+
     public bool isPhantom
     {
-        set
-        {
-            if (value)
-            {
-                hitpoint = 1;
-                maxHitpoint = 1;
-            }
-            _isPhantom = value;
-        }
+        set => _isPhantom = value;
         get => _isPhantom;
     }
 
@@ -48,6 +43,25 @@ public class Enemy : Mover
         }
 
         base.Start();
+
+
+        if (EnemyUIManager.Instance != null)
+        {
+            EnemyUIManager.Instance.CreateLevelIndicator(this);
+        }
+
+        // Scuffed CombatInfoEffect apply but works
+        var hideHealthBar = MetricsManager.Instance.metrics.Values.SelectMany(m => m.Effects)
+            .Any(e => e is CombatInfoEffect && e.Level != 1);
+        if (hideHealthBar) Destroy(healthBar.gameObject);
+
+
+        if (_isPhantom)
+        {
+            maxHitpoint = 1;
+            hitpoint = maxHitpoint;
+        }
+
         playerTransform = GameManager.Instance.player.transform;
         startingPosition = transform.position;
         hitBox = transform.GetChild(0).GetComponent<BoxCollider2D>();
@@ -66,10 +80,15 @@ public class Enemy : Mover
         float chaseDistance = enemyStats != null ? enemyStats.chaseLength : 5f;
         float triggerDistance = enemyStats != null ? enemyStats.triggerLength : 1f;
 
+        var roomBoundsCollider = room.GetComponentInChildren<BoxCollider2D>();
+
+        Bounds bounds = roomBoundsCollider.bounds;
+
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseDistance)
         {
-            if (HasLineOfSight() && Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
+            if (HasLineOfSight() &&
+                Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
             {
                 chasing = true;
             }
@@ -78,7 +97,17 @@ public class Enemy : Mover
             {
                 if (!collidingWithPlayer)
                 {
-                    UpdateMotor((playerTransform.position - transform.position).normalized * currentSpeed);
+                    Vector3 velocity = (playerTransform.position - transform.position).normalized * currentSpeed;
+                    Vector3 nextPos = transform.position + velocity * Time.deltaTime;
+
+                    if (bounds.Contains(nextPos))
+                    {
+                        UpdateMotor(velocity);
+                    }
+                    else
+                    {
+                        chasing = false;
+                    }
                 }
             }
             else
@@ -154,5 +183,14 @@ public class Enemy : Mover
         SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);
 
         Destroy(gameObject);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (EnemyUIManager.Instance != null)
+        {
+            EnemyUIManager.Instance.RemoveLevelIndicator(this);
+        }
     }
 }

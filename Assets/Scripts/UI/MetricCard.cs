@@ -30,7 +30,7 @@ public class MetricCardUI : MonoBehaviour
         AddIcon(metric);
         foreach (var effect in metric.Effects)
         {
-            AddIcon(effect, true);
+            AddIcon(effect, false);
         }
     }
 
@@ -67,6 +67,7 @@ public class MetricCardUI : MonoBehaviour
             var levelIndicatorText = levelIndicatorObject.AddComponent<TextMeshProUGUI>();
             levelIndicatorText.text = $"{effect.Level}";
             levelIndicatorText.fontSize = 12;
+            levelIndicatorText.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/MinecraftRegular SDF");
             levelIndicatorText.color = Color.black;
             levelIndicatorText.alignment = TextAlignmentOptions.Center;
 

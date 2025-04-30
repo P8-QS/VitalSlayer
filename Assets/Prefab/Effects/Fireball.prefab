@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8802904667461383639}
   - component: {fileID: 8396102941972559688}
   - component: {fileID: 5261351947054027308}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fireball
   m_TagString: Blocking
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1586919953
-  m_SortingLayer: 7
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -7248348700250429367, guid: 46c5b5a4cd5755749b8724c014250000, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

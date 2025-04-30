@@ -22,7 +22,6 @@ public class LevelIndicator : MonoBehaviour
 
     private MonoBehaviour targetEntity;
     private int entityLevel;
-    private HealthBar healthBar;
     private RectTransform rectTransform;
     private Player player;
 
@@ -53,10 +52,9 @@ public class LevelIndicator : MonoBehaviour
         UpdateLevelDisplay();
     }
 
-    public void Initialize(MonoBehaviour entity, HealthBar attachedHealthBar)
+    public void Initialize(MonoBehaviour entity)
     {
         targetEntity = entity;
-        healthBar = attachedHealthBar;
 
         if (entity is Enemy enemy)
         {

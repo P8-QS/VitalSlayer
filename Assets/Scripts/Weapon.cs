@@ -36,11 +36,10 @@ public class Weapon : Collidable
     {
         if (canAttack && slashEffectPrefab == null)
         {
-            Damage damage = CalcWeaponDmg();
-
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
+                Damage damage = CalcWeaponDmg();
                 enemy.ReceiveDamage(damage);
                 SoundFxManager.Instance.PlaySound(playerStats.HitSound, transform, 0.25f);
             }
@@ -68,7 +67,7 @@ public class Weapon : Collidable
         GameObject slashObj = Instantiate(slashEffectPrefab, slashPosition, slashRotation, player.transform);
 
         SlashEffect slashEffect = slashObj.GetComponent<SlashEffect>();
-        slashEffect.Initialize(this, slashPosition, CalcWeaponDmg());
+        slashEffect.Initialize(this, player, slashPosition, CalcWeaponDmg());
     }
 
     public Damage CalcWeaponDmg()

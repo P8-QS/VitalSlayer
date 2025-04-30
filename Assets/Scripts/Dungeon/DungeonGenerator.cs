@@ -37,6 +37,16 @@ namespace Dungeon
 
         public readonly List<RoomInstance> PlacedRooms = new();
         
+        public static DungeonGenerator Instance { get; private set; }
+        
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+        }
+        
         public void GenerateDungeon()
         {
             ClearDungeon();

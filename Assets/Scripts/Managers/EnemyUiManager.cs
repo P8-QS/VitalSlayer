@@ -62,18 +62,13 @@ public class EnemyUIManager : MonoBehaviour
 
         activeHealthBars[entity] = healthBar;
 
-        if (entity is Enemy)
-        {
-            CreateLevelIndicator(entity, healthBarComponent);
-        }
-
         return healthBarComponent;
     }
 
     /// <summary>
     /// Creates a level indicator for the given enemy entity
     /// </summary>
-    private void CreateLevelIndicator(MonoBehaviour entity, HealthBar healthBar)
+    public void CreateLevelIndicator(MonoBehaviour entity)
     {
         if (levelIndicatorPrefab == null)
         {
@@ -85,13 +80,13 @@ public class EnemyUIManager : MonoBehaviour
         levelIndicator.name = $"{entity.name}_LevelIndicator";
 
         LevelIndicator levelIndicatorComponent = levelIndicator.GetComponent<LevelIndicator>();
-        levelIndicatorComponent.Initialize(entity, healthBar);
+        levelIndicatorComponent.Initialize(entity);
 
         activeLevelIndicators[entity] = levelIndicator;
     }
 
     /// <summary>
-    /// Removes the health bar and level indicator for the given entity
+    /// Removes the health bar for the given entity
     /// </summary>
     /// <param name="entity">The entity whose bars should be removed</param>
     public void RemoveHealthBar(MonoBehaviour entity)
@@ -101,7 +96,14 @@ public class EnemyUIManager : MonoBehaviour
             Destroy(healthBar);
             activeHealthBars.Remove(entity);
         }
+    }
 
+    /// <summary>
+    /// Removes the level indicator for the given entity
+    /// </summary>
+    /// <param name="entity">The entity whose bars should be removed</param>
+    public void RemoveLevelIndicator(MonoBehaviour entity)
+    {
         if (activeLevelIndicators.TryGetValue(entity, out GameObject levelIndicator))
         {
             Destroy(levelIndicator);

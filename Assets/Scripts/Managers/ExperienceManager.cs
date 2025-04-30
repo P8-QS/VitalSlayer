@@ -52,7 +52,6 @@ public class ExperienceManager
             // Update level if necessary
             Level = CalculateLevelFromTotalXp(value);
             ExperienceMax = LevelToXpRequired(Level);
-            Debug.Log("XP Val: " + value + " Level: " + Level + " Max: " + ExperienceMax);
         }
     }
 

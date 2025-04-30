@@ -1,4 +1,5 @@
 using System.Collections;
+using Effects;
 using UnityEngine;
 
 public class ToxicPuddle : Collidable
@@ -6,7 +7,7 @@ public class ToxicPuddle : Collidable
     private AcidSlime acidSlime;
 
     public float duration = 5.0f;
-    
+
     public int minDamage = 1;
     public int maxDamage = 1;
     public float damageTickRate = 0.5f;
@@ -52,7 +53,7 @@ public class ToxicPuddle : Collidable
         var slime = coll.GetComponent<AcidSlime>();
 
         // If the collision was an acid slime do nothing
-        if (slime != null) 
+        if (slime != null)
         {
             return;
         }
@@ -60,7 +61,7 @@ public class ToxicPuddle : Collidable
         Fighter target = coll.gameObject.GetComponent<Fighter>();
         if (target)
         {
-            Damage damage = new Damage 
+            Damage damage = new Damage
             {
                 damageAmount = GameHelpers.CalculateDamage(minDamage, maxDamage),
                 origin = transform.position,
@@ -73,8 +74,12 @@ public class ToxicPuddle : Collidable
                 customColor = Color.red // Use red for damage text
             };
 
-            target.ApplyDamageOverTime(damage, dotDuration, damageTickRate);
-            target.ApplySlowEffect(slowFactor, damageTickRate * 2);
+            if (!ToxicPuddleEffect.PuddleImmunity)
+            {
+                slowFactor = ToxicPuddleEffect.SlowFactor;
+                target.ApplyDamageOverTime(damage, dotDuration, damageTickRate);
+                target.ApplySlowEffect(slowFactor, damageTickRate * 2);
+            }
         }
     }
 
