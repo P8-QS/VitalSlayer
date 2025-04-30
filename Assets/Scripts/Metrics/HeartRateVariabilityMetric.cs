@@ -14,7 +14,7 @@ namespace Metrics
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
 
-        private decimal _heartRateVariability;
+        public decimal AvgHrvRmssd;
 
         public HeartRateVariabilityMetric()
         {
@@ -25,13 +25,14 @@ namespace Metrics
             // Yesterday average
             var yesterday = System.DateTime.Now.AddDays(-1).Date;
             var yesterdayData = Data.Where(r => r.Time.Date == yesterday).ToList();
-            _heartRateVariability = yesterdayData.Average(r => r.HeartRateVariabilityMillis);
+            if (yesterdayData.Count == 0) return;
+            AvgHrvRmssd = yesterdayData.Average(r => r.HeartRateVariabilityMillis);
 
 
             Icon = SpriteManager.Instance.GetSprite("metric_hrv");
 
             if (Data is null) return;
-            var effectLevel = _heartRateVariability switch
+            var effectLevel = AvgHrvRmssd switch
             {
                 > 70 => Hrv.High,
                 > 30 => Hrv.Normal,
@@ -45,12 +46,12 @@ namespace Metrics
         public string Text()
         {
             return
-                $"Your average heart rate variability was <b>{_heartRateVariability}</b> yesterday. This gives you {(this as IMetric).EffectsToString()}.";
+                $"Your average heart rate variability was <b>{AvgHrvRmssd}</b> yesterday. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         public string Description()
         {
-            return $"Your average heart rate variability was {_heartRateVariability} yesterday.";
+            return $"Your average heart rate variability was {AvgHrvRmssd} yesterday.";
         }
 
         public enum Hrv
