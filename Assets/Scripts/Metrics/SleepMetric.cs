@@ -6,7 +6,8 @@ using Data.Models;
 using Effects;
 using UnityEngine;
 
-namespace Metrics {
+namespace Metrics
+{
     public class SleepMetric : IMetric
     {
         public string Name => "Sleep";
@@ -15,8 +16,8 @@ namespace Metrics {
         public Sprite Icon { get; }
 
         private readonly TimeSpan _sleepDuration;
-        
-        public SleepMetric() 
+
+        public SleepMetric()
         {
             if (UserMetricsHandler.Instance.SleepSessionRecords is null) return;
             Data = UserMetricsHandler.Instance.SleepSessionRecords.OrderByDescending(s => s.StartTime).ToList();
@@ -24,30 +25,39 @@ namespace Metrics {
 
             if (Data is null) return;
             _sleepDuration = new TimeSpan(Data.Sum(s => s.Duration.Ticks));
-            var effectLevel = _sleepDuration.TotalHours switch
+            switch (_sleepDuration.TotalHours)
             {
-                < 5 => 2,
-                < 7 => 1,
-                _ => 0
-            };
-
-            if (effectLevel > 0) 
-            {
-                Effects.Add(new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"),
-                    effectLevel));
-            }
-            else 
-            {
-                Effects.Add(new AttackSpeedEffect(SpriteManager.Instance.GetSprite("effect_attack_speed"), effectLevel));
+                case < 5:
+                    Effects.Add(new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"),
+                        2));
+                    Effects.Add(new LevelIndicatorEffect(
+                        SpriteManager.Instance.GetSprite("effect_level_indicator_negative"),
+                        0));
+                    break;
+                case < 7:
+                    Effects.Add(new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"),
+                        0));
+                    Effects.Add(new LevelIndicatorEffect(
+                        SpriteManager.Instance.GetSprite("effect_level_indicator_positive"),
+                        1));
+                    break;
+                default:
+                    Effects.Add(new LevelIndicatorEffect(
+                        SpriteManager.Instance.GetSprite("effect_level_indicator_positive"),
+                        1)); break;
             }
         }
+
         public string Text()
         {
-            return $"You have slept <b>{_sleepDuration.Hours} hours and {_sleepDuration.Minutes} minutes</b>. This gives you {(this as IMetric).EffectsToString()}.";
+            return
+                $"You have slept <b>{_sleepDuration.Hours} hours and {_sleepDuration.Minutes} minutes</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
+
         public string Description()
         {
-            return $"You slept for {_sleepDuration.Hours} hours and {_sleepDuration.Minutes} minutes yesterday. Proper rest is essential for recovery and focus.";
+            return
+                $"You slept for {_sleepDuration.Hours} hours and {_sleepDuration.Minutes} minutes yesterday. Proper rest is essential for recovery and focus.";
         }
     }
 }
