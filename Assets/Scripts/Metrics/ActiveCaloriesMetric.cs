@@ -31,10 +31,10 @@ namespace Metrics
 
         public ActiveCaloriesMetric()
         {
-            Data = UserMetricsHandler.Instance?.ActiveCaloriesBurnedRecords ?? new List<ActiveCaloriesBurnedRecord>();
+            Data = UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords;
             Icon = SpriteManager.Instance.GetSprite("metric_calories");
 
-            _totalCalories = 0;
+            //_totalCalories = 0;
             foreach (var record in Data)
             {
                 if (record.Energy != null)
@@ -48,8 +48,6 @@ namespace Metrics
                 >= 300 => 1,
                 _ => 0
             };
-
-            Debug.Log($"Active calories: {_totalCalories}, Effect Level: {effectLevel}");
 
             if (effectLevel > 0)
             {
