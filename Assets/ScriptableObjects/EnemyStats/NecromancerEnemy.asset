@@ -33,11 +33,11 @@ MonoBehaviour:
   aboveLevelXpMultiplier: 1.5
   belowLevelXpMinimum: 0.5
   levelDifferenceImpact: 0.15
-  attackCooldown: 2
+  attackCooldown: 2.5
   projectilePrefab: {fileID: 1118404643008871529, guid: 6be0740e35a79f243a09376156e32a79, type: 3}
-  projectileSpeed: 1
+  projectileSpeed: 0.9
   projectileLifetime: 3
-  rangedMinDamage: 2
+  rangedMinDamage: 1
   rangedMaxDamage: 4
   retreatDistance: 0.5
   chaseDistance: 0.1

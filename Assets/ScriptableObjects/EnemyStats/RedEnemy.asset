@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedEnemy
   m_EditorClassIdentifier: 
   baseHealth: 10
-  baseSpeed: 0.75
+  baseSpeed: 0.6
   healthScalingFactor: 2
   pushRecoverySpeed: 0.2
   immuneTime: 0.5

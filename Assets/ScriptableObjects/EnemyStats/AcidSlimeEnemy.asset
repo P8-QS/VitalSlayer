@@ -34,7 +34,7 @@ MonoBehaviour:
   belowLevelXpMinimum: 0.5
   levelDifferenceImpact: 0.15
   acidMinDamage: 1
-  acidMaxDamage: 3
+  acidMaxDamage: 2
   acidDuration: 3
   acidTickRate: 1
   acidColor: {r: 0, g: 1, b: 0, a: 1}
