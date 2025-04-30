@@ -22,8 +22,8 @@ MonoBehaviour:
   enemyName: 'Necromancer '
   baseMinDamage: 0
   baseMaxDamage: 0
-  minDamageScalingFactor: 1.7
-  maxDamageScalingFactor: 1.75
+  minDamageScalingFactor: 1.4
+  maxDamageScalingFactor: 1.45
   pushForce: 1
   critChance: 0
   critMultiplier: 0
@@ -38,6 +38,6 @@ MonoBehaviour:
   projectileSpeed: 0.9
   projectileLifetime: 3
   rangedMinDamage: 1
-  rangedMaxDamage: 4
+  rangedMaxDamage: 2
   retreatDistance: 0.5
   chaseDistance: 0.1

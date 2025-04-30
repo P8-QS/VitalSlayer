@@ -22,8 +22,8 @@ MonoBehaviour:
   enemyName: Red Enemy
   baseMinDamage: 1
   baseMaxDamage: 2
-  minDamageScalingFactor: 1.7
-  maxDamageScalingFactor: 1.75
+  minDamageScalingFactor: 1.4
+  maxDamageScalingFactor: 1.45
   pushForce: 1
   critChance: 0
   critMultiplier: 1

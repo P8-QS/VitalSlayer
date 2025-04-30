@@ -22,8 +22,8 @@ MonoBehaviour:
   enemyName: Red Boss
   baseMinDamage: 3
   baseMaxDamage: 5
-  minDamageScalingFactor: 1.7
-  maxDamageScalingFactor: 1.75
+  minDamageScalingFactor: 1.5
+  maxDamageScalingFactor: 1.55
   pushForce: 4
   critChance: 0.1
   critMultiplier: 1.5

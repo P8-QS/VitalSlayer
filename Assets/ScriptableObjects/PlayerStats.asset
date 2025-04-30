@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb4fc7156528fc40b9c72e544f0b3a5, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  baseHealth: 25
+  baseHealth: 50
   baseSpeed: 1
-  healthScalingFactor: 2.25
+  healthScalingFactor: 2.3
   pushRecoverySpeed: 0.2
   immuneTime: 1
   deathSound: {fileID: 8300000, guid: 9e37e38f735fd42fe8993beb98d88255, type: 3}
   hitSound: {fileID: 8300000, guid: 9453cfef893cf429bb68a0d8e423e61b, type: 3}
-  attackCooldown: 2
+  attackCooldown: 1.25
   baseMinDamage: 1
   baseMaxDamage: 3
-  minDamageScalingFactor: 1.7
-  maxDamageScalingFactor: 1.75
+  minDamageScalingFactor: 1.55
+  maxDamageScalingFactor: 1.6
   pushForce: 5
   critChance: 0.1
   critMultiplier: 2
