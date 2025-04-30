@@ -8,7 +8,6 @@ public class Player : Mover
     [Header("Stats")]
     public PlayerStats basePlayerStats;
 
-    // Runtime stats that can be modified by perks
     [HideInInspector] public RuntimePlayerStats playerStats;
 
     [Header("References")]

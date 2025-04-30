@@ -11,7 +11,7 @@ public class Weapon : Collidable
     public Vector2 slashOffset = new Vector2(0.5f, 0f);
 
     private Player player;
-    [HideInInspector] public PlayerStats playerStats;
+    [HideInInspector] public RuntimePlayerStats playerStats;
     private System.Random random = new System.Random();
 
     protected override void Start()
