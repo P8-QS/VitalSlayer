@@ -9,7 +9,6 @@ namespace Metrics
     public class ActiveCaloriesMetric : IMetric
     {
         private IReadOnlyCollection<ActiveCaloriesBurnedRecord> _data;
-        private Sprite _icon;
 
         public string Name => "Active Calories Burned";
         public IReadOnlyCollection<ActiveCaloriesBurnedRecord> Data { get; }
@@ -24,7 +23,6 @@ namespace Metrics
             Data = UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords;
             Icon = SpriteManager.Instance.GetSprite("metric_calories");
 
-            //_totalCalories = 0;
             foreach (var record in Data)
             {
                 if (record.Energy != null)
@@ -32,7 +30,6 @@ namespace Metrics
                     _totalCalories += (int)record.Energy.Value / 1000;
                 }
             }
-
 
             switch (_totalCalories)
             {
@@ -43,7 +40,6 @@ namespace Metrics
                     Effects.Add(new NoDoorCloseEffect(SpriteManager.Instance.GetSprite("effect_no_doors_negative"),
                         0)); break;
             }
-            
         }
 
         public string Text()
@@ -59,4 +55,3 @@ namespace Metrics
         }
     }
 }
-
