@@ -13,7 +13,32 @@ namespace Managers
 
         public void Start()
         {
+<<<<<<< HEAD
             if (Instance != null && Instance != this)
+=======
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+
+                var stepsMetric = new StepsMetric();
+                var sleepMetric = new SleepMetric();
+                var exerciseMetric = new ExerciseMetric();
+                var screenTimeMetric = new ScreenTimeMetric();
+                var vo2MaxMetric = new Vo2MaxMetric();
+                var activeCaloriesMetric = new ActiveCaloriesMetric();
+                var hrvMetric = new HeartRateVariabilityMetric();
+
+                if (stepsMetric.Data != null) metrics.Add(stepsMetric.Name, stepsMetric);
+                if (sleepMetric.Data != null) metrics.Add(sleepMetric.Name, sleepMetric);
+                if (exerciseMetric.Data != null) metrics.Add(exerciseMetric.Name, exerciseMetric);
+                if (screenTimeMetric.Data != 0) metrics.Add(screenTimeMetric.Name, screenTimeMetric);
+                if (vo2MaxMetric.Data != null) metrics.Add(vo2MaxMetric.Name, vo2MaxMetric);
+                if (activeCaloriesMetric.Data != null) metrics.Add(activeCaloriesMetric.Name, activeCaloriesMetric);
+                if (hrvMetric.Data != null) metrics.Add(hrvMetric.Name, hrvMetric);
+            }
+            else
+>>>>>>> main
             {
                 Destroy(gameObject);
                 return;
