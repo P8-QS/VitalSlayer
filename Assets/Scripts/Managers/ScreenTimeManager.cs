@@ -19,6 +19,7 @@ public enum TimeUnit {
 
 public class ScreenTimeManager : MonoBehaviour
 {
+    private bool openedUsageAccessSettings = false;
     private void Awake()
     {
         if (Application.platform != RuntimePlatform.Android)
@@ -27,15 +28,18 @@ public class ScreenTimeManager : MonoBehaviour
             return;    
         }
         
-        StartCoroutine(CheckAndRequestPermission());
+        CheckAndRequestPermission();
     }
 
-    private IEnumerator CheckAndRequestPermission() {
-        while(!CheckPermission()) {
-            RequestPermission();
-            yield return new WaitForSeconds(1);
+    private void CheckAndRequestPermission() {
+        if (CheckPermission())
+        {
+            OnPermissionGranted();
         }
-        OnPermissionGranted();
+        else
+        {
+            ShowNativeDialog();
+        }
     }
 
     private void OnPermissionGranted() {
@@ -60,6 +64,19 @@ public class ScreenTimeManager : MonoBehaviour
         } 
     }
 
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (hasFocus && openedUsageAccessSettings)
+        {
+            openedUsageAccessSettings = false;
+
+            if (CheckPermission())
+            {
+                OnPermissionGranted();
+            }
+        }
+    }
+
     private bool CheckPermission()
     {
         using (AndroidJavaObject context = GetContext())
@@ -80,13 +97,14 @@ public class ScreenTimeManager : MonoBehaviour
         }
     }
 
-    private void RequestPermission()
+    private void OpenUsageAccessSettings()
     {
         using (AndroidJavaObject context = GetContext())
         {
             using (AndroidJavaObject intent = new AndroidJavaObject("android.content.Intent", "android.settings.USAGE_ACCESS_SETTINGS"))
             {
                 context.Call("startActivity", intent);
+                openedUsageAccessSettings = true;
             }
         }
     }
@@ -97,6 +115,27 @@ public class ScreenTimeManager : MonoBehaviour
         {
             return unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
         }
+    }
+    public void ShowNativeDialog()
+    {
+        AndroidJavaObject context = GetContext();
+        context.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+        {
+            using (AndroidJavaObject builder = new AndroidJavaObject("android.app.AlertDialog$Builder", context))
+            {
+                builder.Call<AndroidJavaObject>("setTitle", "Permission Needed");
+                var message = "To work optimally this app requires access to your Usage Data.\n\n" +
+                              "Please grant \"Usage Access\" permission in settings by finding this app in the list and enabling access.";
+                builder.Call<AndroidJavaObject>("setMessage", message);
+                builder.Call<AndroidJavaObject>("setCancelable", false);
+                builder.Call<AndroidJavaObject>("setPositiveButton", "Open Settings", new DialogOnClickListener(() =>
+                {
+                    OpenUsageAccessSettings();
+                }));
+                builder.Call<AndroidJavaObject>("setNegativeButton", "Maybe Later", null);
+                builder.Call<AndroidJavaObject>("show");
+            }
+        }));
     }
 
     private List<ScreenTime> GetScreenTime(long startTime, long endTime)
@@ -132,4 +171,20 @@ public class ScreenTimeManager : MonoBehaviour
             }
         }
     }
+    private class DialogOnClickListener : AndroidJavaProxy
+    {
+        private System.Action callback;
+
+        public DialogOnClickListener(System.Action callback)
+            : base("android.content.DialogInterface$OnClickListener")
+        {
+            this.callback = callback;
+        }
+
+        public void onClick(AndroidJavaObject dialog, int which)
+        {
+            callback?.Invoke();
+        }
+    }
 }
+
