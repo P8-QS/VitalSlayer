@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59121ee6ac7d6c40b8e5a8acf763b80, type: 3}
   m_Name: RedBoss
   m_EditorClassIdentifier: 
-  baseHealth: 30
+  baseHealth: 20
   baseSpeed: 0.3
-  healthScalingFactor: 1.2
+  healthScalingFactor: 2.5
   pushRecoverySpeed: 0.6
   immuneTime: 0.5
   deathSound: {fileID: 8300000, guid: 48cad7ffd0d7547fda77bba67b2ee862, type: 3}
@@ -22,18 +22,22 @@ MonoBehaviour:
   enemyName: Red Boss
   baseMinDamage: 3
   baseMaxDamage: 5
-  damageScalingFactor: 1.15
+  minDamageScalingFactor: 1.5
+  maxDamageScalingFactor: 1.55
   pushForce: 4
   critChance: 0.1
   critMultiplier: 1.5
   chaseLength: 10
   triggerLength: 5
-  xpReward: 10
+  baseXpReward: 15
+  aboveLevelXpMultiplier: 1.5
+  belowLevelXpMinimum: 0.5
+  levelDifferenceImpact: 0.15
   grantsAchievement: 0
   achievementId: 
   fireballSpeed:
-  - 1
-  - -1
+  - 1.5
+  - -1.5
   fireballDistance: 0.45
   numFireballs: 2
   fireballPrefab: {fileID: 3950012930920923247, guid: 151365a3b3ea96a4e95414533460f91b, type: 3}

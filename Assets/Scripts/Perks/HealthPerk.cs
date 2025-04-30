@@ -29,8 +29,14 @@ public class HealthPerk : IPerk
 
     public void Apply()
     {
+        if (GameManager.Instance == null || GameManager.Instance.player == null ||
+            GameManager.Instance.player.playerStats == null)
+            return;
+
+        var player = GameManager.Instance.player;
+
         var multiplier = 1 + (GetMultiplier(Level) / 100.0);
-        var baseHealth = GameManager.Instance.player.playerStats.baseHealth;
-        GameManager.Instance.player.playerStats.baseHealth = (int)(baseHealth * multiplier);
+
+        player.playerStats.HealthMultiplier = (float)multiplier;
     }
 }

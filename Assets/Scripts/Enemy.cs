@@ -163,7 +163,8 @@ public class Enemy : Mover
     {
         if (!isPhantom)
         {
-            int xp = ExperienceManager.Instance.AddEnemy(level);
+            int reward = enemyStats.GetScaledXpReward(level);
+            int xp = ExperienceManager.Instance.AddExperience(reward);
             GameSummaryManager.Instance.AddEnemy();
             FloatingTextManager.Instance.Show("+" + xp + " xp", 10, Color.magenta, transform.position, Vector3.up * 1,
                 1.0f);
@@ -173,6 +174,10 @@ public class Enemy : Mover
             {
                 Instantiate(healthPotionPrefab, transform.position, Quaternion.identity);
             }
+        }
+        else
+        {
+            Debug.Log("Phantom enemy killed, no XP or loot dropped.");
         }
 
         SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);

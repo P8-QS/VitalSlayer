@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RedEnemy
   m_EditorClassIdentifier: 
   baseHealth: 10
-  baseSpeed: 0.75
-  healthScalingFactor: 1.2
+  baseSpeed: 0.6
+  healthScalingFactor: 2
   pushRecoverySpeed: 0.2
   immuneTime: 0.5
   deathSound: {fileID: 8300000, guid: 48cad7ffd0d7547fda77bba67b2ee862, type: 3}
@@ -22,10 +22,14 @@ MonoBehaviour:
   enemyName: Red Enemy
   baseMinDamage: 1
   baseMaxDamage: 2
-  damageScalingFactor: 2
+  minDamageScalingFactor: 1.4
+  maxDamageScalingFactor: 1.45
   pushForce: 1
   critChance: 0
   critMultiplier: 1
   chaseLength: 5
   triggerLength: 1
-  xpReward: 10
+  baseXpReward: 5
+  aboveLevelXpMultiplier: 1.5
+  belowLevelXpMinimum: 0.5
+  levelDifferenceImpact: 0.15

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 10
   baseSpeed: 0.5
-  healthScalingFactor: 1.2
+  healthScalingFactor: 2
   pushRecoverySpeed: 0.2
   immuneTime: 0.5
   deathSound: {fileID: 8300000, guid: 48cad7ffd0d7547fda77bba67b2ee862, type: 3}
@@ -22,15 +22,19 @@ MonoBehaviour:
   enemyName: Acid Slime
   baseMinDamage: 1
   baseMaxDamage: 3
-  damageScalingFactor: 1.15
+  minDamageScalingFactor: 1.5
+  maxDamageScalingFactor: 1.55
   pushForce: 2
   critChance: 0.1
   critMultiplier: 1.5
   chaseLength: 5
   triggerLength: 1
-  xpReward: 10
+  baseXpReward: 5
+  aboveLevelXpMultiplier: 1.5
+  belowLevelXpMinimum: 0.5
+  levelDifferenceImpact: 0.15
   acidMinDamage: 1
-  acidMaxDamage: 1
+  acidMaxDamage: 2
   acidDuration: 3
   acidTickRate: 1
   acidColor: {r: 0, g: 1, b: 0, a: 1}

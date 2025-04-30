@@ -29,9 +29,13 @@ public class AttackDamagePerk : IPerk
 
     public void Apply()
     {
-        var baseFactor = GameManager.Instance.player.playerStats.damageScalingFactor;
+        if (GameManager.Instance == null || GameManager.Instance.player == null ||
+            GameManager.Instance.player.playerStats == null)
+            return;
+
+        var player = GameManager.Instance.player;
         var multiplier = 1 + (GetMultiplier(Level) / 100.0);
-        float newFactor = (float)(baseFactor * multiplier);
-        GameManager.Instance.player.playerStats.baseSpeed = newFactor;
+
+        player.playerStats.DamageMultiplier = (float)multiplier;
     }
 }

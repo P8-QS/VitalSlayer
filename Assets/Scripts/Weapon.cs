@@ -11,7 +11,7 @@ public class Weapon : Collidable
     public Vector2 slashOffset = new Vector2(0.5f, 0f);
 
     private Player player;
-    [HideInInspector] public PlayerStats playerStats;
+    [HideInInspector] public RuntimePlayerStats playerStats;
     private System.Random random = new System.Random();
 
     protected override void Start()
@@ -41,7 +41,7 @@ public class Weapon : Collidable
             {
                 Damage damage = CalcWeaponDmg();
                 enemy.ReceiveDamage(damage);
-                SoundFxManager.Instance.PlaySound(playerStats.hitSound, transform, 0.25f);
+                SoundFxManager.Instance.PlaySound(playerStats.HitSound, transform, 0.25f);
             }
         }
     }
@@ -78,14 +78,14 @@ public class Weapon : Collidable
         int maxDamage = playerStats.CalculateMaxDamage(playerLevel);
 
         int damageAmount = random.Next(minDamage, maxDamage + 1);
-        bool isCritical = random.NextDouble() < playerStats.critChance;
+        bool isCritical = random.NextDouble() < playerStats.CritChance;
 
         if (isCritical)
         {
-            damageAmount = Mathf.RoundToInt(damageAmount * playerStats.critMultiplier);
+            damageAmount = Mathf.RoundToInt(damageAmount * playerStats.CritMultiplier);
         }
 
-        float pushForce = playerStats.pushForce * (damageAmount / (float)maxDamage);
+        float pushForce = playerStats.PushForce * (damageAmount / (float)maxDamage);
 
         Damage result = new Damage
         {

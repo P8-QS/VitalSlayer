@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
             int playerRoomIndex = 0;
             var player = EntitySpawner.Instance.SpawnPlayer(playerRoomIndex);
             GameManager.Instance.player = player;
+            PerksManager.Instance.ApplyPerksToPlayer();
 
             // Add RoomEnemySpawner to all rooms if they don't already have it
             foreach (var room in rooms)

@@ -22,6 +22,9 @@ public class ExperiencePerk : IPerk
 
     public void Apply()
     {
+        if (ExperienceManager.Instance == null)
+            return;
+
         var multiplier = 1 + (GetMultiplier(Level) / 100.0);
         ExperienceManager.Instance.PerkXpMultiplier = multiplier;
     }
@@ -29,6 +32,6 @@ public class ExperiencePerk : IPerk
     public void Upgrade()
     {
         Level++;
-        Cost = (int)Math.Pow(Level+1, 2);
+        Cost = (int)Math.Pow(Level + 1, 2);
     }
 }

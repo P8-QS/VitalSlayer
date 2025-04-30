@@ -1,14 +1,17 @@
 using System.Linq;
 using Effects;
 using Managers;
-using NUnit.Framework;
 using UnityEngine;
 
 public class Player : Mover
 {
-    [Header("Stats")] public PlayerStats playerStats;
+    [Header("Stats")]
+    public PlayerStats basePlayerStats;
 
-    [Header("References")] public Animator animator;
+    [HideInInspector] public RuntimePlayerStats playerStats;
+
+    [Header("References")]
+    public Animator animator;
 
     private float lastAttackTime = 0f;
     private Weapon weapon;
@@ -17,26 +20,38 @@ public class Player : Mover
     private float hitAnimationTimer = 0f;
     private const float HIT_ANIMATION_DURATION = 0.15f;
 
-    protected override void Start()
+    protected void Awake()
     {
-        if (playerStats == null)
+        if (basePlayerStats == null)
         {
-            Debug.LogError("Player stats not assigned to " + gameObject.name);
+            Debug.LogError("Player base stats not assigned to " + gameObject.name);
             return;
         }
 
-        SetStats(playerStats);
-        weapon = GetComponentInChildren<Weapon>();
+        playerStats = new RuntimePlayerStats(basePlayerStats);
 
-        level = ExperienceManager.Instance.Level;
-        base.Start();
+        SetStats(basePlayerStats);
+
+        weapon = GetComponentInChildren<Weapon>();
 
         boxCollider = GetComponent<BoxCollider2D>();
         initialSize = transform.localScale;
 
         GameObject weaponObj = transform.Find("weapon_00").gameObject;
-
         weaponAnimator = weaponObj.GetComponent<Animator>();
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
+
+        currentSpeed = playerStats.BaseSpeed;
+
+        
+    }
+
+    protected override void Start()
+    {
+        level = ExperienceManager.Instance.Level;
+        base.Start();
 
         movementJoystick = GameObject.Find("Canvas").transform.Find("Safe Area").Find("Variable Joystick")
             .GetComponent<Joystick>();
@@ -58,14 +73,10 @@ public class Player : Mover
                 perk.Apply();
             }
         }
-
-        if (animator == null)
-            animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        // Show level above player
         FloatingTextManager.Instance.Show("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
             Vector3.zero, 0.0001f);
 
@@ -87,30 +98,28 @@ public class Player : Mover
         Animate(input);
         UpdateMotor(input);
 
-        if (Time.time >= lastAttackTime + playerStats.attackCooldown)
+        if (Time.time >= lastAttackTime + playerStats.AttackCooldown)
         {
             Attack();
         }
     }
 
-
     public void Attack()
     {
-        SoundFxManager.Instance.PlaySound(playerStats.attackSound, transform, 0.8f);
+        SoundFxManager.Instance.PlaySound(playerStats.AttackSound, transform, 0.8f);
         lastAttackTime = Time.time;
 
         float anim_length = GetWeaponAnimationClipLength("weapon_swing");
 
-        if (playerStats.attackCooldown < anim_length)
+        if (playerStats.AttackCooldown < anim_length)
         {
-            float anim_speed = anim_length / playerStats.attackCooldown;
+            float anim_speed = anim_length / playerStats.AttackCooldown;
             weaponAnimator.speed = anim_speed;
         }
 
         weaponAnimator.SetTrigger("Attack");
 
         weapon.canAttack = true;
-
         weapon.CreateSlashEffect();
 
         Invoke(nameof(DisableWeaponCollider), 0.3f);
@@ -136,7 +145,7 @@ public class Player : Mover
 
     protected override void Death()
     {
-        SoundFxManager.Instance.PlaySound(playerStats.deathSound, 1f);
+        SoundFxManager.Instance.PlaySound(playerStats.DeathSound, 1f);
         Destroy(gameObject);
         GameSummaryManager.Instance.Show();
     }

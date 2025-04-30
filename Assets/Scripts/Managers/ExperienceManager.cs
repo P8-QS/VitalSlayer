@@ -63,7 +63,7 @@ public class ExperienceManager
     /// <summary>
     /// The current level.
     /// </summary>
-    public int Level { get; private set; } = 1;
+    public int Level { get; set; } = 1;
 
     /// <summary>
     /// The time when the bonus multiplier cooldown ends.
@@ -87,7 +87,7 @@ public class ExperienceManager
     /// </summary>
     /// <param name="level">Level to reach.</param>
     /// <returns>Experience required to reach the level.</returns>
-    public static int LevelToXpRequired(int level) => (int)Math.Pow(level, 2) * 25;
+    public static int LevelToXpRequired(int level) => (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR)) * level;
 
 
     /// <summary>
@@ -95,7 +95,7 @@ public class ExperienceManager
     /// </summary>
     /// <param name="xp">Amount of experience to add. </param>
     /// <returns> The experience added.</returns>
-    private int AddExperience(int xp)
+    public int AddExperience(int xp)
     {
         var adjustedXp = (int)(xp * PerkXpMultiplier * (BonusXpEnabled ? BonusXpMultiplier : 1));
         Experience += adjustedXp;
@@ -103,38 +103,10 @@ public class ExperienceManager
     }
 
     /// <summary>
-    /// Adds experience based on the enemy level.
-    /// </summary>
-    /// <param name="enemyLevel">Level of the enemy.</param>
-    /// <returns>The experience added.</returns>
-    public int AddEnemy(int enemyLevel) => AddExperience(10 * (enemyLevel * enemyLevel));
-
-    /// <summary>
-    /// Adds experience based on the boss level.
-    /// </summary>
-    /// <param name="bossLevel">Level of the boss.</param>
-    /// <returns>The experience added.</returns>
-    public int AddBoss(int bossLevel) => AddExperience(30 * (bossLevel * bossLevel));
-
-    /// <summary>
-    /// Adds experience based on the quest difficulty.
-    /// </summary>
-    /// <param name="difficulty">Difficulty of the quest.</param>
-    /// <returns>The experience added.</returns>
-    public int AddQuest(int difficulty) => AddExperience(50 + (20 * difficulty));
-
-    /// <summary>
-    /// Adds experience based on the achievement tier.
-    /// </summary>
-    /// <param name="tier">Tier of the achievement</param>
-    /// <returns>The experience added.</returns>
-    public int AddAchievement(int tier) => AddExperience((int)(100 * Math.Pow(tier, 1.5)));
-
-    /// <summary>
     /// Adds game win experience.
     /// </summary>
     /// <returns>The experience added.</returns>
-    public int AddGameWin() => AddExperience((int)(10 + (100 * Math.Pow(Level, 1.2))));
+    public int AddGameWin() => AddExperience(GameConstants.WIN_XP * Level);
 
     /// <summary>
     /// Resets the cooldown for the bonus multiplier.
