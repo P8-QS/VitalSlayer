@@ -29,9 +29,12 @@ public class AttackDamagePerk : IPerk
 
     public void Apply()
     {
-        float multiplier = 1 + (GetMultiplier(Level) / 100.0f);
-
-        StatsModifier.Instance.SetModifier(StatsModifier.StatType.DamageMin, multiplier);
-        StatsModifier.Instance.SetModifier(StatsModifier.StatType.DamageMax, multiplier);
+        var baseMinFactor = GameManager.Instance.player.playerStats.minDamageScalingFactor;
+        var baseMaxFactor = GameManager.Instance.player.playerStats.maxDamageScalingFactor;
+        var multiplier = 1 + (GetMultiplier(Level) / 100.0);
+        float newMinFactor = (float)(baseMinFactor * multiplier);
+        float newMaxFactor = (float)(baseMaxFactor * multiplier);
+        GameManager.Instance.player.playerStats.minDamageScalingFactor = newMinFactor;
+        GameManager.Instance.player.playerStats.maxDamageScalingFactor = newMaxFactor;
     }
 }
