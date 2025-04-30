@@ -118,7 +118,7 @@ public class EntitySpawner : MonoBehaviour
         var playerLevel = ExperienceManager.Instance.Level;
         var levelDistribution = GetLevelDistribution();
 
-        if (isBoss && levelDistribution)
+        if (isBoss && levelDistribution != null)
         {
             return Mathf.Max(levelDistribution.minimumLevel, playerLevel + levelDistribution.bossLevelBonus);
         }
