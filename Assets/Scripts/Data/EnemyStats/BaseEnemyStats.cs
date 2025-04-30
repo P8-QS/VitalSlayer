@@ -88,7 +88,7 @@ public class BaseEnemyStats : BaseFighterStats
             xpMultiplier = 1.0f;
         }
 
-        int finalXp = Mathf.RoundToInt((baseXp * playerLevel) * xpMultiplier);
+        int finalXp = Mathf.RoundToInt(baseXp * playerLevel * xpMultiplier);
         return Mathf.Max(finalXp, 1);
     }
 
