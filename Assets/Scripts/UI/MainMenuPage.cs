@@ -8,6 +8,9 @@ public class MainMenuPage : MonoBehaviour
 
     public AudioClip menuMusic;
 
+    private float updateInterval = 1f;
+    private float nextUpdateTime = 0f;
+
     void Start()
     {
         SoundFxManager.Instance.PlayClickSound();
@@ -17,7 +20,10 @@ public class MainMenuPage : MonoBehaviour
 
     void Update()
     {
+        if(Time.time >= nextUpdateTime){
         HandleXpCooldown();
+        nextUpdateTime = Time.time + updateInterval;
+        }
     }
 
     private void HandleXpCooldown()
