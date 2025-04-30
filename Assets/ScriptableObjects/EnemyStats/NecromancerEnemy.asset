@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd75b236d0f86f4782832a594394a57, type: 3}
   m_Name: NecromancerEnemy
   m_EditorClassIdentifier: 
-  baseHealth: 5
+  baseHealth: 3
   baseSpeed: 0.2
-  healthScalingFactor: 1.05
+  healthScalingFactor: 2
   pushRecoverySpeed: 0.2
   immuneTime: 0.5
   deathSound: {fileID: 8300000, guid: 48cad7ffd0d7547fda77bba67b2ee862, type: 3}
@@ -22,13 +22,17 @@ MonoBehaviour:
   enemyName: 'Necromancer '
   baseMinDamage: 0
   baseMaxDamage: 0
-  damageScalingFactor: 0
+  minDamageScalingFactor: 1.7
+  maxDamageScalingFactor: 1.75
   pushForce: 1
   critChance: 0
   critMultiplier: 0
   chaseLength: 8
   triggerLength: 5
-  xpReward: 10
+  baseXpReward: 5
+  aboveLevelXpMultiplier: 1.5
+  belowLevelXpMinimum: 0.5
+  levelDifferenceImpact: 0.15
   attackCooldown: 2
   projectilePrefab: {fileID: 1118404643008871529, guid: 6be0740e35a79f243a09376156e32a79, type: 3}
   projectileSpeed: 1
