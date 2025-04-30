@@ -29,6 +29,7 @@ namespace Metrics
                 > 35 => 2,
                 _ => 1
             };
+            
 
             Effects.Add(new AcidSlimePuddleEffect(SpriteManager.Instance.GetSprite(LevelToEffectIconName()),
                 _level));
