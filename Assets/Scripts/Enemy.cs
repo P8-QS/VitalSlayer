@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class Enemy : Mover
 {
-    [Header("Drops")] [Tooltip("Health potion prefab that may drop when enemy dies")]
+    [Header("Drops")]
+    [Tooltip("Health potion prefab that may drop when enemy dies")]
     public GameObject healthPotionPrefab;
+
+    [Header("Phantom Effects")]
+    [Tooltip("Dust animation prefab that plays when phantom enemies die")]
+    public GameObject phantomDustPrefab;
 
     [HideInInspector] public BaseEnemyStats enemyStats;
 
@@ -159,9 +164,38 @@ public class Enemy : Mover
         return true;
     }
 
+    protected void SpawnPhantomDustEffect()
+    {
+        if (phantomDustPrefab == null)
+        {
+            Debug.LogWarning($"Phantom dust prefab not assigned to {gameObject.name}");
+            return;
+        }
+
+        GameObject dustEffect = Instantiate(phantomDustPrefab, transform.position, Quaternion.identity);
+        Animator animator = dustEffect.GetComponent<Animator>();
+
+        float duration = 1f;
+
+        if (animator != null)
+        {
+            var clips = animator.runtimeAnimatorController?.animationClips;
+            var smokeClip = clips?.FirstOrDefault(c => c.name == "smoke");
+
+            if (smokeClip != null)
+                duration = smokeClip.length;
+        }
+
+        Destroy(dustEffect, duration);
+    }
+
     protected override void Death()
     {
-        if (!isPhantom)
+        if (isPhantom)
+        {
+            SpawnPhantomDustEffect();
+        }
+        else
         {
             int reward = enemyStats.GetScaledXpReward(level);
             int xp = ExperienceManager.Instance.AddExperience(reward);
@@ -174,10 +208,6 @@ public class Enemy : Mover
             {
                 Instantiate(healthPotionPrefab, transform.position, Quaternion.identity);
             }
-        }
-        else
-        {
-            Debug.Log("Phantom enemy killed, no XP or loot dropped.");
         }
 
         SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);
