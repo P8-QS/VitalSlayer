@@ -19,9 +19,18 @@ public enum TimeUnit {
 
 public class ScreenTimeManager : MonoBehaviour
 {
+    private static ScreenTimeManager _instance;
     private bool openedUsageAccessSettings = false;
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+
         if (Application.platform != RuntimePlatform.Android)
         {
             Debug.LogWarning("Not running on Android. Skipping Screen Time Manager initialization");
