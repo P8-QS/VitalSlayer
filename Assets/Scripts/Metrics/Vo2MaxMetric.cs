@@ -9,26 +9,20 @@ namespace Metrics
 {
     public class Vo2MaxMetric : IMetric
     {
-        public IReadOnlyCollection<Vo2MaxRecord> Data { get; }
+        public Vo2MaxRecord Data { get; }
         public string Name => "VO2 Max";
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
 
-        private Vo2MaxRecord _record;
-        private int level;
+        private readonly int _level;
 
         public Vo2MaxMetric()
         {
-            Data = UserMetricsHandler.Instance.Vo2MaxRecords;
+            Data = UserMetricsHandler.Instance.Vo2MaxRecords.FirstOrDefault();
             Icon = SpriteManager.Instance.GetSprite("metric_vo2_max");
 
-            if (!(Data?.Count > 0)) return;
-
-            _record = Data.OrderByDescending(record => record.Time).FirstOrDefault();
-
-            if (_record == null) return;
-
-            level = _record.Vo2MillilitersPerMinuteKilogram switch
+            if (Data is null) return;
+            _level = Data.Vo2MillilitersPerMinuteKilogram switch
             {
                 > 45 => 2,
                 > 35 => 1,
@@ -51,12 +45,12 @@ namespace Metrics
         public string Text()
         {
             return
-                $"Your VO2 max is <b>{_record.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This gives you {(this as IMetric).EffectsToString()}.";
+                $"Your VO2 max is <b>{Data.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         private string LevelToString()
         {
-            return level switch
+            return _level switch
             {
                 0 => "below average",
                 1 => "average",
@@ -68,7 +62,7 @@ namespace Metrics
         public string Description()
         {
             return
-                $"Your VO2 max is <b>{_record.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This is considered {LevelToString()}. VO2 max is a measure of your body's ability to utilize oxygen during exercise. ";
+                $"Your VO2 max is <b>{Data.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This is considered {LevelToString()}. VO2 max is a measure of your body's ability to utilize oxygen during exercise. ";
         }
     }
 }

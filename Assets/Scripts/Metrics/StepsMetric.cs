@@ -9,33 +9,20 @@ namespace Metrics
 {
     public class StepsMetric : IMetric
     {
-        private StepsRecord _data;
-        private Sprite _icon;
         public string Name => "Steps";
-
-        public StepsRecord Data
-        {
-            get => _data;
-            set => _data = value;
-        }
-
+        public StepsRecord Data { get; }
         public List<IEffect> Effects { get; } = new();
-
-        public Sprite Icon
-        {
-            get => _icon;
-            set => _icon = value;
-        }
+        public Sprite Icon { get; }
 
         public StepsMetric()
         {
             if (UserMetricsHandler.Instance.StepsRecords != null)
             {
                 Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
-
                 Icon = SpriteManager.Instance.GetSprite("metric_steps");
 
-                int effectLevel = Data.StepsCount switch
+                if (Data is null) return;
+                var effectLevel = Data.StepsCount switch
                 {
                     < 4000 => 1,
                     < 8000 => 2,

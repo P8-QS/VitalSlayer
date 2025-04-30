@@ -9,18 +9,18 @@ namespace Metrics
 {
     public class HeartRateVariabilityMetric : IMetric
     {
-        public IReadOnlyCollection<HeartRateVariabilityRmssdRecord> Data { get; }
+        public HeartRateVariabilityRmssdRecord Data { get; }
         public string Name => "Heart Rate Variability";
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
 
         public HeartRateVariabilityMetric()
         {
-            Data = UserMetricsHandler.Instance.HeartRateVariabilityRmssdRecords.OrderByDescending(d => d.Time).ToList();
+            Data = UserMetricsHandler.Instance.HeartRateVariabilityRmssdRecords.OrderByDescending(d => d.Time).FirstOrDefault();
             Icon = SpriteManager.Instance.GetSprite("metric_hrv");
-            
-            if (!(Data?.Count > 0)) return;
-            var effectLevel = Data.FirstOrDefault()?.HeartRateVariabilityMillis switch
+
+            if (Data is null) return;
+            var effectLevel = Data.HeartRateVariabilityMillis switch
             {
                 > 70 => Hrv.High,
                 > 30 => Hrv.Normal,
@@ -32,12 +32,12 @@ namespace Metrics
         
         public string Text()
         {
-            return $"Your heart rate variability is <b>{Data.FirstOrDefault()?.HeartRateVariabilityMillis}</b>. This gives you {(this as IMetric).EffectsToString()}.";
+            return $"Your heart rate variability is <b>{Data.HeartRateVariabilityMillis}</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         public string Description()
         {
-            return $"Your heart rate variability is {Data.FirstOrDefault()?.HeartRateVariabilityMillis}.";
+            return $"Your heart rate variability is {Data.HeartRateVariabilityMillis}.";
         }
 
         public enum Hrv
