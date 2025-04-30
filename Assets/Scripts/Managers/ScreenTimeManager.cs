@@ -80,12 +80,7 @@ public class ScreenTimeManager : MonoBehaviour
             openedUsageAccessSettings = false;
             if (CheckPermission())
             {
-                Debug.LogWarning("Permissions granted after opening settings");
                 OnPermissionGranted();
-            }
-            else
-            {
-                Debug.Log("Returned from settings without granting permissions");
             }
         }
     }
