@@ -31,7 +31,7 @@ namespace Metrics
             };
             
 
-            Effects.Add(new AcidSlimePuddleEffect(SpriteManager.Instance.GetSprite(LevelToEffectIconName()),
+            Effects.Add(new ToxicPuddleEffect(SpriteManager.Instance.GetSprite(LevelToEffectIconName()),
                 _level));
         }
 
@@ -57,7 +57,7 @@ namespace Metrics
             return _level switch
             {
                 1 => "effect_slime_puddle_negative",
-                2 => "effect_slime_puddle_neutral",
+                2 => "effect_slime_puddle_negative",
                 3 => "effect_slime_puddle_positive",
                 _ => "effect_slime_puddle_neutral"
             };

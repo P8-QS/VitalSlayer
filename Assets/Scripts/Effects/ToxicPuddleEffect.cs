@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace Effects
 {
-    public class AcidSlimePuddleEffect : IEffect
+    public class ToxicPuddleEffect : IEffect
     {
         public static float SlowFactor { get; set; } = 0.5f;
         public static bool PuddleImmunity { get; private set; }
-        public string Name => "Acid Slime Puddle";
+        public string Name => "Toxic Puddle";
 
         public Sprite Icon { get; }
         public int Level { get; set; }
 
 
-        public AcidSlimePuddleEffect(Sprite icon, int level)
+        public ToxicPuddleEffect(Sprite icon, int level)
         {
             Icon = icon;
             Level = level;
@@ -23,9 +23,9 @@ namespace Effects
         {
             return Level switch
             {
-                3 => "<color=#3AE75B>immunity to slime puddles.</color>",
-                2 => "<color=#F5CC45>slowdown in slime puddles.</color>",
-                _ => "<color=#EA2E1E>slowdown in slime puddles.</color>",
+                3 => "<color=#3AE75B>immunity to toxic puddles.</color>",
+                2 => "<color=#F5CC45>slowdown in toxic puddles.</color>",
+                _ => "<color=#EA2E1E>slowdown in toxic puddles.</color>",
             };
         }
 
@@ -33,9 +33,9 @@ namespace Effects
         {
             return Level switch
             {
-                3 => "You are immune to slime puddles.",
-                2 => "You are slowed down in slime puddles and takes damage.",
-                _ => "You are severely slowed down in slime puddles and takes damage."
+                3 => "You are immune to toxic puddles.",
+                2 => "You are slowed down in toxic puddles and takes damage.",
+                _ => "You are severely slowed down in toxic puddles and takes damage."
             };
         }
 
