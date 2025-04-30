@@ -29,9 +29,16 @@ public class MovementSpeedPerk : IPerk
 
     public void Apply()
     {
-        var baseSpeed = GameManager.Instance.player.playerStats.baseSpeed;
+        if (GameManager.Instance == null || GameManager.Instance.player == null ||
+            GameManager.Instance.player.playerStats == null)
+            return;
+
+        var player = GameManager.Instance.player;
+        var baseSpeed = player.playerStats.BaseSpeed;
         var multiplier = 1 + (GetMultiplier(Level) / 100.0);
         float newSpeed = (float)(baseSpeed * multiplier);
-        GameManager.Instance.player.playerStats.baseSpeed = newSpeed;
+        player.playerStats.BaseSpeed = newSpeed;
+
+        player.currentSpeed = newSpeed;
     }
 }
