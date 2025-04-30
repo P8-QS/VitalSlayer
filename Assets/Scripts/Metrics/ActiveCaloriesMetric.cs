@@ -12,25 +12,15 @@ namespace Metrics
         private Sprite _icon;
 
         public string Name => "Active Calories Burned";
-
-        public IReadOnlyCollection<ActiveCaloriesBurnedRecord> Data
-        {
-            get => _data;
-            private set => _data = value;
-        }
-
+        public IReadOnlyCollection<ActiveCaloriesBurnedRecord> Data { get; }
         public List<IEffect> Effects { get; } = new();
+        public Sprite Icon { get; }
 
-        public Sprite Icon
-        {
-            get => _icon;
-            private set => _icon = value;
-        }
-
-        private int _totalCalories;
+        private readonly int _totalCalories;
 
         public ActiveCaloriesMetric()
         {
+            if (UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords is null) return;
             Data = UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords;
             Icon = SpriteManager.Instance.GetSprite("metric_calories");
 
@@ -53,6 +43,7 @@ namespace Metrics
                     Effects.Add(new NoDoorCloseEffect(SpriteManager.Instance.GetSprite("effect_no_doors_negative"),
                         0)); break;
             }
+            
         }
 
         public string Text()
@@ -68,3 +59,4 @@ namespace Metrics
         }
     }
 }
+
