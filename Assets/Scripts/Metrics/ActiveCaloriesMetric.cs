@@ -53,7 +53,7 @@ namespace Metrics
 
             if (effectLevel > 0)
             {
-                Effects.Add(new NoDoorCloseEffect(SpriteManager.Instance.GetSprite("effect_no_doors"), effectLevel));
+                Effects.Add(new NoDoorCloseEffect(SpriteManager.Instance.GetSprite("effect_no_doors"), 0));
                 Effects[0].Apply();
             }
             

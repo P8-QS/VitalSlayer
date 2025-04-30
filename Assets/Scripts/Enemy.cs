@@ -1,12 +1,14 @@
+using System.Linq;
+using Effects;
+using Managers;
 using UnityEngine;
 
 public class Enemy : Mover
 {
-    [Header("Drops")]
-    [Tooltip("Health potion prefab that may drop when enemy dies")]
+    [Header("Drops")] [Tooltip("Health potion prefab that may drop when enemy dies")]
     public GameObject healthPotionPrefab;
-    [HideInInspector]
-    public BaseEnemyStats enemyStats;
+
+    [HideInInspector] public BaseEnemyStats enemyStats;
 
     // Logic
     protected bool chasing;
@@ -15,6 +17,7 @@ public class Enemy : Mover
     protected Vector3 startingPosition;
     public GameObject room;
     private bool _isPhantom;
+
     public bool isPhantom
     {
         set => _isPhantom = value;
@@ -47,6 +50,11 @@ public class Enemy : Mover
             EnemyUIManager.Instance.CreateLevelIndicator(this);
         }
 
+        // Scuffed CombatInfoEffect apply but works
+        var hideHealthBar = MetricsManager.Instance.metrics.Values.SelectMany(m => m.Effects)
+            .Any(e => e is CombatInfoEffect && e.Level != 1);
+        if (hideHealthBar) Destroy(healthBar.gameObject);
+
 
         if (_isPhantom)
         {
@@ -64,6 +72,7 @@ public class Enemy : Mover
         enemyStats = newStats;
         SetStats(newStats);
     }
+
     protected void FixedUpdate()
     {
         if (!playerTransform) return;
@@ -78,7 +87,8 @@ public class Enemy : Mover
         // Is the player in range?
         if (Vector3.Distance(playerTransform.position, startingPosition) < chaseDistance)
         {
-            if (HasLineOfSight() && Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
+            if (HasLineOfSight() &&
+                Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
             {
                 chasing = true;
             }

@@ -7,7 +7,7 @@ namespace Effects
 {
     public class NoDoorCloseEffect : IEffect
     {
-        public string Name => "No Door Close";
+        public string Name => "Doors Always Open";
         public int Level { get => _level; set => _level = value; }
         
         
@@ -22,14 +22,14 @@ namespace Effects
         }
         public string Text()
         {
-            return $"<color=#3AE75B> no doors </color>";
+            return $"<color=#3AE75B>doors always open</color>";
         }
 
         public string Description()
         {
             return Level switch
             {
-                1 => "Doors will not be closed.",
+                1 => "Doors will never be closed.",
                 0 => "Doors will be closed, and you need to kill all the enemies within a room for doors to open.",
                 _ => "Must be level 0 or 1."
             };
