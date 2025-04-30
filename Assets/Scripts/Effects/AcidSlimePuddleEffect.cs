@@ -47,11 +47,11 @@ namespace Effects
                     PuddleImmunity = true;
                     break;
                 case 2:
-                    SlowFactor = 0.25f;
+                    SlowFactor = 0.5f;
                     PuddleImmunity = false;
                     break;
                 default:
-                    SlowFactor = 0.5f;
+                    SlowFactor = 0.25f;
                     PuddleImmunity = false;
                     break;
             }
