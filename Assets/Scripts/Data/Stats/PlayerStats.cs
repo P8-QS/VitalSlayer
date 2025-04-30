@@ -17,11 +17,11 @@ public class PlayerStats : BaseFighterStats
     public AudioClip attackSound;
     public int CalculateMinDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseMinDamage, level, minDamageScalingFactor);
+        return (int)(GameHelpers.CalculateDamageStat(baseMinDamage, level, minDamageScalingFactor) * StatsModifier.Instance.GetModifier(StatsModifier.StatType.DamageMin));
     }
 
     public int CalculateMaxDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseMaxDamage, level, maxDamageScalingFactor);
+        return (int)(GameHelpers.CalculateDamageStat(baseMaxDamage, level, minDamageScalingFactor) * StatsModifier.Instance.GetModifier(StatsModifier.StatType.DamageMax));
     }
 }
