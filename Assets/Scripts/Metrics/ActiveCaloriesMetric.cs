@@ -8,33 +8,19 @@ namespace Metrics
 {
     public class ActiveCaloriesMetric : IMetric
     {
-        private IReadOnlyCollection<ActiveCaloriesBurnedRecord> _data;
-        private Sprite _icon;
-
         public string Name => "Active Calories Burned";
-
-        public IReadOnlyCollection<ActiveCaloriesBurnedRecord> Data
-        {
-            get => _data;
-            private set => _data = value;
-        }
-
+        public IReadOnlyCollection<ActiveCaloriesBurnedRecord> Data { get; }
         public List<IEffect> Effects { get; } = new();
+        public Sprite Icon { get; }
 
-        public Sprite Icon
-        {
-            get => _icon;
-            private set => _icon = value;
-        }
-
-        private int _totalCalories;
+        private readonly int _totalCalories;
 
         public ActiveCaloriesMetric()
         {
+            if (UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords is null) return;
             Data = UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords;
             Icon = SpriteManager.Instance.GetSprite("metric_calories");
 
-            //_totalCalories = 0;
             foreach (var record in Data)
             {
                 if (record.Energy != null)
@@ -43,7 +29,7 @@ namespace Metrics
                 }
             }
 
-            int effectLevel = _totalCalories switch
+            var effectLevel = _totalCalories switch
             {
                 >= 300 => 1,
                 _ => 0
