@@ -199,7 +199,9 @@ MonoBehaviour:
   currentSpeed: 0.3
   level: 1
   healthPotionPrefab: {fileID: 5097287688909406268, guid: a57e75df47d5a1c4b86dd6117ac09365, type: 3}
+  phantomDustPrefab: {fileID: 6605365656079988792, guid: 06b35e0a9fb2a7740968524fdc5aae6f, type: 3}
   enemyStats: {fileID: 0}
+  room: {fileID: 0}
   filter:
     useTriggers: 0
     useLayerMask: 0

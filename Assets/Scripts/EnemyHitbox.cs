@@ -15,7 +15,7 @@ public class EnemyHitbox : Collidable
 
     protected override void OnCollide(Collider2D coll)
     {
-        if (coll.CompareTag("Player"))
+        if (coll.CompareTag("Player") && !enemy.isPhantom)
         {
             Damage dmg = enemy.enemyStats.CalculateDamageObject(enemy.level, transform.position);
             coll.SendMessage("ReceiveDamage", dmg);

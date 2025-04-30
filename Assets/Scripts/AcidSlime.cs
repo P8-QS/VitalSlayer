@@ -48,25 +48,36 @@ public class AcidSlime : Enemy
     // Override the Death method to spawn a toxic puddle
     protected override void Death()
     {
-        // Spawn the toxic puddle at the position of the slime
-        if (toxicPuddlePrefab != null)
-        {
-            GameObject puddle = Instantiate(toxicPuddlePrefab, transform.position, Quaternion.identity);
-            ToxicPuddle puddleComponent = puddle.GetComponent<ToxicPuddle>();
 
-            if (puddleComponent != null && acidSlimeStats != null)
-            {
-                puddleComponent.duration = acidSlimeStats.puddleDuration;
-                puddleComponent.minDamage = acidSlimeStats.GetScaledAcidMinDamage(level);
-                puddleComponent.maxDamage = acidSlimeStats.GetScaledAcidMaxDamage(level);
-                puddleComponent.slowFactor = acidSlimeStats.puddleSlowFactor;
-                puddleComponent.puddleColor = new Color(acidSlimeStats.acidColor.r, acidSlimeStats.acidColor.g, acidSlimeStats.acidColor.b, 0.6f);
-            }
-            else
-            {
-                Destroy(puddle, acidSlimeStats != null ? acidSlimeStats.puddleDuration : 5f);
-            }
+        // Spawn the toxic puddle at the position of the slime
+        if (toxicPuddlePrefab == null)
+        {
+            Debug.LogError("Toxic Puddle prefab is not assigned in the AcidSlime script.");
+            return;
         }
+
+        if (isPhantom)
+        {
+            base.Death();
+            return;
+        }
+
+        GameObject puddle = Instantiate(toxicPuddlePrefab, transform.position, Quaternion.identity);
+        ToxicPuddle puddleComponent = puddle.GetComponent<ToxicPuddle>();
+
+        if (puddleComponent != null && acidSlimeStats != null)
+        {
+            puddleComponent.duration = acidSlimeStats.puddleDuration;
+            puddleComponent.minDamage = acidSlimeStats.GetScaledAcidMinDamage(level);
+            puddleComponent.maxDamage = acidSlimeStats.GetScaledAcidMaxDamage(level);
+            puddleComponent.slowFactor = acidSlimeStats.puddleSlowFactor;
+            puddleComponent.puddleColor = new Color(acidSlimeStats.acidColor.r, acidSlimeStats.acidColor.g, acidSlimeStats.acidColor.b, 0.6f);
+        }
+        else
+        {
+            Destroy(puddle, acidSlimeStats != null ? acidSlimeStats.puddleDuration : 5f);
+        }
+
 
         base.Death();
     }
