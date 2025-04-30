@@ -74,9 +74,9 @@ public class ToxicPuddle : Collidable
                 customColor = Color.red // Use red for damage text
             };
 
-            if (!DodgeSlimeAcidEffect.puddleImmunityEffect)
+            if (!AcidSlimePuddleEffect.PuddleImmunity)
             {
-                slowFactor = DodgeSlimeAcidEffect.SlowFactorEffect;
+                slowFactor = AcidSlimePuddleEffect.SlowFactor;
                 target.ApplyDamageOverTime(damage, dotDuration, damageTickRate);
                 target.ApplySlowEffect(slowFactor, damageTickRate * 2);
             }

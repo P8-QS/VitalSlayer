@@ -30,22 +30,13 @@ namespace Metrics
 
             level = _record.Vo2MillilitersPerMinuteKilogram switch
             {
-                > 45 => 2,
-                > 35 => 1,
-                _ => 0
+                > 45 => 3,
+                > 35 => 2,
+                _ => 1
             };
-            
-            if (level == 2)
-            {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_positive"), 2));
-            } else if (level == 1)
-            {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_neutral"), 1));
-            }
-            else
-            {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_negative"), 0));
-            }
+
+            Effects.Add(new AcidSlimePuddleEffect(SpriteManager.Instance.GetSprite(LevelToEffectIconName()),
+                level));
         }
 
         public string Text()
@@ -58,10 +49,21 @@ namespace Metrics
         {
             return level switch
             {
-                0 => "below average",
-                1 => "average",
-                2 => "above average",
+                1 => "below average",
+                2 => "average",
+                3 => "above average",
                 _ => "unknown"
+            };
+        }
+
+        private string LevelToEffectIconName()
+        {
+            return level switch
+            {
+                1 => "effect_slime_puddle_negative",
+                2 => "effect_slime_puddle_neutral",
+                3 => "effect_slime_puddle_positive",
+                _ => "effect_slime_puddle_neutral"
             };
         }
 
