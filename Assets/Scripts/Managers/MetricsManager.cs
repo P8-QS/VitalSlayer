@@ -8,7 +8,7 @@ namespace Managers
 {
     public class MetricsManager : MonoBehaviour
     {
-        public static MetricsManager Instance { get; private set;}
+        public static MetricsManager Instance { get; private set; }
         public Dictionary<string, IMetric> metrics = new();
 
         public void Start()
@@ -18,9 +18,11 @@ namespace Managers
                 Destroy(gameObject);
                 return;
             }
+
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
         private void OnEnable()
         {
             if (UserMetricsHandler.Instance != null)
@@ -34,6 +36,7 @@ namespace Managers
                 UserMetricsHandler.Instance.OnHeartRateVariabilityRecordsUpdated += OnHeartRateVariabilityUpdated;
             }
         }
+
         private void OnDisable()
         {
             if (UserMetricsHandler.Instance != null)
@@ -57,6 +60,7 @@ namespace Managers
                 metrics.Add(stepsMetric.Name, stepsMetric);
             }
         }
+
         private void OnScreenTimeUpdated(long newScreenTime)
         {
             var screenTimeMetric = new ScreenTimeMetric();
@@ -66,6 +70,7 @@ namespace Managers
                 metrics.Add(screenTimeMetric.Name, screenTimeMetric);
             }
         }
+
         private void OnSleepUpdated(IReadOnlyCollection<SleepSessionRecord> newSleep)
         {
             var sleepMetric = new SleepMetric();
@@ -74,8 +79,8 @@ namespace Managers
             {
                 metrics.Add(sleepMetric.Name, sleepMetric);
             }
-
         }
+
         private void OnExerciseUpdated(IReadOnlyCollection<ExerciseSessionRecord> newExercise)
         {
             var exerciseMetric = new ExerciseMetric();
@@ -85,6 +90,7 @@ namespace Managers
                 metrics.Add(exerciseMetric.Name, exerciseMetric);
             }
         }
+
         private void OnVo2MaxUpdated(IReadOnlyCollection<Vo2MaxRecord> newVo2Max)
         {
             var vo2MaxMetric = new Vo2MaxMetric();
@@ -94,7 +100,9 @@ namespace Managers
                 metrics.Add(vo2MaxMetric.Name, vo2MaxMetric);
             }
         }
-        private void OnActiveCaloriesBurnedUpdated(IReadOnlyCollection<ActiveCaloriesBurnedRecord> newActiveCaloriesBurned)
+
+        private void OnActiveCaloriesBurnedUpdated(
+            IReadOnlyCollection<ActiveCaloriesBurnedRecord> newActiveCaloriesBurned)
         {
             var activeCaloriesMetric = new ActiveCaloriesMetric();
             metrics.Remove(activeCaloriesMetric.Name);
@@ -103,11 +111,12 @@ namespace Managers
                 metrics.Add(activeCaloriesMetric.Name, activeCaloriesMetric);
             }
         }
+
         private void OnHeartRateVariabilityUpdated(IReadOnlyCollection<HeartRateVariabilityRmssdRecord> newHRV)
         {
-            var hrvMetric= new HeartRateVariabilityMetric();
+            var hrvMetric = new HeartRateVariabilityMetric();
             metrics.Remove(hrvMetric.Name);
-            if (hrvMetric.Data != null)
+            if (hrvMetric.AvgHrvRmssd > 0)
             {
                 metrics.Add(hrvMetric.Name, hrvMetric);
             }
