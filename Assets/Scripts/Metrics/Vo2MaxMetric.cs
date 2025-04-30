@@ -30,16 +30,17 @@ namespace Metrics
                 _ => 0
             };
             
-            if (level == 2)
+            switch (_level)
             {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_positive"), 2));
-            } else if (level == 1)
-            {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_neutral"), 1));
-            }
-            else
-            {
-                Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_negative"), 0));
+                case 2:
+                    Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_positive"), 2));
+                    break;
+                case 1:
+                    Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_neutral"), 1));
+                    break;
+                default:
+                    Effects.Add(new DodgeSlimeAcidEffect(SpriteManager.Instance.GetSprite("effect_slime_puddle_negative"), 0));
+                    break;
             }
         }
 

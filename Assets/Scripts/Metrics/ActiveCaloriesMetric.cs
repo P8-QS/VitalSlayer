@@ -29,7 +29,7 @@ namespace Metrics
                 }
             }
 
-            int effectLevel = _totalCalories switch
+            var effectLevel = _totalCalories switch
             {
                 >= 300 => 1,
                 _ => 0

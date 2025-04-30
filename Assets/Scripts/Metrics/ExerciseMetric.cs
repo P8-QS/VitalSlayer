@@ -15,7 +15,7 @@ namespace Metrics
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
 
-        private TimeSpan _exerciseDuration;
+        private readonly TimeSpan _exerciseDuration;
      
         public ExerciseMetric()
         {

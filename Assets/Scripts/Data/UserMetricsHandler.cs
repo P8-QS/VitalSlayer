@@ -81,7 +81,7 @@ namespace Data
         private void Start()
         {
             if (Application.platform == RuntimePlatform.Android) return;
-            // SetMockData();
+            SetMockData();
         }
 
         public void SetData<T>(UserMetricsType userMetricsType, T data)
