@@ -123,7 +123,7 @@ public class EntitySpawner : MonoBehaviour
             return Mathf.Max(levelDistribution.minimumLevel, playerLevel + levelDistribution.bossLevelBonus);
         }
 
-        if (!levelDistribution || levelDistribution.levelChances.Count == 0)
+        if (levelDistribution == null || levelDistribution.levelChances.Count == 0)
         {
             Debug.LogWarning("No enemy level distribution set. Using player level.");
             return playerLevel;
