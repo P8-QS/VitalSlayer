@@ -146,6 +146,10 @@ public class Enemy : Mover
                 Instantiate(healthPotionPrefab, transform.position, Quaternion.identity);
             }
         }
+        else
+        {
+            Debug.Log("Phantom enemy killed, no XP or loot dropped.");
+        }
 
         SoundFxManager.Instance.PlaySound(enemyStats.deathSound, 0.5f);
 

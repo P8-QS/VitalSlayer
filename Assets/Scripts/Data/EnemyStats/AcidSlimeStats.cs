@@ -16,11 +16,11 @@ public class AcidSlimeEnemyStats : BaseEnemyStats
 
     public int GetScaledAcidMinDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(acidMinDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(acidMinDamage, level, minDamageScalingFactor);
     }
 
     public int GetScaledAcidMaxDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(acidMaxDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(acidMaxDamage, level, maxDamageScalingFactor);
     }
 }

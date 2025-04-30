@@ -29,9 +29,12 @@ public class AttackDamagePerk : IPerk
 
     public void Apply()
     {
-        var baseFactor = GameManager.Instance.player.playerStats.damageScalingFactor;
+        var baseMinFactor = GameManager.Instance.player.playerStats.minDamageScalingFactor;
+        var baseMaxFactor = GameManager.Instance.player.playerStats.maxDamageScalingFactor;
         var multiplier = 1 + (GetMultiplier(Level) / 100.0);
-        float newFactor = (float)(baseFactor * multiplier);
-        GameManager.Instance.player.playerStats.baseSpeed = newFactor;
+        float newMinFactor = (float)(baseMinFactor * multiplier);
+        float newMaxFactor = (float)(baseMaxFactor * multiplier);
+        GameManager.Instance.player.playerStats.minDamageScalingFactor = newMinFactor;
+        GameManager.Instance.player.playerStats.maxDamageScalingFactor = newMaxFactor;
     }
 }

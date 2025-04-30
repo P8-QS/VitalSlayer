@@ -32,7 +32,7 @@ public static class GameHelpers
             return baseDamage;
         }
 
-        return baseDamage + (int)(baseDamage * (Mathf.Pow(level - 1, scalingFactor) * 0.1f));
+        return baseDamage + (int)Mathf.Pow(level - 1, scalingFactor);
     }
 
 }

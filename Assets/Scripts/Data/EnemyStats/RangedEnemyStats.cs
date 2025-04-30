@@ -16,11 +16,11 @@ public class RangedEnemyStats : BaseEnemyStats
 
     public int GetScaledRangedMinDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(rangedMinDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(rangedMinDamage, level, minDamageScalingFactor);
     }
 
     public int GetScaledRangedMaxDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(rangedMaxDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(rangedMaxDamage, level, maxDamageScalingFactor);
     }
 }

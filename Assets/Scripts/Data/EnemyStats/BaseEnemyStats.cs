@@ -11,7 +11,8 @@ public class BaseEnemyStats : BaseFighterStats
     [Header("Base Stats")]
     public int baseMinDamage = 1;
     public int baseMaxDamage = 3;
-    public float damageScalingFactor = 1.15f;
+    public float minDamageScalingFactor = 1.95f;
+    public float maxDamageScalingFactor = 1.96f;
 
     [Header("Combat Settings")]
     public float pushForce = 2.0f;
@@ -50,19 +51,19 @@ public class BaseEnemyStats : BaseFighterStats
 
     public virtual int GetScaledMinDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseMinDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(baseMinDamage, level, minDamageScalingFactor);
     }
 
     public virtual int GetScaledMaxDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseMaxDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(baseMaxDamage, level, maxDamageScalingFactor);
     }
 
     public virtual int GetScaledXpReward(int level)
     {
         int playerLevel = ExperienceManager.Instance.Level;
 
-        float baseXp = baseXpReward * Mathf.Pow(level, 1.2f);
+        float baseXp = baseXpReward;
 
         int levelDifference = level - playerLevel;
 
@@ -87,7 +88,7 @@ public class BaseEnemyStats : BaseFighterStats
             xpMultiplier = 1.0f;
         }
 
-        int finalXp = Mathf.RoundToInt(baseXp * xpMultiplier);
+        int finalXp = Mathf.RoundToInt((baseXp * playerLevel) * xpMultiplier);
         return Mathf.Max(finalXp, 1);
     }
 

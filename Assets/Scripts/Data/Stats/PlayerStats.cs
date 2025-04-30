@@ -7,7 +7,8 @@ public class PlayerStats : BaseFighterStats
     public float attackCooldown = 2.0f;
     public int baseMinDamage = 1;
     public int baseMaxDamage = 5;
-    public float damageScalingFactor = 1.15f;
+    public float minDamageScalingFactor = 1.45f;
+    public float maxDamageScalingFactor = 1.5f;
     public float pushForce = 5.0f;
     public float critChance = 0.1f;
     public float critMultiplier = 2.0f;
@@ -16,11 +17,11 @@ public class PlayerStats : BaseFighterStats
     public AudioClip attackSound;
     public int CalculateMinDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseMinDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(baseMinDamage, level, minDamageScalingFactor);
     }
 
     public int CalculateMaxDamage(int level)
     {
-        return GameHelpers.CalculateDamageStat(baseMaxDamage, level, damageScalingFactor);
+        return GameHelpers.CalculateDamageStat(baseMaxDamage, level, maxDamageScalingFactor);
     }
 }

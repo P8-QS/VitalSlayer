@@ -88,7 +88,7 @@ public class ExperienceManager
     /// </summary>
     /// <param name="level">Level to reach.</param>
     /// <returns>Experience required to reach the level.</returns>
-    public static int LevelToXpRequired(int level) => (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR));
+    public static int LevelToXpRequired(int level) => (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR)) * level;
 
 
     /// <summary>
@@ -107,7 +107,7 @@ public class ExperienceManager
     /// Adds game win experience.
     /// </summary>
     /// <returns>The experience added.</returns>
-    public int AddGameWin() => AddExperience((int)(10 + (100 * Math.Pow(Level, 1.2))));
+    public int AddGameWin() => AddExperience(GameConstants.WIN_XP * Level);
 
     /// <summary>
     /// Resets the cooldown for the bonus multiplier.
