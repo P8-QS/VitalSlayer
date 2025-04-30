@@ -835,6 +835,116 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: effect_combat_info_positive
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e197575aaf52d4783b1a19e93cdf63d7
+      internalID: -1642273872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_slime_puddle_neutral
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71efba07599a34dc69fdecbd9e199789
+      internalID: -942542311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_combat_info_negative
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c5b08664888d4f27b08f5eeb6281889
+      internalID: 1329381489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_slime_puddle_positive
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c315f6c8c40bd4bc28426f7977d3aaed
+      internalID: -1037138771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_slime_puddle_negative
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b32dcbe6292b43cdb5371be0dd1f426
+      internalID: -446145827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -856,6 +966,8 @@ TextureImporter:
       effect_attack_speed: -230250835
       effect_base_negative: -1510483472
       effect_base_positive: 1603008240
+      effect_combat_info_negative: 1329381489
+      effect_combat_info_positive: -1642273872
       effect_crit_chance: -947679280
       effect_dodge_traps: -966133891
       effect_enemy_spawn: 1325008176
@@ -863,6 +975,9 @@ TextureImporter:
       effect_hallucination: 1397055168
       effect_no_doors: -1796768506
       effect_scouting: 2133868775
+      effect_slime_puddle_negative: -446145827
+      effect_slime_puddle_neutral: -942542311
+      effect_slime_puddle_positive: -1037138771
       icon_clock: 1355181629
       icon_close: 1150477062
       icon_help: 969690327

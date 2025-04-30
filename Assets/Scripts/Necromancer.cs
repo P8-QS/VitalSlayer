@@ -30,6 +30,10 @@ public class Necromancer : Enemy
     {
         if (playerTransform == null) return;
 
+        var roomBoundsCollider = room.GetComponentInChildren<BoxCollider2D>();
+
+        Bounds bounds = roomBoundsCollider.bounds;
+
         if (Vector3.Distance(playerTransform.position, startingPosition) < (enemyStats != null ? enemyStats.chaseLength : 5f))
         {
             if (HasLineOfSight() && Vector3.Distance(playerTransform.position, startingPosition) < enemyStats.triggerLength)
@@ -57,7 +61,15 @@ public class Necromancer : Enemy
                     {
                         // Move closer if too far
                         Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized * currentSpeed;
-                        UpdateMotor(directionToPlayer * 0.5f); // Move at half speed when approaching
+                        Vector3 nextPos = transform.position + directionToPlayer * Time.deltaTime;
+                        if (bounds.Contains(nextPos))
+                        {
+                            UpdateMotor(directionToPlayer * 0.5f); // Move at half speed when approaching
+                        }
+                        else
+                        {
+                            chasing = false;
+                        }
                     }
                     else
                     {
@@ -67,13 +79,13 @@ public class Necromancer : Enemy
             }
             else
             {
-                UpdateMotor(startingPosition - transform.position);
+                UpdateMotor((startingPosition - transform.position) * currentSpeed);
             }
         }
         else
         {
             // Return to starting position if player is out of range
-            UpdateMotor(startingPosition - transform.position);
+            UpdateMotor((startingPosition - transform.position) * currentSpeed);
             chasing = false;
         }
 
