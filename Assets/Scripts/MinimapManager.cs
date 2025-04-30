@@ -17,6 +17,9 @@ public class MinimapManager : MonoBehaviour
     private float currentAlpha;
     public float fadeSpeed = 5f; // Adjust for faster/slower fade
 
+    public RectTransform minimapRect;
+    public RectTransform effectIconsRect;
+
     private void Awake()
     {
         // Singleton pattern
@@ -42,21 +45,13 @@ public class MinimapManager : MonoBehaviour
     public void Update()
     {
         var player = GameManager.Instance.player;
-
         if (!Camera.main || !player) return;
-
         var screenPoint = Camera.main.WorldToScreenPoint(player.transform.position);
-        var minimapRect = gameObject.GetComponent<RectTransform>();
 
         // Get screen-space corners of the minimap UI
-        Vector3[] corners = new Vector3[4];
-        minimapRect.GetWorldCorners(corners);
-
-        Rect minimapScreenRect = new Rect(corners[0].x, corners[0].y,
-            corners[2].x - corners[0].x,
-            corners[2].y - corners[0].y);
-
-        bool playerOverlap = minimapScreenRect.Contains(screenPoint);
+        bool isOverMinimap = minimapRect != null && RectTransformContainsScreenPoint(minimapRect, screenPoint);
+        bool isOverIcons = effectIconsRect != null && RectTransformContainsScreenPoint(effectIconsRect, screenPoint);
+        bool playerOverlap = isOverMinimap || isOverIcons;
 
         var canvas = gameObject.GetComponent<CanvasGroup>();
 
@@ -66,6 +61,17 @@ public class MinimapManager : MonoBehaviour
         currentAlpha = Mathf.Lerp(currentAlpha, targetAlpha, Time.deltaTime * fadeSpeed);
         canvas.alpha = currentAlpha;
     }
+
+    private bool RectTransformContainsScreenPoint(RectTransform rect, Vector2 screenPoint)
+    {
+        Vector3[] corners = new Vector3[4];
+        rect.GetWorldCorners(corners);
+        Rect screenRect = new Rect(corners[0].x, corners[0].y,
+            corners[2].x - corners[0].x,
+            corners[2].y - corners[0].y);
+        return screenRect.Contains(screenPoint);
+    }
+
 
     public void UpdateMinimap(RoomInstance currentRoom)
     {
