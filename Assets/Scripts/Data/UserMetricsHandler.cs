@@ -21,13 +21,13 @@ namespace Data
     
     public class UserMetricsHandler : MonoBehaviour
     {
-        public string stepsRecordsSamplePath = "Assets/Resources/Data/StepsRecordsSample.json";
-        public string sleepRecordsSamplePath = "Assets/Resources/Data/SleepSessionRecordsSample.json";
-        public string exerciseRecordsSamplePath = "Assets/Resources/Data/ExerciseSessionRecordsSample.json";
-        public string acbRecordsSamplePath = "Assets/Resources/Data/ActiveCaloriesBurnedRecordsSample.json";
-        public string tcbRecordsSamplePath = "Assets/Resources/Data/TotalCaloriesBurnedRecordsSample.json";
-        public string hrvRecordsSamplePath = "Assets/Resources/Data/HeartRateVariabilityRmssdRecordsSample.json";
-        public string vo2MaxRecordsSamplePath = "Assets/Resources/Data/Vo2MaxRecordsSample.json";
+        private const string StepsRecordsSamplePath = "Assets/Resources/Data/StepsRecordsSample.json";
+        private const string SleepRecordsSamplePath = "Assets/Resources/Data/SleepSessionRecordsSample.json";
+        private const string ExerciseRecordsSamplePath = "Assets/Resources/Data/ExerciseSessionRecordsSample.json";
+        private const string AcbRecordsSamplePath = "Assets/Resources/Data/ActiveCaloriesBurnedRecordsSample.json";
+        private const string TcbRecordsSamplePath = "Assets/Resources/Data/TotalCaloriesBurnedRecordsSample.json";
+        private const string HrvRecordsSamplePath = "Assets/Resources/Data/HeartRateVariabilityRmssdRecordsSample.json";
+        private const string Vo2MaxRecordsSamplePath = "Assets/Resources/Data/Vo2MaxRecordsSample.json";
         
         public static UserMetricsHandler Instance { get; private set; }
         
@@ -167,13 +167,13 @@ namespace Data
         
         private void SetMockData()
         {
-            TrySetDataFromFile<StepsRecord>(UserMetricsType.StepsRecords, stepsRecordsSamplePath);
-            TrySetDataFromFile<SleepSessionRecord>(UserMetricsType.SleepSessionRecords, sleepRecordsSamplePath);
-            TrySetDataFromFile<ExerciseSessionRecord>(UserMetricsType.ExerciseSessionRecords, exerciseRecordsSamplePath);
-            TrySetDataFromFile<ActiveCaloriesBurnedRecord>(UserMetricsType.ActiveCaloriesBurned, acbRecordsSamplePath);
-            TrySetDataFromFile<TotalCaloriesBurnedRecord>(UserMetricsType.TotalCaloriesBurned, tcbRecordsSamplePath);
-            TrySetDataFromFile<HeartRateVariabilityRmssdRecord>(UserMetricsType.HeartRateVariabilityRmssd, hrvRecordsSamplePath);
-            TrySetDataFromFile<Vo2MaxRecord>(UserMetricsType.Vo2Max, vo2MaxRecordsSamplePath);
+            TrySetDataFromFile<StepsRecord>(UserMetricsType.StepsRecords, StepsRecordsSamplePath);
+            TrySetDataFromFile<SleepSessionRecord>(UserMetricsType.SleepSessionRecords, SleepRecordsSamplePath);
+            TrySetDataFromFile<ExerciseSessionRecord>(UserMetricsType.ExerciseSessionRecords, ExerciseRecordsSamplePath);
+            TrySetDataFromFile<ActiveCaloriesBurnedRecord>(UserMetricsType.ActiveCaloriesBurned, AcbRecordsSamplePath);
+            TrySetDataFromFile<TotalCaloriesBurnedRecord>(UserMetricsType.TotalCaloriesBurned, TcbRecordsSamplePath);
+            TrySetDataFromFile<HeartRateVariabilityRmssdRecord>(UserMetricsType.HeartRateVariabilityRmssd, HrvRecordsSamplePath);
+            TrySetDataFromFile<Vo2MaxRecord>(UserMetricsType.Vo2Max, Vo2MaxRecordsSamplePath);
             
             SetData(UserMetricsType.TotalScreenTime, (long)TimeSpan.FromHours(2).TotalMilliseconds);
             Debug.Log("Mock data has been set!");
