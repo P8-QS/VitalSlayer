@@ -14,6 +14,7 @@ namespace Managers
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(gameObject);
 
                 var stepsMetric = new StepsMetric();
                 var sleepMetric = new SleepMetric();
