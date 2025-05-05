@@ -82,4 +82,10 @@ public class LoggingManager : MonoBehaviour
 
         LogEvent(gameSummaryEvent);
     }
+
+    public void LogEmail(string email)
+    {
+        var emailEvent = new EmailSetEvent { Email = email };
+        LogEvent(emailEvent);
+    }
 }
