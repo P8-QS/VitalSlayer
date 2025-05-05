@@ -100,11 +100,28 @@ public class PerksManager : MonoBehaviour
         foreach (var perk in Perks.Values)
         {
             perk.Level = 0;
+            perk.Cost = 1;
         }
 
         Points = 0;
-        GameManager.Instance.player.playerStats.Reset();
-        GameManager.Instance.player.level -= 1;
+        int refundedPoints = ExperienceManager.Instance.Level - 2;
+        ExperienceManager.Instance.RemoveLevel();
+        AddPoints(refundedPoints);
+
+        StateManager.Instance.SaveState();
+    }
+
+    public int ActivePerkCount()
+    {
+        int count = 0;
+        foreach (var perk in Perks.Values)
+        {
+            if (perk.Level > 0)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     #region Debug Methods
