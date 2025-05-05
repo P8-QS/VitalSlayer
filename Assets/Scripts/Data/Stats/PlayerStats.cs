@@ -15,6 +15,7 @@ public class PlayerStats : BaseFighterStats
 
     [Header("Attack Audio")]
     public AudioClip attackSound;
+    public AudioClip levelUpSound;
     public int CalculateMinDamage(int level)
     {
         return GameHelpers.CalculateDamageStat(baseMinDamage, level, minDamageScalingFactor);

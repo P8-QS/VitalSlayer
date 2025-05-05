@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEditor.Search;
 
 public class ExperienceManager
 {
@@ -46,11 +47,16 @@ public class ExperienceManager
         get => _experience;
         set
         {
+            int previousLevel = Level;
             // Update experience
             _experience = value;
 
             // Update level if necessary
             Level = CalculateLevelFromTotalXp(value);
+            if (Level != previousLevel)
+            {
+                LevelUp();
+            }
             ExperienceMax = LevelToXpRequired(Level);
         }
     }
@@ -145,4 +151,12 @@ public class ExperienceManager
     /// </summary>
     /// <returns> The time remaining for the cooldown. </returns>
     public TimeSpan GetXpCooldown() => CooldownEnd > DateTime.Now ? CooldownEnd - DateTime.Now : TimeSpan.Zero;
+
+    public void LevelUp()
+    {
+        Player player = GameManager.Instance.player;
+        FloatingTextManager.Instance.Show("Level Up!", 14, new Color(255, 215, 0), player.transform.position, Vector3.up * 1.5f, 1.5f);
+        SoundFxManager.Instance.PlaySound(player.playerStats.LevelUpSound, player.transform, 0.3f);
+    }
+
 }
