@@ -18,6 +18,7 @@ public class SurveyPromptUI : MonoBehaviour
 
         StateManager.Instance.SetEmail(email);
         StateManager.Instance.SaveState();
+        LoggingManager.Instance.LogEmail(email);
         Destroy(gameObject);
     }
 
