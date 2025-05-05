@@ -7,4 +7,9 @@ public class MetricsPage : MonoBehaviour
     {
         SceneLoader.Instance.LoadScene("MainMenu");
     }
+
+    public void ResetPerks()
+    {
+        PerksManager.Instance.ResetPerks();
+    }
 }

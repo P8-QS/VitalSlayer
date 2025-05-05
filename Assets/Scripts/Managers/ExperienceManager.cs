@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEditor.Search;
 
 public class ExperienceManager
 {
@@ -46,11 +47,16 @@ public class ExperienceManager
         get => _experience;
         set
         {
+            int previousLevel = Level;
             // Update experience
             _experience = value;
 
             // Update level if necessary
             Level = CalculateLevelFromTotalXp(value);
+            if (Level != previousLevel)
+            {
+                LevelUp();
+            }
             ExperienceMax = LevelToXpRequired(Level);
         }
     }
@@ -89,6 +95,21 @@ public class ExperienceManager
     /// <returns>Experience required to reach the level.</returns>
     public static int LevelToXpRequired(int level) => (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR)) * level;
 
+    /// <summary>
+    /// Removes one level from the player and adjusts experience accordingly.
+    /// Returns false if player is already at minimum level.
+    /// </summary>
+    /// <returns>True if level was removed, false if player is already at minimum level</returns>
+    public bool RemoveLevel()
+    {
+        if (Level <= 1) return false;
+
+        int targetExperience = LevelToXpRequired(Level - 2);
+
+        Experience = targetExperience;
+
+        return true;
+    }
 
     /// <summary>
     /// Adds experience and returns the amount of experience added after applying the bonus multiplier.
@@ -130,4 +151,12 @@ public class ExperienceManager
     /// </summary>
     /// <returns> The time remaining for the cooldown. </returns>
     public TimeSpan GetXpCooldown() => CooldownEnd > DateTime.Now ? CooldownEnd - DateTime.Now : TimeSpan.Zero;
+
+    public void LevelUp()
+    {
+        Player player = GameManager.Instance.player;
+        FloatingTextManager.Instance.Show("Level Up!", 14, new Color(255, 215, 0), player.transform.position, Vector3.up * 1.5f, 1.5f);
+        SoundFxManager.Instance.PlaySound(player.playerStats.LevelUpSound, player.transform, 0.3f);
+    }
+
 }

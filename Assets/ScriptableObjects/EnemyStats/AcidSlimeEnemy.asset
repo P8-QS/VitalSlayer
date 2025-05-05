@@ -38,5 +38,24 @@ MonoBehaviour:
   acidDuration: 3
   acidTickRate: 1
   acidColor: {r: 0, g: 1, b: 0, a: 1}
+  levelColors:
+  - MinLevel: 1
+    MaxLevel: 3
+    Color: {r: 0, g: 1, b: 0, a: 1}
+  - MinLevel: 4
+    MaxLevel: 7
+    Color: {r: 0.0090067545, g: 0.4339623, b: 0.0090067545, a: 1}
+  - MinLevel: 8
+    MaxLevel: 12
+    Color: {r: 1, g: 0.63041866, b: 0, a: 1}
+  - MinLevel: 13
+    MaxLevel: 16
+    Color: {r: 1, g: 0.09662534, b: 0, a: 1}
+  - MinLevel: 17
+    MaxLevel: 20
+    Color: {r: 0, g: 0.07104397, b: 1, a: 1}
+  - MinLevel: 21
+    MaxLevel: 1000
+    Color: {r: 1, g: 0, b: 0.8707795, a: 1}
   puddleDuration: 5
   puddleSlowFactor: 0.5

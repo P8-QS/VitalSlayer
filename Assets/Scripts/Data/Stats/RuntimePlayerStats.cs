@@ -25,6 +25,7 @@ public class RuntimePlayerStats
     public AudioClip AttackSound => _baseStats.attackSound;
     public AudioClip DeathSound => _baseStats.deathSound;
     public AudioClip HitSound => _baseStats.hitSound;
+    public AudioClip LevelUpSound => _baseStats.levelUpSound;
     public float ImmunityTime => _baseStats.immuneTime;
     public float PushRecoverySpeed => _baseStats.pushRecoverySpeed;
 

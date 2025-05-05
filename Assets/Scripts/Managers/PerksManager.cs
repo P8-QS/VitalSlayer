@@ -95,6 +95,35 @@ public class PerksManager : MonoBehaviour
         LogStatsAfterPerks();
     }
 
+    public void ResetPerks()
+    {
+        foreach (var perk in Perks.Values)
+        {
+            perk.Level = 0;
+            perk.Cost = 1;
+        }
+
+        Points = 0;
+        int refundedPoints = ExperienceManager.Instance.Level - 2;
+        ExperienceManager.Instance.RemoveLevel();
+        AddPoints(refundedPoints);
+
+        StateManager.Instance.SaveState();
+    }
+
+    public int ActivePerkCount()
+    {
+        int count = 0;
+        foreach (var perk in Perks.Values)
+        {
+            if (perk.Level > 0)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     #region Debug Methods
 
     private RuntimePlayerStats _beforeStats;
