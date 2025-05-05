@@ -4,7 +4,8 @@ using UnityEngine;
 public class MainMenuPage : MonoBehaviour
 {
     public TextMeshProUGUI countdownText;
-    public GameObject cooldownIcon;
+    public GameObject promptPrefab;
+    public Transform promptParent;
 
     public AudioClip menuMusic;
 
@@ -16,13 +17,19 @@ public class MainMenuPage : MonoBehaviour
         SoundFxManager.Instance.PlayClickSound();
         HandleXpCooldown();
         SoundFxManager.Instance.PlayMusic(menuMusic, 0.1f, true);
+
+        if (StateManager.Instance.promptForEmail)
+        {
+            Instantiate(promptPrefab, promptParent);
+        }
     }
 
     void Update()
     {
-        if(Time.time >= nextUpdateTime){
-        HandleXpCooldown();
-        nextUpdateTime = Time.time + updateInterval;
+        if (Time.time >= nextUpdateTime)
+        {
+            HandleXpCooldown();
+            nextUpdateTime = Time.time + updateInterval;
         }
     }
 
