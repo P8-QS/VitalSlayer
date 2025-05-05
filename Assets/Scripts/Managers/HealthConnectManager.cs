@@ -108,7 +108,7 @@ namespace Managers
         private void OnHealthConnectUpdateRequired(string response)
         {
             Debug.Log("Received Health Connect update required response from HealthConnectPlugin");
-            // TODO: Implement logic for requiring user to update Health Connect app.
+            RedirectToPlayStore();
         }
 
         private void OnHealthConnectAvailable(string response)
@@ -354,7 +354,33 @@ namespace Managers
 
         private void RedirectToPlayStore()
         {
-            // TODO: Implement logic for when user does not have Health Connect installed.
+            Debug.Log("Redirecting user to Google Play Store to install Health Connect");
+    
+            try
+            {
+                const string packageName = "com.google.android.apps.healthdata";
+        
+                var intentClass = new AndroidJavaClass("android.content.Intent");
+                var intent = new AndroidJavaObject("android.content.Intent");
+        
+                intent.Call<AndroidJavaObject>("setAction", intentClass.GetStatic<string>("ACTION_VIEW"));
+        
+                var uriClass = new AndroidJavaClass("android.net.Uri");
+                var uri = uriClass.CallStatic<AndroidJavaObject>("parse", 
+                    "market://details?id=" + packageName);
+        
+                intent.Call<AndroidJavaObject>("setData", uri);
+        
+                var unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                var currentActivity = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity");
+        
+                currentActivity.Call("startActivity", intent);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Failed to open Play Store app: " + e.Message);
+                // OpenPlayStoreInBrowser();
+            }
         }
     }
 }
