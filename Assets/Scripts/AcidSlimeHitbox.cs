@@ -41,8 +41,7 @@ public class AcidSlimeHitbox : EnemyHitbox
                 isCritical = false,
                 minPossibleDamage = acidMinDamage,
                 maxPossibleDamage = acidMaxDamage,
-                useCustomColor = true,
-                customColor = acidColor
+                useCustomColor = false,
             };
 
             target.SendMessage("ReceiveDamage", acidDmg);
