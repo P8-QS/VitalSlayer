@@ -6,6 +6,14 @@ using Scene = UnityEngine.SceneManagement.Scene;
 public class StateManager : MonoBehaviour
 {
     public static StateManager Instance;
+    public bool promptForEmail = true;
+    string _email = "";
+
+    public void SetEmail(string email)
+    {
+        this._email = email;
+        promptForEmail = false;
+    }
 
     private void Awake()
     {
@@ -42,6 +50,9 @@ public class StateManager : MonoBehaviour
             points = PerksManager.Instance.Points,
         };
 
+        state.email = _email;
+        state.promptForEmail = promptForEmail;
+
         string stateString = JsonUtility.ToJson(state);
         PlayerPrefs.SetString("SaveState", stateString);
     }
@@ -50,6 +61,7 @@ public class StateManager : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("SaveState"))
         {
+            promptForEmail = true;
             return;
         }
 
@@ -58,6 +70,13 @@ public class StateManager : MonoBehaviour
 
         ExperienceManager.Instance.Experience = state.experience;
         PerksManager.Instance.Points = state.points;
+
+        // Set email if available
+        if (!string.IsNullOrEmpty(state.email))
+        {
+            _email = state.email;
+            promptForEmail = false;
+        }
 
         // Set perks
         foreach (var perk in state.perks)

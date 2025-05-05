@@ -17,4 +17,6 @@ public struct State
     public int experience;
     public int points;
     public List<Perk> perks;
+    public bool promptForEmail;
+    public string email;
 }

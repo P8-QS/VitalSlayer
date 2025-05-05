@@ -1438,7 +1438,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownText: {fileID: 620295147}
-  cooldownIcon: {fileID: 1417425877}
+  promptPrefab: {fileID: 7174834860470288070, guid: 5d44e2903ccbc4543a2f65f543c88238, type: 3}
+  promptParent: {fileID: 1533982759}
   menuMusic: {fileID: 8300000, guid: a883957ac7350463d8a0a5fb86f20e21, type: 3}
 --- !u!1 &1961468691
 GameObject:
