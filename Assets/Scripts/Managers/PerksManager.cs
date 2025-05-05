@@ -95,6 +95,18 @@ public class PerksManager : MonoBehaviour
         LogStatsAfterPerks();
     }
 
+    public void ResetPerks()
+    {
+        foreach (var perk in Perks.Values)
+        {
+            perk.Level = 0;
+        }
+
+        Points = 0;
+        GameManager.Instance.player.playerStats.Reset();
+        GameManager.Instance.player.level -= 1;
+    }
+
     #region Debug Methods
 
     private RuntimePlayerStats _beforeStats;
