@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
+using Data.Models;
 using Newtonsoft.Json;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LoggingManager : MonoBehaviour
@@ -58,12 +61,24 @@ public class LoggingManager : MonoBehaviour
     {
         object dataCopy = data;
 
-        if (type is UserMetricsType.SleepSessionRecords or UserMetricsType.StepsRecords or UserMetricsType.ExerciseSessionRecords) {
+        if (type is not UserMetricsType.TotalScreenTime) {
             dataCopy = JsonConvert.SerializeObject(data);
         }
         var metricSetEvent = new MetricSetEvent(type, dataCopy);
 
         LogEvent(metricSetEvent);
+    }
+
+    public void LogHistoricalMetric<T>(UserMetricsType type, T data)
+    {
+        object dataCopy = data;
+        if (type is not UserMetricsType.TotalScreenTime)
+        {
+            dataCopy = JsonConvert.SerializeObject(data);
+        }
+        var historicMetricEvent = new HistoricMetricEvent(type, dataCopy);
+
+        LogEvent(historicMetricEvent);
     }
 
     public void LogGameSummary(bool gameWon, int totalEnemies, int xpGained, int levelsGained, DateTime roundStartTime)

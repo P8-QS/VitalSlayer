@@ -284,7 +284,7 @@ namespace Managers
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ActiveCaloriesBurnedRecord>>(response);
 
             if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.ActiveCaloriesBurned, records);
+            UserMetricsHandler.Instance.SetData(UserMetricsType.ActiveCaloriesBurnedRecords, records);
         }
 
         private void GetUserTotalCaloriesBurned()
@@ -305,7 +305,7 @@ namespace Managers
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<TotalCaloriesBurnedRecord>>(response);
 
             if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.TotalCaloriesBurned, records);
+            UserMetricsHandler.Instance.SetData(UserMetricsType.TotalCaloriesBurnedRecords, records);
         }
 
         private void GetUserHeartRateVariability()
@@ -326,7 +326,7 @@ namespace Managers
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<HeartRateVariabilityRmssdRecord>>(response);
 
             if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.HeartRateVariabilityRmssd, records);
+            UserMetricsHandler.Instance.SetData(UserMetricsType.HeartRateVariabilityRmssdRecords, records);
         }
 
         private void GetUserVo2Max()
@@ -347,7 +347,7 @@ namespace Managers
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<Vo2MaxRecord>>(response);
 
             if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.Vo2Max, records);
+            UserMetricsHandler.Instance.SetData(UserMetricsType.Vo2MaxRecords, records);
         }
 
         #endregion

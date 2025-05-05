@@ -9,14 +9,14 @@ namespace Data
 {
     public enum UserMetricsType
     {
-        ActiveCaloriesBurned,
+        ActiveCaloriesBurnedRecords,
         ExerciseSessionRecords,
-        HeartRateVariabilityRmssd,
+        HeartRateVariabilityRmssdRecords,
         StepsRecords,
         SleepSessionRecords,
-        TotalCaloriesBurned,
+        TotalCaloriesBurnedRecords,
         TotalScreenTime,
-        Vo2Max,
+        Vo2MaxRecords,
     }
     
     public class UserMetricsHandler : MonoBehaviour
@@ -115,7 +115,7 @@ namespace Data
                         OnExerciseSessionRecordsUpdated?.Invoke(ExerciseSessionRecords);
                     }
                     break;
-                case UserMetricsType.ActiveCaloriesBurned:
+                case UserMetricsType.ActiveCaloriesBurnedRecords:
                     if (data is IReadOnlyCollection<ActiveCaloriesBurnedRecord> acbRecords)
                     {
                         ActiveCaloriesBurnedRecords = acbRecords;
@@ -124,7 +124,7 @@ namespace Data
                         OnActiveCaloriesBurnedRecordsUpdated?.Invoke(acbRecords);
                     }
                     break;
-                case UserMetricsType.TotalCaloriesBurned:
+                case UserMetricsType.TotalCaloriesBurnedRecords:
                     if (data is IReadOnlyCollection<TotalCaloriesBurnedRecord> tcbRecords)
                     {
                         TotalCaloriesBurnedRecords = tcbRecords;
@@ -133,7 +133,7 @@ namespace Data
                         OnTotalCaloriesBurnedRecordsUpdated?.Invoke(tcbRecords);
                     }
                     break;
-                case UserMetricsType.HeartRateVariabilityRmssd:
+                case UserMetricsType.HeartRateVariabilityRmssdRecords:
                     if (data is IReadOnlyCollection<HeartRateVariabilityRmssdRecord> heartrateRecords)
                     {
                         HeartRateVariabilityRmssdRecords = heartrateRecords;
@@ -142,7 +142,7 @@ namespace Data
                         OnHeartRateVariabilityRecordsUpdated?.Invoke(heartrateRecords);
                     }
                     break;
-                case UserMetricsType.Vo2Max:
+                case UserMetricsType.Vo2MaxRecords:
                     if (data is IReadOnlyCollection<Vo2MaxRecord> vo2MaxRecords)
                     {
                         Vo2MaxRecords = vo2MaxRecords;
@@ -170,10 +170,10 @@ namespace Data
             TrySetDataFromFile<StepsRecord>(UserMetricsType.StepsRecords, StepsRecordsSamplePath);
             TrySetDataFromFile<SleepSessionRecord>(UserMetricsType.SleepSessionRecords, SleepRecordsSamplePath);
             TrySetDataFromFile<ExerciseSessionRecord>(UserMetricsType.ExerciseSessionRecords, ExerciseRecordsSamplePath);
-            TrySetDataFromFile<ActiveCaloriesBurnedRecord>(UserMetricsType.ActiveCaloriesBurned, AcbRecordsSamplePath);
-            TrySetDataFromFile<TotalCaloriesBurnedRecord>(UserMetricsType.TotalCaloriesBurned, TcbRecordsSamplePath);
-            TrySetDataFromFile<HeartRateVariabilityRmssdRecord>(UserMetricsType.HeartRateVariabilityRmssd, HrvRecordsSamplePath);
-            TrySetDataFromFile<Vo2MaxRecord>(UserMetricsType.Vo2Max, Vo2MaxRecordsSamplePath);
+            TrySetDataFromFile<ActiveCaloriesBurnedRecord>(UserMetricsType.ActiveCaloriesBurnedRecords, AcbRecordsSamplePath);
+            TrySetDataFromFile<TotalCaloriesBurnedRecord>(UserMetricsType.TotalCaloriesBurnedRecords, TcbRecordsSamplePath);
+            TrySetDataFromFile<HeartRateVariabilityRmssdRecord>(UserMetricsType.HeartRateVariabilityRmssdRecords, HrvRecordsSamplePath);
+            TrySetDataFromFile<Vo2MaxRecord>(UserMetricsType.Vo2MaxRecords, Vo2MaxRecordsSamplePath);
             
             SetData(UserMetricsType.TotalScreenTime, (long)TimeSpan.FromHours(2).TotalMilliseconds);
             Debug.Log("Mock data has been set!");
