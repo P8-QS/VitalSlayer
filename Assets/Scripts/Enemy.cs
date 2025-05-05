@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class Enemy : Mover
 {
-    [Header("Drops")]
-    [Tooltip("Health potion prefab that may drop when enemy dies")]
+    [Header("Drops")] [Tooltip("Health potion prefab that may drop when enemy dies")]
     public GameObject healthPotionPrefab;
 
-    [Header("Phantom Effects")]
-    [Tooltip("Dust animation prefab that plays when phantom enemies die")]
+    [Header("Phantom Effects")] [Tooltip("Dust animation prefab that plays when phantom enemies die")]
     public GameObject phantomDustPrefab;
 
     [HideInInspector] public BaseEnemyStats enemyStats;
@@ -50,7 +48,12 @@ public class Enemy : Mover
         base.Start();
 
 
-        if (EnemyUIManager.Instance != null)
+        // Scuffed LevelIndicatorEffect apply but works
+        var hideLvlIndicator = MetricsManager.Instance.metrics.Values.SelectMany(m => m.Effects)
+            .Any(e => e is LevelIndicatorEffect && e.Level == 0);
+
+
+        if (EnemyUIManager.Instance != null && !hideLvlIndicator)
         {
             EnemyUIManager.Instance.CreateLevelIndicator(this);
         }
