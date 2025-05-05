@@ -80,8 +80,7 @@ namespace Managers
 
         private void InitializeHealthConnectClient()
         {
-            var unityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            var unityActivity = unityClass.GetStatic<AndroidJavaObject>("currentActivity");
+            var unityActivity = GetContext();
 
             unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
             {
@@ -108,7 +107,7 @@ namespace Managers
         private void OnHealthConnectUpdateRequired(string response)
         {
             Debug.Log("Received Health Connect update required response from HealthConnectPlugin");
-            RedirectToPlayStore();
+            RedirectToPlayStore(true);
         }
 
         private void OnHealthConnectAvailable(string response)
@@ -351,8 +350,46 @@ namespace Managers
         }
 
         #endregion
-
-        private void RedirectToPlayStore()
+        
+        private static void RedirectToPlayStore(bool isUpdate = false)
+        {
+            var context = GetContext();
+            
+            try
+            {
+                context.Call("runOnUiThread", new AndroidJavaRunnable(() => {
+                    var builder = new AndroidJavaObject(
+                        "android.app.AlertDialog$Builder", context);
+            
+                    builder.Call<AndroidJavaObject>("setTitle", "Health Connect Required");
+                    builder.Call<AndroidJavaObject>("setMessage", 
+                        isUpdate 
+                            ? "To use health tracking features, you need to update the Health Connect app."
+                            : "To use health tracking features, you need to install the Health Connect app from Google Play Store.");
+            
+                    builder.Call<AndroidJavaObject>("setPositiveButton",
+                        isUpdate ? "Update Now" : "Install Now", 
+                        new DialogInterfaceOnClickListener(_ => {
+                            OpenPlayStore(context);
+                        }));
+            
+                    builder.Call<AndroidJavaObject>("setNegativeButton", "Not Now", 
+                        new DialogInterfaceOnClickListener(_ => {
+                            Debug.Log("User declined to install Health Connect");
+                        }));
+            
+                    var dialog = builder.Call<AndroidJavaObject>("create");
+                    dialog.Call("show");
+                }));
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Failed to show dialog: " + e.Message);
+                OpenPlayStore(context);
+            }
+        }
+        
+        private static void OpenPlayStore(AndroidJavaObject context)
         {
             Debug.Log("Redirecting user to Google Play Store to install Health Connect");
     
@@ -370,17 +407,35 @@ namespace Managers
                     "market://details?id=" + packageName);
         
                 intent.Call<AndroidJavaObject>("setData", uri);
-        
-                var unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-                var currentActivity = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity");
-        
-                currentActivity.Call("startActivity", intent);
+                context.Call("startActivity", intent);
             }
             catch (Exception e)
             {
                 Debug.LogError("Failed to open Play Store app: " + e.Message);
                 // OpenPlayStoreInBrowser();
             }
+        }
+        
+        private static AndroidJavaObject GetContext()
+        {
+            using var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            return unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        }
+    }
+
+    internal class DialogInterfaceOnClickListener : AndroidJavaProxy
+    {
+        private Action<AndroidJavaObject> _onClick;
+    
+        public DialogInterfaceOnClickListener(Action<AndroidJavaObject> onClick) 
+            : base("android.content.DialogInterface$OnClickListener")
+        {
+            _onClick = onClick;
+        }
+    
+        public void onClick(AndroidJavaObject dialog, int which)
+        {
+            _onClick?.Invoke(dialog);
         }
     }
 }
