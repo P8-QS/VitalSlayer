@@ -113,26 +113,36 @@ namespace Managers
         private void OnHealthConnectAvailable(string response)
         {
             Debug.Log("Received Health Connect available response from HealthConnectPlugin");
-            var hasPerms = HasAllRequiredPermissions();
 
-            if (!hasPerms)
-            {
-                var callbacks = new PermissionCallbacks();
-                callbacks.PermissionGranted += OnPermissionGranted;
-                callbacks.PermissionDenied += OnPermissionDenied;
-                callbacks.PermissionRequestDismissed += OnPermissionRequestDismissed;
-                Permission.RequestUserPermissions(RequiredPermissions.All, callbacks);
-                return;
-            }
+            var context = GetContext();
+            _healthConnectPlugin.Call("RequestPermissions", context);
+            // context.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+            // {
+            // }));
 
-            // All required permissions are available from this point
-            GetUserSteps();
-            GetUserSleepSessions();
-            GetUserExerciseSessions();
-            GetUserHeartRateVariability();
-            GetUserActiveCaloriesBurned();
-            GetUserTotalCaloriesBurned();
-            GetUserVo2Max();
+            // using var pluginClass = new AndroidJavaClass("org.p8qs.healthconnectplugin.PermissionsTest");
+            // pluginClass.CallStatic("showToast", context, "THIS IS A TEST");
+            
+            // var hasPerms = HasAllRequiredPermissions();
+            //
+            // if (!hasPerms)
+            // {
+            //     var callbacks = new PermissionCallbacks();
+            //     callbacks.PermissionGranted += OnPermissionGranted;
+            //     callbacks.PermissionDenied += OnPermissionDenied;
+            //     callbacks.PermissionRequestDismissed += OnPermissionRequestDismissed;
+            //     Permission.RequestUserPermissions(RequiredPermissions.All, callbacks);
+            //     return;
+            // }
+            //
+            // // All required permissions are available from this point
+            // GetUserSteps();
+            // GetUserSleepSessions();
+            // GetUserExerciseSessions();
+            // GetUserHeartRateVariability();
+            // GetUserActiveCaloriesBurned();
+            // GetUserTotalCaloriesBurned();
+            // GetUserVo2Max();
         }
 
         #endregion
