@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PerksManagerUI : MonoBehaviour
 {
     public GameObject perkCardPrefab; // Assign the MetricCard prefab in Unity Inspector
     public Transform parentPanel; // The UI Panel that holds all metric cards
     public TextMeshProUGUI pointsText;
-    // public Transform modalParent; // The UI Panel that holds all modals
-
+    public GameObject toolTip;
     private List<PerkCardUI> perksCards = new();
 
     void Start()
@@ -28,6 +28,11 @@ public class PerksManagerUI : MonoBehaviour
         }
 
         pointsText.text = PerksManager.Instance.Points.ToString();
+
+        if (toolTip)
+        {
+            toolTip.SetActive(false);
+        }
     }
 
     void Update()
@@ -36,6 +41,27 @@ public class PerksManagerUI : MonoBehaviour
         foreach (var perk in perksCards)
         {
             perk.UpdatePerk();
+        }
+
+        if (toolTip && toolTip.activeSelf &&
+            Touchscreen.current != null &&
+            Touchscreen.current.primaryTouch.press.wasPressedThisFrame ||
+            Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            HidePointsToolTip();
+        }
+    }
+
+    public void OnPointsClick()
+    {
+        if (toolTip) toolTip.SetActive(true);
+    }
+
+    private void HidePointsToolTip()
+    {
+        if (toolTip)
+        {
+            toolTip.SetActive(false);
         }
     }
 
