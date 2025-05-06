@@ -30,9 +30,9 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
 <div align="center">
   <table>
     <tr>
-      <td><img src="Assets/Artwork/Gifs/menu00.gif" alt="Menu Navigation" width="265"/></td>
-      <td><img src="Assets/Artwork/Gifs/gameplay02.gif" alt="Dungeon Gameplay" width="265"/></td>
-      <td><img src="Assets/Artwork/Gifs/gameplay01.gif" alt="Dungeon Gameplay" width="265"/></td>
+      <td><img src="Assets/Artwork/Gifs/menu00.gif" alt="Menu Navigation" width="245"/></td>
+      <td><img src="Assets/Artwork/Gifs/gameplay02.gif" alt="Dungeon Gameplay" width="245"/></td>
+      <td><img src="Assets/Artwork/Gifs/gameplay01.gif" alt="Dungeon Gameplay" width="245"/></td>
     </tr>
     <tr>
       <td align="center"><em>Menu, Effects and Perks</em></td>
