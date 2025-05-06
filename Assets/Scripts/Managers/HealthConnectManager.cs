@@ -97,16 +97,16 @@ namespace Managers
             OnDataRecordsReceived<ExerciseSessionRecord>(response, UserMetricsType.ExerciseSessionRecords);
 
         private void OnActiveCaloriesRecordsReceived(string response) =>
-            OnDataRecordsReceived<ActiveCaloriesBurnedRecord>(response, UserMetricsType.ActiveCaloriesBurned);
+            OnDataRecordsReceived<ActiveCaloriesBurnedRecord>(response, UserMetricsType.ActiveCaloriesBurnedRecords);
 
         private void OnTotalCaloriesRecordsReceived(string response) =>
-            OnDataRecordsReceived<TotalCaloriesBurnedRecord>(response, UserMetricsType.TotalCaloriesBurned);
+            OnDataRecordsReceived<TotalCaloriesBurnedRecord>(response, UserMetricsType.TotalCaloriesBurnedRecords);
 
         private void OnHeartRateVariabilityRecordsReceived(string response) =>
-            OnDataRecordsReceived<HeartRateVariabilityRmssdRecord>(response, UserMetricsType.HeartRateVariabilityRmssd);
+            OnDataRecordsReceived<HeartRateVariabilityRmssdRecord>(response, UserMetricsType.HeartRateVariabilityRmssdRecords);
 
         private void OnVo2RecordsReceived(string response) =>
-            OnDataRecordsReceived<Vo2MaxRecord>(response, UserMetricsType.Vo2Max);
+            OnDataRecordsReceived<Vo2MaxRecord>(response, UserMetricsType.Vo2MaxRecords);
 
         private static void OnDataRecordsReceived<T>(string response, UserMetricsType userMetricsType, bool isHistory = false)
         {

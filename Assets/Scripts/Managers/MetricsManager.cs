@@ -34,6 +34,8 @@ namespace Managers
                 UserMetricsHandler.Instance.OnVo2MaxRecordsUpdated += OnVo2MaxUpdated;
                 UserMetricsHandler.Instance.OnActiveCaloriesBurnedRecordsUpdated += OnActiveCaloriesBurnedUpdated;
                 UserMetricsHandler.Instance.OnHeartRateVariabilityRecordsUpdated += OnHeartRateVariabilityUpdated;
+
+                UserMetricsHandler.Instance.EmitEvents();
             }
         }
 
