@@ -52,6 +52,8 @@ MonoBehaviour:
   - {fileID: 6873003431374920818, guid: 2bd5cda84f5fd3141abf36a2a6090c41, type: 3}
   playerPrefabs:
   - {fileID: 3352625558287108809, guid: 8fcec554b5a6e3a4aaef28268b9385dc, type: 3}
+  fairyPrefabs:
+  - {fileID: 4688083407048157010, guid: bccd8b73d81ef9d468270393458dfa0a, type: 3}
   entityParent: {fileID: 0}
   rooms: []
   levelDistributionLow: {fileID: 11400000, guid: fde488328add46c7194ef99a0f4158e5, type: 2}

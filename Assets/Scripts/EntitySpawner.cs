@@ -25,6 +25,7 @@ public class EntitySpawner : MonoBehaviour
     public List<GameObject> enemyPrefabs;
     public List<GameObject> bossPrefabs;
     public List<GameObject> playerPrefabs;
+    public List<GameObject> fairyPrefabs;
 
     public Transform entityParent;
 
@@ -36,10 +37,10 @@ public class EntitySpawner : MonoBehaviour
     public EnemyLevelDistribution levelDistributionLow;
     public EnemyLevelDistribution levelDistributionNormal;
     public EnemyLevelDistribution levelDistributionHigh;
-    
+
     [NonSerialized]
     public int DistributionLevel = 0;
-    
+
     private List<Vector3> GetEntitySpawnPoints(int roomIndex, string pointTag)
     {
         List<Vector3> spawnPoints = new List<Vector3>();
@@ -167,6 +168,19 @@ public class EntitySpawner : MonoBehaviour
         var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
 
         return SpawnEntity<Player>(prefab, spawnPoint);
+    }
+
+    public void SpawnFairy()
+    {
+        var spawnPoints = GetEntitySpawnPoints(0, "FairySpawn");
+
+        var randomIndex = Random.Range(0, fairyPrefabs.Count);
+        var prefab = fairyPrefabs[randomIndex];
+        var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+
+        var entityInstance = Instantiate(prefab, spawnPoint, Quaternion.identity, entityParent);
+
+        entityInstance.transform.SetParent(entityParent, true);
     }
 
     private T SpawnEntity<T>(GameObject prefab, Vector3 spawnPoint)
