@@ -27,6 +27,19 @@
 
 Your daily habits influence your in-game stats, environment, and enemies — encouraging a fun, gamified loop of real-world self-improvement.
 
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="Assets/Artwork/Gifs/gameplay01.gif" alt="Dungeon Gameplay" width="300"/></td>
+      <td><img src="Assets/Artwork/Gifs/menu00.gif" alt="Menu Navigation" width="300"/></td>
+    </tr>
+    <tr>
+      <td align="center"><em>Daily Dungeon Gameplay</em></td>
+      <td align="center"><em>Menu, Effects and Perks</em></td>
+    </tr>
+  </table>
+</div>
+
 ## 🧩Features
 
 - **Daily Dungeon Generation**  
