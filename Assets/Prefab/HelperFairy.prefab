@@ -129,7 +129,6 @@ MonoBehaviour:
   questionMarkObject: {fileID: 4821944118714752232}
   messageText: {fileID: 8369335015987088742}
   playerDetectionRadius: 0.5
-  playerTransform: {fileID: 0}
   playerLayerName: Actor
   messages:
   - message: <color=#00FF00><b>High VO2 Max</b></color> reflects strong cardiovascular
@@ -145,7 +144,7 @@ MonoBehaviour:
   - message: VO2 Max measures oxygen efficiency during exercise.
     cooldownDuration: 1
     tag: VO2
-  - message: "Aerobic training like running and cycling helps improve VO\u2082 Max."
+  - message: Aerobic training like running and cycling helps improve VO2 Max.
     cooldownDuration: 1
     tag: VO2
   - message: <color=#00FF00><b>High HRV</b></color> is linked to good recovery and
