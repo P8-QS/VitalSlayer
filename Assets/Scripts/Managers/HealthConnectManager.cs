@@ -86,68 +86,37 @@ namespace Managers
         #endregion
         
         #region Get user data methods
-        
-        private void OnStepsRecordsReceived(string response)
+
+        private void OnStepsRecordsReceived(string response) =>
+            OnDataRecordsReceived<StepsRecord>(response, UserMetricsType.StepsRecords);
+
+        private void OnSleepRecordsReceived(string response) =>
+            OnDataRecordsReceived<SleepSessionRecord>(response, UserMetricsType.SleepSessionRecords);
+
+        private void OnExerciseRecordsReceived(string response) =>
+            OnDataRecordsReceived<ExerciseSessionRecord>(response, UserMetricsType.ExerciseSessionRecords);
+
+        private void OnActiveCaloriesRecordsReceived(string response) =>
+            OnDataRecordsReceived<ActiveCaloriesBurnedRecord>(response, UserMetricsType.ActiveCaloriesBurned);
+
+        private void OnTotalCaloriesRecordsReceived(string response) =>
+            OnDataRecordsReceived<TotalCaloriesBurnedRecord>(response, UserMetricsType.TotalCaloriesBurned);
+
+        private void OnHeartRateVariabilityRecordsReceived(string response) =>
+            OnDataRecordsReceived<HeartRateVariabilityRmssdRecord>(response, UserMetricsType.HeartRateVariabilityRmssd);
+
+        private void OnVo2RecordsReceived(string response) =>
+            OnDataRecordsReceived<Vo2MaxRecord>(response, UserMetricsType.Vo2Max);
+
+        private static void OnDataRecordsReceived<T>(string response, UserMetricsType userMetricsType, bool isHistory = false)
         {
-            Debug.Log("Received Health Connect steps data response from HealthConnectPlugin!");
-            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<StepsRecord>>(response);
-
+            Debug.Log($"Received Health Connect {Enum.GetName(typeof(UserMetricsType), userMetricsType)} data response from HealthConnectPlugin!");
+            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<T>>(response);
+            
             if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.StepsRecords, records);
-        }
+            
 
-        private void OnSleepRecordsReceived(string response)
-        {
-            Debug.Log("Received Health Connect sleep data response from HealthConnectPlugin!");
-            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<SleepSessionRecord>>(response);
-
-            if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.SleepSessionRecords, records);
-        }
-        
-        private void OnExerciseRecordsReceived(string response)
-        {
-            Debug.Log("Received Health Connect exercise data response from HealthConnectPlugin!");
-            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ExerciseSessionRecord>>(response);
-
-            if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.ExerciseSessionRecords, records);
-        }
-        
-        private void OnActiveCaloriesRecordsReceived(string response)
-        {
-            Debug.Log("Received Health Connect active calories burned data response from HealthConnectPlugin!");
-            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<ActiveCaloriesBurnedRecord>>(response);
-
-            if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.ActiveCaloriesBurned, records);
-        }
-        
-        private void OnTotalCaloriesRecordsReceived(string response)
-        {
-            Debug.Log("Received Health Connect total calories burned data response from HealthConnectPlugin!");
-            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<TotalCaloriesBurnedRecord>>(response);
-
-            if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.TotalCaloriesBurned, records);
-        }
-        
-        private void OnHeartRateVariabilityRecordsReceived(string response)
-        {
-            Debug.Log("Received Health Connect heart rate variability data response from HealthConnectPlugin!");
-            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<HeartRateVariabilityRmssdRecord>>(response);
-
-            if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.HeartRateVariabilityRmssd, records);
-        }
-
-        private void OnVo2RecordsReceived(string response)
-        {
-            Debug.Log("Received Health Connect vo2 max data response from HealthConnectPlugin!");
-            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<Vo2MaxRecord>>(response);
-
-            if (records?.Count == 0) return;
-            UserMetricsHandler.Instance.SetData(UserMetricsType.Vo2Max, records);
+            UserMetricsHandler.Instance.SetData(userMetricsType, records);
         }
 
         #endregion
