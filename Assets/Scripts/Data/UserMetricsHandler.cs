@@ -164,6 +164,18 @@ namespace Data
                     throw new ArgumentOutOfRangeException(nameof(userMetricsType), userMetricsType, null);
             }
         }
+
+        public void EmitEvents()
+        {
+            OnStepsRecordsUpdated?.Invoke(StepsRecords);
+            OnSleepSessionRecordsUpdated?.Invoke(SleepSessionRecords);
+            OnExerciseSessionRecordsUpdated?.Invoke(ExerciseSessionRecords);
+            OnActiveCaloriesBurnedRecordsUpdated?.Invoke(ActiveCaloriesBurnedRecords);
+            OnTotalCaloriesBurnedRecordsUpdated?.Invoke(TotalCaloriesBurnedRecords);
+            OnHeartRateVariabilityRecordsUpdated?.Invoke(HeartRateVariabilityRmssdRecords);
+            OnVo2MaxRecordsUpdated?.Invoke(Vo2MaxRecords);
+            OnTotalScreenTimeUpdated?.Invoke(TotalScreenTime);
+        }
         
         private void SetMockData()
         {
