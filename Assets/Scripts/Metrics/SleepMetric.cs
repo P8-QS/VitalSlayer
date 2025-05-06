@@ -36,7 +36,7 @@ namespace Metrics
                     break;
                 case < 7:
                     Effects.Add(new HallucinationEffect(SpriteManager.Instance.GetSprite("effect_hallucination"),
-                        0));
+                        1));
                     Effects.Add(new LevelIndicatorEffect(
                         SpriteManager.Instance.GetSprite("effect_level_indicator_positive"),
                         1));
