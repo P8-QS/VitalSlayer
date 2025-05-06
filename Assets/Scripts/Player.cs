@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class Player : Mover
 {
-    [Header("Stats")]
-    public PlayerStats basePlayerStats;
+    [Header("Stats")] public PlayerStats basePlayerStats;
 
     [HideInInspector] public RuntimePlayerStats playerStats;
 
-    [Header("References")]
-    public Animator animator;
+    [Header("References")] public Animator animator;
 
     private float lastAttackTime = 0f;
     private Weapon weapon;
@@ -44,8 +42,6 @@ public class Player : Mover
             animator = GetComponent<Animator>();
 
         currentSpeed = playerStats.BaseSpeed;
-
-        
     }
 
     protected override void Start()
@@ -79,6 +75,13 @@ public class Player : Mover
     {
         FloatingTextManager.Instance.Show("Level " + level, 6, Color.white, transform.position + Vector3.up * 0.2f,
             Vector3.zero, 0.0001f);
+
+        if (ExperienceManager.Instance.Level > level)
+        {
+            FloatingTextManager.Instance.Show("Level Up!", 14, new Color(255, 215, 0), transform.position,
+                Vector3.up * 1.5f, 1.5f);
+            SoundFxManager.Instance.PlaySound(playerStats.LevelUpSound, transform, 0.3f);
+        }
 
         level = ExperienceManager.Instance.Level;
         if (hitAnimationTimer > 0)
