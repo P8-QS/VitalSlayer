@@ -63,7 +63,7 @@ public class ExperienceManager
     /// <summary>
     /// The current level.
     /// </summary>
-    public int Level { get; set; } = 1;
+    public int Level { get; private set; } = 1;
 
     /// <summary>
     /// The time when the bonus multiplier cooldown ends.
@@ -87,8 +87,24 @@ public class ExperienceManager
     /// </summary>
     /// <param name="level">Level to reach.</param>
     /// <returns>Experience required to reach the level.</returns>
-    public static int LevelToXpRequired(int level) => (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR)) * level;
+    public static int LevelToXpRequired(int level) =>
+        (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR)) * level;
 
+    /// <summary>
+    /// Removes one level from the player and adjusts experience accordingly.
+    /// Returns false if player is already at minimum level.
+    /// </summary>
+    /// <returns>True if level was removed, false if player is already at minimum level</returns>
+    public bool RemoveLevel()
+    {
+        if (Level <= 1) return false;
+
+        int targetExperience = LevelToXpRequired(Level - 2);
+
+        Experience = targetExperience;
+
+        return true;
+    }
 
     /// <summary>
     /// Adds experience and returns the amount of experience added after applying the bonus multiplier.

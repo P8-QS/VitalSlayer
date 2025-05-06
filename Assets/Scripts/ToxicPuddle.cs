@@ -14,11 +14,16 @@ public class ToxicPuddle : Collidable
     public float dotDuration = 3f;
     public float slowFactor = 0.5f;
 
-    public Color puddleColor = new Color(0.2f, 0.8f, 0.2f, 0.6f);
+    public Color puddleColor;
 
     private float creationTime;
     private SpriteRenderer spriteRenderer;
     private System.Random random = new System.Random();
+
+    protected virtual void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     protected override void Start()
     {
@@ -26,14 +31,8 @@ public class ToxicPuddle : Collidable
 
         creationTime = Time.time;
 
-        // Get the sprite renderer and set its color
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = puddleColor;
-        }
+        ApplyPuddleColor();
 
-        // Start the fade out coroutine
         StartCoroutine(FadeOut());
     }
 
@@ -45,6 +44,19 @@ public class ToxicPuddle : Collidable
         if (Time.time - creationTime >= duration)
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void ApplyPuddleColor()
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = puddleColor;
+            Debug.Log($"Applied puddle color: {puddleColor}");
+        }
+        else
+        {
+            Debug.LogWarning("No SpriteRenderer found on ToxicPuddle!");
         }
     }
 

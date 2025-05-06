@@ -7,7 +7,7 @@ namespace Data.Models
     public class Metadata
     {
         [JsonProperty("clientRecordVersion")]
-        public int ClientRecordVersion { get; set; }
+        public long ClientRecordVersion { get; set; }
         
         [JsonProperty("dataOrigin")]
         public DataOrigin DataOrigin { get; set; }
