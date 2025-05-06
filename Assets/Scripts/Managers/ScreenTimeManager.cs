@@ -70,6 +70,7 @@ public class ScreenTimeManager : MonoBehaviour
             }
 
             foreach (ScreenTime screenTime in screenTimeList) {
+                Debug.LogWarning($"{screenTime.packageName} - {screenTime.screenTime}");
                 totalScreenTime += screenTime.screenTime;
             }
             UserMetricsHandler.Instance.SetData(UserMetricsType.TotalScreenTime, totalScreenTime);
@@ -165,7 +166,7 @@ public class ScreenTimeManager : MonoBehaviour
             using (AndroidJavaClass usageStatsManagerClass = new AndroidJavaClass("android.app.usage.UsageStatsManager"))
             {
                 AndroidJavaObject usageStatsManager = context.Call<AndroidJavaObject>("getSystemService", "usagestats");
-                using (AndroidJavaObject stats = usageStatsManager.Call<AndroidJavaObject>("queryUsageStats", 4, startTime, endTime))
+                using (AndroidJavaObject stats = usageStatsManager.Call<AndroidJavaObject>("queryUsageStats", 0, startTime, endTime))
                 {
                     if (stats != null)
                     {

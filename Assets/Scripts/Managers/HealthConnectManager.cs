@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using Data.Models;
 using Newtonsoft.Json;
@@ -87,6 +88,7 @@ namespace Managers
         
         #region Get user data methods
 
+        // DATA CALLBACKS
         private void OnStepsRecordsReceived(string response) =>
             OnDataRecordsReceived<StepsRecord>(response, UserMetricsType.StepsRecords);
 
@@ -107,16 +109,46 @@ namespace Managers
 
         private void OnVo2RecordsReceived(string response) =>
             OnDataRecordsReceived<Vo2MaxRecord>(response, UserMetricsType.Vo2MaxRecords);
+        
+        
+        // HISTORY CALLBACKS
+        private void OnStepsHistoryReceived(string response) =>
+            OnDataHistoryReceived<StepsRecord>(response, UserMetricsType.StepsRecords);
 
-        private static void OnDataRecordsReceived<T>(string response, UserMetricsType userMetricsType, bool isHistory = false)
+        private void OnSleepHistoryReceived(string response) =>
+            OnDataHistoryReceived<SleepSessionRecord>(response, UserMetricsType.SleepSessionRecords);
+
+        private void OnExerciseHistoryReceived(string response) =>
+            OnDataHistoryReceived<ExerciseSessionRecord>(response, UserMetricsType.ExerciseSessionRecords);
+
+        private void OnActiveCaloriesHistoryReceived(string response) =>
+            OnDataHistoryReceived<ActiveCaloriesBurnedRecord>(response, UserMetricsType.ActiveCaloriesBurnedRecords);
+
+        private void OnTotalCaloriesHistoryReceived(string response) =>
+            OnDataHistoryReceived<TotalCaloriesBurnedRecord>(response, UserMetricsType.TotalCaloriesBurnedRecords);
+
+        private void OnHrvHistoryReceived(string response) =>
+            OnDataHistoryReceived<HeartRateVariabilityRmssdRecord>(response, UserMetricsType.HeartRateVariabilityRmssdRecords);
+
+        private void OnVo2HistoryReceived(string response) =>
+            OnDataHistoryReceived<Vo2MaxRecord>(response, UserMetricsType.Vo2MaxRecords);
+
+        private static void OnDataRecordsReceived<T>(string response, UserMetricsType userMetricsType)
         {
             Debug.Log($"Received Health Connect {Enum.GetName(typeof(UserMetricsType), userMetricsType)} data response from HealthConnectPlugin!");
             var records = JsonConvert.DeserializeObject<IReadOnlyCollection<T>>(response);
             
             if (records?.Count == 0) return;
-            
-
             UserMetricsHandler.Instance.SetData(userMetricsType, records);
+        }
+
+        private static void OnDataHistoryReceived<T>(string response, UserMetricsType userMetricsType)
+        {
+            Debug.Log($"Received Health Connect {Enum.GetName(typeof(UserMetricsType), userMetricsType)} history data response from HealthConnectPlugin!");
+            var records = JsonConvert.DeserializeObject<IReadOnlyCollection<T>>(response);
+            
+            // if (records?.Count == 0) return;
+            LoggingManager.Instance.LogHistoricalMetric(userMetricsType, records);
         }
 
         #endregion
