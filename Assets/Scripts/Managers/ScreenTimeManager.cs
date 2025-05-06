@@ -54,9 +54,15 @@ public class ScreenTimeManager : MonoBehaviour
     private void OnPermissionGranted() {
         DateTimeOffset startTime = DateTimeOffset.UtcNow.Date.AddDays(-1);
         DateTimeOffset endTime = startTime.AddDays(1);
+
+        DateTimeOffset historicStartTime = DateTimeOffset.UtcNow.Date.AddDays(-14);
+        DateTimeOffset historicEndTime = historicStartTime.AddDays(14);
+        
         long totalScreenTime = 0;
+        long historicTotalScreenTime = 0;
         try {
             List<ScreenTime> screenTimeList = GetScreenTime(startTime.ToUnixTimeMilliseconds(), endTime.ToUnixTimeMilliseconds());
+            List<ScreenTime> historicScreenTimeList = GetScreenTime(historicStartTime.ToUnixTimeMilliseconds(), historicEndTime.ToUnixTimeMilliseconds());
 
             if (screenTimeList == null) {
                 Debug.LogWarning("Screen time is null");
@@ -67,6 +73,12 @@ public class ScreenTimeManager : MonoBehaviour
                 totalScreenTime += screenTime.screenTime;
             }
             UserMetricsHandler.Instance.SetData(UserMetricsType.TotalScreenTime, totalScreenTime);
+
+            foreach (ScreenTime historicScreenTime in historicScreenTimeList)
+            {
+                historicTotalScreenTime += historicScreenTime.screenTime;
+            }
+            LoggingManager.Instance.LogHistoricalMetric(UserMetricsType.TotalScreenTime, historicTotalScreenTime);
         }
         catch (Exception e) {
             Debug.LogError(e);
