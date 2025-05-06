@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEditor.Search;
 
 public class ExperienceManager
 {
