@@ -1,3 +1,4 @@
+using System.Linq;
 using Managers;
 using UnityEngine;
 using TMPro;
@@ -16,14 +17,20 @@ namespace UI
             Debug.Log("MetricsManagerUI is running!");
 
             var metrics = MetricsManager.Instance.metrics.Values;
-            if (metrics.Count < 2)
-            {
-                ShowErrorText("No metrics available. You need to allow QSCrawler to access your Health Connect data.");
-            }
-
+            
             foreach (var metric in metrics)
             {
                 AddMetric(metric);
+            }
+
+            if (metrics.All(m => m.Name != "Screen Time"))
+            {
+                ShowErrorText("Screen Time metric is not available. You need to give QSCrawler access to Usage data.");
+            }
+
+            if ((metrics.Any(m => m.Name == "Screen Time") && metrics.Count == 1) || metrics.Count == 0)
+            {
+                ShowErrorText("No health metrics available. You need to give QSCrawler access to Health Connect.");
             }
         }
 
@@ -42,7 +49,7 @@ namespace UI
             var errorText = go.AddComponent<TextMeshProUGUI>();
             errorText.alignment = TextAlignmentOptions.Center;
             errorText.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/MinecraftRegular SDF");
-            errorText.fontSize = 36;
+            errorText.fontSize = 30;
             errorText.text = message;
         }
     }

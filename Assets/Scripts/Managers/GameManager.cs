@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
             // Only spawn the player in the first room
             int playerRoomIndex = 0;
             var player = EntitySpawner.Instance.SpawnPlayer(playerRoomIndex);
+            EntitySpawner.Instance.SpawnFairy();
             GameManager.Instance.player = player;
             PerksManager.Instance.ApplyPerksToPlayer();
 

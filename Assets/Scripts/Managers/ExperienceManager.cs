@@ -46,16 +46,11 @@ public class ExperienceManager
         get => _experience;
         set
         {
-            int previousLevel = Level;
             // Update experience
             _experience = value;
 
             // Update level if necessary
             Level = CalculateLevelFromTotalXp(value);
-            if (Level != previousLevel)
-            {
-                LevelUp();
-            }
             ExperienceMax = LevelToXpRequired(Level);
         }
     }
@@ -68,7 +63,7 @@ public class ExperienceManager
     /// <summary>
     /// The current level.
     /// </summary>
-    public int Level { get; set; } = 1;
+    public int Level { get; private set; } = 1;
 
     /// <summary>
     /// The time when the bonus multiplier cooldown ends.
@@ -92,7 +87,8 @@ public class ExperienceManager
     /// </summary>
     /// <param name="level">Level to reach.</param>
     /// <returns>Experience required to reach the level.</returns>
-    public static int LevelToXpRequired(int level) => (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR)) * level;
+    public static int LevelToXpRequired(int level) =>
+        (int)(GameConstants.PLAYER_BASE_XP * Math.Pow(level, GameConstants.PLAYER_XP_SCALING_FACTOR)) * level;
 
     /// <summary>
     /// Removes one level from the player and adjusts experience accordingly.
@@ -150,12 +146,4 @@ public class ExperienceManager
     /// </summary>
     /// <returns> The time remaining for the cooldown. </returns>
     public TimeSpan GetXpCooldown() => CooldownEnd > DateTime.Now ? CooldownEnd - DateTime.Now : TimeSpan.Zero;
-
-    public void LevelUp()
-    {
-        Player player = GameManager.Instance.player;
-        FloatingTextManager.Instance.Show("Level Up!", 14, new Color(255, 215, 0), player.transform.position, Vector3.up * 1.5f, 1.5f);
-        SoundFxManager.Instance.PlaySound(player.playerStats.LevelUpSound, player.transform, 0.3f);
-    }
-
 }
