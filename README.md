@@ -42,6 +42,8 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
   </table>
 </div>
 
+---
+
 ## 🧩Features
 
 - **Daily Dungeon Generation**  
@@ -59,6 +61,8 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
 - **Health Platform Integration**  
 Currently supports [**Health Connect**](https://health.google/health-connect-android/https://health.google/health-connect-android/) (Android), enabling compatibility with a wide range of health apps including Google Fit, Samsung Health, Fitbit, and more.
 
+---
+
 ## 🚀 Getting Started
 
 ### 📱 Installation
@@ -69,7 +73,7 @@ Currently supports [**Health Connect**](https://health.google/health-connect-and
 4. Start crawling dungeons!
 
 > ℹ️ *QS-Crawler currently supports Android devices only. iOS support is planned for future releases.*
-
+> 
 ---
 
 ### 🤝 To contribute:
@@ -110,6 +114,15 @@ At the start of each dungeon run, you’ll receive:
 - A **summary screen** highlighting which health metrics will influence the game
 - Short tips or insights encouraging habit improvement
    An in-game NPC offers general health tips, explains metrics like HRV or VO₂ Max in simple terms, and gives advice on how to improve them through daily habits.
+
+---
+
+## 🎓 Academic Context
+
+**Daily Dungeon Challenge** was developed as part of a research project at **Aalborg University**,  
+investigating how gamified health data can promote reflection, understanding, and behavior change.
+
+Read more in the accompanying [paper](https://your-paper-link.com) (Paper not finished yet).
 
 ---
 
