@@ -5965,8 +5965,6 @@ MonoBehaviour:
   enemyTag: Fighter
   connectedDoors: []
   isPlayerInside: 0
-  _isCleared: 0
-  DoorsAlwaysOpen: 0
 --- !u!114 &83247526897766224
 MonoBehaviour:
   m_ObjectHideFlags: 0
