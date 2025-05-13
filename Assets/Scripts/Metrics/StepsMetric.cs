@@ -10,18 +10,21 @@ namespace Metrics
     public class StepsMetric : IMetric
     {
         public string Name => "Steps";
-        public StepsRecord Data { get; }
+        public IReadOnlyCollection<StepsRecord> Data { get; }
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
+        private readonly int _stepsCount;
 
         public StepsMetric()
         {
             if (UserMetricsHandler.Instance.StepsRecords is null) return;
-            Data = UserMetricsHandler.Instance.StepsRecords.FirstOrDefault();
+            Data = UserMetricsHandler.Instance.StepsRecords;
             Icon = SpriteManager.Instance.GetSprite("metric_steps");
 
+            _stepsCount = Data.Sum(d => d.StepsCount);
+            
             if (Data is null) return;
-            var effectLevel = Data.StepsCount switch
+            var effectLevel = _stepsCount switch
             {
                 < 4000 => 1,
                 < 8000 => 2,
@@ -34,14 +37,14 @@ namespace Metrics
 
         public string Text()
         {
-            string formattedSteps = Data.StepsCount.ToString("N0");
+            string formattedSteps = _stepsCount.ToString("N0");
             return
                 $"You have taken <b>{formattedSteps} steps</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         public string Description()
         {
-            string formattedSteps = Data.StepsCount.ToString("N0");
+            string formattedSteps = _stepsCount.ToString("N0");
             return $"You have taken {formattedSteps} steps yesterday, contributing to your movement activity.";
         }
     }
