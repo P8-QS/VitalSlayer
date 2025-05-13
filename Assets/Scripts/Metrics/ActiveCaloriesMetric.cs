@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using Data.Models;
 using Effects;
@@ -20,17 +21,13 @@ namespace Metrics
         public ActiveCaloriesMetric()
         {
             if (UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords is null) return;
+            
             Data = UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords;
+            
             Icon = SpriteManager.Instance.GetSprite("metric_calories");
 
-            foreach (var record in Data)
-            {
-                if (record.Energy != null)
-                {
-                    _totalCalories += (int)record.Energy.Value / 1000;
-                }
-            }
-
+            _totalCalories = Data.Sum(c => (int)c.Energy.Value / 1000);
+            
             switch (_totalCalories)
             {
                 case >= 300:

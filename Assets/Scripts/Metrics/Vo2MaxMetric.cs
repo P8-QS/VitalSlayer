@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
@@ -9,21 +10,24 @@ namespace Metrics
 {
     public class Vo2MaxMetric : IMetric
     {
-        public Vo2MaxRecord Data { get; }
+        public IReadOnlyCollection<Vo2MaxRecord> Data { get; }
         public string Name => "VO2 Max";
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
 
         private readonly int _level;
+        private readonly decimal _vo2MaxAverage;
 
         public Vo2MaxMetric()
         {
             if (UserMetricsHandler.Instance.Vo2MaxRecords is null) return;
-            Data = UserMetricsHandler.Instance.Vo2MaxRecords.FirstOrDefault();
+            Data = UserMetricsHandler.Instance.Vo2MaxRecords;
             Icon = SpriteManager.Instance.GetSprite("metric_vo2_max");
+            
+            _vo2MaxAverage = Data.Average(r => r.Vo2MillilitersPerMinuteKilogram);
 
             if (Data is null) return;
-            _level = Data.Vo2MillilitersPerMinuteKilogram switch
+            _level = _vo2MaxAverage switch
             {
                 > 45 => 3,
                 > 35 => 2,
@@ -38,7 +42,7 @@ namespace Metrics
         public string Text()
         {
             return
-                $"Your VO2 max is <b>{Data.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This gives you {(this as IMetric).EffectsToString()}.";
+                $"Your VO2 max is <b>{_vo2MaxAverage} (mL/kg/min)</b>. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         private string LevelToString()
@@ -66,7 +70,7 @@ namespace Metrics
         public string Description()
         {
             return
-                $"Your VO2 max is <b>{Data.Vo2MillilitersPerMinuteKilogram} (mL/kg/min)</b>. This is considered {LevelToString()}. VO2 max is a measure of your body's ability to utilize oxygen during exercise. ";
+                $"Your VO2 max is <b>{_vo2MaxAverage} (mL/kg/min)</b>. This is considered {LevelToString()}. VO2 max is a measure of your body's ability to utilize oxygen during exercise. ";
         }
     }
 }

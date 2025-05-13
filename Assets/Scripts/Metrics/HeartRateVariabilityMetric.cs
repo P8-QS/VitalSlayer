@@ -21,14 +21,9 @@ namespace Metrics
             if (UserMetricsHandler.Instance.HeartRateVariabilityRmssdRecords is null) return;
             Data = UserMetricsHandler.Instance.HeartRateVariabilityRmssdRecords;
             if (Data.Count == 0) return;
-
-            // Yesterday average
-            var yesterday = System.DateTime.Now.AddDays(-1).Date;
-            var yesterdayData = Data.Where(r => r.Time.Date == yesterday).ToList();
-            if (yesterdayData.Count == 0) return;
-            AvgHrvRmssd = yesterdayData.Average(r => r.HeartRateVariabilityMillis);
-
-
+            
+            AvgHrvRmssd = Data.Average(r => r.HeartRateVariabilityMillis);
+            
             Icon = SpriteManager.Instance.GetSprite("metric_hrv");
 
             if (Data is null) return;
