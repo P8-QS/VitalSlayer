@@ -34,8 +34,8 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
     </tr>
     <tr>
       <td align="center"><em>Menu, Effects and Perks</em></td>
-      <td align="center"><em>QSCrawler 1</em></td>
-      <td align="center"><em>QSCrawler 2</em></td>
+      <td align="center"><em>Gameplay 1</em></td>
+      <td align="center"><em>Gameplay 2</em></td>
     </tr>
   </table>
 </div>
