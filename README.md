@@ -18,7 +18,7 @@
 **QSCrawler** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
 - 👣 **Steps**
 - 💤 **Sleep quality**
-- ❤️ **Heart rate and HRV**
+- ❤️ **Heart rate variability**
 - 🔋 **Active calories**
 - 📱 **Screen time**
 - 🫁 **VO₂ Max**
@@ -117,10 +117,18 @@ At the start of each dungeon run, you’ll receive:
 
 ## 🎓 Academic Context
 
-**Daily Dungeon Challenge** was developed as part of a research project at **Aalborg University**,  
+**QSCrawler** was developed as part of a research project at **Aalborg University**,  
 investigating how gamified health data can promote reflection, understanding, and behavior change.
 
 Read more in the accompanying [paper](...) (Paper not finished yet).
+
+---
+
+## 📝 User manual
+
+Here is a [comprehensive user manual](Assets/Artwork/qs-crawler_user_manual.png) to guide new players through installation and permissions setup.
+
+<div align="center"> <a href="https://github.com/P8-QS/QSCrawler/blob/ReadmeChanges/Assets/Artwork/qs-crawler_user_manual.pdf"> <img src="https://github.com/P8-QS/QSCrawler/blob/ReadmeChanges/Assets/Artwork/qs-crawler_user_manual.png?raw=true" alt="User Manual Preview" width="600"/> </a> </div>
 
 ---
 
