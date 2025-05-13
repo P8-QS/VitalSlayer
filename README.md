@@ -57,7 +57,7 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
   Battle through procedurally generated levels with classic dungeon-crawler mechanics.
 
 - **Health Platform Integration**  
-Currently supports [**Health Connect**](https://health.google/health-connect-android/https://health.google/health-connect-android/) (Android), enabling compatibility with a wide range of health apps including Google Fit, Samsung Health, Fitbit, and more.
+Currently supports [**Health Connect**](https://health.google/health-connect-android/) (Android), enabling compatibility with a wide range of health apps including Google Fit, Samsung Health, Fitbit, and more.
 
 ---
 
@@ -120,7 +120,7 @@ At the start of each dungeon run, you’ll receive:
 **Daily Dungeon Challenge** was developed as part of a research project at **Aalborg University**,  
 investigating how gamified health data can promote reflection, understanding, and behavior change.
 
-Read more in the accompanying [paper](https://your-paper-link.com) (Paper not finished yet).
+Read more in the accompanying [paper](...) (Paper not finished yet).
 
 ---
 
