@@ -8,8 +8,6 @@
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/P8-QS/QSCrawler/total)
 ![GitHub contributors](https://img.shields.io/github/contributors/P8-QS/QSCrawler)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/P8-QS/QSCrawler/main)
-![GitHub top language](https://img.shields.io/github/languages/top/P8-QS/QSCrawler)
-![OS](https://img.shields.io/badge/OS-linux%2C%20windows%2C%20macOS-0078D4)
 ![GitHub last commit](https://img.shields.io/github/last-commit/P8-QS/QSCrawler)
 ![GitHub Release](https://img.shields.io/github/v/release/P8-QS/QSCrawler)
 
