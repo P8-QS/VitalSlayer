@@ -126,9 +126,9 @@ Read more in the accompanying [paper](...) (Paper not finished yet).
 
 ## 📝 User manual
 
-Here is a [comprehensive user manual](Assets/Artwork/qs-crawler_user_manual.png) to guide new players through installation and permissions setup.
+Here is a [comprehensive user manual](https://github.com/user-attachments/assets/ca665168-6cfd-439d-9f0b-0927003d0068) to guide new players through installation and permissions setup.
 
-<div align="center"> <a href="Assets/Artwork/qs-crawler_user_manual.png"> <img src="Assets/Artwork/qs-crawler_user_manual.png?raw=true" alt="User Manual Preview" width="600"/> </a> </div>
+<div align="center"> <a href="Assets/Artwork/qs-crawler_user_manual.png"> <img src="https://github.com/user-attachments/assets/ca665168-6cfd-439d-9f0b-0927003d0068" alt="User Manual Preview" width="600"/> </a> </div>
 
 ---
 
