@@ -1,7 +1,7 @@
 <a name="top"></a>
 [![QSCrawler Banner](https://github.com/P8-QS/QSCrawler/blob/main/Assets/Artwork/banner.png)](https://github.com/P8-QS/QSCrawler/blob/main/Assets/Artwork/banner.png)
 <h1 align="center">
-  <span title="Quantified Self Crawler">QS-Crawler</span>
+  <span title="Quantified Self Crawler">QSCrawler</span>
 </h1>
 <div align="center">
 
@@ -13,9 +13,9 @@
 
 </div>
 
-## What is QS-Crawler?
+## What is QSCrawler?
 
-**QS-Crawler** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
+**QSCrawler** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
 - 👣 **Steps**
 - 💤 **Sleep quality**
 - ❤️ **Heart rate and HRV**
@@ -34,8 +34,8 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
     </tr>
     <tr>
       <td align="center"><em>Menu, Effects and Perks</em></td>
-      <td align="center"><em>Daily Dungeon Gameplay 1</em></td>
-      <td align="center"><em>Daily Dungeon Gameplay 2</em></td>
+      <td align="center"><em>QSCrawler 1</em></td>
+      <td align="center"><em>QSCrawler 2</em></td>
     </tr>
   </table>
 </div>
@@ -53,7 +53,7 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
 - **Health Awareness Through Play**  
   Understand your own wellness trends through game feedback and daily summaries.
 
-- **Turn-Based Dungeon Crawling**  
+- **Dynamic Dungeon Crawling**  
   Battle through procedurally generated levels with classic dungeon-crawler mechanics.
 
 - **Health Platform Integration**  
@@ -70,7 +70,7 @@ Currently supports [**Health Connect**](https://health.google/health-connect-and
 3. Grant necessary permissions for accessing Health Connect data and usage data.
 4. Start crawling dungeons!
 
-> ℹ️ *QS-Crawler currently supports Android devices only. iOS support is planned for future releases.*
+> ℹ️ *QSCrawler currently supports Android devices only. iOS support is planned for future releases.*
 > 
 ---
 
