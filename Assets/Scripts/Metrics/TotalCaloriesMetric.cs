@@ -7,22 +7,22 @@ using UnityEngine;
 
 namespace Metrics
 {
-    public class ActiveCaloriesMetric : IMetric
+    public class TotalCaloriesMetric : IMetric
     {
-        private IReadOnlyCollection<ActiveCaloriesBurnedRecord> _data;
+        private IReadOnlyCollection<TotalCaloriesBurnedRecord> _data;
 
-        public string Name => "Active Calories Burned";
-        public IReadOnlyCollection<ActiveCaloriesBurnedRecord> Data { get; }
+        public string Name => "Total Calories Burned";
+        public IReadOnlyCollection<TotalCaloriesBurnedRecord> Data { get; }
         public List<IEffect> Effects { get; } = new();
         public Sprite Icon { get; }
 
         private readonly int _totalCalories;
 
-        public ActiveCaloriesMetric()
+        public TotalCaloriesMetric()
         {
-            if (UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords is null) return;
+            if (UserMetricsHandler.Instance.TotalCaloriesBurnedRecords is null) return;
             
-            Data = UserMetricsHandler.Instance.ActiveCaloriesBurnedRecords;
+            Data = UserMetricsHandler.Instance.TotalCaloriesBurnedRecords;
             
             Icon = SpriteManager.Instance.GetSprite("metric_calories");
 
@@ -42,12 +42,12 @@ namespace Metrics
         public string Text()
         {
             return
-                $"You burned <b>{_totalCalories} active calories</b> today. This gives you {(this as IMetric).EffectsToString()}.";
+                $"You burned <b>{_totalCalories} calories</b> yesterday. This gives you {(this as IMetric).EffectsToString()}.";
         }
 
         public string Description()
         {
-            return $"You've burned a total of {_totalCalories} active calories. " +
+            return $"You've burned a total of {_totalCalories} calories. " +
                    $"Staying physically active improves endurance, mood, and overall health.";
         }
     }

@@ -32,7 +32,7 @@ namespace Managers
                 UserMetricsHandler.Instance.OnExerciseSessionRecordsUpdated += OnExerciseUpdated;
                 UserMetricsHandler.Instance.OnTotalScreenTimeUpdated += OnScreenTimeUpdated;
                 UserMetricsHandler.Instance.OnVo2MaxRecordsUpdated += OnVo2MaxUpdated;
-                UserMetricsHandler.Instance.OnActiveCaloriesBurnedRecordsUpdated += OnActiveCaloriesBurnedUpdated;
+                UserMetricsHandler.Instance.OnTotalCaloriesBurnedRecordsUpdated += OnTotalCaloriesBurnedUpdated;
                 UserMetricsHandler.Instance.OnHeartRateVariabilityRecordsUpdated += OnHeartRateVariabilityUpdated;
 
                 UserMetricsHandler.Instance.EmitEvents();
@@ -48,7 +48,7 @@ namespace Managers
                 UserMetricsHandler.Instance.OnExerciseSessionRecordsUpdated -= OnExerciseUpdated;
                 UserMetricsHandler.Instance.OnTotalScreenTimeUpdated -= OnScreenTimeUpdated;
                 UserMetricsHandler.Instance.OnVo2MaxRecordsUpdated -= OnVo2MaxUpdated;
-                UserMetricsHandler.Instance.OnActiveCaloriesBurnedRecordsUpdated -= OnActiveCaloriesBurnedUpdated;
+                UserMetricsHandler.Instance.OnTotalCaloriesBurnedRecordsUpdated -= OnTotalCaloriesBurnedUpdated;
                 UserMetricsHandler.Instance.OnHeartRateVariabilityRecordsUpdated -= OnHeartRateVariabilityUpdated;
             }
         }
@@ -103,14 +103,14 @@ namespace Managers
             }
         }
 
-        private void OnActiveCaloriesBurnedUpdated(
-            IReadOnlyCollection<ActiveCaloriesBurnedRecord> newActiveCaloriesBurned)
+        private void OnTotalCaloriesBurnedUpdated(
+            IReadOnlyCollection<TotalCaloriesBurnedRecord> newTotalCaloriesBurned)
         {
-            var activeCaloriesMetric = new ActiveCaloriesMetric();
-            metrics.Remove(activeCaloriesMetric.Name);
-            if (activeCaloriesMetric.Data != null)
+            var totalCaloriesMetric = new TotalCaloriesMetric();
+            metrics.Remove(totalCaloriesMetric.Name);
+            if (totalCaloriesMetric.Data != null)
             {
-                metrics.Add(activeCaloriesMetric.Name, activeCaloriesMetric);
+                metrics.Add(totalCaloriesMetric.Name, totalCaloriesMetric);
             }
         }
 
