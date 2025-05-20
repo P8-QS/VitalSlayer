@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      qs-crawler_user_manual_0: 3529257113751024326
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
