@@ -9,8 +9,6 @@
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/P8-QS/QSCrawler/total)
 ![GitHub contributors](https://img.shields.io/github/contributors/P8-QS/QSCrawler)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/P8-QS/QSCrawler/main)
-![GitHub top language](https://img.shields.io/github/languages/top/P8-QS/QSCrawler)
-![OS](https://img.shields.io/badge/OS-linux%2C%20windows%2C%20macOS-0078D4)
 ![GitHub last commit](https://img.shields.io/github/last-commit/P8-QS/QSCrawler)
 ![GitHub Release](https://img.shields.io/github/v/release/P8-QS/QSCrawler)
 
@@ -20,9 +18,11 @@
 
 **VitalSlayer** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
 
+**QS-Crawler** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
+
 - 👣 **Steps**
 - 💤 **Sleep quality**
-- ❤️ **Heart rate and HRV**
+- ❤️ **Heart rate variability**
 - 🔋 **Active calories**
 - 📱 **Screen time**
 - 🫁 **VO₂ Max**
@@ -38,8 +38,8 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
     </tr>
     <tr>
       <td align="center"><em>Menu, Effects and Perks</em></td>
-      <td align="center"><em>Daily Dungeon Gameplay 1</em></td>
-      <td align="center"><em>Daily Dungeon Gameplay 2</em></td>
+      <td align="center"><em>Gameplay 1</em></td>
+      <td align="center"><em>Gameplay 2</em></td>
     </tr>
   </table>
 </div>
@@ -57,11 +57,11 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
 - **Health Awareness Through Play**  
   Understand your own wellness trends through game feedback and daily summaries.
 
-- **Turn-Based Dungeon Crawling**  
+- **Dynamic Dungeon Crawling**  
   Battle through procedurally generated levels with classic dungeon-crawler mechanics.
 
 - **Health Platform Integration**  
-  Currently supports [**Health Connect**](https://health.google/health-connect-android/https://health.google/health-connect-android/) (Android), enabling compatibility with a wide range of health apps including Google Fit, Samsung Health, Fitbit, and more.
+  Currently supports [**Health Connect**](https://health.google/health-connect-android/) (Android), enabling compatibility with a wide range of health apps including Google Fit, Samsung Health, Fitbit, and more.
 
 ---
 
@@ -123,10 +123,18 @@ At the start of each dungeon run, you’ll receive:
 
 ## 🎓 Academic Context
 
-**Daily Dungeon Challenge** was developed as part of a research project at **Aalborg University**,  
+**QSCrawler** was developed as part of a research project at **Aalborg University**,  
 investigating how gamified health data can promote reflection, understanding, and behavior change.
 
-Read more in the accompanying [paper](https://your-paper-link.com) (Paper not finished yet).
+Read more in the accompanying [paper](...) (Paper not finished yet).
+
+---
+
+## 📝 User manual
+
+Here is a [comprehensive user manual](https://github.com/user-attachments/assets/ca665168-6cfd-439d-9f0b-0927003d0068) to guide new players through installation and permissions setup.
+
+<div align="center"> <a href="https://github.com/user-attachments/assets/ca665168-6cfd-439d-9f0b-0927003d0068"> <img src="https://github.com/user-attachments/assets/ca665168-6cfd-439d-9f0b-0927003d0068" alt="User Manual Preview" width="600"/> </a> </div>
 
 ---
 

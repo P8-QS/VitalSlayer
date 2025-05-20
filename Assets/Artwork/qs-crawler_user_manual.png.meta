@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 426b128c1e40b914699c68991f535f84
+guid: b71aa24c3cc9d62c187e6e77160005e6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 269153207774459842
-    second: Movie_017_0
+      213: 3529257113751024326
+    second: qs-crawler_user_manual_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,30 +109,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Movie_017_0
+      name: qs-crawler_user_manual_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 480
-        height: 800
+        width: 2480
+        height: 3508
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2c7bd8b9a693cb300800000000000000
-      internalID: 269153207774459842
+      spriteID: 6c2762a65a07af030800000000000000
+      internalID: 3529257113751024326
       vertices: []
       indices: 
       edges: []
@@ -160,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Movie_017_0: 269153207774459842
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
