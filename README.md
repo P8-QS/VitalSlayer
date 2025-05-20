@@ -123,7 +123,7 @@ At the start of each dungeon run, you’ll receive:
 
 ## 🎓 Academic Context
 
-**QSCrawler** was developed as part of a research project at **Aalborg University**,  
+**VitalSlayer** was developed as part of a research project at **Aalborg University**,  
 investigating how gamified health data can promote reflection, understanding, and behavior change.
 
 Read more in the accompanying [paper](...) (Paper not finished yet).

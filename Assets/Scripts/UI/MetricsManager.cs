@@ -25,12 +25,12 @@ namespace UI
 
             if (metrics.All(m => m.Name != "Screen Time"))
             {
-                ShowErrorText("Screen Time metric is not available. You need to give QSCrawler access to Usage data.");
+                ShowErrorText("Screen Time metric is not available. You need to give VitalSlayer access to Usage data.");
             }
 
             if ((metrics.Any(m => m.Name == "Screen Time") && metrics.Count == 1) || metrics.Count == 0)
             {
-                ShowErrorText("No health metrics available. You need to give QSCrawler access to Health Connect.");
+                ShowErrorText("No health metrics available. You need to give VitalSlayer access to Health Connect.");
             }
         }
 
