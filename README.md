@@ -1,7 +1,8 @@
 <a name="top"></a>
-[![QSCrawler Banner](https://github.com/P8-QS/QSCrawler/blob/main/Assets/Artwork/banner.png)](https://github.com/P8-QS/QSCrawler/blob/main/Assets/Artwork/banner.png)
+[![VitalSlayer Banner](https://github.com/P8-QS/QSCrawler/blob/main/Assets/Artwork/banner.png)](https://github.com/P8-QS/QSCrawler/blob/main/Assets/Artwork/banner.png)
+
 <h1 align="center">
-  <span title="Quantified Self Crawler">QSCrawler</span>
+  <span title="Quantified Self Crawler">VitalSlayer</span>
 </h1>
 <div align="center">
 
@@ -13,9 +14,12 @@
 
 </div>
 
-## What is QSCrawler?
+## What is VitalSlayer?
 
-**QSCrawler** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
+**VitalSlayer** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
+
+**QS-Crawler** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
+
 - 👣 **Steps**
 - 💤 **Sleep quality**
 - ❤️ **Heart rate variability**
@@ -57,7 +61,7 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
   Battle through procedurally generated levels with classic dungeon-crawler mechanics.
 
 - **Health Platform Integration**  
-Currently supports [**Health Connect**](https://health.google/health-connect-android/) (Android), enabling compatibility with a wide range of health apps including Google Fit, Samsung Health, Fitbit, and more.
+  Currently supports [**Health Connect**](https://health.google/health-connect-android/) (Android), enabling compatibility with a wide range of health apps including Google Fit, Samsung Health, Fitbit, and more.
 
 ---
 
@@ -70,11 +74,12 @@ Currently supports [**Health Connect**](https://health.google/health-connect-and
 3. Grant necessary permissions for accessing Health Connect data and usage data.
 4. Start crawling dungeons!
 
-> ℹ️ *QSCrawler currently supports Android devices only. iOS support is planned for future releases.*
-> 
+> ℹ️ _VitalSlayer currently supports Android devices only. iOS support is planned for future releases._
+
 ---
 
 ### 🤝 To contribute:
+
 1. **Download and install [Unity Hub](https://unity.com/download)**.
 2. **Fork the repository** on GitHub.
 3. Clone your fork locally and open it in Unity.
@@ -93,14 +98,14 @@ Currently supports [**Health Connect**](https://health.google/health-connect-and
 
 Each day, your dungeon is shaped by your real-world habits. For example:
 
-| Metric             | In-Game Effect                                                                 |
-|--------------------|--------------------------------------------------------------------------------|
-| **Steps**          | Steps affect map size, more steps means larger map                                                   |
-| **Sleep**          | Poor sleep causes hallucinations, making the player see enemies that aren't real |
-| **Heart Rate/HRV** | Affects the variety of enemy levels that spawn — higher HRV means greater variety |
-| **Active Calories**| Determines whether doors open freely or require clearing enemies first         |
-| **Screen Time**    | Affects map visibility — poor screen time adds fog (only current/visited rooms visible), good screen time reveals full map |
-| **VO₂ Max**        | High VO₂ Max grants immunity to slow effects; low VO₂ Max leaves player vulnerable |
+| Metric              | In-Game Effect                                                                                                             |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Steps**           | Steps affect map size, more steps means larger map                                                                         |
+| **Sleep**           | Poor sleep causes hallucinations, making the player see enemies that aren't real                                           |
+| **Heart Rate/HRV**  | Affects the variety of enemy levels that spawn — higher HRV means greater variety                                          |
+| **Active Calories** | Determines whether doors open freely or require clearing enemies first                                                     |
+| **Screen Time**     | Affects map visibility — poor screen time adds fog (only current/visited rooms visible), good screen time reveals full map |
+| **VO₂ Max**         | High VO₂ Max grants immunity to slow effects; low VO₂ Max leaves player vulnerable                                         |
 
 These mechanics not only reward healthy habits and encourage daily reflection, but also help players better understand their health data — such as the impact of heart rate variability on overall well-being.
 
@@ -109,9 +114,10 @@ These mechanics not only reward healthy habits and encourage daily reflection, b
 ## 📈 Health + Game Feedback
 
 At the start of each dungeon run, you’ll receive:
+
 - A **summary screen** highlighting which health metrics will influence the game
 - Short tips or insights encouraging habit improvement
-   An in-game NPC offers general health tips, explains metrics like HRV or VO₂ Max in simple terms, and gives advice on how to improve them through daily habits.
+  An in-game NPC offers general health tips, explains metrics like HRV or VO₂ Max in simple terms, and gives advice on how to improve them through daily habits.
 
 ---
 
@@ -153,9 +159,9 @@ A: Multiplayer or social dungeon sharing is on the roadmap!
 
 ## 🔮 Roadmap
 
-- [ ] iOS support via Apple HealthKit  
-- [ ] Multiplayer dungeon challenges  
-- [ ] Customizable avatars and progression  
+- [ ] iOS support via Apple HealthKit
+- [ ] Multiplayer dungeon challenges
+- [ ] Customizable avatars and progression
 - [ ] AI-powered health insights from dungeon data
 - [ ] Leaderboards
 
