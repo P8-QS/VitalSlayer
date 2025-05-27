@@ -134,9 +134,13 @@ Read more in the accompanying [paper](...) (Paper not finished yet).
 
 ## 📝 User manual
 
-Here is a [comprehensive user manual](https://github.com/user-attachments/assets/ca665168-6cfd-439d-9f0b-0927003d0068) to guide new players through installation and permissions setup.
+Here is a [comprehensive user manual](https://github.com/user-attachments/assets/6dbcd4d9-5bd5-4a42-9ed2-cc77805afdce) to guide new players through installation and permissions setup.
 
-<div align="center"> <a href="https://github.com/user-attachments/assets/ca665168-6cfd-439d-9f0b-0927003d0068"> <img src="https://github.com/user-attachments/assets/ca665168-6cfd-439d-9f0b-0927003d0068" alt="User Manual Preview" width="600"/> </a> </div>
+<div align="center">
+  
+<img src="https://github.com/user-attachments/assets/6dbcd4d9-5bd5-4a42-9ed2-cc77805afdce" alt="User Manual Preview" width="600"/> 
+  
+</div>
 
 ---
 
