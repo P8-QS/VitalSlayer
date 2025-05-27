@@ -1,6 +1,8 @@
-<a name="top"></a>
-![VitalSlayer](/Assets/Artwork/banner.png)
+<div align="center">
+  
+![VitalSlayer](/Assets/Artwork/icon.png)
 
+</div>
 <h1 align="center">
   <span title="Quantified Self Crawler">VitalSlayer</span>
 </h1>
