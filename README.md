@@ -20,8 +20,6 @@
 
 **VitalSlayer** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
 
-**QS-Crawler** is a mobile dungeon crawling game that transforms your personal health data into engaging gameplay. By syncing with Health Connect, the game generates a new dungeon each day based on your:
-
 - 👣 **Steps**
 - 💤 **Sleep quality**
 - ❤️ **Heart rate variability**
