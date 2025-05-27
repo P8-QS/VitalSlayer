@@ -1,16 +1,16 @@
 <a name="top"></a>
-[![VitalSlayer Banner](https://github.com/P8-QS/QSCrawler/blob/main/Assets/Artwork/banner.png)](https://github.com/P8-QS/QSCrawler/blob/main/Assets/Artwork/banner.png)
+![VitalSlayer](/Assets/Artwork/banner.png)
 
 <h1 align="center">
   <span title="Quantified Self Crawler">VitalSlayer</span>
 </h1>
 <div align="center">
 
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/P8-QS/QSCrawler/total)
-![GitHub contributors](https://img.shields.io/github/contributors/P8-QS/QSCrawler)
-![GitHub branch check runs](https://img.shields.io/github/check-runs/P8-QS/QSCrawler/main)
-![GitHub last commit](https://img.shields.io/github/last-commit/P8-QS/QSCrawler)
-![GitHub Release](https://img.shields.io/github/v/release/P8-QS/QSCrawler)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/P8-QS/VitalSlayer/total)
+![GitHub contributors](https://img.shields.io/github/contributors/P8-QS/VitalSlayer)
+![GitHub branch check runs](https://img.shields.io/github/check-runs/P8-QS/VitalSlayer/main)
+![GitHub last commit](https://img.shields.io/github/last-commit/P8-QS/VitalSlayer)
+![GitHub Release](https://img.shields.io/github/v/release/P8-QS/VitalSlayer)
 
 </div>
 
@@ -69,7 +69,7 @@ Your daily habits influence your in-game stats, environment, and enemies — enc
 
 ### 📱 Installation
 
-1. **Download the latest release** from the [Releases page](https://github.com/P8-QS/QSCrawler/releases).
+1. **Download the latest release** from the [Releases page](https://github.com/P8-QS/VitalSlayer/releases).
 2. Install the APK on your Android device (you may need to allow installs from unknown sources).
 3. Grant necessary permissions for accessing Health Connect data and usage data.
 4. Start crawling dungeons!
